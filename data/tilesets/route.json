@@ -1,0 +1,9 @@
+{
+  "tile_width": 16,
+  "tile_height": 16,
+
+  "columns": 88,
+  "rows": 69,
+
+  "image": "route.png"
+}

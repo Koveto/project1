@@ -98,8 +98,8 @@ class Player:
         """Move the player and animate walking."""
         self.x += dx
         self.y += dy
-        self.canvas.move(self.sprite, dx, dy)
 
         self.step_counter += 1
         if self.step_counter % 8 == 0:
             self.animate()
+

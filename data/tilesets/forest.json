@@ -1,0 +1,9 @@
+{
+  "tile_width": 16,
+  "tile_height": 16,
+
+  "columns": 4,
+  "rows": 4,
+
+  "image": "forest.png"
+}

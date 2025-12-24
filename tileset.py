@@ -2,12 +2,11 @@ import json
 import os
 from PIL import Image, ImageTk
 
-
 class Tileset:
     def __init__(self, name):
         self.name = name
 
-        # Load metadata (tile size, sheet name,  etc.)
+        # Load metadata (tile size, sheet name, etc.)
         meta = self.load_metadata(name)
 
         self.tile_width = meta["tile_width"]
@@ -17,13 +16,14 @@ class Tileset:
         self.image_name = meta["image"]
 
         # Global scale factor for tiles
-        self.scale = 4
+        self.scale = meta.get("scale", 4)
 
         # Load the tilesheet image
-        sheet = self.load_sheet(self.image_name)
+        self.sheet = self.load_sheet(self.image_name)
 
-        # Extract and scale all tiles
-        self.tiles = self.extract_tiles(sheet)
+        # Preload + cache all tiles (fastest possible)
+        self.cache = {}
+        self.load_all_tiles()
 
     # ---------------------------------------------------------
     # Loading
@@ -40,34 +40,38 @@ class Tileset:
         return Image.open(image_path).convert("RGBA")
 
     # ---------------------------------------------------------
-    # Tile Extraction
+    # Tile Extraction + Caching
     # ---------------------------------------------------------
-    def extract_tiles(self, sheet):
-        """Cut the tilesheet into individual scaled tiles."""
-        tiles = []
+    def load_all_tiles(self):
+        """Slice, scale, and cache every tile exactly once."""
+        tw = self.tile_width
+        th = self.tile_height
+        sw = tw * self.scale
+        sh = th * self.scale
+
+        tile_id = 0
+
         for row in range(self.rows):
             for col in range(self.columns):
-                tile = self.crop_tile(sheet, col, row)
-                tile = self.scale_tile(tile)
-                tiles.append(ImageTk.PhotoImage(tile))
-        return tiles
+                x = col * tw
+                y = row * th
 
-    def crop_tile(self, sheet, col, row):
-        """Extract a single tile from the sheet."""
-        x = col * self.tile_width
-        y = row * self.tile_height
-        return sheet.crop((x, y, x + self.tile_width, y + self.tile_height))
+                # Crop tile
+                tile = self.sheet.crop((x, y, x + tw, y + th))
 
-    def scale_tile(self, tile):
-        """Scale a tile using nearest-neighbor."""
-        return tile.resize(
-            (self.tile_width * self.scale, self.tile_height * self.scale),
-            Image.NEAREST
-        )
+                # Scale tile
+                tile = tile.resize((sw, sh), Image.NEAREST)
+
+                # Convert to Tk image
+                tk_img = ImageTk.PhotoImage(tile)
+
+                # Store in cache
+                self.cache[tile_id] = tk_img
+                tile_id += 1
 
     # ---------------------------------------------------------
     # Access
     # ---------------------------------------------------------
     def get(self, tile_id):
-        """Return the ImageTk tile for a given tile ID."""
-        return self.tiles[tile_id]
+        """Return a cached tile image."""
+        return self.cache[tile_id]
