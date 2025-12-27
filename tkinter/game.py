@@ -29,7 +29,7 @@ class Game:
 
         # Map + Player
         self.room0_drawn = False
-        self.map = Map(self.canvas, "room1")
+        self.map = Map(self.canvas, "room0")
         self.camera_x = 0
         self.camera_y = 0
 
