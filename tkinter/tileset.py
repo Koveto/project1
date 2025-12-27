@@ -1,8 +1,6 @@
 import json
 import os
-import pygame
-from PIL import Image
-
+from PIL import Image, ImageTk
 
 class Tileset:
     def __init__(self, name):
@@ -20,10 +18,10 @@ class Tileset:
         # Global scale factor for tiles
         self.scale = meta.get("scale", 4)
 
-        # Load the tilesheet image (PIL)
+        # Load the tilesheet image
         self.sheet = self.load_sheet(self.image_name)
 
-        # Preload + cache all tiles as pygame.Surface
+        # Preload + cache all tiles (fastest possible)
         self.cache = {}
         self.load_all_tiles()
 
@@ -37,7 +35,7 @@ class Tileset:
             return json.load(f)
 
     def load_sheet(self, image_name):
-        """Load the tilesheet image using PIL."""
+        """Load the tilesheet image."""
         image_path = os.path.join("data", "tilesets", image_name)
         return Image.open(image_path).convert("RGBA")
 
@@ -45,7 +43,7 @@ class Tileset:
     # Tile Extraction + Caching
     # ---------------------------------------------------------
     def load_all_tiles(self):
-        """Slice, scale, and cache every tile as a pygame.Surface."""
+        """Slice, scale, and cache every tile exactly once."""
         tw = self.tile_width
         th = self.tile_height
         sw = tw * self.scale
@@ -58,29 +56,22 @@ class Tileset:
                 x = col * tw
                 y = row * th
 
-                # Crop tile (PIL)
+                # Crop tile
                 tile = self.sheet.crop((x, y, x + tw, y + th))
 
-                # Scale tile (PIL)
+                # Scale tile
                 tile = tile.resize((sw, sh), Image.NEAREST)
 
-                # Convert PIL → pygame.Surface
-                mode = tile.mode
-                size = tile.size
-                data = tile.tobytes()
-
-                if mode == "RGBA":
-                    surface = pygame.image.fromstring(data, size, mode).convert_alpha()
-                else:
-                    surface = pygame.image.fromstring(data, size, mode).convert()
+                # Convert to Tk image
+                tk_img = ImageTk.PhotoImage(tile)
 
                 # Store in cache
-                self.cache[tile_id] = surface
+                self.cache[tile_id] = tk_img
                 tile_id += 1
 
     # ---------------------------------------------------------
     # Access
     # ---------------------------------------------------------
     def get(self, tile_id):
-        """Return a cached pygame.Surface tile."""
+        """Return a cached tile image."""
         return self.cache[tile_id]

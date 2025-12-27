@@ -1,105 +1,99 @@
-from PIL import Image, ImageTk
-import os
-from constants import SCALE
+import pygame
+from constants import SPEED, TARGET_FPS
+from player_sprite import load_player_frames
 
 
 class Player:
-    def __init__(self, canvas, x, y):
-        self.canvas = canvas
-        self.scale = SCALE
-
-        # Load all animation frames
-        self.frames = self.load_all_frames()
-
-        # Animation state
-        self.direction = "down"
-        self.frame_index = 0
-        self.step_counter = 0
-
-        # Position
+    def __init__(self, x, y):
+        # Position in WORLD space
         self.x = x
         self.y = y
 
-        # Sprite dimensions (after scaling)
-        self.width = 15 * self.scale
-        self.height = 21 * self.scale
+        # Load frames (already scaled + transparent)
+        self.frames = load_player_frames(scale=4)
 
-        # Create sprite on canvas
-        self.sprite = canvas.create_image(
-            x, y,
-            image=self.frames[self.direction][0],
-            anchor="nw",
-            tags=("player",)
+        # Tkinter-style animation state
+        self.direction = "down"
+        self.anim_cycle = [0, 1, 0, 2]   # EXACT Tkinter cycle
+        self.anim_index = 0
+        self.step_counter = 0
+
+        # Movement constants
+        # Tkinter moved SPEED px per frame at ~60 FPS.
+        # To match that feel at 30 FPS, we double it.
+        self.speed_per_frame = SPEED * (60 / TARGET_FPS)
+
+        # Current frame
+        self.current_frame = self.frames[self.direction][0]
+
+        # Dimensions
+        self.width = self.current_frame.get_width()
+        self.height = self.current_frame.get_height()
+
+    # ---------------------------------------------------------
+    # Input + Movement (Tkinter-style)
+    # ---------------------------------------------------------
+    def handle_input(self, keys):
+        """
+        Reproduce Tkinter's EXACT direction priority:
+        Up → Down → Left → Right
+        """
+        dx = dy = 0
+        moving = False
+        direction = self.direction
+
+        # Tkinter priority order
+        if keys[pygame.K_UP]:
+            dy -= self.speed_per_frame
+            direction = "up"
+            moving = True
+
+        if keys[pygame.K_DOWN]:
+            dy += self.speed_per_frame
+            direction = "down"
+            moving = True
+
+        if keys[pygame.K_LEFT]:
+            dx -= self.speed_per_frame
+            direction = "left"
+            moving = True
+
+        if keys[pygame.K_RIGHT]:
+            dx += self.speed_per_frame
+            direction = "right"
+            moving = True
+
+        return dx, dy, direction, moving
+
+    # ---------------------------------------------------------
+    # Update (movement + animation)
+    # ---------------------------------------------------------
+    def update(self, dx, dy, direction, moving):
+        # Update direction
+        self.direction = direction
+
+        # Move in WORLD space (no dt, discrete movement)
+        if moving and (dx != 0 or dy != 0):
+            self.x += dx
+            self.y += dy
+
+            # Tkinter-style step-based animation
+            self.step_counter += 1
+            if self.step_counter % 6 == 0:
+                self.anim_index = (self.anim_index + 1) % len(self.anim_cycle)
+        else:
+            # Idle frame
+            self.anim_index = 0
+
+        # Select frame
+        frame_id = self.anim_cycle[self.anim_index]
+        self.current_frame = self.frames[self.direction][frame_id]
+
+    # ---------------------------------------------------------
+    # Draw
+    # ---------------------------------------------------------
+    def draw(self, screen, camera_x, camera_y):
+        screen.blit(
+            self.current_frame,
+            (self.x - camera_x, self.y - camera_y)
         )
-
-
-    # ---------------------------------------------------------
-    # Sprite Loading
-    # ---------------------------------------------------------
-    def load_all_frames(self):
-        """Load frames from a 4x3 spritesheet (player.png)."""
-
-        sheet_path = os.path.join("sprites", "player.png")
-        sheet = Image.open(sheet_path).convert("RGBA")
-
-        frame_w = 15
-        frame_h = 21
-
-        scaled_w = frame_w * self.scale
-        scaled_h = frame_h * self.scale
-
-        directions = ["down", "up", "left", "right"]
-        frames = {d: [] for d in directions}
-
-        for col, direction in enumerate(directions):
-            for row in range(3):
-                x0 = col * frame_w
-                y0 = row * frame_h
-                x1 = x0 + frame_w
-                y1 = y0 + frame_h
-
-                frame = sheet.crop((x0, y0, x1, y1))
-
-                # --- transparency cleanup for FF00E4 ---
-                data = frame.getdata()
-                cleaned = []
-                for r, g, b, a in data:
-                    if (r, g, b) == (255, 0, 228):  # FF00E4
-                        cleaned.append((255, 0, 228, 0))
-                    else:
-                        cleaned.append((r, g, b, a))
-                frame.putdata(cleaned)
-                # ----------------------------------------
-
-                frame = frame.resize((scaled_w, scaled_h), Image.NEAREST)
-                frames[direction].append(ImageTk.PhotoImage(frame))
-
-        return frames
-
-    # ---------------------------------------------------------
-    # Animation
-    # ---------------------------------------------------------
-    def animate(self):
-        """Advance to the next animation frame."""
-        cycle = [0, 1, 0, 2]
-        self.frame_index = (self.frame_index + 1) % len(cycle)
-        frame = cycle[self.frame_index]
-        self.canvas.itemconfig(self.sprite, image=self.frames[self.direction][frame])
-
-    def idle(self):
-        """Show idle frame for current direction."""
-        self.frame_index = 0
-        self.canvas.itemconfig(self.sprite, image=self.frames[self.direction][0])
-
-    # ---------------------------------------------------------
-    # Movement
-    # ---------------------------------------------------------
-    def move(self, dx, dy):
-        """Move the player and animate walking."""
-        self.x += dx
-        self.y += dy
-
-        self.step_counter += 1
-        if self.step_counter % 8 == 0:
-            self.animate()
-

@@ -1,20 +1,11 @@
 import json
 import os
-import pygame
 from tileset import Tileset
-from constants import SCALE
 
 
 class Map:
-    def __init__(self, name, screen_width, screen_height):
-        """
-        Pygame version of the Map class.
-
-        - Loads JSON map data
-        - Manages tiles, walls, and camera
-        - Renders only visible tiles to a given surface
-        - Provides collision helpers identical to the Tkinter version
-        """
+    def __init__(self, canvas, name):
+        self.canvas = canvas
         self.name = name
 
         data = self.load_map_data(name)
@@ -24,43 +15,20 @@ class Map:
         self.tiles = data["tiles"]
 
         self.scrolling = data.get("scrolling", True)
-
         self.walls = data.get("walls", [])
-        scaled_walls = []
-        for wx, wy, length, orient in self.walls:
-            scaled_walls.append((wx * SCALE, wy * SCALE, length * SCALE, orient))
-        self.walls = scaled_walls
 
         self.tileset = self.load_tileset(data["tileset"])
 
-        self.warps = data.get("warps", [])
-        scaled_warps = []
-        for warp in self.warps:
-            scaled_warps.append({
-                "x": warp["x"] * SCALE,
-                "y": warp["y"] * SCALE,
-                "width": warp["width"] * SCALE,
-                "height": warp["height"] * SCALE,
-                "to_room": warp["to_room"],
-                "dest_x": warp["dest_x"] * SCALE,
-                "dest_y": warp["dest_y"] * SCALE,
-                "dest_facing": warp.get("dest_facing", None)
-            })
-        self.warps = scaled_warps
+        self.debug_wall_ids = []
+        self.player_sprite_tag = "player"
 
         self.camera_x = 0
         self.camera_y = 0
 
-        self.pixel_width = (
-            self.width * self.tileset.tile_width * self.tileset.scale
-        )
-        self.pixel_height = (
-            self.height * self.tileset.tile_height * self.tileset.scale
-        )
+        self.pixel_width  = self.width  * self.tileset.tile_width  * self.tileset.scale
+        self.pixel_height = self.height * self.tileset.tile_height * self.tileset.scale
 
-        # Screen size is needed to compute visible tiles
-        self.screen_width = screen_width
-        self.screen_height = screen_height
+        self.draw_map()
 
     # ---------------------------------------------------------
     # Loading
@@ -78,101 +46,84 @@ class Map:
     # ---------------------------------------------------------
     # Drawing
     # ---------------------------------------------------------
-    def draw(self, surface, debug=False):
-        """
-        Draw the visible portion of the map onto the given surface.
-        """
-        self.redraw_visible_tiles(surface)
+    def draw_map(self):
+        self.redraw_visible_tiles()
 
-        if debug:
-            self.draw_debug_walls(surface)
+    def redraw_visible_tiles(self):
+        # Canvas may not be ready yet
+        canvas_w = self.canvas.winfo_width()
+        canvas_h = self.canvas.winfo_height()
 
-    def redraw_visible_tiles(self, surface):
-        """
-        Draw only the tiles that are visible within the current camera.
-        """
-        tw = self.tileset.tile_width * self.tileset.scale
+        if canvas_w < 10 or canvas_h < 10:
+            return
+
+        self.canvas.delete("tile")
+
+        tw = self.tileset.tile_width  * self.tileset.scale
         th = self.tileset.tile_height * self.tileset.scale
 
-        canvas_w = self.screen_width
-        canvas_h = self.screen_height
-
         # Visible tile range
-        start_x = int(max(0, self.camera_x // tw))
-        start_y = int(max(0, self.camera_y // th))
+        start_x = max(0, self.camera_x // tw)
+        start_y = max(0, self.camera_y // th)
 
-        end_x = int(min(self.width, (self.camera_x + canvas_w) // tw + 2))
-        end_y = int(min(self.height, (self.camera_y + canvas_h) // th + 2))
+        end_x = min(self.width,  (self.camera_x + canvas_w) // tw + 2)
+        end_y = min(self.height, (self.camera_y + canvas_h) // th + 2)
 
         for y in range(start_y, end_y):
             for x in range(start_x, end_x):
                 tile_id = self.tiles[y][x]
-                img = self.tileset.get(tile_id)  # pygame.Surface
+                img = self.tileset.get(tile_id)
 
                 px = x * tw - self.camera_x
                 py = y * th - self.camera_y
 
-                surface.blit(img, (px, py))
+                self.canvas.create_image(px, py, image=img, anchor="nw", tags="tile")
 
-    def draw_debug_walls(self, surface):
-        """Draw debug wall overlays onto the given surface."""
+
+    def draw_debug_walls(self, enabled):
+        """Draw or clear debug wall overlays."""
+        # Clear old debug lines
+        for line_id in self.debug_wall_ids:
+            self.canvas.delete(line_id)
+        self.debug_wall_ids.clear()
+
+        if not enabled:
+            return
+
         for x, y, length, orient in self.walls:
             x1, y1, x2, y2 = self.compute_wall_endpoints(x, y, length, orient)
 
-            # Offset by camera to get screen coordinates
-            sx1 = x1 - self.camera_x
-            sy1 = y1 - self.camera_y
-            sx2 = x2 - self.camera_x
-            sy2 = y2 - self.camera_y
-
             # Color by type
             if orient == "h":
-                color = (255, 0, 0)      # red
+                color = "red"
             elif orient == "v":
-                color = (0, 0, 255)      # blue
+                color = "blue"
             else:
-                color = (0, 255, 0)      # green for diagonals
+                color = "green"  # diagonals
 
-            # Pygame has no native dashed lines; use solid for now
-            pygame.draw.line(surface, color, (sx1, sy1), (sx2, sy2), width=2)
-        
-        # ---------------------------------------------------------
-        # Draw warps as 4 border lines
-        # ---------------------------------------------------------
-        for warp in self.warps:
-            wx = warp["x"] - self.camera_x
-            wy = warp["y"] - self.camera_y
-            ww = warp["width"]
-            wh = warp["height"]
+            line = self.canvas.create_line(
+                x1 - self.camera_x, y1 - self.camera_y,
+                x2 - self.camera_x, y2 - self.camera_y,
+                fill=color,
+                width=2,
+                dash=(4,2),
+                tags="debug_wall"
+            )
 
-            # Rectangle corners
-            x1, y1 = wx, wy
-            x2, y2 = wx + ww, wy
-            x3, y3 = wx + ww, wy + wh
-            x4, y4 = wx, wy + wh
+            self.debug_wall_ids.append(line)
 
-            color = (255, 255, 0)  # yellow
-
-            # Top
-            pygame.draw.line(surface, color, (x1, y1), (x2, y2), width=2)
-            # Right
-            pygame.draw.line(surface, color, (x2, y2), (x3, y3), width=2)
-            # Bottom
-            pygame.draw.line(surface, color, (x3, y3), (x4, y4), width=2)
-            # Left
-            pygame.draw.line(surface, color, (x4, y4), (x1, y1), width=2)
-
+        self.canvas.tag_lower("debug_wall", self.player_sprite_tag)
 
     # ---------------------------------------------------------
     # Collision
     # ---------------------------------------------------------
     def test_collision_walls(
-        self,
-        old_x, old_y,
-        new_x, new_y,
-        w, h,
-        ignore_vertical_walls=False
-    ):
+            self,
+            old_x, old_y,
+            new_x, new_y,
+            w, h,
+            ignore_vertical_walls=False
+        ):
         """Return True if movement collides with any wall."""
 
         # Player bounding boxes
@@ -229,7 +180,7 @@ class Map:
             # -----------------------------------------------------
             elif orient in ("up_right", "up_left", "down_left", "down_right"):
                 x1, y1, x2, y2 = self.compute_wall_endpoints(wx, wy, length, orient)
-                
+
                 # Player centers
                 old_cx = old_x + w / 2
                 old_cy = old_y + h / 2
@@ -240,15 +191,11 @@ class Map:
                 min_x, max_x = min(x1, x2), max(x1, x2)
                 min_y, max_y = min(y1, y2), max(y1, y2)
 
-                pad = max(w, h) / 2
-
-                if not (min_x - pad <= new_cx <= max_x + pad and
-                        min_y - pad <= new_cy <= max_y + pad):
+                if not (min_x <= new_cx <= max_x and min_y <= new_cy <= max_y):
                     continue
 
-                dist = self.point_line_distance(x1, y1, x2, y2, new_cx, new_cy)
                 # Thin diagonal distance check
-                if dist > 8:
+                if self.point_line_distance(x1, y1, x2, y2, new_cx, new_cy) > 4:
                     continue
 
                 # Blocked side
@@ -260,24 +207,6 @@ class Map:
                     return True
 
         return False
-    
-    def check_warp(self, x, y, w, h):
-        """Return warp dict if (x, y, w, h) overlaps a warp region, else None."""
-        left, right = x, x + w
-        top, bottom = y, y + h
-
-        for warp in self.warps:
-            wx, wy = warp["x"], warp["y"]
-            ww, wh = warp["width"], warp["height"]
-
-            w_left, w_right = wx, wx + ww
-            w_top, w_bottom = wy, wy + wh
-
-            if not (right <= w_left or left >= w_right or
-                    bottom <= w_top or top >= w_bottom):
-                return warp
-
-        return None
 
     # ---------------------------------------------------------
     # Wall Geometry
@@ -375,9 +304,12 @@ class Map:
 
         return x1 + t * dx, y1 + t * dy
 
+
     # ---------------------------------------------------------
     # Camera
-    # ---------------------------------------------------------
+    # ---------------------------------------------------------        
     def set_camera(self, cx, cy):
         self.camera_x = cx
         self.camera_y = cy
+        self.redraw_visible_tiles()
+
