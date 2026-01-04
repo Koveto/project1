@@ -1,0 +1,1516 @@
+{
+  "pokemon": [
+    {
+      "no": 1,
+      "name": "Bulbasaur",
+      "level": 318,
+      "types": ["Grass", "Poison"],
+      "stats": {
+        "HP": 45,
+        "Atk": 49,
+        "Def": 49,
+        "SpAtk": 65,
+        "SpDef": 65,
+        "Spd": 45
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle"},
+        { "level": 1, "move": "Growl" },
+        { "level": 3, "move": "Vine Whip" },
+        { "level": 6, "move": "Growth" },
+        { "level": 9, "move": "Leech Seed" },
+        { "level": 12, "move": "Razor Leaf" },
+        { "level": 15, "move": "Poison Powder" },
+        { "level": 15, "move": "Sleep Powder" },
+        { "level": 18, "move": "Seed Bomb" },
+        { "level": 21, "move": "Take Down" },
+        { "level": 24, "move": "Sweet Scent" },
+        { "level": 27, "move": "Synthesis" },
+        { "level": 30, "move": "Worry Seed" },
+        { "level": 33, "move": "Power Whip" },
+        { "level": 36, "move": "Solar Beam" }
+        ]
+    },
+    {
+      "no": 2,
+      "name": "Ivysaur",
+      "level": 405,
+      "types": ["Grass", "Poison"],
+      "stats": {
+        "HP": 60,
+        "Atk": 62,
+        "Def": 63,
+        "SpAtk": 80,
+        "SpDef": 80,
+        "Spd": 60
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Vine Whip" },
+        { "level": 1, "move": "Growth" },
+        { "level": 9, "move": "Leech Seed" },
+        { "level": 12, "move": "Razor Leaf" },
+        { "level": 15, "move": "Poison Powder" },
+        { "level": 15, "move": "Sleep Powder" },
+        { "level": 20, "move": "Seed Bomb" },
+        { "level": 25, "move": "Take Down" },
+        { "level": 30, "move": "Sweet Scent" },
+        { "level": 35, "move": "Synthesis" },
+        { "level": 40, "move": "Worry Seed" },
+        { "level": 45, "move": "Power Whip" },
+        { "level": 50, "move": "Solar Beam" }
+        ]
+    },
+    {
+      "no": 3,
+      "name": "Venusaur",
+      "level": 525,
+      "types": ["Grass", "Poison"],
+      "stats": {
+        "HP": 80,
+        "Atk": 82,
+        "Def": 83,
+        "SpAtk": 100,
+        "SpDef": 100,
+        "Spd": 80
+      },
+      "moves": [
+        { "level": 0, "move": "Petal Blizzard" },
+        { "level": 1, "move": "Petal Dance" },
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Vine Whip" },
+        { "level": 1, "move": "Growth" },
+        { "level": 9, "move": "Leech Seed" },
+        { "level": 12, "move": "Razor Leaf" },
+        { "level": 15, "move": "Poison Powder" },
+        { "level": 15, "move": "Sleep Powder" },
+        { "level": 20, "move": "Seed Bomb" },
+        { "level": 25, "move": "Take Down" },
+        { "level": 30, "move": "Sweet Scent" },
+        { "level": 37, "move": "Synthesis" },
+        { "level": 44, "move": "Worry Seed" },
+        { "level": 51, "move": "Power Whip" },
+        { "level": 58, "move": "Solar Beam" }
+        ]
+    },
+    {
+      "no": 4,
+      "name": "Charmander",
+      "level": 309,
+      "types": ["Fire", null],
+      "stats": {
+        "HP": 39,
+        "Atk": 52,
+        "Def": 43,
+        "SpAtk": 60,
+        "SpDef": 50,
+        "Spd": 65
+      },
+      "moves": [
+        { "level": 1, "move": "Scratch" },
+        { "level": 1, "move": "Growl" },
+        { "level": 4, "move": "Ember" },
+        { "level": 8, "move": "Smokescreen" },
+        { "level": 12, "move": "Dragon Breath" },
+        { "level": 17, "move": "Fire Fang" },
+        { "level": 20, "move": "Slash" },
+        { "level": 24, "move": "Flamethrower" },
+        { "level": 28, "move": "Scary Face" },
+        { "level": 32, "move": "Fire Spin" },
+        { "level": 36, "move": "Inferno" },
+        { "level": 40, "move": "Flare Blitz" }
+        ]
+    },
+    {
+      "no": 5,
+      "name": "Charmeleon",
+      "level": 405,
+      "types": ["Fire", null],
+      "stats": {
+        "HP": 58,
+        "Atk": 64,
+        "Def": 58,
+        "SpAtk": 80,
+        "SpDef": 65,
+        "Spd": 80
+      },
+      "moves": [
+        { "level": 1, "move": "Scratch" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Ember" },
+        { "level": 1, "move": "Smokescreen" },
+        { "level": 12, "move": "Dragon Breath" },
+        { "level": 19, "move": "Fire Fang" },
+        { "level": 24, "move": "Slash" },
+        { "level": 30, "move": "Flamethrower" },
+        { "level": 37, "move": "Scary Face" },
+        { "level": 48, "move": "Inferno" },
+        { "level": 54, "move": "Flare Blitz" }
+        ]
+    },
+    {
+      "no": 6,
+      "name": "Charizard",
+      "level": 534,
+      "types": ["Fire", "Flying"],
+      "stats": {
+        "HP": 78,
+        "Atk": 84,
+        "Def": 78,
+        "SpAtk": 109,
+        "SpDef": 85,
+        "Spd": 100
+      },
+      "moves": [
+        { "level": 0, "move": "Air Slash" },
+        { "level": 1, "move": "Dragon Claw" },
+        { "level": 1, "move": "Heat Wave" },
+        { "level": 1, "move": "Scratch" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Ember" },
+        { "level": 1, "move": "Smokescreen" },
+        { "level": 12, "move": "Dragon Breath" },
+        { "level": 19, "move": "Fire Fang" },
+        { "level": 24, "move": "Slash" },
+        { "level": 30, "move": "Flamethrower" },
+        { "level": 39, "move": "Scary Face" },
+        { "level": 46, "move": "Fire Spin" },
+        { "level": 54, "move": "Inferno" },
+        { "level": 62, "move": "Flare Blitz" }
+        ]
+    },
+    {
+      "no": 7,
+      "name": "Squirtle",
+      "level": 314,
+      "types": ["Water", null],
+      "stats": {
+        "HP": 44,
+        "Atk": 48,
+        "Def": 65,
+        "SpAtk": 50,
+        "SpDef": 64,
+        "Spd": 43
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 3, "move": "Water Gun" },
+        { "level": 6, "move": "Withdraw" },
+        { "level": 9, "move": "Rapid Spin" },
+        { "level": 12, "move": "Bite" },
+        { "level": 15, "move": "Water Pulse" },
+        { "level": 18, "move": "Protect" },
+        { "level": 21, "move": "Rain Dance" },
+        { "level": 24, "move": "Aqua Tail" },
+        { "level": 27, "move": "Shell Smash" },
+        { "level": 30, "move": "Iron Defense" },
+        { "level": 33, "move": "Hydro Pump" },
+        { "level": 36, "move": "Wave Crash" }
+        ]
+    },
+    {
+      "no": 8,
+      "name": "Wartortle",
+      "level": 405,
+      "types": ["Water", null],
+      "stats": {
+        "HP": 59,
+        "Atk": 63,
+        "Def": 80,
+        "SpAtk": 65,
+        "SpDef": 80,
+        "Spd": 58
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 1, "move": "Water Gun" },
+        { "level": 1, "move": "Withdraw" },
+        { "level": 9, "move": "Rapid Spin" },
+        { "level": 12, "move": "Bite" },
+        { "level": 15, "move": "Water Pulse" },
+        { "level": 20, "move": "Protect" },
+        { "level": 25, "move": "Rain Dance" },
+        { "level": 30, "move": "Aqua Tail" },
+        { "level": 35, "move": "Shell Smash" },
+        { "level": 40, "move": "Iron Defense" },
+        { "level": 45, "move": "Hydro Pump" },
+        { "level": 50, "move": "Wave Crash" }
+        ]
+    },
+    {
+      "no": 9,
+      "name": "Blastoise",
+      "level": 530,
+      "types": ["Water", null],
+      "stats": {
+        "HP": 79,
+        "Atk": 83,
+        "Def": 100,
+        "SpAtk": 85,
+        "SpDef": 105,
+        "Spd": 78
+      },
+      "moves": [
+        { "level": 0, "move": "Flash Cannon" },
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 1, "move": "Water Gun" },
+        { "level": 1, "move": "Withdraw" },
+        { "level": 9, "move": "Rapid Spin" },
+        { "level": 12, "move": "Bite" },
+        { "level": 15, "move": "Water Pulse" },
+        { "level": 20, "move": "Protect" },
+        { "level": 25, "move": "Rain Dance" },
+        { "level": 30, "move": "Aqua Tail" },
+        { "level": 35, "move": "Shell Smash" },
+        { "level": 42, "move": "Iron Defense" },
+        { "level": 49, "move": "Hydro Pump" },
+        { "level": 56, "move": "Wave Crash" }
+        ]
+    },
+    {
+      "no": 10,
+      "name": "Caterpie",
+      "level": 195,
+      "types": ["Bug", null],
+      "stats": {
+        "HP": 45,
+        "Atk": 30,
+        "Def": 35,
+        "SpAtk": 20,
+        "SpDef": 20,
+        "Spd": 45
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "String Shot" },
+        { "level": 9, "move": "Bug Bite" }
+        ]
+    },
+    {
+      "no": 11,
+      "name": "Metapod",
+      "level": 205,
+      "types": ["Bug", null],
+      "stats": {
+        "HP": 50,
+        "Atk": 20,
+        "Def": 55,
+        "SpAtk": 25,
+        "SpDef": 25,
+        "Spd": 30
+      },
+      "moves": [
+        { "level": 0, "move": "Harden" },
+        { "level": 1, "move": "Harden" }
+        ]
+    },
+    {
+      "no": 12,
+      "name": "Butterfree",
+      "level": 395,
+      "types": ["Bug", "Flying"],
+      "stats": {
+        "HP": 60,
+        "Atk": 45,
+        "Def": 50,
+        "SpAtk": 90,
+        "SpDef": 80,
+        "Spd": 70
+      },
+      "moves": [
+        { "level": 0, "move": "Gust" },
+        { "level": 1, "move": "Harden" },
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "String Shot" },
+        { "level": 1, "move": "Bug Bite" },
+        { "level": 4, "move": "Supersonic" },
+        { "level": 8, "move": "Confusion" },
+        { "level": 12, "move": "Poison Powder" },
+        { "level": 12, "move": "Stun Spore" },
+        { "level": 12, "move": "Sleep Powder" },
+        { "level": 16, "move": "Psybeam" },
+        { "level": 20, "move": "Whirlwind" },
+        { "level": 24, "move": "Air Slash" },
+        { "level": 28, "move": "Safeguard" },
+        { "level": 32, "move": "Bug Buzz" },
+        { "level": 36, "move": "Tailwind" },
+        { "level": 40, "move": "Rage Powder" },
+        { "level": 44, "move": "Quiver Dance" }
+        ]
+    },
+    {
+      "no": 13,
+      "name": "Weedle",
+      "level": 195,
+      "types": ["Bug", "Poison"],
+      "stats": {
+        "HP": 40,
+        "Atk": 35,
+        "Def": 30,
+        "SpAtk": 20,
+        "SpDef": 20,
+        "Spd": 50
+      },
+      "moves": [
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "String Shot" }
+        ]
+    },
+    {
+      "no": 14,
+      "name": "Kakuna",
+      "level": 205,
+      "types": ["Bug", "Poison"],
+      "stats": {
+        "HP": 45,
+        "Atk": 25,
+        "Def": 50,
+        "SpAtk": 25,
+        "SpDef": 25,
+        "Spd": 35
+      },
+      "moves": [
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "String Shot" },
+        { "level": 7, "move": "Harden" }
+        ]
+    },
+    {
+      "no": 15,
+      "name": "Beedrill",
+      "level": 395,
+      "types": ["Bug", "Poison"],
+      "stats": {
+        "HP": 65,
+        "Atk": 90,
+        "Def": 40,
+        "SpAtk": 45,
+        "SpDef": 80,
+        "Spd": 75
+      },
+      "moves": [
+        { "level": 0, "move": "Pin Missile" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "String Shot" },
+        { "level": 7, "move": "Harden" },
+        { "level": 15, "move": "Focus Energy" },
+        { "level": 20, "move": "Brutal Swing" },
+        { "level": 25, "move": "X-Scissor" },
+        { "level": 27, "move": "Bug Buzz" },
+        { "level": 29, "move": "Toxic Spikes" },
+        { "level": 33, "move": "Lunge" },
+        { "level": 35, "move": "Poison Jab" },
+        { "level": 40, "move": "Drill Run" }
+        ]
+    },
+    {
+      "no": 16,
+      "name": "Pidgey",
+      "level": 251,
+      "types": ["Normal", "Flying"],
+      "stats": {
+        "HP": 40,
+        "Atk": 45,
+        "Def": 40,
+        "SpAtk": 35,
+        "SpDef": 35,
+        "Spd": 56
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Growl" },
+        { "level": 9, "move": "Gust" },
+        { "level": 13, "move": "Quick Attack" },
+        { "level": 17, "move": "Twister" },
+        { "level": 21, "move": "Wing Attack" },
+        { "level": 25, "move": "Whirlwind" },
+        { "level": 29, "move": "Agility" },
+        { "level": 33, "move": "Air Slash" },
+        { "level": 40, "move": "Feather Dance" },
+        { "level": 45, "move": "Hurricane" },
+        { "level": 50, "move": "Brave Bird" }
+        ]
+    },
+    {
+      "no": 17,
+      "name": "Pidgeotto",
+      "level": 349,
+      "types": ["Normal", "Flying"],
+      "stats": {
+        "HP": 63,
+        "Atk": 60,
+        "Def": 55,
+        "SpAtk": 50,
+        "SpDef": 50,
+        "Spd": 71
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Growl" },
+        { "level": 9, "move": "Gust" },
+        { "level": 13, "move": "Quick Attack" },
+        { "level": 17, "move": "Twister" },
+        { "level": 21, "move": "Wing Attack" },
+        { "level": 25, "move": "Whirlwind" },
+        { "level": 29, "move": "Agility" },
+        { "level": 33, "move": "Air Slash" },
+        { "level": 40, "move": "Feather Dance" },
+        { "level": 45, "move": "Hurricane" },
+        { "level": 50, "move": "Brave Bird" }
+        ]
+    },
+    {
+      "no": 18,
+      "name": "Pidgeot",
+      "level": 479,
+      "types": ["Normal", "Flying"],
+      "stats": {
+        "HP": 83,
+        "Atk": 80,
+        "Def": 75,
+        "SpAtk": 70,
+        "SpDef": 70,
+        "Spd": 101
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Growl" },
+        { "level": 9, "move": "Gust" },
+        { "level": 13, "move": "Quick Attack" },
+        { "level": 17, "move": "Twister" },
+        { "level": 21, "move": "Wing Attack" },
+        { "level": 25, "move": "Whirlwind" },
+        { "level": 29, "move": "Agility" },
+        { "level": 33, "move": "Air Slash" },
+        { "level": 40, "move": "Feather Dance" },
+        { "level": 45, "move": "Hurricane" },
+        { "level": 50, "move": "Brave Bird" }
+        ]
+    },
+    {
+      "no": 19,
+      "name": "Rattata",
+      "level": 253,
+      "types": ["Normal", null],
+      "stats": {
+        "HP": 30,
+        "Atk": 56,
+        "Def": 35,
+        "SpAtk": 25,
+        "SpDef": 35,
+        "Spd": 72
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 4, "move": "Quick Attack" },
+        { "level": 7, "move": "Focus Energy" },
+        { "level": 10, "move": "Bite" },
+        { "level": 13, "move": "Laser Focus" },
+        { "level": 16, "move": "Take Down" },
+        { "level": 19, "move": "Assurance" },
+        { "level": 22, "move": "Crunch" },
+        { "level": 25, "move": "Sucker Punch" },
+        { "level": 28, "move": "Super Fang" },
+        { "level": 31, "move": "Double-Edge" },
+        { "level": 34, "move": "Endeavor" }
+        ]
+    },
+    {
+      "no": 20,
+      "name": "Raticate",
+      "level": 413,
+      "types": ["Normal", null],
+      "stats": {
+        "HP": 55,
+        "Atk": 81,
+        "Def": 60,
+        "SpAtk": 50,
+        "SpDef": 70,
+        "Spd": 97
+      },
+      "moves": [
+        { "level": 0, "move": "Scary Face" },
+        { "level": 1, "move": "Scary Face" },
+        { "level": 1, "move": "Swords Dance" },
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 1, "move": "Quick Attack" },
+        { "level": 1, "move": "Focus Energy" },
+        { "level": 10, "move": "Bite" },
+        { "level": 13, "move": "Laser Focus" },
+        { "level": 16, "move": "Take Down" },
+        { "level": 19, "move": "Assurance" },
+        { "level": 24, "move": "Crunch" },
+        { "level": 29, "move": "Sucker Punch" },
+        { "level": 34, "move": "Super Fang" },
+        { "level": 39, "move": "Double-Edge" },
+        { "level": 44, "move": "Endeavor" }
+        ]
+    },
+    {
+      "no": 21,
+      "name": "Spearow",
+      "level": 262,
+      "types": ["Normal", "Flying"],
+      "stats": {
+        "HP": 40,
+        "Atk": 60,
+        "Def": 30,
+        "SpAtk": 31,
+        "SpDef": 31,
+        "Spd": 70
+      },
+      "moves": [
+        { "level": 1, "move": "Peck" },
+        { "level": 1, "move": "Growl" },
+        { "level": 4, "move": "Leer" },
+        { "level": 8, "move": "Assurance" },
+        { "level": 11, "move": "Fury Attack" },
+        { "level": 15, "move": "Aerial Ace" },
+        { "level": 18, "move": "Wing Attack" },
+        { "level": 22, "move": "Take Down" },
+        { "level": 25, "move": "Agility" },
+        { "level": 29, "move": "Focus Energy" },
+        { "level": 32, "move": "Roost" },
+        { "level": 36, "move": "Drill Peck" }
+        ]
+    },
+    {
+      "no": 22,
+      "name": "Fearow",
+      "level": 442,
+      "types": ["Normal", "Flying"],
+      "stats": {
+        "HP": 65,
+        "Atk": 90,
+        "Def": 65,
+        "SpAtk": 61,
+        "SpDef": 61,
+        "Spd": 100
+      },
+      "moves": [
+        { "level": 1, "move": "Drill Run" },
+        { "level": 1, "move": "Pluck" },
+        { "level": 1, "move": "Peck" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Leer" },
+        { "level": 4, "move": "Leer" },
+        { "level": 8, "move": "Assurance" },
+        { "level": 11, "move": "Fury Attack" },
+        { "level": 15, "move": "Aerial Ace" },
+        { "level": 18, "move": "Wing Attack" },
+        { "level": 23, "move": "Take Down" },
+        { "level": 27, "move": "Agility" },
+        { "level": 32, "move": "Focus Energy" },
+        { "level": 36, "move": "Roost" },
+        { "level": 41, "move": "Drill Peck" },
+        { "level": 45, "move": "Drill Run" }
+        ]
+    },
+    {
+      "no": 23,
+      "name": "Ekans",
+      "level": 288,
+      "types": ["Poison", null],
+      "stats": {
+        "HP": 35,
+        "Atk": 60,
+        "Def": 44,
+        "SpAtk": 40,
+        "SpDef": 54,
+        "Spd": 55
+      },
+      "moves": [
+        { "level": 1, "move": "Wrap" },
+        { "level": 1, "move": "Leer" },
+        { "level": 4, "move": "Poison Sting" },
+        { "level": 9, "move": "Bite" },
+        { "level": 12, "move": "Glare" },
+        { "level": 17, "move": "Screech" },
+        { "level": 20, "move": "Acid" },
+        { "level": 25, "move": "Stockpile" },
+        { "level": 25, "move": "Swallow" },
+        { "level": 25, "move": "Spit Up" },
+        { "level": 28, "move": "Acid Spray" },
+        { "level": 33, "move": "Sludge Bomb" },
+        { "level": 36, "move": "Gastro Acid" },
+        { "level": 38, "move": "Belch" },
+        { "level": 41, "move": "Haze" },
+        { "level": 44, "move": "Coil" },
+        { "level": 49, "move": "Gunk Shot" }
+        ]
+    },
+    {
+      "no": 24,
+      "name": "Arbok",
+      "level": 448,
+      "types": ["Poison", null],
+      "stats": {
+        "HP": 60,
+        "Atk": 95,
+        "Def": 69,
+        "SpAtk": 65,
+        "SpDef": 79,
+        "Spd": 80
+      },
+      "moves": [
+        { "level": 0, "move": "Crunch" },
+        { "level": 1, "move": "Wrap" },
+        { "level": 1, "move": "Leer" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "Bite" },
+        { "level": 1, "move": "Fire Fang" },
+        { "level": 1, "move": "Ice Fang" },
+        { "level": 1, "move": "Thunder Fang" },
+        { "level": 12, "move": "Glare" },
+        { "level": 17, "move": "Screech" },
+        { "level": 20, "move": "Acid" },
+        { "level": 27, "move": "Stockpile" },
+        { "level": 27, "move": "Swallow" },
+        { "level": 27, "move": "Spit Up" },
+        { "level": 32, "move": "Acid Spray" },
+        { "level": 39, "move": "Sludge Bomb" },
+        { "level": 44, "move": "Gastro Acid" },
+        { "level": 48, "move": "Belch" },
+        { "level": 51, "move": "Haze" },
+        { "level": 56, "move": "Coil" },
+        { "level": 63, "move": "Gunk Shot" }
+        ]
+    },
+    {
+      "no": 25,
+      "name": "Pikachu",
+      "level": 320,
+      "types": ["Electric", null],
+      "stats": {
+        "HP": 35,
+        "Atk": 55,
+        "Def": 40,
+        "SpAtk": 50,
+        "SpDef": 50,
+        "Spd": 90
+      },
+      "moves": [
+        { "level": 1, "move": "Play Nice" },
+        { "level": 1, "move": "Sweet Kiss" },
+        { "level": 1, "move": "Nuzzle" },
+        { "level": 1, "move": "Nasty Plot" },
+        { "level": 1, "move": "Charm" },
+        { "level": 1, "move": "Thunder Shock" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Quick Attack" },
+        { "level": 4, "move": "Thunder Wave" },
+        { "level": 8, "move": "Double Team" },
+        { "level": 12, "move": "Electro Ball" },
+        { "level": 16, "move": "Feint" },
+        { "level": 20, "move": "Spark" },
+        { "level": 24, "move": "Agility" },
+        { "level": 28, "move": "Iron Tail" },
+        { "level": 32, "move": "Discharge" },
+        { "level": 36, "move": "Thunderbolt" },
+        { "level": 40, "move": "Light Screen" },
+        { "level": 44, "move": "Thunder" }
+        ]
+    },
+    {
+      "no": 26,
+      "name": "Raichu",
+      "level": 485,
+      "types": ["Electric", null],
+      "stats": {
+        "HP": 60,
+        "Atk": 90,
+        "Def": 55,
+        "SpAtk": 90,
+        "SpDef": 80,
+        "Spd": 110
+      },
+      "moves": [
+        { "level": 0, "move": "Thunder Punch" },
+        { "level": 1, "move": "Play Nice" },
+        { "level": 1, "move": "Sweet Kiss" },
+        { "level": 1, "move": "Nuzzle" },
+        { "level": 1, "move": "Nasty Plot" },
+        { "level": 1, "move": "Charm" },
+        { "level": 1, "move": "Thunder Shock" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Quick Attack" },
+        { "level": 1, "move": "Thunder Wave" },
+        { "level": 1, "move": "Double Team" },
+        { "level": 1, "move": "Electro Ball" },
+        { "level": 1, "move": "Feint" },
+        { "level": 1, "move": "Spark" },
+        { "level": 1, "move": "Agility" },
+        { "level": 1, "move": "Iron Tail" },
+        { "level": 1, "move": "Discharge" },
+        { "level": 1, "move": "Light Screen" },
+        { "level": 1, "move": "Thunder" },
+        { "level": 5, "move": "Thunderbolt" }
+        ]
+    },
+    {
+      "no": 27,
+      "name": "Sandshrew",
+      "level": 300,
+      "types": ["Ground", null],
+      "stats": {
+        "HP": 50,
+        "Atk": 75,
+        "Def": 85,
+        "SpAtk": 20,
+        "SpDef": 30,
+        "Spd": 40
+      },
+      "moves": [
+        { "level": 1, "move": "Scratch" },
+        { "level": 1, "move": "Defense Curl" },
+        { "level": 3, "move": "Poison Sting" },
+        { "level": 6, "move": "Sand Attack" },
+        { "level": 9, "move": "Rollout" },
+        { "level": 12, "move": "Fury Cutter" },
+        { "level": 15, "move": "Rapid Spin" },
+        { "level": 18, "move": "Bulldoze" },
+        { "level": 21, "move": "Swift" },
+        { "level": 24, "move": "Fury Swipes" },
+        { "level": 27, "move": "Agility" },
+        { "level": 30, "move": "Slash" },
+        { "level": 33, "move": "Dig" },
+        { "level": 36, "move": "Gyro Ball" },
+        { "level": 39, "move": "Swords Dance" },
+        { "level": 42, "move": "Sandstorm" },
+        { "level": 45, "move": "Earthquake" }
+        ]
+    },
+    {
+      "no": 28,
+      "name": "Sandslash",
+      "level": 450,
+      "types": ["Ground", null],
+      "stats": {
+        "HP": 75,
+        "Atk": 100,
+        "Def": 110,
+        "SpAtk": 45,
+        "SpDef": 55,
+        "Spd": 65
+      },
+      "moves": [
+        { "level": 1, "move": "Crush Claw" },
+        { "level": 1, "move": "Scratch" },
+        { "level": 1, "move": "Defense Curl" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "Sand Attack" },
+        { "level": 9, "move": "Rollout" },
+        { "level": 12, "move": "Fury Cutter" },
+        { "level": 15, "move": "Rapid Spin" },
+        { "level": 18, "move": "Bulldoze" },
+        { "level": 21, "move": "Swift" },
+        { "level": 26, "move": "Fury Swipes" },
+        { "level": 31, "move": "Sand Tomb" },
+        { "level": 36, "move": "Slash" },
+        { "level": 41, "move": "Dig" },
+        { "level": 46, "move": "Gyro Ball" },
+        { "level": 51, "move": "Swords Dance" },
+        { "level": 56, "move": "Sandstorm" },
+        { "level": 61, "move": "Earthquake" }
+        ]
+    },
+        {
+      "no": 29,
+      "name": "NidoranF",
+      "level": 275,
+      "types": ["Poison", null],
+      "stats": {
+        "HP": 55,
+        "Atk": 47,
+        "Def": 52,
+        "SpAtk": 40,
+        "SpDef": 40,
+        "Spd": 41
+      },
+      "moves": [
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 5, "move": "Scratch" },
+        { "level": 10, "move": "Tail Whip" },
+        { "level": 15, "move": "Fury Swipes" },
+        { "level": 20, "move": "Toxic Spikes" },
+        { "level": 25, "move": "Double Kick" },
+        { "level": 30, "move": "Bite" },
+        { "level": 35, "move": "Helping Hand" },
+        { "level": 40, "move": "Toxic" },
+        { "level": 45, "move": "Flatter" },
+        { "level": 50, "move": "Crunch" },
+        { "level": 55, "move": "Earth Power" }
+        ]
+    },
+    {
+      "no": 30,
+      "name": "Nidorina",
+      "level": 365,
+      "types": ["Poison", null],
+      "stats": {
+        "HP": 70,
+        "Atk": 62,
+        "Def": 67,
+        "SpAtk": 55,
+        "SpDef": 55,
+        "Spd": 56
+      },
+      "moves": [
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "Scratch" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 15, "move": "Fury Swipes" },
+        { "level": 22, "move": "Toxic Spikes" },
+        { "level": 29, "move": "Double Kick" },
+        { "level": 36, "move": "Bite" },
+        { "level": 43, "move": "Helping Hand" },
+        { "level": 50, "move": "Toxic" },
+        { "level": 57, "move": "Flatter" },
+        { "level": 64, "move": "Crunch" },
+        { "level": 71, "move": "Earth Power" }
+        ]
+    },
+    {
+      "no": 31,
+      "name": "Nidoqueen",
+      "level": 505,
+      "types": ["Poison", "Ground"],
+      "stats": {
+        "HP": 90,
+        "Atk": 92,
+        "Def": 87,
+        "SpAtk": 75,
+        "SpDef": 85,
+        "Spd": 76
+      },
+      "moves": [
+        { "level": 0, "move": "Superpower" },
+        { "level": 1, "move": "Superpower" },
+        { "level": 1, "move": "Sludge Wave" },
+        { "level": 1, "move": "Fury Swipes" },
+        { "level": 1, "move": "Toxic Spikes" },
+        { "level": 1, "move": "Double Kick" },
+        { "level": 1, "move": "Bite" },
+        { "level": 1, "move": "Helping Hand" },
+        { "level": 1, "move": "Toxic" },
+        { "level": 1, "move": "Flatter" },
+        { "level": 1, "move": "Crunch" },
+        { "level": 1, "move": "Earth Power" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "Scratch" },
+        { "level": 1, "move": "Tail Whip" }
+        ]
+    },
+    {
+      "no": 32,
+      "name": "NidoranM",
+      "level": 273,
+      "types": ["Poison", null],
+      "stats": {
+        "HP": 46,
+        "Atk": 57,
+        "Def": 40,
+        "SpAtk": 40,
+        "SpDef": 40,
+        "Spd": 50
+      },
+      "moves": [
+        { "level": 1, "move": "Leer" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 5, "move": "Peck" },
+        { "level": 10, "move": "Focus Energy" },
+        { "level": 15, "move": "Fury Attack" },
+        { "level": 20, "move": "Toxic Spikes" },
+        { "level": 25, "move": "Double Kick" },
+        { "level": 30, "move": "Horn Attack" },
+        { "level": 35, "move": "Helping Hand" },
+        { "level": 40, "move": "Toxic" },
+        { "level": 45, "move": "Flatter" },
+        { "level": 50, "move": "Poison Jab" },
+        { "level": 55, "move": "Earth Power" }
+        ]
+    },
+    {
+      "no": 33,
+      "name": "Nidorino",
+      "level": 365,
+      "types": ["Poison", null],
+      "stats": {
+        "HP": 61,
+        "Atk": 72,
+        "Def": 57,
+        "SpAtk": 55,
+        "SpDef": 55,
+        "Spd": 65
+      },
+      "moves": [
+        { "level": 1, "move": "Leer" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "Peck" },
+        { "level": 1, "move": "Focus Energy" },
+        { "level": 15, "move": "Fury Attack" },
+        { "level": 22, "move": "Toxic Spikes" },
+        { "level": 29, "move": "Double Kick" },
+        { "level": 36, "move": "Horn Attack" },
+        { "level": 43, "move": "Helping Hand" },
+        { "level": 50, "move": "Toxic" },
+        { "level": 57, "move": "Flatter" },
+        { "level": 64, "move": "Poison Jab" },
+        { "level": 71, "move": "Earth Power" }
+        ]
+    },
+    {
+      "no": 34,
+      "name": "Nidoking",
+      "level": 505,
+      "types": ["Poison", "Ground"],
+      "stats": {
+        "HP": 81,
+        "Atk": 102,
+        "Def": 77,
+        "SpAtk": 85,
+        "SpDef": 75,
+        "Spd": 85
+      },
+      "moves": [
+        { "level": 0, "move": "Megahorn" },
+        { "level": 1, "move": "Megahorn" },
+        { "level": 1, "move": "Sludge Wave" },
+        { "level": 1, "move": "Fury Attack" },
+        { "level": 1, "move": "Toxic Spikes" },
+        { "level": 1, "move": "Double Kick" },
+        { "level": 1, "move": "Horn Attack" },
+        { "level": 1, "move": "Helping Hand" },
+        { "level": 1, "move": "Toxic" },
+        { "level": 1, "move": "Flatter" },
+        { "level": 1, "move": "Poison Jab" },
+        { "level": 1, "move": "Earth Power" },
+        { "level": 1, "move": "Leer" },
+        { "level": 1, "move": "Poison Sting" },
+        { "level": 1, "move": "Peck" },
+        { "level": 1, "move": "Focus Energy" }
+        ]
+    },
+    {
+      "no": 35,
+      "name": "Clefairy",
+      "level": 323,
+      "types": ["Fairy", null],
+      "stats": {
+        "HP": 70,
+        "Atk": 45,
+        "Def": 48,
+        "SpAtk": 60,
+        "SpDef": 65,
+        "Spd": 35
+      },
+      "moves": [
+        { "level": 1, "move": "Sing" },
+        { "level": 1, "move": "Sweet Kiss" },
+        { "level": 1, "move": "Disarming Voice" },
+        { "level": 1, "move": "Charm" },
+        { "level": 1, "move": "Splash" },
+        { "level": 1, "move": "Pound" },
+        { "level": 1, "move": "Copycat" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Defense Curl" },
+        { "level": 4, "move": "Stored Power" },
+        { "level": 8, "move": "Encore" },
+        { "level": 12, "move": "After You" },
+        { "level": 16, "move": "Life Dew" },
+        { "level": 20, "move": "Metronome" },
+        { "level": 24, "move": "Moonlight" },
+        { "level": 28, "move": "Gravity" },
+        { "level": 32, "move": "Meteor Mash" },
+        { "level": 36, "move": "Follow Me" },
+        { "level": 40, "move": "Cosmic Power" },
+        { "level": 44, "move": "Moonblast" },
+        { "level": 48, "move": "Healing Wish" }
+        ]
+    },
+    {
+      "no": 36,
+      "name": "Clefable",
+      "level": 483,
+      "types": ["Fairy", null],
+      "stats": {
+        "HP": 95,
+        "Atk": 70,
+        "Def": 73,
+        "SpAtk": 95,
+        "SpDef": 90,
+        "Spd": 60
+      },
+      "moves": [
+        { "level": 1, "move": "Metronome" },
+        { "level": 1, "move": "Meteor Mash" },
+        { "level": 1, "move": "Moonblast" },
+        { "level": 1, "move": "Life Dew" },
+        { "level": 1, "move": "Pound" },
+        { "level": 1, "move": "Growl" },
+        { "level": 1, "move": "Sing" },
+        { "level": 1, "move": "Defense Curl" },
+        { "level": 1, "move": "Splash" },
+        { "level": 1, "move": "Sweet Kiss" },
+        { "level": 1, "move": "Charm" },
+        { "level": 1, "move": "Encore" },
+        { "level": 1, "move": "Moonlight" },
+        { "level": 1, "move": "Follow Me" },
+        { "level": 1, "move": "Cosmic Power" },
+        { "level": 1, "move": "Gravity" },
+        { "level": 1, "move": "Healing Wish" },
+        { "level": 1, "move": "Copycat" },
+        { "level": 1, "move": "After You" },
+        { "level": 1, "move": "Stored Power" },
+        { "level": 1, "move": "Disarming Voice" }
+        ]
+    },
+    {
+      "no": 37,
+      "name": "Vulpix",
+      "level": 299,
+      "types": ["Fire", null],
+      "stats": {
+        "HP": 38,
+        "Atk": 41,
+        "Def": 40,
+        "SpAtk": 50,
+        "SpDef": 65,
+        "Spd": 65
+      },
+      "moves": [
+        { "level": 1, "move": "Ember" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 4, "move": "Disable" },
+        { "level": 8, "move": "Quick Attack" },
+        { "level": 12, "move": "Spite" },
+        { "level": 16, "move": "Incinerate" },
+        { "level": 20, "move": "Confuse Ray" },
+        { "level": 24, "move": "Will-O-Wisp" },
+        { "level": 28, "move": "Extrasensory" },
+        { "level": 32, "move": "Flamethrower" },
+        { "level": 36, "move": "Imprison" },
+        { "level": 40, "move": "Fire Spin" },
+        { "level": 44, "move": "Safeguard" },
+        { "level": 48, "move": "Inferno" },
+        { "level": 52, "move": "Fire Blast" }
+        ]
+    },
+    {
+      "no": 38,
+      "name": "Ninetales",
+      "level": 505,
+      "types": ["Fire", null],
+      "stats": {
+        "HP": 73,
+        "Atk": 76,
+        "Def": 75,
+        "SpAtk": 81,
+        "SpDef": 100,
+        "Spd": 100
+      },
+      "moves": [
+        { "level": 1, "move": "Flamethrower" },
+        { "level": 1, "move": "Tail Whip" },
+        { "level": 1, "move": "Quick Attack" },
+        { "level": 1, "move": "Disable" },
+        { "level": 1, "move": "Ember" },
+        { "level": 1, "move": "Fire Spin" },
+        { "level": 1, "move": "Confuse Ray" },
+        { "level": 1, "move": "Fire Blast" },
+        { "level": 1, "move": "Spite" },
+        { "level": 1, "move": "Safeguard" },
+        { "level": 1, "move": "Will-O-Wisp" },
+        { "level": 1, "move": "Imprison" },
+        { "level": 1, "move": "Extrasensory" },
+        { "level": 1, "move": "Nasty Plot" },
+        { "level": 1, "move": "Incinerate" },
+        { "level": 1, "move": "Inferno" }
+        ]
+    },
+    {
+      "no": 39,
+      "name": "Jigglypuff",
+      "level": 270,
+      "types": ["Normal", "Fairy"],
+      "stats": {
+        "HP": 115,
+        "Atk": 45,
+        "Def": 20,
+        "SpAtk": 45,
+        "SpDef": 25,
+        "Spd": 20
+      },
+      "moves": [
+        { "level": 1, "move": "Sweet Kiss" },
+        { "level": 1, "move": "Disarming Voice" },
+        { "level": 1, "move": "Disable" },
+        { "level": 1, "move": "Charm" },
+        { "level": 1, "move": "Sing" },
+        { "level": 1, "move": "Pound" },
+        { "level": 1, "move": "Copycat" },
+        { "level": 1, "move": "Defense Curl" },
+        { "level": 4, "move": "Echoed Voice" },
+        { "level": 8, "move": "Covet" },
+        { "level": 12, "move": "Stockpile" },
+        { "level": 12, "move": "Spit Up" },
+        { "level": 12, "move": "Swallow" },
+        { "level": 16, "move": "Round" },
+        { "level": 20, "move": "Rest" },
+        { "level": 24, "move": "Body Slam" },
+        { "level": 28, "move": "Mimic" },
+        { "level": 32, "move": "Gyro Ball" },
+        { "level": 36, "move": "Hyper Voice" },
+        { "level": 44, "move": "Double-Edge" }
+        ]
+    },
+    {
+      "no": 40,
+      "name": "Wigglypuff",
+      "level": 435,
+      "types": ["Normal", "Fairy"],
+      "stats": {
+        "HP": 140,
+        "Atk": 70,
+        "Def": 45,
+        "SpAtk": 85,
+        "SpDef": 50,
+        "Spd": 45
+      },
+      "moves": [
+        { "level": 1, "move": "Sweet Kiss" },
+        { "level": 1, "move": "Disarming Voice" },
+        { "level": 1, "move": "Disable" },
+        { "level": 1, "move": "Charm" },
+        { "level": 1, "move": "Sing" },
+        { "level": 1, "move": "Pound" },
+        { "level": 1, "move": "Copycat" },
+        { "level": 1, "move": "Defense Curl" },
+        { "level": 1, "move": "Echoed Voice" },
+        { "level": 1, "move": "Covet" },
+        { "level": 1, "move": "Stockpile" },
+        { "level": 1, "move": "Spit Up" },
+        { "level": 1, "move": "Swallow" },
+        { "level": 1, "move": "Round" },
+        { "level": 1, "move": "Rest" },
+        { "level": 1, "move": "Body Slam" },
+        { "level": 1, "move": "Mimic" },
+        { "level": 1, "move": "Gyro Ball" },
+        { "level": 1, "move": "Hyper Voice" },
+        { "level": 1, "move": "Double-Edge" },
+        { "level": 5, "move": "Play Rough" }
+        ]
+    },
+    {
+      "no": 41,
+      "name": "Zubat",
+      "level": 245,
+      "types": ["Poison", "Flying"],
+      "stats": {
+        "HP": 40,
+        "Atk": 45,
+        "Def": 35,
+        "SpAtk": 30,
+        "SpDef": 40,
+        "Spd": 55
+      },
+      "moves": [
+        { "level": 1, "move": "Supersonic" },
+        { "level": 1, "move": "Absorb" },
+        { "level": 5, "move": "Gust" },
+        { "level": 8, "move": "Bite" },
+        { "level": 12, "move": "Wing Attack" },
+        { "level": 15, "move": "Quick Attack" },
+        { "level": 18, "move": "Whirlwind" },
+        { "level": 22, "move": "Hypnosis" },
+        { "level": 26, "move": "Haze" },
+        { "level": 30, "move": "Confuse Ray" },
+        { "level": 34, "move": "Poison Fang" },
+        { "level": 42, "move": "Air Slash" },
+        { "level": 50, "move": "Leech Life" }
+        ]
+    },
+    {
+      "no": 42,
+      "name": "Golbat",
+      "level": 455,
+      "types": ["Poison", "Flying"],
+      "stats": {
+        "HP": 75,
+        "Atk": 80,
+        "Def": 70,
+        "SpAtk": 65,
+        "SpDef": 75,
+        "Spd": 90
+      },
+      "moves": [
+        { "level": 1, "move": "Supersonic" },
+        { "level": 1, "move": "Absorb" },
+        { "level": 1, "move": "Screech" },
+        { "level": 5, "move": "Gust" },
+        { "level": 8, "move": "Bite" },
+        { "level": 12, "move": "Wing Attack" },
+        { "level": 15, "move": "Quick Attack" },
+        { "level": 18, "move": "Whirlwind" },
+        { "level": 22, "move": "Hypnosis" },
+        { "level": 26, "move": "Haze" },
+        { "level": 30, "move": "Confuse Ray" },
+        { "level": 34, "move": "Poison Fang" },
+        { "level": 42, "move": "Air Slash" },
+        { "level": 50, "move": "Leech Life" }
+        ]
+    },
+    {
+      "no": 43,
+      "name": "Oddish",
+      "level": 320,
+      "types": ["Grass", "Poison"],
+      "stats": {
+        "HP": 45,
+        "Atk": 50,
+        "Def": 55,
+        "SpAtk": 75,
+        "SpDef": 65,
+        "Spd": 30
+      },
+      "moves": [
+        { "level": 1, "move": "Absorb" },
+        { "level": 1, "move": "Growth" },
+        { "level": 4, "move": "Acid" },
+        { "level": 8, "move": "Sweet Scent" },
+        { "level": 12, "move": "Mega Drain" },
+        { "level": 14, "move": "Poison Powder" },
+        { "level": 16, "move": "Stun Spore" },
+        { "level": 18, "move": "Sleep Powder" },
+        { "level": 20, "move": "Giga Drain" },
+        { "level": 24, "move": "Toxic" },
+        { "level": 28, "move": "Moonblast" },
+        { "level": 32, "move": "Grassy Terrain" },
+        { "level": 36, "move": "Moonlight" },
+        { "level": 40, "move": "Petal Dance" }
+        ]
+    },
+    {
+      "no": 44,
+      "name": "Gloom",
+      "level": 395,
+      "types": ["Grass", "Poison"],
+      "stats": {
+        "HP": 60,
+        "Atk": 65,
+        "Def": 70,
+        "SpAtk": 85,
+        "SpDef": 75,
+        "Spd": 40
+      },
+      "moves": [
+        { "level": 1, "move": "Absorb" },
+        { "level": 1, "move": "Growth" },
+        { "level": 1, "move": "Acid" },
+        { "level": 1, "move": "Sweet Scent" },
+        { "level": 12, "move": "Mega Drain" },
+        { "level": 14, "move": "Poison Powder" },
+        { "level": 16, "move": "Stun Spore" },
+        { "level": 18, "move": "Sleep Powder" },
+        { "level": 20, "move": "Giga Drain" },
+        { "level": 26, "move": "Toxic" },
+        { "level": 32, "move": "Moonblast" },
+        { "level": 38, "move": "Grassy Terrain" },
+        { "level": 44, "move": "Moonlight" },
+        { "level": 50, "move": "Petal Dance" }
+        ]
+    },
+    {
+      "no": 45,
+      "name": "Vileplume",
+      "level": 490,
+      "types": ["Grass", "Poison"],
+      "stats": {
+        "HP": 75,
+        "Atk": 80,
+        "Def": 85,
+        "SpAtk": 110,
+        "SpDef": 90,
+        "Spd": 50
+      },
+      "moves": [
+        { "level": 0, "move": "Petal Blizzard" },
+        { "level": 1, "move": "Mega Drain" },
+        { "level": 1, "move": "Poison Powder" },
+        { "level": 1, "move": "Stun Spore" },
+        { "level": 1, "move": "Sleep Powder" },
+        { "level": 1, "move": "Giga Drain" },
+        { "level": 1, "move": "Toxic" },
+        { "level": 1, "move": "Moonblast" },
+        { "level": 1, "move": "Grassy Terrain" },
+        { "level": 1, "move": "Moonlight" },
+        { "level": 1, "move": "Petal Dance" },
+        { "level": 1, "move": "Absorb" },
+        { "level": 1, "move": "Growth" },
+        { "level": 1, "move": "Acid" },
+        { "level": 1, "move": "Sweet Scent" }
+        ]
+    },
+    {
+      "no": 46,
+      "name": "Paras",
+      "level": 285,
+      "types": ["Bug", "Grass"],
+      "stats": {
+        "HP": 35,
+        "Atk": 70,
+        "Def": 55,
+        "SpAtk": 45,
+        "SpDef": 55,
+        "Spd": 25
+      },
+      "moves": [
+        { "level": 1, "move": "Scratch" },
+        { "level": 6, "move": "Stun Spore" },
+        { "level": 6, "move": "Poison Powder" },
+        { "level": 11, "move": "Absorb" },
+        { "level": 17, "move": "Fury Cutter" },
+        { "level": 22, "move": "Spore" },
+        { "level": 27, "move": "Slash" },
+        { "level": 33, "move": "Growth" },
+        { "level": 38, "move": "Giga Drain" },
+        { "level": 43, "move": "Aromatherapy" },
+        { "level": 49, "move": "Rage Powder" },
+        { "level": 54, "move": "X-Scissor" }
+        ]
+    },
+    {
+      "no": 47,
+      "name": "Parasect",
+      "level": 405,
+      "types": ["Bug", "Grass"],
+      "stats": {
+        "HP": 60,
+        "Atk": 95,
+        "Def": 80,
+        "SpAtk": 60,
+        "SpDef": 80,
+        "Spd": 30
+      },
+      "moves": [
+        { "level": 1, "move": "Cross Poison" },
+        { "level": 1, "move": "Scratch" },
+        { "level": 1, "move": "Stun Spore" },
+        { "level": 1, "move": "Poison Powder" },
+        { "level": 1, "move": "Absorb" },
+        { "level": 6, "move": "Stun Spore" },
+        { "level": 6, "move": "Poison Powder" },
+        { "level": 11, "move": "Absorb" },
+        { "level": 17, "move": "Fury Cutter" },
+        { "level": 22, "move": "Spore" },
+        { "level": 29, "move": "Slash" },
+        { "level": 37, "move": "Growth" },
+        { "level": 44, "move": "Giga Drain" },
+        { "level": 51, "move": "Aromatherapy" },
+        { "level": 59, "move": "Rage Powder" },
+        { "level": 66, "move": "X-Scissor" }
+        ]
+    },
+    {
+      "no": 48,
+      "name": "Venonat",
+      "level": 305,
+      "types": ["Bug", "Poison"],
+      "stats": {
+        "HP": 60,
+        "Atk": 55,
+        "Def": 50,
+        "SpAtk": 40,
+        "SpDef": 55,
+        "Spd": 45
+      },
+      "moves": [
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Disable" },
+        { "level": 5, "move": "Supersonic" },
+        { "level": 11, "move": "Confusion" },
+        { "level": 13, "move": "Poison Powder" },
+        { "level": 17, "move": "Psybeam" },
+        { "level": 23, "move": "Stun Spore" },
+        { "level": 25, "move": "Bug Buzz" },
+        { "level": 29, "move": "Sleep Powder" },
+        { "level": 35, "move": "Leech Life" },
+        { "level": 37, "move": "Zen Headbutt" },
+        { "level": 41, "move": "Poison Fang" },
+        { "level": 47, "move": "Psychic" }
+        ]
+    },
+    {
+      "no": 49,
+      "name": "Venomoth",
+      "level": 450,
+      "types": ["Bug", "Poison"],
+      "stats": {
+        "HP": 70,
+        "Atk": 65,
+        "Def": 60,
+        "SpAtk": 90,
+        "SpDef": 75,
+        "Spd": 90
+      },
+      "moves": [
+        { "level": 0, "move": "Air Slash" },
+        { "level": 1, "move": "Quiver Dance" },
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Disable" },
+        { "level": 1, "move": "Supersonic" },
+        { "level": 11, "move": "Confusion" },
+        { "level": 13, "move": "Poison Powder" },
+        { "level": 17, "move": "Psybeam" },
+        { "level": 23, "move": "Stun Spore" },
+        { "level": 25, "move": "Bug Buzz" },
+        { "level": 29, "move": "Sleep Powder" },
+        { "level": 37, "move": "Leech Life" },
+        { "level": 41, "move": "Zen Headbutt" },
+        { "level": 47, "move": "Poison Fang" },
+        { "level": 55, "move": "Psychic" }
+        ]
+    },
+    {
+      "no": 50,
+      "name": "Diglett",
+      "level": 265,
+      "types": ["Ground", null],
+      "stats": {
+        "HP": 10,
+        "Atk": 55,
+        "Def": 25,
+        "SpAtk": 35,
+        "SpDef": 45,
+        "Spd": 95
+      },
+      "moves": [
+        { "level": 1, "move": "Sand Attack" },
+        { "level": 1, "move": "Scratch" },
+        { "level": 4, "move": "Growl" },
+        { "level": 8, "move": "Astonish" },
+        { "level": 12, "move": "Mud-Slap" },
+        { "level": 16, "move": "Bulldoze" },
+        { "level": 20, "move": "Sucker Punch" },
+        { "level": 24, "move": "Slash" },
+        { "level": 28, "move": "Sandstorm" },
+        { "level": 32, "move": "Dig" },
+        { "level": 36, "move": "Earth Power" },
+        { "level": 40, "move": "Earthquake" },
+        { "level": 44, "move": "Fissure" }
+        ]
+    }
+  ]
+}
