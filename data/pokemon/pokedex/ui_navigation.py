@@ -1,10 +1,14 @@
 import pygame
 
-def handle_navigation(event, controller):
+def handle_navigation(event, controller, view):
     """
     Handle arrow-key navigation for the Pokédex.
-    controller: PokemonController instance
+    Disabled while the text input box is active.
     """
+
+    # If typing in the input box, ignore navigation keys
+    if view.input_active:
+        return
 
     if event.type != pygame.KEYDOWN:
         return

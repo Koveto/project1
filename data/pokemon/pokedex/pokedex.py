@@ -1,10 +1,9 @@
 import pygame
 import os, sys
 
-# Compute project root (3 levels up from pokedex/)
+# Compute project root (2 levels up from pokedex/)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.append(ROOT)
-
 
 from ui_layout import WIDTH, HEIGHT
 from pokemon_controller import PokemonController
@@ -29,8 +28,11 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-            # Delegate navigation to its own module
-            handle_navigation(event, controller)
+            # Navigation (left/right arrows, etc.)
+            handle_navigation(event, controller, view)
+
+            # Text input box interaction
+            view.handle_event(event, controller)
 
         # Draw everything
         screen.fill((40, 40, 40))

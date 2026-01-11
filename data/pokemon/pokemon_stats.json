@@ -5654,39 +5654,6 @@
         ]
     },
     {
-      "no": 184,
-      "name": "Azumarill",
-      "level": 420,
-      "types": ["Water", "Fairy"],
-      "stats": {
-        "HP": 100,
-        "Atk": 50,
-        "Def": 80,
-        "SpAtk": 60,
-        "SpDef": 80,
-        "Spd": 50
-      },
-      "moves": [
-        { "level": 1, "move": "Rollout" },
-        { "level": 1, "move": "Defense Curl" },
-        { "level": 1, "move": "Tackle" },
-        { "level": 1, "move": "Water Gun" },
-        { "level": 1, "move": "Tail Whip" },
-        { "level": 1, "move": "Helping Hand" },
-        { "level": 6, "move": "Bubble Beam" },
-        { "level": 9, "move": "Charm" },
-        { "level": 12, "move": "Slam" },
-        { "level": 15, "move": "Bounce" },
-        { "level": 21, "move": "Aqua Tail" },
-        { "level": 25, "move": "Play Rough" },
-        { "level": 30, "move": "Aqua Ring" },
-        { "level": 35, "move": "Rain Dance" },
-        { "level": 40, "move": "Hydro Pump" },
-        { "level": 45, "move": "Double-Edge" },
-        { "level": 50, "move": "Superpower" }
-        ]
-    },
-    {
       "no": 185,
       "name": "Sudowoodo",
       "level": 410,
