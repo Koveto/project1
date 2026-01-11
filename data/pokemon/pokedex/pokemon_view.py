@@ -12,6 +12,20 @@ from ui_layout import (
 from pokemon_sprites import load_pokemon_sprite
 from pokemon_typechart import defensive_profile
 
+TYPES = [
+    "normal", "fire", "water", "electric", "grass", "ice",
+    "fighting", "poison", "ground", "flying", "psychic", "bug",
+    "rock", "ghost", "dragon", "dark", "steel", "fairy"
+]
+TYPE_COLS = 6
+TYPE_CELL_W = 100
+TYPE_CELL_H = 32
+
+# Move this higher than before
+TYPE_GRID_X = PANEL_X
+TYPE_GRID_Y = PANEL_Y + 220   # tweak this if you want it even higher
+
+
 
 class PokemonView:
     """
@@ -41,6 +55,10 @@ class PokemonView:
         self.input_color = self.input_color_inactive
 
         self.shiny = False
+        self.button_sort_asc = pygame.Rect(50, 500, 180, 40)
+        self.button_sort_desc = pygame.Rect(250, 500, 180, 40)
+        self.button_sort_number = pygame.Rect(450, 500, 220, 40)
+
 
     # ---------------------------------------------------------
     # Event handling for input box
@@ -71,6 +89,22 @@ class PokemonView:
                 self.input_active = False
                 self.input_color = self.input_color_inactive
 
+            mx, my = event.pos
+
+            # Sort ascending
+            if self.button_sort_asc.collidepoint(mx, my):
+                controller.sort_by_bst_ascending()
+
+            # Sort descending
+            if self.button_sort_desc.collidepoint(mx, my):
+                controller.sort_by_bst_descending()
+            
+            # Sort number
+            if self.button_sort_number.collidepoint(mx, my):
+                controller.sort_by_number()
+
+
+            
         if event.type == pygame.KEYDOWN and self.input_active:
             if event.key == pygame.K_BACKSPACE:
                 self.input_text = self.input_text[:-1]
@@ -201,6 +235,9 @@ class PokemonView:
         # -----------------------------
         # Draw info panel
         # -----------------------------
+        # -----------------------------
+        # Draw info panel
+        # -----------------------------
         x = PANEL_X
         y = PANEL_Y
 
@@ -209,6 +246,9 @@ class PokemonView:
 
         type_line = " / ".join(pokemon.types)
         y = self.draw_text(screen, f"Type: {type_line}", x, y, self.font_text)
+
+        # ⭐ Add Base Stat Total here
+        y = self.draw_text(screen, f"BST: {pokemon.base_total}", x, y, self.font_text)
 
         stats = pokemon.stats
 
@@ -236,25 +276,65 @@ class PokemonView:
         y = self.draw_text(screen, f"SPEED: {stats.speed}", x, y, self.font_text)
         y = self.draw_stat_bar(screen, x + 120, y - 20, stats.speed)
 
+
         # -----------------------------
-        # Weaknesses / Resistances / Immunities
+        # Type Affinity Grid (4 columns)
         # -----------------------------
         weak, resist, immune = defensive_profile(pokemon)
 
-        y += 10
-        y = self.draw_text(screen, "Weaknesses:", x, y, self.font_text)
-        for w in weak:
-            y = self.draw_text(screen, f"  - {w}", x, y, self.font_text)
+        # Normalize to lowercase for matching
+        weak = {w.lower() for w in weak}
+        resist = {r.lower() for r in resist}
+        immune = {i.lower() for i in immune}
 
-        y += 6
-        y = self.draw_text(screen, "Resistances:", x, y, self.font_text)
-        for r in resist:
-            y = self.draw_text(screen, f"  - {r}", x, y, self.font_text)
+        # All 18 Pokémon types in lowercase
+        TYPES = [
+            "normal", "fire", "water", "electric", "grass", "ice",
+            "fighting", "poison", "ground", "flying", "psychic", "bug",
+            "rock", "ghost", "dragon", "dark", "steel", "fairy"
+        ]
 
-        y += 6
-        y = self.draw_text(screen, "Immunities:", x, y, self.font_text)
-        for i in immune:
-            y = self.draw_text(screen, f"  - {i}", x, y, self.font_text)
+        TYPE_COLS = 4
+        TYPE_CELL_W = 120
+        TYPE_CELL_H = 34
+
+        # Move the grid higher
+        TYPE_GRID_X = PANEL_X
+        TYPE_GRID_Y = PANEL_Y + 220
+
+        grid_x = TYPE_GRID_X
+        grid_y = TYPE_GRID_Y
+
+        for i, t in enumerate(TYPES):
+            col = i % TYPE_COLS
+            row = i // TYPE_COLS
+
+            cell_x = grid_x + col * TYPE_CELL_W
+            cell_y = grid_y + row * TYPE_CELL_H
+
+            # Determine color box
+            if t in weak:
+                color = (255, 80, 80)      # red
+            elif t in resist:
+                color = (80, 200, 80)      # green
+            elif t in immune:
+                color = (255, 255, 255)    # white
+            else:
+                color = None
+
+            # Draw color box under text
+            if color is not None:
+                pygame.draw.rect(
+                    screen,
+                    color,
+                    pygame.Rect(cell_x, cell_y + 18, 60, 10),
+                    border_radius=3
+                )
+
+            # Draw type text (capitalized for display)
+            text_surface = self.font_text.render(t.title(), True, COLOR_TEXT)
+            screen.blit(text_surface, (cell_x, cell_y))
+
 
         # -----------------------------
         # Draw input box
@@ -266,3 +346,16 @@ class PokemonView:
 
         label = self.font_text.render("Search:", True, COLOR_TEXT)
         screen.blit(label, (self.input_rect.x - 80, self.input_rect.y + 6))
+
+        # Draw sort buttons
+        pygame.draw.rect(screen, (200, 200, 200), self.button_sort_asc, border_radius=6)
+        pygame.draw.rect(screen, (200, 200, 200), self.button_sort_desc, border_radius=6)
+        pygame.draw.rect(screen, (200, 200, 200), self.button_sort_number, border_radius=6)
+
+        asc_label = self.font_text.render("Sort BST Asc", True, (0, 0, 0))
+        desc_label = self.font_text.render("Sort BST Dsc", True, (0, 0, 0))
+        num_label = self.font_text.render("Sort by Pokédex #", True, (0, 0, 0))
+
+        screen.blit(asc_label, (self.button_sort_asc.x + 20, self.button_sort_asc.y + 8))
+        screen.blit(desc_label, (self.button_sort_desc.x + 20, self.button_sort_desc.y + 8))
+        screen.blit(num_label, (self.button_sort_number.x + 20, self.button_sort_number.y + 8))

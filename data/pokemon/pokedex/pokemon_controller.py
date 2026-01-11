@@ -109,3 +109,21 @@ class PokemonController:
         best_index = min(range(len(self.pokemon_list)), key=lambda i: score(self.pokemon_list[i].name))
         return best_index
 
+    def get_bst(self, pokemon):
+        return sum(pokemon.stats.values())
+    
+    def sort_by_bst_ascending(self):
+        self.pokemon_list.sort(key=lambda p: p.base_total)
+        self.index = 0
+
+    def sort_by_bst_descending(self):
+        self.pokemon_list.sort(key=lambda p: p.base_total, reverse=True)
+        self.index = 0
+
+
+    def sort_by_number(self):
+        self.pokemon_list.sort(key=lambda p: p.number)
+        self.index = 0  # jump to Bulbasaur
+
+
+

@@ -89,17 +89,16 @@ def defensive_profile(pokemon):
     resistances = []
     immunities = []
 
-    # Loop through every attack type in the chart
     for attack_type in TYPE_CHART.keys():
         mult = 1.0
         for t in pokemon.types:
             mult *= type_effectiveness(attack_type, t)
 
         if mult == 0:
-            immunities.append(attack_type)
+            immunities.append(attack_type.lower())
         elif mult > 1:
-            weaknesses.append(f"{attack_type} ({mult}x)")
+            weaknesses.append(attack_type.lower())
         elif mult < 1:
-            resistances.append(f"{attack_type} ({mult}x)")
+            resistances.append(attack_type.lower())
 
     return weaknesses, resistances, immunities
