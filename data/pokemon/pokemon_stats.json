@@ -5073,7 +5073,7 @@
     {
       "no": 166,
       "name": "Ledian",
-      "level": 395,
+      "level": 390,
       "types": ["Bug", "Flying"],
       "stats": {
         "HP": 55,
@@ -7681,7 +7681,7 @@
       "level": 680,
       "types": ["Psychic", "Flying"],
       "stats": {
-        "HP": 100,
+        "HP": 106,
         "Atk": 90,
         "Def": 130,
         "SpAtk": 90,
@@ -11513,7 +11513,7 @@
         "Atk": 75,
         "Def": 60,
         "SpAtk": 40,
-        "SpDef": 35,
+        "SpDef": 30,
         "Spd": 50
       },
       "moves": [
