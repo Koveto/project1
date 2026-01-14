@@ -3,20 +3,20 @@ from pokemon_typechart import defensive_profile
 from pokemon_stats import load_pokemon_from_json
 
 # ---------------------------------------------------------
-# Element → Pokémon type mapping (your 7-element system)
+# Updated element → Pokémon type mapping
 # ---------------------------------------------------------
 ELEMENT_GROUPS = {
-    "physical": ["Normal", "Fighting", "Steel"],
-    "fire": ["Fire", "Ground", "Rock"],
-    "force": ["Flying", "Psychic"],
-    "ice": ["Water", "Ice"],
-    "electric": ["Electric", "Dragon"],
-    "light": ["Grass", "Bug", "Fairy"],
+    "physical": [],  # always 0
+    "fire": ["Fire", "Rock", "Ground"],
+    "force": ["Normal", "Flying", "Psychic"],
+    "ice": ["Fighting", "Water", "Ice"],
+    "electric": ["Electric", "Dragon", "Steel"],
+    "light": ["Fairy", "Bug", "Grass"],
     "dark": ["Poison", "Ghost", "Dark"]
 }
 
 # ---------------------------------------------------------
-# Scoring rules for a single Pokémon type
+# Scoring rules
 # ---------------------------------------------------------
 def score_type(poke_type, weak, resist, immune):
     t = poke_type.lower()
@@ -34,7 +34,7 @@ def score_type(poke_type, weak, resist, immune):
 
 
 # ---------------------------------------------------------
-# Compute the 7-element affinity array for a Pokémon
+# Compute affinities
 # ---------------------------------------------------------
 def compute_affinities(pokemon):
     weak, resist, immune = defensive_profile(pokemon)
@@ -42,11 +42,17 @@ def compute_affinities(pokemon):
 
     for element, type_list in ELEMENT_GROUPS.items():
 
+        # Physical is always 0
+        if element == "physical":
+            affinities.append(0)
+            continue
+
         # Immunity overrides everything
         if any(t.lower() in immune for t in type_list):
             affinities.append(9)
             continue
 
+        # Sum scores for the 3 mapped types
         total = 0
         for t in type_list:
             total += score_type(t, weak, resist, immune)

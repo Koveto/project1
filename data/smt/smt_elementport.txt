@@ -1,4 +1,4 @@
-Physical       3
+Physical       
 Fire           3
 Force          2
 Ice            2
@@ -9,13 +9,13 @@ Almighty
 Poison
 Healing
 
-Normal          Physical
+Normal          Force
 Fire            Fire
 Water           Ice
 Electric        Electric
 Grass           Light
 Ice             Ice
-Fighting        Physical
+Fighting        Ice
 Poison          Dark
 Ground          Fire
 Flying          Force
@@ -25,5 +25,5 @@ Rock            Fire
 Ghost           Dark
 Dragon          Electric
 Dark            Dark
-Steel           Physical
+Steel           Elec
 Fairy           Light
