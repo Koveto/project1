@@ -250,6 +250,9 @@ class PokemonView:
         # Base Stat Total
         y = self.draw_text(screen, f"BST: {pokemon.bst}", x, y, self.font_text)
 
+        # Level (NEW)
+        y = self.draw_text(screen, f"Level: {pokemon.level}", x, y, self.font_text)
+
         stats = pokemon.stats
 
         # HP

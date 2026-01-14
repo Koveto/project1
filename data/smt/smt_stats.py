@@ -39,9 +39,11 @@ class SMTPokemon:
     number: int
     name: str
     bst: int
+    level: int          # <-- ADD THIS
     affinities: List[int]
     stats: SMTStats
     moves: List[Move] = field(default_factory=list)
+
 
     @classmethod
     def from_dict(cls, data: Dict):
@@ -52,10 +54,12 @@ class SMTPokemon:
             number=data["no"],
             name=data["name"],
             bst=data["bst"],
+            level=data.get("level", 1),   # default to 1 if missing
             affinities=data["affinities"],
             stats=stats,
             moves=moves
         )
+
 
     def __str__(self):
         return f"{self.number}: {self.name} | Affinities {self.affinities}"
