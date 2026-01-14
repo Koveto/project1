@@ -1,0 +1,29 @@
+Physical       3
+Fire           3
+Force          2
+Ice            2
+Electric       2
+Light          3
+Dark           3
+Almighty
+Poison
+Healing
+
+Normal          Physical
+Fire            Fire
+Water           Ice
+Electric        Electric
+Grass           Light
+Ice             Ice
+Fighting        Physical
+Poison          Dark
+Ground          Fire
+Flying          Force
+Psychic         Force
+Bug             Light
+Rock            Fire
+Ghost           Dark
+Dragon          Electric
+Dark            Dark
+Steel           Physical
+Fairy           Light
