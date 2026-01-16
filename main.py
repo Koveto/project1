@@ -2,6 +2,7 @@ import pygame
 from constants import TARGET_FPS, SPEED, ACTUAL_WIDTH, ACTUAL_HEIGHT, ACTUAL_TILE_SIZE
 from player import Player
 from map import Map
+from battle_background import load_battle_background
 
 # Import Pokédex subsystem using your real folder structure
 from data.smt.pokedex.pokemon_controller import PokemonController
@@ -155,18 +156,29 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-            # Toggle Pokédex
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
-                if game_state == "overworld":
-                    game_state = "pokedex"
-                elif game_state == "pokedex":
-                    game_state = "overworld"
-            # Toggle Battle
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_b:
-                if game_state == "overworld":
-                    game_state = "battle"
-                elif game_state == "battle":
-                    game_state = "overworld"
+            # ---------------------------------------------------------
+            # GLOBAL STATE TOGGLES
+            # ---------------------------------------------------------
+
+            if event.type == pygame.KEYDOWN:
+
+                # --- Toggle Pokédex ---
+                if event.key == pygame.K_p:
+                    if game_state != "pokedex":
+                        game_state = "pokedex"
+                    else:
+                        game_state = "overworld"
+
+                # --- Toggle Battle ---
+                elif event.key == pygame.K_b:
+                    if game_state != "battle":
+                        battle_background = load_battle_background(7)
+                        game_state = "battle"
+                    else:
+                        game_state = "overworld"
+
+
+
 
             # State-specific event handling
             if game_state == "pokedex":
@@ -218,9 +230,7 @@ def main():
             pokedex_view.draw(screen)
 
         elif game_state == "battle":
-            # For now, just draw a blank screen (dark gray)
-            screen.fill((40, 40, 40))
-
+            screen.blit(battle_background, (0, 0))
 
         pygame.display.flip()
         clock.tick(TARGET_FPS)
