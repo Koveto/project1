@@ -1,8 +1,14 @@
 import pygame
+import os
 
 SPRITE_W = 240
 SPRITE_H = 112
 SCALE = 4
+
+# Path to project root (one level up from battle/)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+SPRITE_PATH = os.path.join(ROOT, "sprites", "battlebackgrounds.png")
+
 
 def load_battle_background(index):
     """
@@ -10,7 +16,7 @@ def load_battle_background(index):
     Returns a scaled 960×448 surface.
     """
 
-    sheet = pygame.image.load("sprites/battlebackgrounds.png").convert_alpha()
+    sheet = pygame.image.load(SPRITE_PATH).convert_alpha()
 
     # Compute row/column in 4×4 grid
     col = index % 4

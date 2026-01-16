@@ -7,8 +7,8 @@ GRID = 5
 SPRITE = 64
 ALPHA_KEY = (165, 235, 255)  # A5EBFF transparency key
 
-# Path to project root (3 levels up from pokedex/)
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+# Path to project root (1 level up from pokedex/)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SPRITE_DIR = os.path.join(ROOT, "sprites")
 
 # Cache for loaded sheets

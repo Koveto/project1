@@ -1,7 +1,7 @@
 import json
 import os
 import pygame
-from tileset import Tileset
+from overworld.tileset import Tileset
 from constants import SCALE
 
 

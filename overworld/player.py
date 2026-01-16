@@ -1,6 +1,6 @@
 import pygame
 from constants import SPEED, TARGET_FPS
-from player_sprite import load_player_frames
+from overworld.player_sprite import load_player_frames
 
 
 class Player:

@@ -1,121 +1,31 @@
 import pygame
-from constants import TARGET_FPS, SPEED, ACTUAL_WIDTH, ACTUAL_HEIGHT, ACTUAL_TILE_SIZE
-from player import Player
-from map import Map
-from battle_background import load_battle_background
 
-# Import Pokédex subsystem using your real folder structure
-from data.smt.pokedex.pokemon_controller import PokemonController
-from data.smt.pokedex.pokemon_view import PokemonView
+from constants import TARGET_FPS, ACTUAL_TILE_SIZE
 
+# Overworld subsystem
+from overworld.map import Map
+from overworld.player import Player
 
-def test_collision_screen_bounds(map_obj, player, new_x, new_y):
-    w, h = player.width, player.height
+# Pokédex subsystem
+from pokedex.pokemon_controller import PokemonController
+from pokedex.pokemon_view import PokemonView
 
-    if not map_obj.scrolling:
-        if new_x < 0 or new_y < 0:
-            return True
-        if new_x + w > ACTUAL_WIDTH - ACTUAL_TILE_SIZE:
-            return True
-        if new_y + h > ACTUAL_HEIGHT - ACTUAL_TILE_SIZE:
-            return True
-        return False
+# Battle subsystem
+from battle.battle_background import load_battle_background
 
-    if new_x < 0 or new_y < 0:
-        return True
-    if new_x + w > map_obj.pixel_width:
-        return True
-    if new_y + h > map_obj.pixel_height:
-        return True
-
-    return False
-
-
-def test_movement(map_obj, player, dx, dy):
-    px, py = player.x, player.y
-    w, h = player.width, player.height
-
-    nx, ny = px + dx, py + dy
-    if not (
-        test_collision_screen_bounds(map_obj, player, nx, ny)
-        or map_obj.test_collision_walls(px, py, nx, ny, w, h)
-    ):
-        return dx, dy
-
-    allowed_dx = 0
-    if dx != 0:
-        nx = px + dx
-        if not (
-            test_collision_screen_bounds(map_obj, player, nx, py)
-            or map_obj.test_collision_walls(px, py, nx, py, w, h)
-        ):
-            allowed_dx = dx
-
-    allowed_dy = 0
-    if dy != 0:
-        ny = py + dy
-        if not (
-            test_collision_screen_bounds(map_obj, player, px, ny)
-            or map_obj.test_collision_walls(px, py, px, ny, w, h)
-        ):
-            allowed_dy = dy
-
-    if allowed_dx == 0 and dx != 0 and dy >= 0:
-        slide_dy = SPEED
-        nx, ny = px + dx, py + slide_dy
-
-        if not (
-            test_collision_screen_bounds(map_obj, player, nx, ny)
-            or map_obj.test_collision_walls(px, py, nx, ny, w, h)
-        ):
-            allowed_dx = dx
-            allowed_dy = slide_dy
-
-    if allowed_dy == 0 and dy < 0 and allowed_dx == 0:
-        for wx, wy, length, orient in map_obj.walls:
-
-            if orient == "up_right":
-                slide_dx = SPEED
-            elif orient == "up_left":
-                slide_dx = -SPEED
-            else:
-                continue
-
-            nx, ny = px + slide_dx, py + dy
-
-            if not map_obj.test_collision_walls(
-                px, py, nx, ny, w, h,
-                ignore_vertical_walls=True
-            ):
-                allowed_dx = slide_dx
-                allowed_dy = dy
-                break
-
-    return allowed_dx, allowed_dy
-
-
-def update_camera(map_obj, player, screen_width, screen_height):
-    if not map_obj.scrolling:
-        map_obj.camera_x = 0
-        map_obj.camera_y = 0
-        return
-
-    half_w = screen_width // 2
-    half_h = screen_height // 2
-
-    cx = player.x - half_w
-    cy = player.y - half_h
-
-    max_x = map_obj.pixel_width - screen_width
-    max_y = map_obj.pixel_height - screen_height
-
-    map_obj.camera_x = max(0, min(cx, max_x))
-    map_obj.camera_y = max(0, min(cy, max_y))
+# State system
+from state.state_manager import StateManager
+from state.overworld_state import OverworldState
+from state.pokedex_state import PokedexState
+from state.battle_state import BattleState
 
 
 def main():
     pygame.init()
 
+    # ---------------------------------------------------------
+    # Window setup
+    # ---------------------------------------------------------
     screen_width = 896
     screen_height = 576
     screen = pygame.display.set_mode((screen_width, screen_height))
@@ -136,101 +46,88 @@ def main():
     debug_walls_enabled = False
 
     # ---------------------------------------------------------
-    # Pokédex subsystem setup
+    # Pokédex setup
     # ---------------------------------------------------------
     pokedex_controller = PokemonController()
     pokedex_view = PokemonView(pokedex_controller)
 
     # ---------------------------------------------------------
-    # Game state
+    # Battle setup
     # ---------------------------------------------------------
-    game_state = "overworld"
+    battle_background = load_battle_background(7)
 
+    # ---------------------------------------------------------
+    # State Manager + State Registration
+    # ---------------------------------------------------------
+    state_manager = StateManager()
+
+    state_manager.register(
+        "overworld",
+        OverworldState(
+            map_obj,
+            player,
+            screen_width,
+            screen_height,
+            debug_walls_enabled
+        )
+    )
+
+    state_manager.register(
+        "pokedex",
+        PokedexState(
+            pokedex_controller,
+            pokedex_view
+        )
+    )
+
+    state_manager.register(
+        "battle",
+        BattleState(
+            battle_background
+        )
+    )
+
+    # Start in overworld
+    state_manager.change("overworld")
+
+    # ---------------------------------------------------------
+    # Main Loop
+    # ---------------------------------------------------------
     running = True
     while running:
 
-        # ---------------------------------------------------------
-        # Event handling
-        # ---------------------------------------------------------
+        # -----------------------------
+        # Event Handling
+        # -----------------------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-            # ---------------------------------------------------------
-            # GLOBAL STATE TOGGLES
-            # ---------------------------------------------------------
-
+            # Global state toggles
             if event.type == pygame.KEYDOWN:
 
-                # --- Toggle Pokédex ---
+                # Toggle Pokédex
                 if event.key == pygame.K_p:
-                    if game_state != "pokedex":
-                        game_state = "pokedex"
+                    if state_manager.current is not state_manager.states["pokedex"]:
+                        state_manager.change("pokedex")
                     else:
-                        game_state = "overworld"
+                        state_manager.change("overworld")
 
-                # --- Toggle Battle ---
+                # Toggle Battle
                 elif event.key == pygame.K_b:
-                    if game_state != "battle":
-                        battle_background = load_battle_background(7)
-                        game_state = "battle"
+                    if state_manager.current is not state_manager.states["battle"]:
+                        state_manager.change("battle")
                     else:
-                        game_state = "overworld"
+                        state_manager.change("overworld")
 
+            # Pass event to active state
+            state_manager.handle_event(event)
 
-
-
-            # State-specific event handling
-            if game_state == "pokedex":
-                # 1. Navigation first
-                from data.smt.pokedex.ui_navigation import handle_navigation
-                handle_navigation(event, pokedex_controller, pokedex_view)
-
-                # 2. Then text input / clicks
-                pokedex_view.handle_event(event, pokedex_controller)
-
-        # ---------------------------------------------------------
-        # UPDATE LOGIC
-        # ---------------------------------------------------------
-        if game_state == "overworld":
-            if game_state == "overworld":
-                keys = pygame.key.get_pressed()
-                dx, dy, direction, moving = player.handle_input(keys)
-                player.direction = direction
-            else:
-                dx = dy = 0
-
-            dx, dy = test_movement(map_obj, player, dx, dy)
-            player.update(dx, dy, direction, moving)
-
-            warp = map_obj.check_warp(player.x, player.y, player.width, player.height)
-            if warp is not None:
-                map_obj = Map(warp["to_room"], screen_width, screen_height)
-                player.x = warp["dest_x"]
-                player.y = warp["dest_y"]
-                if warp.get("dest_facing") is not None:
-                    player.direction = warp["dest_facing"]
-
-            update_camera(map_obj, player, screen_width, screen_height)
-        elif game_state == "battle":
-            # No update logic yet — placeholder for future battle system
-            pass
-
-
-        # ---------------------------------------------------------
-        # DRAWING
-        # ---------------------------------------------------------
-        screen.fill((0, 0, 0))
-
-        if game_state == "overworld":
-            map_obj.draw(screen, debug_walls_enabled)
-            player.draw(screen, map_obj.camera_x, map_obj.camera_y)
-
-        elif game_state == "pokedex":
-            pokedex_view.draw(screen)
-
-        elif game_state == "battle":
-            screen.blit(battle_background, (0, 0))
+        # -----------------------------
+        # Update + Draw
+        # -----------------------------
+        state_manager.update()
+        state_manager.draw(screen)
 
         pygame.display.flip()
         clock.tick(TARGET_FPS)
