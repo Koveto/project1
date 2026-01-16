@@ -161,18 +161,32 @@ def main():
                     game_state = "pokedex"
                 elif game_state == "pokedex":
                     game_state = "overworld"
+            # Toggle Battle
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_b:
+                if game_state == "overworld":
+                    game_state = "battle"
+                elif game_state == "battle":
+                    game_state = "overworld"
 
             # State-specific event handling
             if game_state == "pokedex":
+                # 1. Navigation first
+                from data.smt.pokedex.ui_navigation import handle_navigation
+                handle_navigation(event, pokedex_controller, pokedex_view)
+
+                # 2. Then text input / clicks
                 pokedex_view.handle_event(event, pokedex_controller)
 
         # ---------------------------------------------------------
         # UPDATE LOGIC
         # ---------------------------------------------------------
         if game_state == "overworld":
-            keys = pygame.key.get_pressed()
-            dx, dy, direction, moving = player.handle_input(keys)
-            player.direction = direction
+            if game_state == "overworld":
+                keys = pygame.key.get_pressed()
+                dx, dy, direction, moving = player.handle_input(keys)
+                player.direction = direction
+            else:
+                dx = dy = 0
 
             dx, dy = test_movement(map_obj, player, dx, dy)
             player.update(dx, dy, direction, moving)
@@ -186,6 +200,10 @@ def main():
                     player.direction = warp["dest_facing"]
 
             update_camera(map_obj, player, screen_width, screen_height)
+        elif game_state == "battle":
+            # No update logic yet — placeholder for future battle system
+            pass
+
 
         # ---------------------------------------------------------
         # DRAWING
@@ -198,6 +216,11 @@ def main():
 
         elif game_state == "pokedex":
             pokedex_view.draw(screen)
+
+        elif game_state == "battle":
+            # For now, just draw a blank screen (dark gray)
+            screen.fill((40, 40, 40))
+
 
         pygame.display.flip()
         clock.tick(TARGET_FPS)
