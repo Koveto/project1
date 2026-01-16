@@ -3,13 +3,13 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(ROOT)
 
 import pygame
-from ui_layout import (
+from .ui_layout import (
     SPRITE_X, SPRITE_Y,
     PANEL_X, PANEL_Y, PANEL_WIDTH,
     FONT_PATH, FONT_SIZE_TITLE, FONT_SIZE_TEXT,
     COLOR_TEXT
 )
-from pokemon_sprites import load_pokemon_sprite
+from .pokemon_sprites import load_pokemon_sprite
 
 
 # ---------------------------------------------------------

@@ -3,16 +3,14 @@ from constants import TARGET_FPS, SPEED, ACTUAL_WIDTH, ACTUAL_HEIGHT, ACTUAL_TIL
 from player import Player
 from map import Map
 
+# Import Pokédex subsystem using your real folder structure
+from data.smt.pokedex.pokemon_controller import PokemonController
+from data.smt.pokedex.pokemon_view import PokemonView
+
 
 def test_collision_screen_bounds(map_obj, player, new_x, new_y):
-    """
-    Pygame version of Tkinter's screen-bound collision.
-    Matches your Tkinter logic exactly.
-    """
-
     w, h = player.width, player.height
 
-    # Non-scrolling maps: clamp to screen
     if not map_obj.scrolling:
         if new_x < 0 or new_y < 0:
             return True
@@ -22,7 +20,6 @@ def test_collision_screen_bounds(map_obj, player, new_x, new_y):
             return True
         return False
 
-    # Scrolling maps: clamp to MAP edges
     if new_x < 0 or new_y < 0:
         return True
     if new_x + w > map_obj.pixel_width:
@@ -34,14 +31,9 @@ def test_collision_screen_bounds(map_obj, player, new_x, new_y):
 
 
 def test_movement(map_obj, player, dx, dy):
-    """
-    Direct port of Tkinter Game.test_movement().
-    """
-
     px, py = player.x, player.y
     w, h = player.width, player.height
 
-    # --- 1. Try full movement ---------------------------------
     nx, ny = px + dx, py + dy
     if not (
         test_collision_screen_bounds(map_obj, player, nx, ny)
@@ -49,7 +41,6 @@ def test_movement(map_obj, player, dx, dy):
     ):
         return dx, dy
 
-    # --- 2. Try X-only -----------------------------------------
     allowed_dx = 0
     if dx != 0:
         nx = px + dx
@@ -59,7 +50,6 @@ def test_movement(map_obj, player, dx, dy):
         ):
             allowed_dx = dx
 
-    # --- 3. Try Y-only -----------------------------------------
     allowed_dy = 0
     if dy != 0:
         ny = py + dy
@@ -69,7 +59,6 @@ def test_movement(map_obj, player, dx, dy):
         ):
             allowed_dy = dy
 
-    # --- 4. Horizontal blocked → try sliding DOWN a diagonal ---
     if allowed_dx == 0 and dx != 0 and dy >= 0:
         slide_dy = SPEED
         nx, ny = px + dx, py + slide_dy
@@ -81,7 +70,6 @@ def test_movement(map_obj, player, dx, dy):
             allowed_dx = dx
             allowed_dy = slide_dy
 
-    # --- 5. Vertical blocked → try sliding UP a diagonal -------
     if allowed_dy == 0 and dy < 0 and allowed_dx == 0:
         for wx, wy, length, orient in map_obj.walls:
 
@@ -106,10 +94,6 @@ def test_movement(map_obj, player, dx, dy):
 
 
 def update_camera(map_obj, player, screen_width, screen_height):
-    """
-    Pygame version of Tkinter's update_camera().
-    """
-
     if not map_obj.scrolling:
         map_obj.camera_x = 0
         map_obj.camera_y = 0
@@ -121,7 +105,6 @@ def update_camera(map_obj, player, screen_width, screen_height):
     cx = player.x - half_w
     cy = player.y - half_h
 
-    # Clamp camera to map bounds
     max_x = map_obj.pixel_width - screen_width
     max_y = map_obj.pixel_height - screen_height
 
@@ -139,10 +122,11 @@ def main():
 
     clock = pygame.time.Clock()
 
-    # Load map
+    # ---------------------------------------------------------
+    # Overworld setup
+    # ---------------------------------------------------------
     map_obj = Map("room0", screen_width, screen_height)
 
-    # Create player at a starting world position
     player = Player(
         x=5 * ACTUAL_TILE_SIZE,
         y=5 * ACTUAL_TILE_SIZE
@@ -150,69 +134,72 @@ def main():
 
     debug_walls_enabled = False
 
+    # ---------------------------------------------------------
+    # Pokédex subsystem setup
+    # ---------------------------------------------------------
+    pokedex_controller = PokemonController()
+    pokedex_view = PokemonView(pokedex_controller)
+
+    # ---------------------------------------------------------
+    # Game state
+    # ---------------------------------------------------------
+    game_state = "overworld"
+
     running = True
     while running:
+
         # ---------------------------------------------------------
         # Event handling
         # ---------------------------------------------------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_p:
-                    debug_walls_enabled = not debug_walls_enabled
+
+            # Toggle Pokédex
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+                if game_state == "overworld":
+                    game_state = "pokedex"
+                elif game_state == "pokedex":
+                    game_state = "overworld"
+
+            # State-specific event handling
+            if game_state == "pokedex":
+                pokedex_view.handle_event(event, pokedex_controller)
 
         # ---------------------------------------------------------
-        # Input (Tkinter-style priority)
+        # UPDATE LOGIC
         # ---------------------------------------------------------
-        keys = pygame.key.get_pressed()
-        dx, dy, direction, moving = player.handle_input(keys)
-        player.direction = direction
+        if game_state == "overworld":
+            keys = pygame.key.get_pressed()
+            dx, dy, direction, moving = player.handle_input(keys)
+            player.direction = direction
 
-        # ---------------------------------------------------------
-        # Update player (movement + animation)
-        # ---------------------------------------------------------
-        # 1. resolve movement first
-        dx, dy = test_movement(map_obj, player, dx, dy)
+            dx, dy = test_movement(map_obj, player, dx, dy)
+            player.update(dx, dy, direction, moving)
 
-        # 2. THEN update player position + animation
-        player.update(dx, dy, direction, moving)
+            warp = map_obj.check_warp(player.x, player.y, player.width, player.height)
+            if warp is not None:
+                map_obj = Map(warp["to_room"], screen_width, screen_height)
+                player.x = warp["dest_x"]
+                player.y = warp["dest_y"]
+                if warp.get("dest_facing") is not None:
+                    player.direction = warp["dest_facing"]
 
-        # 2.5. Check warps after movement
-        warp = map_obj.check_warp(player.x, player.y, player.width, player.height)
-        if warp is not None:
-            # Load new map
-            map_obj = Map(warp["to_room"], screen_width, screen_height)
-
-            # Place player
-            player.x = warp["dest_x"]
-            player.y = warp["dest_y"]
-            if warp.get("dest_facing") is not None:
-                player.direction = warp["dest_facing"]
-
+            update_camera(map_obj, player, screen_width, screen_height)
 
         # ---------------------------------------------------------
-        # Camera update
-        # ---------------------------------------------------------
-        update_camera(map_obj, player, screen_width, screen_height)
-
-        # ---------------------------------------------------------
-        # Drawing
+        # DRAWING
         # ---------------------------------------------------------
         screen.fill((0, 0, 0))
 
-        # Draw map tiles
-        map_obj.draw(screen, debug_walls_enabled)
+        if game_state == "overworld":
+            map_obj.draw(screen, debug_walls_enabled)
+            player.draw(screen, map_obj.camera_x, map_obj.camera_y)
 
-        # Draw player relative to camera
-        player.draw(screen, map_obj.camera_x, map_obj.camera_y)
+        elif game_state == "pokedex":
+            pokedex_view.draw(screen)
 
         pygame.display.flip()
-
-        # ---------------------------------------------------------
-        # Frame timing (fixed 30 FPS)
-        # ---------------------------------------------------------
         clock.tick(TARGET_FPS)
 
     pygame.quit()
