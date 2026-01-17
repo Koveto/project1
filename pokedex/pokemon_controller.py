@@ -24,7 +24,7 @@ class PokemonController:
         self.max_pokemon = len(self.pokemon_list)
 
         # Sort by Pokédex number
-        self.pokemon_list.sort(key=lambda p: p.number)
+        self.pokemon_list.sort(key=lambda p: p.pokedex_number)
 
         # Current index (0-based)
         self.index = 0
@@ -111,7 +111,7 @@ class PokemonController:
         self.index = 0
 
     def sort_by_number(self):
-        self.pokemon_list.sort(key=lambda p: p.number)
+        self.pokemon_list.sort(key=lambda p: p.pokedex_number)
         self.index = 0
 
     def sort_by_stat(self, stat_name):

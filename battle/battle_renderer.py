@@ -14,8 +14,11 @@ class BattleRenderer:
     def __init__(self, background_surface, model):
         self.background = background_surface
         self.model = model
-        self.font = BattleFont()
+        self.font0 = BattleFont("font3.png", glyph_w=7, glyph_h=13, scale=4, spacing=28)
+        self.font1 = BattleFont("font5.png", glyph_w=7, glyph_h=13, scale=3, spacing=16)
         self.cursor_sprite = self.load_cursor_sprite()
+        self.hpmp_sprite = self.load_hpmp_sprite()
+        self.lv_sprite = self.load_lv_sprite(scale=3)
 
         # Preload sprites for player team (None → None)
         self.player_sprites = [
@@ -36,9 +39,9 @@ class BattleRenderer:
         self.PLAYER_Y = 192
         self.PLAYER_SPACING = 150
 
-        self.ENEMY_BASE_X = 148
+        self.ENEMY_BASE_X = 300
         self.ENEMY_Y = 0
-        self.ENEMY_SPACING = 182
+        self.ENEMY_SPACING = 152
 
         self.PLAYER_OFFSET = 50  # player character offset
 
@@ -50,6 +53,7 @@ class BattleRenderer:
             (65, 573),   # Change
             (316, 573),  # Escape
             (536, 573),  # Pass
+            (765, 573)   # Info
         ]
 
     # ---------------------------------------------------------
@@ -93,6 +97,31 @@ class BattleRenderer:
         w, h = img.get_size()
         img = pygame.transform.scale(img, (w * scale, h * scale))
         return img
+    
+    def load_hpmp_sprite(self, scale=4):
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        path = os.path.join(root, "sprites", "hpmp.png")
+
+        img = pygame.image.load(path).convert()
+
+        # FF00E4 → transparent
+        img.set_colorkey((255, 0, 228))
+
+        w, h = img.get_size()
+        img = pygame.transform.scale(img, (w * scale, h * scale))
+
+        return img
+
+    def load_lv_sprite(self, scale=4):
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        path = os.path.join(root, "sprites", "lv.png")
+
+        img = pygame.image.load(path).convert()   # no alpha → convert()
+
+        w, h = img.get_size()
+        img = pygame.transform.scale(img, (w * scale, h * scale))
+
+        return img
 
     
     def load_battle_frame(self, scale=4):
@@ -125,7 +154,11 @@ class BattleRenderer:
     # Drawing
     # ---------------------------------------------------------
 
-    def draw(self, screen, menu_index):
+    def draw(self, screen, menu_index, menu_mode, previous_menu_index):
+        
+        # Get active Pokémon
+        p = self.model.get_active_player_pokemon()
+        
         screen.blit(self.battleframe, (0, 448))
 
         # Background
@@ -161,11 +194,44 @@ class BattleRenderer:
             screen.blit(sprite, (x, y))
 
     
-        self.font.draw_text(screen, "What will Brendan do?", 40, 470)
-        self.font.draw_text(screen, "  Skills   Item    Guard   Talk", 40, 517)
-        self.font.draw_text(screen, "  Change   Escape  Pass", 40, 565)
+        if menu_mode == "main":
+            # Original menu
+            self.font0.draw_text(screen, f"What will {p.name} do?", 40, 470)
+            self.font0.draw_text(screen, "  Skills   Item    Guard   Talk", 40, 517)
+            self.font0.draw_text(screen, "  Change   Escape  Pass    Info", 40, 565)
 
-        # Draw cursor next to selected option
-        cursor_x, cursor_y = self.menu_positions[menu_index]
-        screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+            # Draw cursor
+            cursor_x, cursor_y = self.menu_positions[menu_index]
+            screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+        else:
+            # SUBMENU MODE — dummy text based on selection
+            dummy_texts = [
+                "Skills submenu placeholder",
+                "Item submenu placeholder",
+                "Guard submenu placeholder",
+                "Talk submenu placeholder",
+                "Change submenu placeholder",
+                "Escape submenu placeholder",
+                "Pass submenu placeholder",
+                "Info submenu placeholder"
+            ]
+
+            msg = dummy_texts[previous_menu_index]
+
+            self.font0.draw_text(screen, msg, 40, 470)
+            self.font0.draw_text(screen, "(Press X to return)", 40, 517)
+
+        # --- Bottom-right player info box ---
+        screen.blit(self.hpmp_sprite, (672, 328))
+        self.font1.draw_text(screen, p.name, 692, 342)
+        screen.blit(self.lv_sprite, (877, 351))
+        self.font1.draw_text(screen, str(p.level), 902, 342)
+
+        # --- Top-left player info box ---
+        screen.blit(self.hpmp_sprite, (0, 0))
+        self.font1.draw_text(screen, p.name, 20, 14)
+        screen.blit(self.lv_sprite, (205, 23))
+        self.font1.draw_text(screen, str(p.level), 230, 14)
+
+
 

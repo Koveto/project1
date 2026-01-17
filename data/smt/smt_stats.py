@@ -1,6 +1,10 @@
+# data/smt/smt_stats.py
+
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Dict
+
+from pokedex.pokemon import Pokemon
 
 
 # ---------------------------------------------------------
@@ -34,44 +38,33 @@ class SMTStats:
         )
 
 
-@dataclass
-class SMTPokemon:
-    number: int
-    name: str
-    bst: int
-    level: int          # <-- ADD THIS
-    affinities: List[int]
-    stats: SMTStats
-    moves: List[Move] = field(default_factory=list)
-
-
-    @classmethod
-    def from_dict(cls, data: Dict):
-        stats = SMTStats.from_dict(data["stats"])
-        moves = [Move(m["level"], m["move"]) for m in data.get("moves", [])]
-
-        return cls(
-            number=data["no"],
-            name=data["name"],
-            bst=data["bst"],
-            level=data.get("level", 1),   # default to 1 if missing
-            affinities=data["affinities"],
-            stats=stats,
-            moves=moves
-        )
-
-
-    def __str__(self):
-        return f"{self.number}: {self.name} | Affinities {self.affinities}"
-
-
 # ---------------------------------------------------------
-# Loader function
+# Loader
 # ---------------------------------------------------------
 
-def load_smt_from_json(path: str) -> List[SMTPokemon]:
-    """Load all SMT-style Pokémon entries from smt_stats.json."""
+def load_smt_from_json(path: str) -> List[Pokemon]:
+    """Load Pokémon from SMT-style JSON and return real Pokemon objects."""
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    return [SMTPokemon.from_dict(entry) for entry in data["pokemon"]]
+    result = []
+
+    for entry in data["pokemon"]:
+        stats = SMTStats.from_dict(entry["stats"])
+        moves = [Move(m["level"], m["move"]) for m in entry.get("moves", [])]
+
+        p = Pokemon(
+            pokedex_number=entry["no"],
+            name=entry["name"],
+            level=entry.get("level", 1),
+            stats=stats,
+            affinities=entry["affinities"],
+            moves=moves
+        )
+
+        result.append(p)
+
+    return result
+
+def get_smt_pokemon_by_number(smt_list, number):
+    return next((p for p in smt_list if p.pokedex_number == number), None)

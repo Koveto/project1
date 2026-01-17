@@ -17,3 +17,18 @@ class BattleModel:
 
     def update(self):
         pass
+
+    def get_active_player_pokemon(self):
+        # Always return the special player Pokémon (-1)
+        for p in self.player_team:
+            if p.pokedex_number == -1:
+                return p
+
+        # Fallback: first real Pokémon
+        for p in self.player_team:
+            if p.pokedex_number != -1:
+                return p
+
+        return None
+
+
