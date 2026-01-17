@@ -1,6 +1,6 @@
 # battle/battle_renderer.py
 
-import pygame, os
+import pygame, os, math
 from battle.battle_font import BattleFont
 from pokedex.pokemon_sprites import load_pokemon_sprite, load_player_sprite
 
@@ -55,6 +55,8 @@ class BattleRenderer:
             (536, 573),  # Pass
             (765, 573)   # Info
         ]
+
+        self.anim_frame = 0
 
     # ---------------------------------------------------------
     # Sprite loading
@@ -155,56 +157,91 @@ class BattleRenderer:
     # ---------------------------------------------------------
 
     def draw(self, screen, menu_index, menu_mode, previous_menu_index):
-        
-        # Get active Pokémon
-        p = self.model.get_active_player_pokemon()
-        
-        screen.blit(self.battleframe, (0, 448))
 
-        # Background
+        # ---------------------------------------------------------
+        # Active Pokémon based on turn_index
+        # ---------------------------------------------------------
+        active_index = self.model.turn_index
+        active_pokemon = self.model.player_team[active_index]
+
+        self.anim_frame += 1
+
+        AMP = 4
+        SPEED = 0.18
+
+        poke_offset = int(AMP * math.sin(self.anim_frame * SPEED))
+        hp_offset = int(-AMP * math.sin(self.anim_frame * SPEED + 0.6))
+
+        # ---------------------------------------------------------
+        # Background + battleframe
+        # ---------------------------------------------------------
         screen.blit(self.background, (0, 0))
 
-        # Enemy Pokémon
+        # ---------------------------------------------------------
+        # Enemy Pokémon (no HP/MP box for now)
+        # ---------------------------------------------------------
         for i, sprite in enumerate(self.enemy_sprites):
             if sprite is None:
-                continue  # skip empty slots
+                continue
 
             x = self.ENEMY_BASE_X + i * self.ENEMY_SPACING
             screen.blit(sprite, (x, self.ENEMY_Y))
 
+        # ---------------------------------------------------------
         # Player-side sprites (Pokémon + player)
+        # ---------------------------------------------------------
         for i, sprite in enumerate(self.player_sprites):
             if sprite is None:
-                continue  # skip empty slots
+                continue
 
             pokemon = self.model.player_team[i]
 
-            # Base slot = index
             slot = i
             x = self.PLAYER_BASE_X + slot * self.PLAYER_SPACING
 
             if pokemon.is_player:
-                # Player special-case drawing
+                # Player sprite base position
                 x += self.PLAYER_OFFSET
-                y = self.PLAYER_Y + 48
+                y = self.PLAYER_Y + 64
             else:
-                # Normal Pokémon
+                # Normal Pokémon base position
                 y = self.PLAYER_Y
+
+            # Apply bounce to the active party member (including Brendan if index 0)
+            if i == active_index:
+                y += poke_offset
 
             screen.blit(sprite, (x, y))
 
-    
+        
+        # ---------------------------------------------------------
+        # HP/MP
+        # ---------------------------------------------------------
+        """
+        screen.blit(self.hpmp_sprite, (0, 0))
+        self.font1.draw_text(screen, p.name, 20, 14)
+        screen.blit(self.lv_sprite, (205, 23))
+        self.font1.draw_text(screen, str(p.level), 230, 14)
+        """
+        hpmp_y = 328 + hp_offset
+        screen.blit(self.hpmp_sprite, (672, hpmp_y))
+        self.font1.draw_text(screen, active_pokemon.name, 692, hpmp_y + 14)
+        screen.blit(self.lv_sprite, (877, hpmp_y + 23))
+        self.font1.draw_text(screen, str(active_pokemon.level), 902, hpmp_y + 14)
+        
+        screen.blit(self.battleframe, (0, 448))
+
+        # ---------------------------------------------------------
+        # Menu text
+        # ---------------------------------------------------------
         if menu_mode == "main":
-            # Original menu
-            self.font0.draw_text(screen, f"What will {p.name} do?", 40, 470)
+            self.font0.draw_text(screen, f"What will {active_pokemon.name} do?", 40, 470)
             self.font0.draw_text(screen, "  Skills   Item    Guard   Talk", 40, 517)
             self.font0.draw_text(screen, "  Change   Escape  Pass    Info", 40, 565)
 
-            # Draw cursor
             cursor_x, cursor_y = self.menu_positions[menu_index]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
         else:
-            # SUBMENU MODE — dummy text based on selection
             dummy_texts = [
                 "Skills submenu placeholder",
                 "Item submenu placeholder",
@@ -217,21 +254,5 @@ class BattleRenderer:
             ]
 
             msg = dummy_texts[previous_menu_index]
-
             self.font0.draw_text(screen, msg, 40, 470)
             self.font0.draw_text(screen, "(Press X to return)", 40, 517)
-
-        # --- Bottom-right player info box ---
-        screen.blit(self.hpmp_sprite, (672, 328))
-        self.font1.draw_text(screen, p.name, 692, 342)
-        screen.blit(self.lv_sprite, (877, 351))
-        self.font1.draw_text(screen, str(p.level), 902, 342)
-
-        # --- Top-left player info box ---
-        screen.blit(self.hpmp_sprite, (0, 0))
-        self.font1.draw_text(screen, p.name, 20, 14)
-        screen.blit(self.lv_sprite, (205, 23))
-        self.font1.draw_text(screen, str(p.level), 230, 14)
-
-
-

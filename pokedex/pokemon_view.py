@@ -139,7 +139,7 @@ class PokemonView:
     # Sprite loading
     # ---------------------------------------------------------
     def get_sprite(self, pokemon, is_shiny=False):
-        number = pokemon.number
+        number = pokemon.pokedex_number
 
         # Determine generation and starting index
         if number <= 151:
@@ -240,7 +240,7 @@ class PokemonView:
         x = PANEL_X
         y = PANEL_Y
 
-        name_line = f"#{pokemon.number}  {pokemon.name}"
+        name_line = f"#{pokemon.pokedex_number}  {pokemon.name}"
         y = self.draw_text(screen, name_line, x, y, self.font_title)
 
         # Base Stat Total

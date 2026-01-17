@@ -59,7 +59,8 @@ def load_smt_from_json(path: str) -> List[Pokemon]:
             level=entry.get("level", 1),
             stats=stats,
             affinities=entry["affinities"],
-            moves=moves
+            moves=moves,
+            bst=entry["bst"]
         )
 
         result.append(p)

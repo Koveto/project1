@@ -10,7 +10,8 @@ class Pokemon:
         level=1,
         stats=None,
         affinities=None,
-        moves=None
+        moves=None,
+        bst=None
     ):
         self.pokedex_number = pokedex_number
         self.gen = gen
@@ -22,6 +23,7 @@ class Pokemon:
         self.stats = stats
         self.affinities = affinities or []
         self.moves = moves or []
+        self.bst = bst
 
     @property
     def is_player(self):
