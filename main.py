@@ -26,8 +26,8 @@ def main():
     # ---------------------------------------------------------
     # Window setup
     # ---------------------------------------------------------
-    screen_width = 896
-    screen_height = 576
+    screen_width = 960
+    screen_height = 640
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("PyPokemon (Pygame)")
 

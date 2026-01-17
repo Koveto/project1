@@ -2,57 +2,81 @@
 
 import pygame
 from state.state_manager import GameState
-
+from battle.battle_model import BattleModel
+from battle.battle_renderer import BattleRenderer
+from pokedex.pokemon import Pokemon
 
 class BattleState(GameState):
-    """
-    Simple battle state that displays a background.
-    Future expansion: UI, enemy sprites, menus, animations.
-    """
 
     def __init__(self, background_surface):
-        """
-        background_surface: a pygame.Surface returned by load_battle_background()
-        """
-        self.background = background_surface
+        player_team = [
+            Pokemon(-1),    # Player
+            Pokemon(34),    # Nidoking
+            Pokemon(115),   # Kangaskhan
+            Pokemon(6)      # Charizard
+        ]
 
-    # ---------------------------------------------------------
-    # State lifecycle
-    # ---------------------------------------------------------
-    def enter(self):
-        """Called when entering the battle state."""
-        pass
+        enemy_team = [
+            Pokemon(9),     # Blastoise
+            Pokemon(3),     # Venusaur
+            Pokemon(150),   # Mewtwo
+            Pokemon(12)     # Butterfree
+        ]
 
-    def exit(self):
-        """Called when leaving the battle state."""
-        pass
+        self.model = BattleModel(player_team, enemy_team)
+        self.renderer = BattleRenderer(background_surface, self.model)
 
-    # ---------------------------------------------------------
-    # Event handling
-    # ---------------------------------------------------------
+        self.menu_index = 0
+
     def handle_event(self, event):
-        """
-        Battle currently has no interactive UI.
-        Future: menu navigation, attack selection, etc.
-        """
-        pass
+        if event.type == pygame.KEYDOWN:
 
-    # ---------------------------------------------------------
-    # Update logic
-    # ---------------------------------------------------------
-    def update(self):
-        """
-        No battle logic yet.
-        Future: animations, turn system, enemy AI.
-        """
-        pass
+            # -------------------------
+            # RIGHT
+            # -------------------------
+            if event.key == pygame.K_RIGHT:
+                if 0 <= self.menu_index <= 2:
+                    self.menu_index += 1
+                elif self.menu_index == 3:
+                    self.menu_index = 0
+                elif 4 <= self.menu_index <= 6:
+                    # cycle among 4,5,6
+                    self.menu_index = 4 + ((self.menu_index - 4 + 1) % 3)
 
-    # ---------------------------------------------------------
-    # Drawing
-    # ---------------------------------------------------------
+            # -------------------------
+            # LEFT
+            # -------------------------
+            elif event.key == pygame.K_LEFT:
+                if 1 <= self.menu_index <= 3:
+                    self.menu_index -= 1
+                elif self.menu_index == 0:
+                    self.menu_index = 3
+                elif 4 <= self.menu_index <= 6:
+                    # cycle among 4,5,6
+                    self.menu_index = 4 + ((self.menu_index - 4 - 1) % 3)
+
+            # -------------------------
+            # DOWN
+            # -------------------------
+            elif event.key == pygame.K_DOWN:
+                if self.menu_index in (0, 1, 2):
+                    self.menu_index += 4
+                elif self.menu_index in (4, 5, 6):
+                    self.menu_index -= 4
+                # index 3 does nothing
+
+            # -------------------------
+            # UP
+            # -------------------------
+            elif event.key == pygame.K_UP:
+                if self.menu_index in (4, 5, 6):
+                    self.menu_index -= 4
+                elif self.menu_index in (0, 1, 2):
+                    self.menu_index += 4
+                # index 3 does nothing
+
+
+
     def draw(self, screen):
-        """
-        Draw the battle background.
-        """
-        screen.fill((0, 0, 0))
-        screen.blit(self.background, (0, 0))
+        self.renderer.draw(screen, self.menu_index)
+

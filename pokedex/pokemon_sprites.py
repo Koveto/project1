@@ -11,6 +11,10 @@ ALPHA_KEY = (165, 235, 255)  # A5EBFF transparency key
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SPRITE_DIR = os.path.join(ROOT, "sprites")
 
+PLAYER_SPRITE_PATH = os.path.join(ROOT, "sprites", "player_battle.png")
+PLAYER_W = 48
+PLAYER_H = 52
+
 # Cache for loaded sheets
 _sheets = {}
 
@@ -95,3 +99,25 @@ def load_pokemon_sprite(gen, index, is_shiny=False, is_back=False, scale=1):
 
     # Convert to Pygame Surface
     return _pil_to_pygame(frame)
+
+def load_player_sprite(scale):
+    """
+    Loads the player's battle sprite from sprites/player_battle.png.
+    The sprite is 48x52 and uses ff00e4 as the transparent color key.
+    Returns a scaled pygame.Surface.
+    """
+
+    # Load raw image
+    img = pygame.image.load(PLAYER_SPRITE_PATH).convert()
+
+    # Apply color key transparency (ff00e4)
+    colorkey = (0xFF, 0x00, 0xE4)
+    img.set_colorkey(colorkey)
+
+    # Scale the sprite
+    scaled = pygame.transform.scale(
+        img,
+        (PLAYER_W * scale, PLAYER_H * scale)
+    )
+
+    return scaled
