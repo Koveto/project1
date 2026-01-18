@@ -12,6 +12,15 @@ FRAME_H = 48
 PT_X = 820
 PT_Y = 305
 PT_SPACING = 34
+HP_BAR_HEIGHT = 8
+MP_BAR_HEIGHT = 8
+HP_BAR_X = 748   # where the HP fill starts on screen
+HP_BAR_Y = 396
+HP_BAR_WIDTH = 192   # how wide the HP bar can be
+MP_BAR_X = 748
+MP_BAR_Y = 416
+MP_BAR_WIDTH = 192
+
 
 class BattleRenderer:
 
@@ -26,6 +35,16 @@ class BattleRenderer:
         sprite_path = lambda name: os.path.join(root, "sprites", name)
 
         # --- Universal sprite loading ---
+        self.hp_fill = load_scaled_sprite(
+            sprite_path("hpfill.png"), 
+            scale=4
+        )
+        
+        self.mp_fill = load_scaled_sprite(
+            sprite_path("mpfill.png"), 
+            scale=4
+        )
+
         self.cursor_sprite = load_scaled_sprite(
             sprite_path("cursor.png"),
             scale=4,
@@ -88,6 +107,7 @@ class BattleRenderer:
         ]
 
         self.anim_frame = 0
+
 
 
     # ---------------------------------------------------------
@@ -167,6 +187,39 @@ class BattleRenderer:
             if (self.anim_frame // 10) % 2 == 0:
                 screen.blit(self.press_turn_red, (x, y))
 
+    def draw_hp_bar(self, screen, pokemon, hp_offset):
+        if pokemon.max_hp <= 0:
+            return
+
+        ratio = pokemon.remaining_hp / pokemon.max_hp
+        ratio = max(0.0, min(1.0, ratio))
+
+        fill_width = int(HP_BAR_WIDTH * ratio)
+        if fill_width <= 0:
+            return
+
+        fill_surface = pygame.transform.scale(
+            self.hp_fill,
+            (fill_width, HP_BAR_HEIGHT)
+        )
+        screen.blit(fill_surface, (HP_BAR_X, HP_BAR_Y + hp_offset))
+
+    def draw_mp_bar(self, screen, pokemon, hp_offset):
+        if pokemon.max_mp <= 0:
+            return
+
+        ratio = pokemon.remaining_mp / pokemon.max_mp
+        ratio = max(0.0, min(1.0, ratio))
+
+        fill_width = int(MP_BAR_WIDTH * ratio)
+        if fill_width <= 0:
+            return
+
+        fill_surface = pygame.transform.scale(
+            self.mp_fill,
+            (fill_width, MP_BAR_HEIGHT)
+        )
+        screen.blit(fill_surface, (MP_BAR_X, MP_BAR_Y + hp_offset))
 
     def draw(self, screen, menu_index, menu_mode, previous_menu_index):
 
@@ -245,7 +298,8 @@ class BattleRenderer:
         self.font1.draw_text(screen, active_pokemon.name, 692, hpmp_y + 14)
         screen.blit(self.lv_sprite, (877, hpmp_y + 23))
         self.font1.draw_text(screen, str(active_pokemon.level), 902, hpmp_y + 14)
-        
+        self.draw_hp_bar(screen, active_pokemon, hp_offset)
+        self.draw_mp_bar(screen, active_pokemon, hp_offset)
         screen.blit(self.battleframe, (0, 448))
 
         # ---------------------------------------------------------
@@ -283,3 +337,4 @@ class BattleRenderer:
             msg = dummy_texts[previous_menu_index]
             self.font0.draw_text(screen, msg, 40, 470)
             self.font0.draw_text(screen, "(Press X to return)", 40, 517)
+

@@ -116,7 +116,7 @@ class PokemonController:
 
     def sort_by_stat(self, stat_name):
         self.pokemon_list.sort(
-            key=lambda p: getattr(p.stats, stat_name),
+            key=lambda p: p.base_stats.get(stat_name, 0),
             reverse=True
         )
         self.index = 0

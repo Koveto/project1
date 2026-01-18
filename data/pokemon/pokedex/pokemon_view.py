@@ -250,30 +250,30 @@ class PokemonView:
         # ⭐ Add Base Stat Total here
         y = self.draw_text(screen, f"BST: {pokemon.base_total}", x, y, self.font_text)
 
-        stats = pokemon.stats
+        stats = pokemon.base_stats
 
         # HP
-        y = self.draw_text(screen, f"HP: {stats.hp}", x, y, self.font_text)
+        y = self.draw_text(screen, f"HP: {base_stats.hp}", x, y, self.font_text)
         y = self.draw_stat_bar(screen, x + 120, y - 20, stats.hp)
 
         # Attack
-        y = self.draw_text(screen, f"ATK: {stats.atk}", x, y, self.font_text)
+        y = self.draw_text(screen, f"ATK: {base_stats.atk}", x, y, self.font_text)
         y = self.draw_stat_bar(screen, x + 120, y - 20, stats.atk)
 
         # Defense
-        y = self.draw_text(screen, f"DEF: {stats.defense}", x, y, self.font_text)
+        y = self.draw_text(screen, f"DEF: {base_stats.defense}", x, y, self.font_text)
         y = self.draw_stat_bar(screen, x + 120, y - 20, stats.defense)
 
         # Sp. Atk
-        y = self.draw_text(screen, f"SP.ATK: {stats.sp_atk}", x, y, self.font_text)
+        y = self.draw_text(screen, f"SP.ATK: {base_stats.sp_atk}", x, y, self.font_text)
         y = self.draw_stat_bar(screen, x + 120, y - 20, stats.sp_atk)
 
         # Sp. Def
-        y = self.draw_text(screen, f"SP.DEF: {stats.sp_def}", x, y, self.font_text)
+        y = self.draw_text(screen, f"SP.DEF: {base_stats.sp_def}", x, y, self.font_text)
         y = self.draw_stat_bar(screen, x + 120, y - 20, stats.sp_def)
 
         # Speed
-        y = self.draw_text(screen, f"SPEED: {stats.speed}", x, y, self.font_text)
+        y = self.draw_text(screen, f"SPEED: {base_stats.speed}", x, y, self.font_text)
         y = self.draw_stat_bar(screen, x + 120, y - 20, stats.speed)
 
 

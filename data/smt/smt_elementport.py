@@ -79,12 +79,12 @@ def main():
             "bst": p.base_total,
             "affinities": affinities,
             "stats": {
-                "HP": p.stats.hp,
-                "Atk": p.stats.atk,
-                "Def": p.stats.defense,
-                "SpAtk": p.stats.sp_atk,
-                "SpDef": p.stats.sp_def,
-                "Spd": p.stats.speed
+                "HP": p.base_stats.hp,
+                "Atk": p.base_stats.atk,
+                "Def": p.base_stats.defense,
+                "SpAtk": p.base_stats.sp_atk,
+                "SpDef": p.base_stats.sp_def,
+                "Spd": p.base_stats.speed
             },
             "moves": [
                 {"level": m.level, "move": m.move}

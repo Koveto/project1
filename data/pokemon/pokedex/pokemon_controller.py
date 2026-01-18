@@ -110,7 +110,7 @@ class PokemonController:
         return best_index
 
     def get_bst(self, pokemon):
-        return sum(pokemon.stats.values())
+        return sum(pokemon.base_stats.values())
     
     def sort_by_bst_ascending(self):
         self.pokemon_list.sort(key=lambda p: p.base_total)

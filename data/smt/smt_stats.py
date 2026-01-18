@@ -37,6 +37,17 @@ class SMTStats:
             speed=data["Spd"]
         )
 
+    def to_base_stat_dict(self):
+        """Convert SMTStats → dict format expected by Pokemon."""
+        return {
+            "hp": self.hp,
+            "atk": self.atk,
+            "def": self.defense,
+            "spatk": self.sp_atk,
+            "spdef": self.sp_def,
+            "spd": self.speed,
+        }
+
 
 # ---------------------------------------------------------
 # Loader
@@ -50,14 +61,16 @@ def load_smt_from_json(path: str) -> List[Pokemon]:
     result = []
 
     for entry in data["pokemon"]:
-        stats = SMTStats.from_dict(entry["stats"])
+        raw_stats = SMTStats.from_dict(entry["stats"])
+        stats_dict = raw_stats.to_base_stat_dict()
+
         moves = [Move(m["level"], m["move"]) for m in entry.get("moves", [])]
 
         p = Pokemon(
             pokedex_number=entry["no"],
             name=entry["name"],
             level=entry.get("level", 1),
-            stats=stats,
+            stats=stats_dict,              # <-- now a dict, not SMTStats
             affinities=entry["affinities"],
             moves=moves,
             bst=entry["bst"]
@@ -66,6 +79,7 @@ def load_smt_from_json(path: str) -> List[Pokemon]:
         result.append(p)
 
     return result
+
 
 def get_smt_pokemon_by_number(smt_list, number):
     return next((p for p in smt_list if p.pokedex_number == number), None)

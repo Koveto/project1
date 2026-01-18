@@ -249,49 +249,49 @@ class PokemonView:
         # Level (NEW)
         y = self.draw_text(screen, f"Level: {pokemon.level}", x, y, self.font_text)
 
-        stats = pokemon.stats
+        base_stats = pokemon.base_stats
 
         # HP
-        y = self.draw_text(screen, f"HP: {stats.hp}", x, y, self.font_text)
+        y = self.draw_text(screen, f"HP: {base_stats["hp"]}", x, y, self.font_text)
         bar_x = x + 120
         bar_y = y - 20
         self.stat_rects["hp"] = pygame.Rect(bar_x, bar_y, 260, 14)
-        y = self.draw_stat_bar(screen, bar_x, bar_y, stats.hp)
+        y = self.draw_stat_bar(screen, bar_x, bar_y, base_stats["hp"])
 
         # Attack
-        y = self.draw_text(screen, f"ATK: {stats.atk}", x, y, self.font_text)
+        y = self.draw_text(screen, f"ATK: {base_stats["atk"]}", x, y, self.font_text)
         bar_x = x + 120
         bar_y = y - 20
         self.stat_rects["atk"] = pygame.Rect(bar_x, bar_y, 260, 14)
-        y = self.draw_stat_bar(screen, bar_x, bar_y, stats.atk)
+        y = self.draw_stat_bar(screen, bar_x, bar_y, base_stats["atk"])
 
-        # Defense
-        y = self.draw_text(screen, f"DEF: {stats.defense}", x, y, self.font_text)
+        # def
+        y = self.draw_text(screen, f"DEF: {base_stats["def"]}", x, y, self.font_text)
         bar_x = x + 120
         bar_y = y - 20
-        self.stat_rects["defense"] = pygame.Rect(bar_x, bar_y, 260, 14)
-        y = self.draw_stat_bar(screen, bar_x, bar_y, stats.defense)
+        self.stat_rects["def"] = pygame.Rect(bar_x, bar_y, 260, 14)
+        y = self.draw_stat_bar(screen, bar_x, bar_y, base_stats["def"])
 
         # Sp. Atk
-        y = self.draw_text(screen, f"SP.ATK: {stats.sp_atk}", x, y, self.font_text)
+        y = self.draw_text(screen, f"SP.ATK: {base_stats["spatk"]}", x, y, self.font_text)
         bar_x = x + 120
         bar_y = y - 20
-        self.stat_rects["sp_atk"] = pygame.Rect(bar_x, bar_y, 260, 14)
-        y = self.draw_stat_bar(screen, bar_x, bar_y, stats.sp_atk)
+        self.stat_rects["spatk"] = pygame.Rect(bar_x, bar_y, 260, 14)
+        y = self.draw_stat_bar(screen, bar_x, bar_y, base_stats["spatk"])
 
         # Sp. Def
-        y = self.draw_text(screen, f"SP.DEF: {stats.sp_def}", x, y, self.font_text)
+        y = self.draw_text(screen, f"SP.DEF: {base_stats["spdef"]}", x, y, self.font_text)
         bar_x = x + 120
         bar_y = y - 20
-        self.stat_rects["sp_def"] = pygame.Rect(bar_x, bar_y, 260, 14)
-        y = self.draw_stat_bar(screen, bar_x, bar_y, stats.sp_def)
+        self.stat_rects["spdef"] = pygame.Rect(bar_x, bar_y, 260, 14)
+        y = self.draw_stat_bar(screen, bar_x, bar_y, base_stats["spdef"])
 
-        # Speed
-        y = self.draw_text(screen, f"SPEED: {stats.speed}", x, y, self.font_text)
+        # spd
+        y = self.draw_text(screen, f"SPD: {base_stats["spd"]}", x, y, self.font_text)
         bar_x = x + 120
         bar_y = y - 20
-        self.stat_rects["speed"] = pygame.Rect(bar_x, bar_y, 260, 14)
-        y = self.draw_stat_bar(screen, bar_x, bar_y, stats.speed)
+        self.stat_rects["spd"] = pygame.Rect(bar_x, bar_y, 260, 14)
+        y = self.draw_stat_bar(screen, bar_x, bar_y, base_stats["spd"])
 
 
         # -----------------------------

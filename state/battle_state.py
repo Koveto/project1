@@ -23,7 +23,7 @@ class BattleState(GameState):
             pokedex_number=-1,          # special player marker
             name="Brendan",             # override name
             level=bulbasaur_data.level,
-            stats=bulbasaur_data.stats,
+            stats=bulbasaur_data.base_stats,
             affinities=bulbasaur_data.affinities,
             moves=bulbasaur_data.moves
         )
