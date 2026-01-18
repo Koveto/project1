@@ -13,7 +13,7 @@
         "SpDef": 65,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle"},
         { "level": 1, "move": "Growl" },
         { "level": 3, "move": "Vine Whip" },
@@ -44,7 +44,7 @@
         "SpDef": 80,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Vine Whip" },
@@ -75,7 +75,7 @@
         "SpDef": 100,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Petal Blizzard" },
         { "level": 1, "move": "Petal Dance" },
         { "level": 1, "move": "Tackle" },
@@ -108,7 +108,7 @@
         "SpDef": 50,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Growl" },
         { "level": 4, "move": "Ember" },
@@ -136,7 +136,7 @@
         "SpDef": 65,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Ember" },
@@ -163,7 +163,7 @@
         "SpDef": 85,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Air Slash" },
         { "level": 1, "move": "Dragon Claw" },
         { "level": 1, "move": "Heat Wave" },
@@ -194,7 +194,7 @@
         "SpDef": 64,
         "Spd": 43
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 3, "move": "Water Gun" },
@@ -224,7 +224,7 @@
         "SpDef": 80,
         "Spd": 58
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 1, "move": "Water Gun" },
@@ -254,7 +254,7 @@
         "SpDef": 105,
         "Spd": 78
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Flash Cannon" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Tail Whip" },
@@ -285,7 +285,7 @@
         "SpDef": 20,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "String Shot" },
         { "level": 9, "move": "Bug Bite" }
@@ -304,7 +304,7 @@
         "SpDef": 25,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Harden" },
         { "level": 1, "move": "Harden" }
         ]
@@ -322,7 +322,7 @@
         "SpDef": 80,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Gust" },
         { "level": 1, "move": "Harden" },
         { "level": 1, "move": "Tackle" },
@@ -356,7 +356,7 @@
         "SpDef": 20,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "String Shot" }
         ]
@@ -374,7 +374,7 @@
         "SpDef": 25,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "String Shot" },
         { "level": 7, "move": "Harden" }
@@ -393,7 +393,7 @@
         "SpDef": 80,
         "Spd": 75
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Pin Missile" },
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "String Shot" },
@@ -421,7 +421,7 @@
         "SpDef": 35,
         "Spd": 56
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 9, "move": "Gust" },
@@ -449,7 +449,7 @@
         "SpDef": 50,
         "Spd": 71
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 9, "move": "Gust" },
@@ -477,7 +477,7 @@
         "SpDef": 70,
         "Spd": 101
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 9, "move": "Gust" },
@@ -505,7 +505,7 @@
         "SpDef": 35,
         "Spd": 72
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 4, "move": "Quick Attack" },
@@ -534,7 +534,7 @@
         "SpDef": 70,
         "Spd": 97
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Scary Face" },
         { "level": 1, "move": "Scary Face" },
         { "level": 1, "move": "Swords Dance" },
@@ -566,7 +566,7 @@
         "SpDef": 31,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Growl" },
         { "level": 4, "move": "Leer" },
@@ -594,7 +594,7 @@
         "SpDef": 61,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Drill Run" },
         { "level": 1, "move": "Pluck" },
         { "level": 1, "move": "Peck" },
@@ -626,7 +626,7 @@
         "SpDef": 54,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Wrap" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Poison Sting" },
@@ -659,7 +659,7 @@
         "SpDef": 79,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Crunch" },
         { "level": 1, "move": "Wrap" },
         { "level": 1, "move": "Leer" },
@@ -696,7 +696,7 @@
         "SpDef": 50,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Play Nice" },
         { "level": 1, "move": "Sweet Kiss" },
         { "level": 1, "move": "Nuzzle" },
@@ -732,7 +732,7 @@
         "SpDef": 80,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Thunder Punch" },
         { "level": 1, "move": "Play Nice" },
         { "level": 1, "move": "Sweet Kiss" },
@@ -769,7 +769,7 @@
         "SpDef": 30,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 3, "move": "Poison Sting" },
@@ -802,7 +802,7 @@
         "SpDef": 55,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Crush Claw" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Defense Curl" },
@@ -836,7 +836,7 @@
         "SpDef": 40,
         "Spd": 41
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Poison Sting" },
         { "level": 5, "move": "Scratch" },
@@ -865,7 +865,7 @@
         "SpDef": 55,
         "Spd": 56
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "Scratch" },
@@ -894,7 +894,7 @@
         "SpDef": 85,
         "Spd": 76
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Superpower" },
         { "level": 1, "move": "Superpower" },
         { "level": 1, "move": "Sludge Wave" },
@@ -926,7 +926,7 @@
         "SpDef": 40,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Poison Sting" },
         { "level": 5, "move": "Peck" },
@@ -955,7 +955,7 @@
         "SpDef": 55,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "Peck" },
@@ -984,7 +984,7 @@
         "SpDef": 75,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Megahorn" },
         { "level": 1, "move": "Megahorn" },
         { "level": 1, "move": "Sludge Wave" },
@@ -1016,7 +1016,7 @@
         "SpDef": 65,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sing" },
         { "level": 1, "move": "Sweet Kiss" },
         { "level": 1, "move": "Disarming Voice" },
@@ -1053,7 +1053,7 @@
         "SpDef": 90,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Metronome" },
         { "level": 1, "move": "Meteor Mash" },
         { "level": 1, "move": "Moonblast" },
@@ -1090,7 +1090,7 @@
         "SpDef": 65,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Ember" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 4, "move": "Disable" },
@@ -1121,7 +1121,7 @@
         "SpDef": 100,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Flamethrower" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 1, "move": "Quick Attack" },
@@ -1153,7 +1153,7 @@
         "SpDef": 25,
         "Spd": 20
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sweet Kiss" },
         { "level": 1, "move": "Disarming Voice" },
         { "level": 1, "move": "Disable" },
@@ -1189,7 +1189,7 @@
         "SpDef": 50,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sweet Kiss" },
         { "level": 1, "move": "Disarming Voice" },
         { "level": 1, "move": "Disable" },
@@ -1226,7 +1226,7 @@
         "SpDef": 40,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Supersonic" },
         { "level": 1, "move": "Absorb" },
         { "level": 5, "move": "Gust" },
@@ -1255,7 +1255,7 @@
         "SpDef": 75,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Supersonic" },
         { "level": 1, "move": "Absorb" },
         { "level": 1, "move": "Screech" },
@@ -1285,7 +1285,7 @@
         "SpDef": 65,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Absorb" },
         { "level": 1, "move": "Growth" },
         { "level": 4, "move": "Acid" },
@@ -1315,7 +1315,7 @@
         "SpDef": 75,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Absorb" },
         { "level": 1, "move": "Growth" },
         { "level": 1, "move": "Acid" },
@@ -1345,7 +1345,7 @@
         "SpDef": 90,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Petal Blizzard" },
         { "level": 1, "move": "Mega Drain" },
         { "level": 1, "move": "Poison Powder" },
@@ -1376,7 +1376,7 @@
         "SpDef": 55,
         "Spd": 25
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 6, "move": "Stun Spore" },
         { "level": 6, "move": "Poison Powder" },
@@ -1404,7 +1404,7 @@
         "SpDef": 80,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Cross Poison" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Stun Spore" },
@@ -1436,7 +1436,7 @@
         "SpDef": 55,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Disable" },
         { "level": 5, "move": "Supersonic" },
@@ -1465,7 +1465,7 @@
         "SpDef": 75,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Air Slash" },
         { "level": 1, "move": "Quiver Dance" },
         { "level": 1, "move": "Tackle" },
@@ -1496,7 +1496,7 @@
         "SpDef": 45,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sand Attack" },
         { "level": 1, "move": "Scratch" },
         { "level": 4, "move": "Growl" },
@@ -1525,7 +1525,7 @@
         "SpDef": 70,
         "Spd": 120
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Sand Tomb" },
         { "level": 1, "move": "Night Slash" },
         { "level": 1, "move": "Tri Attack" },
@@ -1557,7 +1557,7 @@
         "SpDef": 40,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fake Out" },
         { "level": 1, "move": "Growl" },
         { "level": 4, "move": "Feint" },
@@ -1586,7 +1586,7 @@
         "SpDef": 65,
         "Spd": 115
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Power Gem" },
         { "level": 1, "move": "Fake Out" },
         { "level": 1, "move": "Growl" },
@@ -1616,7 +1616,7 @@
         "SpDef": 50,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 3, "move": "Water Gun" },
@@ -1646,7 +1646,7 @@
         "SpDef": 80,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Aqua Jet" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Tail Whip" },
@@ -1678,7 +1678,7 @@
         "SpDef": 45,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Leer" },
@@ -1710,7 +1710,7 @@
         "SpDef": 70,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fling" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Leer" },
@@ -1743,7 +1743,7 @@
         "SpDef": 50,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Ember" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Howl" },
@@ -1775,7 +1775,7 @@
         "SpDef": 80,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Extreme Speed" },
         { "level": 1, "move": "Flame Wheel" },
         { "level": 1, "move": "Helping Hand" },
@@ -1808,7 +1808,7 @@
         "SpDef": 40,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Hypnosis" },
         { "level": 6, "move": "Pound" },
@@ -1835,7 +1835,7 @@
         "SpDef": 50,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Hypnosis" },
         { "level": 1, "move": "Pound" },
@@ -1862,7 +1862,7 @@
         "SpDef": 90,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Dynamic Punch" },
         { "level": 1, "move": "Bubble Beam" },
         { "level": 1, "move": "Body Slam" },
@@ -1891,7 +1891,7 @@
         "SpDef": 55,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Teleport" }
         ]
     },
@@ -1908,7 +1908,7 @@
         "SpDef": 70,
         "Spd": 105
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Confusion" },
         { "level": 1, "move": "Psybeam" },
         { "level": 1, "move": "Teleport" },
@@ -1935,7 +1935,7 @@
         "SpDef": 95,
         "Spd": 120
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Confusion" },
         { "level": 1, "move": "Psybeam" },
         { "level": 1, "move": "Teleport" },
@@ -1962,7 +1962,7 @@
         "SpDef": 35,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Rock Smash" },
         { "level": 7, "move": "Focus Energy" },
@@ -1991,7 +1991,7 @@
         "SpDef": 60,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Rock Smash" },
         { "level": 7, "move": "Focus Energy" },
@@ -2020,7 +2020,7 @@
         "SpDef": 85,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Rock Smash" },
         { "level": 7, "move": "Focus Energy" },
@@ -2050,7 +2050,7 @@
         "SpDef": 30,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Vine Whip" },
         { "level": 7, "move": "Growth" },
         { "level": 11, "move": "Wrap" },
@@ -2080,7 +2080,7 @@
         "SpDef": 45,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Vine Whip" },
         { "level": 1, "move": "Growth" },
         { "level": 1, "move": "Wrap" },
@@ -2110,7 +2110,7 @@
         "SpDef": 70,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Leaf Storm" },
         { "level": 1, "move": "Vine Whip" },
         { "level": 1, "move": "Sleep Powder" },
@@ -2137,7 +2137,7 @@
         "SpDef": 100,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "Water Gun" },
         { "level": 4, "move": "Acid" },
@@ -2167,7 +2167,7 @@
         "SpDef": 120,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Reflect Type" },
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "Water Gun" },
@@ -2198,7 +2198,7 @@
         "SpDef": 30,
         "Spd": 20
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 6, "move": "Rock Polish" },
@@ -2228,7 +2228,7 @@
         "SpDef": 45,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 1, "move": "Rock Polish" },
@@ -2258,7 +2258,7 @@
         "SpDef": 65,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 1, "move": "Rock Polish" },
@@ -2288,7 +2288,7 @@
         "SpDef": 65,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 5, "move": "Tail Whip" },
@@ -2317,7 +2317,7 @@
         "SpDef": 80,
         "Spd": 105
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Smart Strike" },
         { "level": 1, "move": "Smart Strike" },
         { "level": 1, "move": "Megahorn" },
@@ -2351,7 +2351,7 @@
         "SpDef": 40,
         "Spd": 15
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Curse" },
         { "level": 3, "move": "Growl" },
@@ -2384,7 +2384,7 @@
         "SpDef": 80,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Withdraw" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Curse" },
@@ -2419,7 +2419,7 @@
         "SpDef": 55,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Thunder Shock" },
         { "level": 1, "move": "Tackle" },
         { "level": 4, "move": "Supersonic" },
@@ -2450,7 +2450,7 @@
         "SpDef": 70,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Tri Attack" },
         { "level": 1, "move": "Electric Terrain" },
         { "level": 1, "move": "Thunder Shock" },
@@ -2483,7 +2483,7 @@
         "SpDef": 62,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Peck" },
         { "level": 10, "move": "Gust" },
@@ -2516,7 +2516,7 @@
         "SpDef": 35,
         "Spd": 75
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Growl" },
         { "level": 5, "move": "Quick Attack" },
@@ -2545,7 +2545,7 @@
         "SpDef": 60,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Tri Attack" },
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Growl" },
@@ -2575,7 +2575,7 @@
         "SpDef": 70,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Headbutt" },
         { "level": 3, "move": "Growl" },
         { "level": 7, "move": "Charm" },
@@ -2608,7 +2608,7 @@
         "SpDef": 70,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Sheer Cold" },
         { "level": 1, "move": "Headbutt" },
         { "level": 1, "move": "Growl" },
@@ -2641,7 +2641,7 @@
         "SpDef": 50,
         "Spd": 25
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Poison Gas" },
         { "level": 4, "move": "Harden" },
@@ -2673,7 +2673,7 @@
         "SpDef": 100,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Poison Gas" },
         { "level": 1, "move": "Harden" },
@@ -2705,7 +2705,7 @@
         "SpDef": 25,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Water Gun" },
         { "level": 4, "move": "Withdraw" },
@@ -2735,7 +2735,7 @@
         "SpDef": 45,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Icicle Spear" },
         { "level": 1, "move": "Icicle Crash" },
         { "level": 1, "move": "Toxic Spikes" },
@@ -2769,7 +2769,7 @@
         "SpDef": 35,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Lick" },
         { "level": 1, "move": "Confuse Ray" },
         { "level": 4, "move": "Hypnosis" },
@@ -2799,7 +2799,7 @@
         "SpDef": 55,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Shadow Punch" },
         { "level": 1, "move": "Lick" },
         { "level": 1, "move": "Confuse Ray" },
@@ -2830,7 +2830,7 @@
         "SpDef": 75,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Shadow Punch" },
         { "level": 1, "move": "Perish Song" },
         { "level": 1, "move": "Reflect Type" },
@@ -2863,7 +2863,7 @@
         "SpDef": 45,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Rock Blast" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Rock Throw" },
@@ -2895,7 +2895,7 @@
         "SpDef": 90,
         "Spd": 42
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Hypnosis" },
         { "level": 5, "move": "Disable" },
@@ -2925,7 +2925,7 @@
         "SpDef": 115,
         "Spd": 67
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Switcheroo" },
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Hypnosis" },
@@ -2956,7 +2956,7 @@
         "SpDef": 25,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Harden" },
@@ -2986,7 +2986,7 @@
         "SpDef": 50,
         "Spd": 75
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Wide Guard" },
         { "level": 1, "move": "Hammer Arm" },
         { "level": 1, "move": "Water Gun" },
@@ -3018,7 +3018,7 @@
         "SpDef": 55,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Charge" },
         { "level": 1, "move": "Tackle" },
         { "level": 4, "move": "Thunder Shock" },
@@ -3051,7 +3051,7 @@
         "SpDef": 80,
         "Spd": 140
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Magnetic Flux" },
         { "level": 1, "move": "Charge" },
         { "level": 1, "move": "Tackle" },
@@ -3085,7 +3085,7 @@
         "SpDef": 45,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Absorb" },
         { "level": 1, "move": "Hypnosis" },
         { "level": 5, "move": "Reflect" },
@@ -3114,7 +3114,7 @@
         "SpDef": 75,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Stomp" },
         { "level": 1, "move": "Seed Bomb" },
         { "level": 5, "move": "Psyshock" },
@@ -3148,7 +3148,7 @@
         "SpDef": 50,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 4, "move": "Tail Whip" },
@@ -3178,7 +3178,7 @@
         "SpDef": 80,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 4, "move": "Tail Whip" },
@@ -3208,7 +3208,7 @@
         "SpDef": 110,
         "Spd": 87
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Brick Break" },
         { "level": 1, "move": "Low Sweep" },
         { "level": 1, "move": "Tackle" },
@@ -3242,7 +3242,7 @@
         "SpDef": 110,
         "Spd": 76
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Drain Punch" },
         { "level": 1, "move": "Feint" },
         { "level": 1, "move": "Tackle" },
@@ -3277,7 +3277,7 @@
         "SpDef": 75,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Lick" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 6, "move": "Rollout" },
@@ -3305,7 +3305,7 @@
         "SpDef": 45,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Poison Gas" },
         { "level": 1, "move": "Tackle" },
         { "level": 4, "move": "Smog" },
@@ -3336,7 +3336,7 @@
         "SpDef": 70,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Double Hit" },
         { "level": 1, "move": "Heat Wave" },
         { "level": 1, "move": "Poison Gas" },
@@ -3369,7 +3369,7 @@
         "SpDef": 30,
         "Spd": 25
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 5, "move": "Smack Down" },
@@ -3399,7 +3399,7 @@
         "SpDef": 45,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Hammer Arm" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Tail Whip" },
@@ -3430,7 +3430,7 @@
         "SpDef": 105,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sweet Kiss" },
         { "level": 1, "move": "Disarming Voice" },
         { "level": 1, "move": "Covet" },
@@ -3466,7 +3466,7 @@
         "SpDef": 40,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Absorb" },
         { "level": 1, "move": "Bind" },
         { "level": 4, "move": "Stun Spore" },
@@ -3498,7 +3498,7 @@
         "SpDef": 80,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 7, "move": "Growl" },
@@ -3525,7 +3525,7 @@
         "SpDef": 25,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Leer" },
         { "level": 5, "move": "Smokescreen" },
@@ -3554,7 +3554,7 @@
         "SpDef": 45,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Smokescreen" },
@@ -3583,7 +3583,7 @@
         "SpDef": 50,
         "Spd": 63
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 5, "move": "Supersonic" },
@@ -3611,7 +3611,7 @@
         "SpDef": 80,
         "Spd": 68
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 5, "move": "Supersonic" },
@@ -3639,7 +3639,7 @@
         "SpDef": 55,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Harden" },
         { "level": 7, "move": "Water Gun" },
@@ -3669,7 +3669,7 @@
         "SpDef": 85,
         "Spd": 115
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Take Down" },
         { "level": 1, "move": "Harden" },
@@ -3701,7 +3701,7 @@
         "SpDef": 120,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Mist" },
         { "level": 1, "move": "Smokescreen" },
         { "level": 1, "move": "Haze" },
@@ -3737,7 +3737,7 @@
         "SpDef": 80,
         "Spd": 105
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Quick Attack" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Fury Cutter" },
@@ -3766,7 +3766,7 @@
         "SpDef": 95,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sweet Kiss" },
         { "level": 1, "move": "Lick" },
         { "level": 1, "move": "Pound" },
@@ -3797,7 +3797,7 @@
         "SpDef": 85,
         "Spd": 105
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Quick Attack" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Thunder Shock" },
@@ -3828,7 +3828,7 @@
         "SpDef": 85,
         "Spd": 93
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Smog" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Ember" },
@@ -3859,7 +3859,7 @@
         "SpDef": 70,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Harden" },
         { "level": 7, "move": "Focus Energy" },
@@ -3886,7 +3886,7 @@
         "SpDef": 70,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 5, "move": "Work Up" },
@@ -3916,7 +3916,7 @@
         "SpDef": 20,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 15, "move": "Tackle" },
         { "level": 25, "move": "Flail" }
@@ -3935,7 +3935,7 @@
         "SpDef": 100,
         "Spd": 81
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Bite" },
         { "level": 1, "move": "Flail" },
         { "level": 1, "move": "Splash" },
@@ -3970,7 +3970,7 @@
         "SpDef": 95,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Water Gun" },
         { "level": 5, "move": "Sing" },
@@ -4001,7 +4001,7 @@
         "SpDef": 48,
         "Spd": 48
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Transform" }
         ]
     },
@@ -4018,7 +4018,7 @@
         "SpDef": 65,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Helping Hand" },
         { "level": 1, "move": "Tackle" },
@@ -4050,7 +4050,7 @@
         "SpDef": 95,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Water Gun" },
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Swift" },
@@ -4090,7 +4090,7 @@
         "SpDef": 95,
         "Spd": 130
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Thunder Shock" },
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Swift" },
@@ -4130,7 +4130,7 @@
         "SpDef": 110,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Ember" },
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Swift" },
@@ -4170,7 +4170,7 @@
         "SpDef": 75,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Conversion" },
         { "level": 5, "move": "Recycle" },
@@ -4200,7 +4200,7 @@
         "SpDef": 55,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Bind" },
         { "level": 1, "move": "Withdraw" },
         { "level": 5, "move": "Rollout" },
@@ -4230,7 +4230,7 @@
         "SpDef": 70,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Crunch" },
         { "level": 1, "move": "Crunch" },
         { "level": 5, "move": "Bind" },
@@ -4262,7 +4262,7 @@
         "SpDef": 45,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Absorb" },
         { "level": 1, "move": "Harden" },
         { "level": 5, "move": "Scratch" },
@@ -4292,7 +4292,7 @@
         "SpDef": 70,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Slash" },
         { "level": 1, "move": "Slash" },
         { "level": 1, "move": "Night Slash" },
@@ -4326,7 +4326,7 @@
         "SpDef": 75,
         "Spd": 130
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Bite" },
         { "level": 1, "move": "Steel Wing" },
         { "level": 5, "move": "Supersonic" },
@@ -4355,7 +4355,7 @@
         "SpDef": 110,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Recycle" },
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Stockpile" },
@@ -4398,7 +4398,7 @@
         "SpDef": 125,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Gust" },
         { "level": 1, "move": "Mist" },
         { "level": 5, "move": "Powder Snow" },
@@ -4430,7 +4430,7 @@
         "SpDef": 90,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Thunder Wave" },
         { "level": 5, "move": "Thunder Shock" },
@@ -4462,7 +4462,7 @@
         "SpDef": 85,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Gust" },
         { "level": 1, "move": "Leer" },
         { "level": 5, "move": "Ember" },
@@ -4494,7 +4494,7 @@
         "SpDef": 50,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Wrap" },
         { "level": 1, "move": "Leer" },
         { "level": 5, "move": "Twister" },
@@ -4524,7 +4524,7 @@
         "SpDef": 70,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Wrap" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Twister" },
@@ -4554,7 +4554,7 @@
         "SpDef": 100,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Hurricane" },
         { "level": 1, "move": "Wing Attack" },
         { "level": 1, "move": "Extreme Speed" },
@@ -4590,7 +4590,7 @@
         "SpDef": 90,
         "Spd": 130
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Life Dew" },
         { "level": 1, "move": "Disable" },
         { "level": 1, "move": "Confusion" },
@@ -4622,7 +4622,7 @@
         "SpDef": 100,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Reflect Type" },
         { "level": 10, "move": "Amnesia" },
@@ -4650,7 +4650,7 @@
         "SpDef": 65,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 6, "move": "Razor Leaf" },
@@ -4680,7 +4680,7 @@
         "SpDef": 80,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Razor Leaf" },
@@ -4710,7 +4710,7 @@
         "SpDef": 100,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Petal Dance" },
         { "level": 1, "move": "Petal Blizzard" },
         { "level": 1, "move": "Tackle" },
@@ -4742,7 +4742,7 @@
         "SpDef": 50,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Leer" },
         { "level": 6, "move": "Smokescreen" },
@@ -4774,7 +4774,7 @@
         "SpDef": 65,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Smokescreen" },
@@ -4806,7 +4806,7 @@
         "SpDef": 85,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Eruption" },
         { "level": 1, "move": "Double-Edge" },
         { "level": 1, "move": "Gyro Ball" },
@@ -4839,7 +4839,7 @@
         "SpDef": 48,
         "Spd": 43
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Leer" },
         { "level": 6, "move": "Water Gun" },
@@ -4869,7 +4869,7 @@
         "SpDef": 63,
         "Spd": 58
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Water Gun" },
@@ -4899,7 +4899,7 @@
         "SpDef": 83,
         "Spd": 78
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Agility" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Leer" },
@@ -4930,7 +4930,7 @@
         "SpDef": 45,
         "Spd": 20
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 4, "move": "Defense Curl" },
         { "level": 7, "move": "Quick Attack" },
@@ -4959,7 +4959,7 @@
         "SpDef": 55,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Agility" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Quick Attack" },
@@ -4990,7 +4990,7 @@
         "SpDef": 56,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Growl" },
         { "level": 3, "move": "Tackle" },
@@ -5021,7 +5021,7 @@
         "SpDef": 96,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sky Attack" },
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Growl" },
@@ -5053,7 +5053,7 @@
         "SpDef": 80,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 5, "move": "Supersonic" },
         { "level": 8, "move": "Swift" },
@@ -5083,7 +5083,7 @@
         "SpDef": 110,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Supersonic" },
         { "level": 1, "move": "Swift" },
@@ -5115,7 +5115,7 @@
         "SpDef": 40,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "String Shot" },
         { "level": 5, "move": "Absorb" },
@@ -5147,7 +5147,7 @@
         "SpDef": 70,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Swords Dance" },
         { "level": 1, "move": "Focus Energy" },
         { "level": 1, "move": "Fell Stinger" },
@@ -5183,7 +5183,7 @@
         "SpDef": 80,
         "Spd": 130
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Supersonic" },
         { "level": 1, "move": "Absorb" },
         { "level": 1, "move": "Screech" },
@@ -5214,7 +5214,7 @@
         "SpDef": 56,
         "Spd": 67
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Supersonic" },
         { "level": 4, "move": "Electro Ball" },
@@ -5243,7 +5243,7 @@
         "SpDef": 76,
         "Spd": 67
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Stockpile" },
         { "level": 0, "move": "Swallow" },
         { "level": 0, "move": "Spit Up" },
@@ -5276,7 +5276,7 @@
         "SpDef": 35,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Thunder Shock" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 4, "move": "Play Nice" },
@@ -5299,7 +5299,7 @@
         "SpDef": 55,
         "Spd": 15
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Copycat" },
@@ -5323,7 +5323,7 @@
         "SpDef": 20,
         "Spd": 15
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sing" },
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Copycat" },
@@ -5347,7 +5347,7 @@
         "SpDef": 65,
         "Spd": 20
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Pound" },
         { "level": 4, "move": "Sweet Kiss" },
@@ -5378,7 +5378,7 @@
         "SpDef": 105,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Fairy Wind" },
         { "level": 1, "move": "Fairy Wind" },
         { "level": 1, "move": "Growl" },
@@ -5411,7 +5411,7 @@
         "SpDef": 45,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Leer" },
         { "level": 5, "move": "Stored Power" },
@@ -5439,7 +5439,7 @@
         "SpDef": 70,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Air Slash" },
         { "level": 1, "move": "Air Slash" },
         { "level": 1, "move": "Tailwind" },
@@ -5470,7 +5470,7 @@
         "SpDef": 45,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 4, "move": "Thunder Wave" },
@@ -5501,7 +5501,7 @@
         "SpDef": 60,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 6, "move": "Thunder Shock" },
@@ -5532,7 +5532,7 @@
         "SpDef": 90,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Thunder Punch" },
         { "level": 1, "move": "Zap Cannon" },
         { "level": 1, "move": "Magnetic Flux" },
@@ -5568,7 +5568,7 @@
         "SpDef": 100,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Petal Blizzard" },
         { "level": 1, "move": "Quiver Dance" },
         { "level": 1, "move": "Mega Drain" },
@@ -5600,7 +5600,7 @@
         "SpDef": 50,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Rollout" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 1, "move": "Tackle" },
@@ -5633,7 +5633,7 @@
         "SpDef": 80,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Rollout" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 1, "move": "Tackle" },
@@ -5666,7 +5666,7 @@
         "SpDef": 65,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Stone Edge" },
         { "level": 1, "move": "Hammer Arm" },
         { "level": 1, "move": "Wood Hammer" },
@@ -5700,7 +5700,7 @@
         "SpDef": 100,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Bounce" },
         { "level": 1, "move": "Rain Dance" },
         { "level": 1, "move": "Hydro Pump" },
@@ -5731,7 +5731,7 @@
         "SpDef": 55,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 1, "move": "Tackle" },
         { "level": 4, "move": "Tail Whip" },
@@ -5765,7 +5765,7 @@
         "SpDef": 65,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 1, "move": "Absorb" },
@@ -5799,7 +5799,7 @@
         "SpDef": 95,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 1, "move": "Absorb" },
@@ -5833,7 +5833,7 @@
         "SpDef": 55,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 4, "move": "Sand Attack" },
@@ -5863,7 +5863,7 @@
         "SpDef": 30,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growth" },
         { "level": 7, "move": "Absorb" },
@@ -5892,7 +5892,7 @@
         "SpDef": 85,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growth" },
@@ -5925,7 +5925,7 @@
         "SpDef": 45,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 6, "move": "Quick Attack" },
         { "level": 11, "move": "Double Team" },
@@ -5956,7 +5956,7 @@
         "SpDef": 25,
         "Spd": 15
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 6, "move": "Tail Whip" },
         { "level": 11, "move": "Rain Dance" },
@@ -5985,7 +5985,7 @@
         "SpDef": 65,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Tail Whip" },
         { "level": 1, "move": "Rain Dance" },
@@ -6014,7 +6014,7 @@
         "SpDef": 95,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Confusion" },
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Bite" },
@@ -6053,7 +6053,7 @@
         "SpDef": 130,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Snarl" },
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Swift" },
@@ -6093,7 +6093,7 @@
         "SpDef": 42,
         "Spd": 91
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Astonish" },
         { "level": 5, "move": "Gust" },
@@ -6122,7 +6122,7 @@
         "SpDef": 110,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Power Gem" },
         { "level": 1, "move": "Nasty Plot" },
         { "level": 1, "move": "Swagger" },
@@ -6159,7 +6159,7 @@
         "SpDef": 85,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Confusion" },
         { "level": 10, "move": "Astonish" },
@@ -6187,7 +6187,7 @@
         "SpDef": 48,
         "Spd": 48
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Hidden Power" }
         ]
     },
@@ -6204,7 +6204,7 @@
         "SpDef": 58,
         "Spd": 33
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Counter" },
         { "level": 0, "move": "Mirror Coat" },
         { "level": 0, "move": "Safeguard" },
@@ -6232,7 +6232,7 @@
         "SpDef": 65,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Power Swap" },
         { "level": 1, "move": "Guard Swap" },
         { "level": 1, "move": "Astonish" },
@@ -6264,7 +6264,7 @@
         "SpDef": 35,
         "Spd": 15
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Protect" },
         { "level": 6, "move": "Self-Destruct" },
@@ -6294,7 +6294,7 @@
         "SpDef": 60,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Heavy Slam" },
         { "level": 1, "move": "Zap Cannon" },
         { "level": 1, "move": "Magnet Rise" },
@@ -6328,7 +6328,7 @@
         "SpDef": 65,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Flail" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 4, "move": "Mud-Slap" },
@@ -6359,7 +6359,7 @@
         "SpDef": 65,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Poison Sting" },
         { "level": 4, "move": "Sand Attack" },
         { "level": 7, "move": "Harden" },
@@ -6389,7 +6389,7 @@
         "SpDef": 65,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Iron Tail" },
         { "level": 1, "move": "Rock Blast" },
         { "level": 1, "move": "Tackle" },
@@ -6423,7 +6423,7 @@
         "SpDef": 40,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Ice Fang" },
         { "level": 1, "move": "Fire Fang" },
         { "level": 1, "move": "Thunder Fang" },
@@ -6455,7 +6455,7 @@
         "SpDef": 60,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Outrage" },
         { "level": 1, "move": "Ice Fang" },
         { "level": 1, "move": "Fire Fang" },
@@ -6488,7 +6488,7 @@
         "SpDef": 55,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Poison Sting" },
         { "level": 1, "move": "Tackle" },
         { "level": 4, "move": "Harden" },
@@ -6521,7 +6521,7 @@
         "SpDef": 80,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Bullet Punch" },
         { "level": 1, "move": "Wing Attack" },
         { "level": 1, "move": "Agility" },
@@ -6554,7 +6554,7 @@
         "SpDef": 230,
         "Spd": 5
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Withdraw" },
         { "level": 1, "move": "Wrap" },
         { "level": 5, "move": "Rollout" },
@@ -6586,7 +6586,7 @@
         "SpDef": 95,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Arm Thrust" },
         { "level": 1, "move": "Tackle" },
         { "level": 5, "move": "Leer" },
@@ -6617,7 +6617,7 @@
         "SpDef": 75,
         "Spd": 115
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Leer" },
         { "level": 6, "move": "Taunt" },
@@ -6645,7 +6645,7 @@
         "SpDef": 50,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fling" },
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Scratch" },
@@ -6676,7 +6676,7 @@
         "SpDef": 75,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Covet" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Leer" },
@@ -6709,7 +6709,7 @@
         "SpDef": 40,
         "Spd": 20
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Smog" },
         { "level": 1, "move": "Yawn" },
         { "level": 6, "move": "Ember" },
@@ -6740,7 +6740,7 @@
         "SpDef": 80,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Shell Smash" },
         { "level": 1, "move": "Ember" },
         { "level": 1, "move": "Rock Throw" },
@@ -6772,7 +6772,7 @@
         "SpDef": 30,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Mud-Slap" },
         { "level": 5, "move": "Powder Snow" },
@@ -6800,7 +6800,7 @@
         "SpDef": 60,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Ice Fang" },
         { "level": 1, "move": "Ancient Power" },
         { "level": 1, "move": "Tackle" },
@@ -6831,7 +6831,7 @@
         "SpDef": 95,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Harden" },
         { "level": 5, "move": "Water Gun" },
@@ -6860,7 +6860,7 @@
         "SpDef": 35,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Helping Hand" },
         { "level": 5, "move": "Water Pulse" },
@@ -6889,7 +6889,7 @@
         "SpDef": 75,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Octazooka" },
         { "level": 1, "move": "Octazooka" },
         { "level": 1, "move": "Gunk Shot" },
@@ -6923,7 +6923,7 @@
         "SpDef": 45,
         "Spd": 75
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Present" },
         { "level": 1, "move": "Drill Peck" }
         ]
@@ -6941,7 +6941,7 @@
         "SpDef": 140,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Psybeam" },
         { "level": 1, "move": "Bullet Seed" },
         { "level": 1, "move": "Roost" },
@@ -6974,7 +6974,7 @@
         "SpDef": 70,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Sand Attack" },
@@ -7005,7 +7005,7 @@
         "SpDef": 50,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Ember" },
         { "level": 4, "move": "Howl" },
@@ -7037,7 +7037,7 @@
         "SpDef": 80,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Nasty Plot" },
         { "level": 1, "move": "Thunder Fang" },
         { "level": 1, "move": "Leer" },
@@ -7070,7 +7070,7 @@
         "SpDef": 95,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Whirlpool" },
         { "level": 1, "move": "Yawn" },
         { "level": 1, "move": "Water Gun" },
@@ -7102,7 +7102,7 @@
         "SpDef": 40,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Defense Curl" },
@@ -7130,7 +7130,7 @@
         "SpDef": 60,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fury Attack" },
         { "level": 1, "move": "Fire Fang" },
         { "level": 1, "move": "Thunder Fang" },
@@ -7162,7 +7162,7 @@
         "SpDef": 95,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Defense Curl" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Conversion" },
@@ -7193,7 +7193,7 @@
         "SpDef": 65,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 3, "move": "Leer" },
         { "level": 7, "move": "Astonish" },
@@ -7222,7 +7222,7 @@
         "SpDef": 45,
         "Spd": 75
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sketch" }
         ]
     },
@@ -7239,7 +7239,7 @@
         "SpDef": 35,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Helping Hand" },
         { "level": 1, "move": "Fake Out" },
@@ -7259,7 +7259,7 @@
         "SpDef": 110,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Triple Kick" },
         { "level": 1, "move": "Feint" },
         { "level": 1, "move": "Tackle" },
@@ -7293,7 +7293,7 @@
         "SpDef": 65,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Lick" },
         { "level": 1, "move": "Pound" },
         { "level": 4, "move": "Powder Snow" },
@@ -7323,7 +7323,7 @@
         "SpDef": 55,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Quick Attack" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Thunder Shock" },
@@ -7353,7 +7353,7 @@
         "SpDef": 55,
         "Spd": 83
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Smog" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Ember" },
@@ -7383,7 +7383,7 @@
         "SpDef": 70,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 5, "move": "Rollout" },
@@ -7412,7 +7412,7 @@
         "SpDef": 135,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sweet Kiss" },
         { "level": 1, "move": "Disarming Voice" },
         { "level": 1, "move": "Covet" },
@@ -7448,7 +7448,7 @@
         "SpDef": 100,
         "Spd": 115
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Extreme Speed" },
         { "level": 1, "move": "Thunder Shock" },
         { "level": 1, "move": "Leer" },
@@ -7482,7 +7482,7 @@
         "SpDef": 75,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Ember" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Stomp" },
@@ -7517,7 +7517,7 @@
         "SpDef": 115,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Gust" },
@@ -7552,7 +7552,7 @@
         "SpDef": 50,
         "Spd": 41
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Leer" },
         { "level": 3, "move": "Rock Throw" },
@@ -7584,7 +7584,7 @@
         "SpDef": 70,
         "Spd": 51
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Iron Defense" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Leer" },
@@ -7617,7 +7617,7 @@
         "SpDef": 100,
         "Spd": 61
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Iron Defense" },
         { "level": 1, "move": "Dark Pulse" },
         { "level": 1, "move": "Thunder Fang" },
@@ -7655,7 +7655,7 @@
         "SpDef": 154,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Gust" },
         { "level": 1, "move": "Whirlwind" },
         { "level": 1, "move": "Weather Ball" },
@@ -7686,7 +7686,7 @@
         "SpDef": 154,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Gust" },
         { "level": 1, "move": "Whirlwind" },
         { "level": 1, "move": "Weather Ball" },
@@ -7717,7 +7717,7 @@
         "SpDef": 100,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Confusion" },
         { "level": 1, "move": "Heal Bell" },
         { "level": 10, "move": "Magical Leaf" },
@@ -7745,7 +7745,7 @@
         "SpDef": 55,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Leer" },
         { "level": 3, "move": "Leafage" },
@@ -7776,7 +7776,7 @@
         "SpDef": 65,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Leafage" },
@@ -7811,7 +7811,7 @@
         "SpDef": 85,
         "Spd": 120
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Leaf Blade" },
         { "level": 1, "move": "Pound" },
         { "level": 1, "move": "Leer" },
@@ -7847,7 +7847,7 @@
         "SpDef": 50,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Growl" },
         { "level": 3, "move": "Ember" },
@@ -7878,7 +7878,7 @@
         "SpDef": 60,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Double Kick" },
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Growl" },
@@ -7912,7 +7912,7 @@
         "SpDef": 70,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Blaze Kick" },
         { "level": 1, "move": "Double Kick" },
         { "level": 1, "move": "Scratch" },
@@ -7948,7 +7948,7 @@
         "SpDef": 50,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 3, "move": "Water Gun" },
@@ -7979,7 +7979,7 @@
         "SpDef": 70,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Mud Shot" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
@@ -8011,7 +8011,7 @@
         "SpDef": 90,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Mud Shot" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
@@ -8046,7 +8046,7 @@
         "SpDef": 30,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 4, "move": "Howl" },
         { "level": 7, "move": "Sand Attack" },
@@ -8077,7 +8077,7 @@
         "SpDef": 60,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Snarl" },
         { "level": 1, "move": "Fire Fang" },
         { "level": 1, "move": "Ice Fang" },
@@ -8113,7 +8113,7 @@
         "SpDef": 41,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Growl" },
         { "level": 3, "move": "Sand Attack" },
@@ -8143,7 +8143,7 @@
         "SpDef": 61,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Slash" },
         { "level": 1, "move": "Slash" },
         { "level": 1, "move": "Switcheroo" },
@@ -8178,7 +8178,7 @@
         "SpDef": 30,
         "Spd": 20
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "String Shot" },
         { "level": 5, "move": "Poison Sting" },
@@ -8198,7 +8198,7 @@
         "SpDef": 25,
         "Spd": 15
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Harden" },
         { "level": 1, "move": "Harden" }
         ]
@@ -8216,7 +8216,7 @@
         "SpDef": 50,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Gust" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "String Shot" },
@@ -8250,7 +8250,7 @@
         "SpDef": 25,
         "Spd": 15
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Harden" },
         { "level": 1, "move": "Harden" }
         ]
@@ -8268,7 +8268,7 @@
         "SpDef": 90,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Gust" },
         { "level": 1, "move": "Gust" },
         { "level": 1, "move": "Tackle" },
@@ -8303,7 +8303,7 @@
         "SpDef": 50,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Astonish" },
         { "level": 1, "move": "Growl" },
         { "level": 3, "move": "Absorb" },
@@ -8332,7 +8332,7 @@
         "SpDef": 70,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Teeter Dance" },
         { "level": 1, "move": "Fake Out" },
         { "level": 1, "move": "Knock Off" },
@@ -8365,7 +8365,7 @@
         "SpDef": 100,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fake Out" },
         { "level": 1, "move": "Bubble Beam" },
         { "level": 1, "move": "Rain Dance" },
@@ -8397,7 +8397,7 @@
         "SpDef": 30,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Harden" },
         { "level": 3, "move": "Absorb" },
@@ -8426,7 +8426,7 @@
         "SpDef": 40,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Razor Leaf" },
         { "level": 1, "move": "Air Cutter" },
         { "level": 1, "move": "Torment" },
@@ -8461,7 +8461,7 @@
         "SpDef": 60,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Leaf Blade" },
         { "level": 1, "move": "Air Cutter" },
         { "level": 1, "move": "Hurricane" },
@@ -8499,7 +8499,7 @@
         "SpDef": 30,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Growl" },
         { "level": 5, "move": "Focus Energy" },
@@ -8528,7 +8528,7 @@
         "SpDef": 50,
         "Spd": 125
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Brave Bird" },
         { "level": 1, "move": "Air Slash" },
         { "level": 1, "move": "Pluck" },
@@ -8562,7 +8562,7 @@
         "SpDef": 30,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Water Gun" },
         { "level": 5, "move": "Quick Attack" },
@@ -8589,7 +8589,7 @@
         "SpDef": 70,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Protect" },
         { "level": 1, "move": "Soak" },
         { "level": 1, "move": "Quick Attack" },
@@ -8624,7 +8624,7 @@
         "SpDef": 35,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Disarming Voice" },
         { "level": 3, "move": "Double Team" },
@@ -8655,7 +8655,7 @@
         "SpDef": 55,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Disarming Voice" },
         { "level": 1, "move": "Double Team" },
@@ -8686,7 +8686,7 @@
         "SpDef": 115,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Dazzling Gleam" },
         { "level": 1, "move": "Misty Terrain" },
         { "level": 1, "move": "Healing Wish" },
@@ -8723,7 +8723,7 @@
         "SpDef": 52,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 6, "move": "Quick Attack" },
         { "level": 9, "move": "Sweet Scent" },
@@ -8749,7 +8749,7 @@
         "SpDef": 82,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Whirlwind" },
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Quick Attack" },
@@ -8778,7 +8778,7 @@
         "SpDef": 60,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Absorb" },
         { "level": 1, "move": "Tackle" },
         { "level": 5, "move": "Stun Spore" },
@@ -8806,7 +8806,7 @@
         "SpDef": 60,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Mach Punch" },
         { "level": 1, "move": "Poison Powder" },
         { "level": 1, "move": "Growth" },
@@ -8841,7 +8841,7 @@
         "SpDef": 35,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Yawn" },
         { "level": 6, "move": "Encore" },
@@ -8868,7 +8868,7 @@
         "SpDef": 55,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Focus Energy" },
         { "level": 1, "move": "Encore" },
@@ -8895,7 +8895,7 @@
         "SpDef": 65,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Swagger" },
         { "level": 1, "move": "Sucker Punch" },
         { "level": 1, "move": "Scratch" },
@@ -8925,7 +8925,7 @@
         "SpDef": 30,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sand Attack" },
         { "level": 1, "move": "Scratch" },
         { "level": 5, "move": "Harden" },
@@ -8951,7 +8951,7 @@
         "SpDef": 50,
         "Spd": 160
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Double Team" },
         { "level": 0, "move": "Screech" },
         { "level": 0, "move": "Fury Cutter" },
@@ -8987,7 +8987,7 @@
         "SpDef": 30,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Shadow Claw" },
         { "level": 1, "move": "Grudge" },
         { "level": 1, "move": "Mud-Slap" },
@@ -9020,7 +9020,7 @@
         "SpDef": 23,
         "Spd": 28
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Astonish" },
         { "level": 1, "move": "Pound" },
         { "level": 5, "move": "Echoed Voice" },
@@ -9048,7 +9048,7 @@
         "SpDef": 43,
         "Spd": 48
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Bite" },
         { "level": 1, "move": "Bite" },
         { "level": 1, "move": "Astonish" },
@@ -9078,7 +9078,7 @@
         "SpDef": 73,
         "Spd": 68
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Crunch" },
         { "level": 1, "move": "Crunch" },
         { "level": 1, "move": "Ice Fang" },
@@ -9114,7 +9114,7 @@
         "SpDef": 30,
         "Spd": 25
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Focus Energy" },
         { "level": 3, "move": "Sand Attack" },
@@ -9147,7 +9147,7 @@
         "SpDef": 60,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Brine" },
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Focus Energy" },
@@ -9182,7 +9182,7 @@
         "SpDef": 40,
         "Spd": 20
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Tail Whip" },
@@ -9206,7 +9206,7 @@
         "SpDef": 90,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 4, "move": "Harden" },
         { "level": 7, "move": "Block" },
@@ -9238,7 +9238,7 @@
         "SpDef": 35,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fake Out" },
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Tail Whip" },
@@ -9271,7 +9271,7 @@
         "SpDef": 55,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fake Out" },
         { "level": 1, "move": "Sing" },
         { "level": 1, "move": "Disarming Voice" },
@@ -9304,7 +9304,7 @@
         "SpDef": 65,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Scratch" },
         { "level": 3, "move": "Astonish" },
@@ -9337,7 +9337,7 @@
         "SpDef": 55,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Bite" },
         { "level": 1, "move": "Fairy Wind" },
         { "level": 5, "move": "Fake Tears" },
@@ -9365,7 +9365,7 @@
         "SpDef": 40,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Screech" },
         { "level": 1, "move": "Harden" },
@@ -9398,7 +9398,7 @@
         "SpDef": 50,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Screech" },
         { "level": 1, "move": "Harden" },
@@ -9431,7 +9431,7 @@
         "SpDef": 60,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Screech" },
         { "level": 1, "move": "Harden" },
@@ -9464,7 +9464,7 @@
         "SpDef": 55,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Confusion" },
         { "level": 1, "move": "Work Up" },
         { "level": 9, "move": "Detect" },
@@ -9496,7 +9496,7 @@
         "SpDef": 75,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fire Punch" },
         { "level": 1, "move": "Thunder Punch" },
         { "level": 1, "move": "Ice Punch" },
@@ -9531,7 +9531,7 @@
         "SpDef": 40,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Quick Attack" },
@@ -9562,7 +9562,7 @@
         "SpDef": 60,
         "Spd": 105
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Quick Attack" },
@@ -9594,7 +9594,7 @@
         "SpDef": 75,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Play Nice" },
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Thunder Wave" },
@@ -9630,7 +9630,7 @@
         "SpDef": 85,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Play Nice" },
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Thunder Wave" },
@@ -9666,7 +9666,7 @@
         "SpDef": 85,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 5, "move": "Double Team" },
         { "level": 8, "move": "Confuse Ray" },
@@ -9696,7 +9696,7 @@
         "SpDef": 85,
         "Spd": 85
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Play Nice" },
         { "level": 5, "move": "Sweet Scent" },
@@ -9727,7 +9727,7 @@
         "SpDef": 80,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Poison Sting" },
         { "level": 1, "move": "Absorb" },
         { "level": 1, "move": "Growth" },
@@ -9759,7 +9759,7 @@
         "SpDef": 53,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Pound" },
         { "level": 5, "move": "Yawn" },
         { "level": 8, "move": "Poison Gas" },
@@ -9791,7 +9791,7 @@
         "SpDef": 83,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Body Slam" },
         { "level": 1, "move": "Gunk Shot" },
         { "level": 1, "move": "Pound" },
@@ -9823,7 +9823,7 @@
         "SpDef": 20,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Aqua Jet" },
         { "level": 8, "move": "Focus Energy" },
@@ -9850,7 +9850,7 @@
         "SpDef": 40,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Slash" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Night Slash" },
@@ -9880,7 +9880,7 @@
         "SpDef": 35,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 3, "move": "Growl" },
         { "level": 6, "move": "Astonish" },
@@ -9912,7 +9912,7 @@
         "SpDef": 45,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Soak" },
         { "level": 1, "move": "Noble Roar" },
         { "level": 1, "move": "Splash" },
@@ -9946,7 +9946,7 @@
         "SpDef": 45,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Growl" },
         { "level": 1, "move": "Tackle" },
         { "level": 5, "move": "Ember" },
@@ -9976,7 +9976,7 @@
         "SpDef": 75,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Rock Slide" },
         { "level": 1, "move": "Fissure" },
         { "level": 1, "move": "Eruption" },
@@ -10008,7 +10008,7 @@
         "SpDef": 70,
         "Spd": 20
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Smog" },
         { "level": 1, "move": "Ember" },
         { "level": 4, "move": "Withdraw" },
@@ -10042,7 +10042,7 @@
         "SpDef": 80,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 7, "move": "Confusion" },
         { "level": 10, "move": "Growl" },
@@ -10071,7 +10071,7 @@
         "SpDef": 110,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Teeter Dance" },
         { "level": 1, "move": "Belch" },
         { "level": 1, "move": "Splash" },
@@ -10102,7 +10102,7 @@
         "SpDef": 60,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 5, "move": "Copycat" },
         { "level": 10, "move": "Teeter Dance" },
@@ -10131,7 +10131,7 @@
         "SpDef": 45,
         "Spd": 10
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Sand Attack" },
         { "level": 1, "move": "Astonish" },
         { "level": 8, "move": "Bite" },
@@ -10160,7 +10160,7 @@
         "SpDef": 50,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Dragon Breath" },
         { "level": 1, "move": "Dig" },
         { "level": 1, "move": "Sand Attack" },
@@ -10197,7 +10197,7 @@
         "SpDef": 80,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Dragon Claw" },
         { "level": 1, "move": "Dragon Breath" },
         { "level": 1, "move": "Bulldoze" },
@@ -10237,7 +10237,7 @@
         "SpDef": 40,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Poison Sting" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Absorb" },
@@ -10270,7 +10270,7 @@
         "SpDef": 60,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Spiky Shield" },
         { "level": 1, "move": "Destiny Bond" },
         { "level": 1, "move": "Poison Sting" },
@@ -10304,7 +10304,7 @@
         "SpDef": 75,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Peck" },
         { "level": 1, "move": "Growl" },
         { "level": 4, "move": "Disarming Voice" },
@@ -10333,7 +10333,7 @@
         "SpDef": 105,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Dragon Breath" },
         { "level": 1, "move": "Pluck" },
         { "level": 1, "move": "Peck" },
@@ -10365,7 +10365,7 @@
         "SpDef": 60,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Scratch" },
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Double Kick" },
@@ -10409,7 +10409,7 @@
         "SpDef": 60,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Wrap" },
         { "level": 1, "move": "Swagger" },
         { "level": 4, "move": "Bite" },
@@ -10442,7 +10442,7 @@
         "SpDef": 85,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Moonblast" },
         { "level": 1, "move": "Moonlight" },
         { "level": 1, "move": "Tackle" },
@@ -10474,7 +10474,7 @@
         "SpDef": 65,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Flare Blitz" },
         { "level": 1, "move": "Morning Sun" },
         { "level": 1, "move": "Tackle" },
@@ -10506,7 +10506,7 @@
         "SpDef": 41,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Mud-Slap" },
         { "level": 1, "move": "Water Gun" },
         { "level": 6, "move": "Rest" },
@@ -10533,7 +10533,7 @@
         "SpDef": 71,
         "Spd": 60
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Thrash" },
         { "level": 1, "move": "Belch" },
         { "level": 1, "move": "Zen Headbutt" },
@@ -10564,7 +10564,7 @@
         "SpDef": 35,
         "Spd": 35
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Harden" },
         { "level": 4, "move": "Leer" },
@@ -10595,7 +10595,7 @@
         "SpDef": 55,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Swift" },
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Harden" },
@@ -10627,7 +10627,7 @@
         "SpDef": 70,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Harden" },
         { "level": 1, "move": "Mud-Slap" },
         { "level": 3, "move": "Rapid Spin" },
@@ -10660,7 +10660,7 @@
         "SpDef": 120,
         "Spd": 75
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Hyper Beam" },
         { "level": 1, "move": "Hyper Beam" },
         { "level": 1, "move": "Teleport" },
@@ -10696,7 +10696,7 @@
         "SpDef": 87,
         "Spd": 23
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Wrap" },
         { "level": 1, "move": "Astonish" },
         { "level": 4, "move": "Acid" },
@@ -10727,7 +10727,7 @@
         "SpDef": 107,
         "Spd": 43
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leech Seed" },
         { "level": 1, "move": "Wrap" },
         { "level": 1, "move": "Astonish" },
@@ -10759,7 +10759,7 @@
         "SpDef": 50,
         "Spd": 75
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fury Cutter" },
         { "level": 1, "move": "Harden" },
         { "level": 4, "move": "Water Gun" },
@@ -10788,7 +10788,7 @@
         "SpDef": 80,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Fury Cutter" },
         { "level": 1, "move": "Harden" },
         { "level": 1, "move": "Water Gun" },
@@ -10817,7 +10817,7 @@
         "SpDef": 55,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Splash" },
         { "level": 15, "move": "Tackle" },
         { "level": 25, "move": "Flail" }
@@ -10836,7 +10836,7 @@
         "SpDef": 125,
         "Spd": 81
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Water Pulse" },
         { "level": 1, "move": "Flail" },
         { "level": 1, "move": "Splash" },
@@ -10871,7 +10871,7 @@
         "SpDef": 70,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 10, "move": "Water Gun" },
         { "level": 10, "move": "Ember" },
@@ -10900,7 +10900,7 @@
         "SpDef": 120,
         "Spd": 40
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tail Whip" },
         { "level": 1, "move": "Lick" },
         { "level": 1, "move": "Conversion" },
@@ -10931,7 +10931,7 @@
         "SpDef": 33,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Astonish" },
         { "level": 4, "move": "Screech" },
         { "level": 7, "move": "Night Shade" },
@@ -10960,7 +10960,7 @@
         "SpDef": 63,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Knock Off" },
         { "level": 1, "move": "Screech" },
         { "level": 1, "move": "Night Shade" },
@@ -10989,7 +10989,7 @@
         "SpDef": 90,
         "Spd": 25
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Astonish" },
         { "level": 1, "move": "Leer" },
         { "level": 4, "move": "Disable" },
@@ -11018,7 +11018,7 @@
         "SpDef": 130,
         "Spd": 25
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Shadow Punch" },
         { "level": 1, "move": "Fire Punch" },
         { "level": 1, "move": "Ice Punch" },
@@ -11053,7 +11053,7 @@
         "SpDef": 87,
         "Spd": 51
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leaf Storm" },
         { "level": 1, "move": "Gust" },
         { "level": 1, "move": "Leer" },
@@ -11084,7 +11084,7 @@
         "SpDef": 90,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Healing Wish" },
         { "level": 1, "move": "Wrap" },
         { "level": 1, "move": "Growl" },
@@ -11114,7 +11114,7 @@
         "SpDef": 60,
         "Spd": 75
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Snarl" },
         { "level": 1, "move": "Phantom Force" },
         { "level": 1, "move": "Leer" },
@@ -11148,7 +11148,7 @@
         "SpDef": 48,
         "Spd": 23
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Counter" },
         { "level": 1, "move": "Mirror Coat" },
         { "level": 1, "move": "Safeguard" },
@@ -11172,7 +11172,7 @@
         "SpDef": 50,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Powder Snow" },
         { "level": 1, "move": "Astonish" },
         { "level": 1, "move": "Headbutt" },
@@ -11203,7 +11203,7 @@
         "SpDef": 80,
         "Spd": 80
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Freeze-Dry" },
         { "level": 1, "move": "Sheer Cold" },
         { "level": 1, "move": "Powder Snow" },
@@ -11236,7 +11236,7 @@
         "SpDef": 50,
         "Spd": 25
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Rollout" },
         { "level": 1, "move": "Defense Curl" },
         { "level": 4, "move": "Growl" },
@@ -11267,7 +11267,7 @@
         "SpDef": 70,
         "Spd": 45
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Swagger" },
         { "level": 1, "move": "Swagger" },
         { "level": 1, "move": "Rollout" },
@@ -11300,7 +11300,7 @@
         "SpDef": 90,
         "Spd": 65
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Swagger" },
         { "level": 1, "move": "Crunch" },
         { "level": 1, "move": "Ice Fang" },
@@ -11334,7 +11334,7 @@
         "SpDef": 55,
         "Spd": 32
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Whirlpool" },
         { "level": 1, "move": "Iron Defense" },
@@ -11354,7 +11354,7 @@
         "SpDef": 75,
         "Spd": 52
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Iron Defense" },
         { "level": 1, "move": "Shell Smash" },
@@ -11388,7 +11388,7 @@
         "SpDef": 75,
         "Spd": 52
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Water Gun" },
         { "level": 1, "move": "Iron Defense" },
         { "level": 1, "move": "Shell Smash" },
@@ -11422,7 +11422,7 @@
         "SpDef": 65,
         "Spd": 55
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Harden" },
         { "level": 5, "move": "Water Gun" },
@@ -11451,7 +11451,7 @@
         "SpDef": 65,
         "Spd": 97
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" },
         { "level": 1, "move": "Charm" },
         { "level": 4, "move": "Water Gun" },
@@ -11483,7 +11483,7 @@
         "SpDef": 30,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Ember" },
         { "level": 1, "move": "Leer" },
         { "level": 5, "move": "Bite" },
@@ -11512,7 +11512,7 @@
         "SpDef": 50,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Protect" },
         { "level": 1, "move": "Ember" },
         { "level": 1, "move": "Leer" },
@@ -11542,7 +11542,7 @@
         "SpDef": 80,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Fly" },
         { "level": 1, "move": "Protect" },
         { "level": 1, "move": "Dragon Tail" },
@@ -11575,7 +11575,7 @@
         "SpDef": 60,
         "Spd": 30
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Tackle" }
         ]
     },
@@ -11592,7 +11592,7 @@
         "SpDef": 80,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Confusion" },
         { "level": 0, "move": "Metal Claw" },
         { "level": 1, "move": "Tackle" },
@@ -11623,7 +11623,7 @@
         "SpDef": 90,
         "Spd": 70
       },
-      "moves": [
+      "learnset": [
         { "level": 0, "move": "Hammer Arm" },
         { "level": 1, "move": "Confusion" },
         { "level": 1, "move": "Metal Claw" },
@@ -11656,7 +11656,7 @@
         "SpDef": 100,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Charge Beam" },
         { "level": 1, "move": "Rock Throw" },
         { "level": 6, "move": "Bulldoze" },
@@ -11687,7 +11687,7 @@
         "SpDef": 200,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Charge Beam" },
         { "level": 1, "move": "Icy Wind" },
         { "level": 6, "move": "Bulldoze" },
@@ -11718,7 +11718,7 @@
         "SpDef": 150,
         "Spd": 50
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Charge Beam" },
         { "level": 1, "move": "Metal Claw" },
         { "level": 6, "move": "Bulldoze" },
@@ -11751,7 +11751,7 @@
         "SpDef": 130,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Stored Power" },
         { "level": 1, "move": "Charm" },
         { "level": 5, "move": "Helping Hand" },
@@ -11783,7 +11783,7 @@
         "SpDef": 110,
         "Spd": 110
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Stored Power" },
         { "level": 1, "move": "Dragon Dance" },
         { "level": 5, "move": "Helping Hand" },
@@ -11815,7 +11815,7 @@
         "SpDef": 140,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Origin Pulse" },
         { "level": 1, "move": "Water Pulse" },
         { "level": 1, "move": "Ancient Power" },
@@ -11845,7 +11845,7 @@
         "SpDef": 90,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Precipice Blades" },
         { "level": 1, "move": "Mud Shot" },
         { "level": 1, "move": "Ancient Power" },
@@ -11875,7 +11875,7 @@
         "SpDef": 90,
         "Spd": 95
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Dragon Ascent" },
         { "level": 1, "move": "Twister" },
         { "level": 1, "move": "Ancient Power" },
@@ -11906,7 +11906,7 @@
         "SpDef": 100,
         "Spd": 100
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Confusion" },
         { "level": 1, "move": "Wish" },
         { "level": 7, "move": "Swift" },
@@ -11937,7 +11937,7 @@
         "SpDef": 50,
         "Spd": 150
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Wrap" },
         { "level": 7, "move": "Night Shade" },
@@ -11967,7 +11967,7 @@
         "SpDef": 20,
         "Spd": 150
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Wrap" },
         { "level": 7, "move": "Night Shade" },
@@ -11997,7 +11997,7 @@
         "SpDef": 160,
         "Spd": 90
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Wrap" },
         { "level": 7, "move": "Night Shade" },
@@ -12029,7 +12029,7 @@
         "SpDef": 90,
         "Spd": 180
       },
-      "moves": [
+      "learnset": [
         { "level": 1, "move": "Leer" },
         { "level": 1, "move": "Wrap" },
         { "level": 7, "move": "Night Shade" },

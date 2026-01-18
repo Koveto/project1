@@ -64,7 +64,7 @@ def load_smt_from_json(path: str) -> List[Pokemon]:
         raw_stats = SMTStats.from_dict(entry["stats"])
         stats_dict = raw_stats.to_base_stat_dict()
 
-        moves = [Move(m["level"], m["move"]) for m in entry.get("moves", [])]
+        learnset = [Move(m["level"], m["move"]) for m in entry.get("learnset", [])]
 
         p = Pokemon(
             pokedex_number=entry["no"],
@@ -72,7 +72,7 @@ def load_smt_from_json(path: str) -> List[Pokemon]:
             level=entry.get("level", 1),
             stats=stats_dict,              # <-- now a dict, not SMTStats
             affinities=entry["affinities"],
-            moves=moves,
+            learnset=learnset,
             bst=entry["bst"]
         )
 

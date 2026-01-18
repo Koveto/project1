@@ -86,9 +86,9 @@ def main():
                 "SpDef": p.base_stats.sp_def,
                 "Spd": p.base_stats.speed
             },
-            "moves": [
+            "learnset": [
                 {"level": m.level, "move": m.move}
-                for m in p.moves
+                for m in p.learnset
             ]
         }
 

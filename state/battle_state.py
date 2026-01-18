@@ -25,7 +25,7 @@ class BattleState(GameState):
             level=bulbasaur_data.level,
             stats=bulbasaur_data.base_stats,
             affinities=bulbasaur_data.affinities,
-            moves=bulbasaur_data.moves
+            learnset=bulbasaur_data.learnset
         )
 
         # Build teams

@@ -37,12 +37,12 @@ class Pokemon:
     base_total: int
     types: List[str]
     stats: PokemonStats
-    moves: List[Move] = field(default_factory=list)
+    learnset: List[Move] = field(default_factory=list)
 
     @classmethod
     def from_dict(cls, data: Dict):
         stats = PokemonStats.from_dict(data["stats"])
-        moves = [Move(m["level"], m["move"]) for m in data.get("moves", [])]
+        learnset = [Move(m["level"], m["move"]) for m in data.get("learnset", [])]
 
         return cls(
             number=data["no"],
@@ -50,7 +50,7 @@ class Pokemon:
             base_total=data["level"],
             types = [t for t in data["types"] if t is not None],
             stats=stats,
-            moves=moves
+            learnset=learnset
         )
 
     def __str__(self):

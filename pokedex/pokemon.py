@@ -12,7 +12,7 @@ class Pokemon:
         level=1,
         stats=None,        # dict: {"hp": X, "atk": X, ...}
         affinities=None,
-        moves=None,
+        learnset=None,
         bst=None
     ):
         self.pokedex_number = pokedex_number
@@ -23,11 +23,13 @@ class Pokemon:
         self.level = level
         self.base_stats = stats or {}
         self.affinities = affinities or []
-        self.moves = moves or []
+        self.learnset = learnset or []
+        self.moves = []
         self.bst = bst
 
         # Compute actual stats
         self.recalculate_stats()
+        self.update_current_moves()
 
     # ---------------------------------------------------------
     # Stat calculation logic
@@ -58,6 +60,16 @@ class Pokemon:
         self.actual_spdef = math.floor(5 + math.floor((base_spd * lvl) / 100))
         self.actual_spd   = math.floor(5 + math.floor((base_spe * lvl) / 100))
 
+    def update_current_moves(self):
+        """Populate current_moves based on level and learnset."""
+        learned = []
+
+        for entry in self.learnset:
+            if entry.level <= self.level:
+                learned.append(entry.move)
+
+        # Keep only the last 5 moves learned
+        self.moves = learned[-5:]
 
     @property
     def is_player(self):

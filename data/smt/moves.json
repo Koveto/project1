@@ -1,0 +1,4806 @@
+{
+  "moves": {
+    "Lunge": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 5,
+      "power": 145,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Bestial Bite": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 5,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_crit_dmg"]
+    },
+
+    "Hellish Slash": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 5,
+      "power": 55,
+      "hits_low": 4,
+      "hits_high": 4,
+      "target": "Single",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Gram Slice": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 10,
+      "power": 140,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 30,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Dream Needle": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 10,
+      "power": 110,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 55,
+      "effects": ["sleep"]
+    },
+
+    "Toxic Sting": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 10,
+      "power": 110,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 60,
+      "effects": ["poison"]
+    },
+
+    "Critical Slash": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 10,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["always_crit"]
+    },
+
+    "Madness Needle": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 10,
+      "power": 110,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 45,
+      "effects": ["confusion"]
+    },
+
+    "Aramasa": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 10,
+      "power": 20,
+      "hits_low": 8,
+      "hits_high": 8,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Bouncing Claw": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 12,
+      "power": 65,
+      "hits_low": 2,
+      "hits_high": 3,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Scratch Dance": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 12,
+      "power": 85,
+      "hits_low": 2,
+      "hits_high": 4,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Berserker God": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 180,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Needle Spray": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 70,
+      "hits_low": 1,
+      "hits_high": 4,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 20,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Fang Breaker": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-atk", "-spatk"]
+    },
+
+    "Pierce Armor": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-def", "-spdef"]
+    },
+
+    "Blinding Strike": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-spd"]
+    },
+
+    "Heavy Blow": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_crit_dmg"]
+    },
+
+    "Heat Wave": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 100,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Puncture Punch": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Venom Chaser": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_poison"]
+    },
+
+    "Beatdown": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 15,
+      "power": 110,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["scale_hp"]
+    },
+
+    "Blight": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 20,
+      "power": 100,
+      "hits_low": 2,
+      "hits_high": 4,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 35,
+      "effects": ["poison"]
+    },
+
+    "Carnage Fang": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 20,
+      "power": 260,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_crit_dmg"]
+    },
+
+    "Crusher Onslaught": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 20,
+      "power": 170,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Hysterical Slap": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 20,
+      "power": 90,
+      "hits_low": 2,
+      "hits_high": 2,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_charm"]
+    },
+
+    "Dream Fist": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 20,
+      "power": 140,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_sleep"]
+    },
+
+    "Eat Whole": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 20,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain"]
+    },
+
+    "Axel Claw": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 24,
+      "power": 120,
+      "hits_low": 2,
+      "hits_high": 4,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Damascus Claw": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 24,
+      "power": 90,
+      "hits_low": 2,
+      "hits_high": 3,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Critical Wave": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 80,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 20,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Dark Sword": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 90,
+      "hits_low": 2,
+      "hits_high": 2,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 30,
+      "effects": ["seal"]
+    },
+
+    "Acrobat Kick": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 80,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["always_crit"]
+    },
+
+    "Fatal Sword": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 180,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 30,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Severing Bite": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 190,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Purple Smoke": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 75,
+      "hits_low": 3,
+      "hits_high": 3,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_confuse"]
+    },
+
+    "Steel Needle": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 75,
+      "hits_low": 1,
+      "hits_high": 4,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 20,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Frenzied Chomp": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 165,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 25,
+      "effects": ["poison","confusion","charm"]
+    },
+
+    "Mighty Cleave": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 25,
+      "power": 240,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["always_crit"]
+    },
+
+    "Mortal Jihad": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 30,
+      "power": 250,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Deathbound": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 35,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Rampage": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 35,
+      "power": 180,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mist Rush": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 35,
+      "power": 120,
+      "hits_low": 2,
+      "hits_high": 4,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 35,
+      "effects": ["mirage"]
+    },
+
+    "Wrath Tempest": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 35,
+      "power": 30,
+      "hits_low": 8,
+      "hits_high": 8,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_crit_dmg"]
+    },
+
+    "Madness Nails": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 36,
+      "power": 165,
+      "hits_low": 2,
+      "hits_high": 4,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Nihil Claw": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 36,
+      "power": 125,
+      "hits_low": 2,
+      "hits_high": 3,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Power Punch": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 40,
+      "power": 155,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["scale_hp"]
+    },
+
+    "Hell Thrust": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 45,
+      "power": 235,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Brave Blade": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 45,
+      "power": 220,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 30,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Akashic Arts": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 275,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_crit_dmg"]
+    },
+
+    "Mac an Luin": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 270,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_crit_dmg"]
+    },
+
+    "Pandemonic Crush": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 170,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-def", "-spdef"]
+    },
+
+    "Megaton Press": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 260,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Yabusame Shot": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 60,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce", "always_crit"]
+    },
+
+    "Figment Slash": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["always_crit"]
+    },
+
+    "Myriad Slashes": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 55,
+      "power": 80,
+      "hits_low": 5,
+      "hits_high": 5,
+      "target": "Single",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Hades Blast": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 60,
+      "power": 190,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Titanomachia": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 60,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 20,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Hassou Tobi": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 60,
+      "power": 30,
+      "hits_low": 8,
+      "hits_high": 8,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["always_crit"]
+    },
+
+    "Catastrophe": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 75,
+      "power": 290,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Karnak": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 42,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 30,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Gungnir": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 118,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Dancing Strike": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 21,
+      "power": 80,
+      "hits_low": 3,
+      "hits_high": 3,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 30,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Astral Saintstrike": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 40,
+      "power": 20,
+      "hits_low": 15,
+      "hits_high": 15,
+      "target": "Random",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Headcrush": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 20,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 70,
+      "effects": ["confusion"]
+    },
+
+    "Somersault": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 35,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-atk", "-spatk", "-atk", "-spatk"]
+    },
+
+    "Andalucia": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 20,
+      "power": 85,
+      "hits_low": 3,
+      "hits_high": 6,
+      "target": "Random",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Hell Spin": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 30,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Terror Blade": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 35,
+      "power": 250,
+      "hits_low": 1,
+      "hits_high": 3,
+      "target": "Random",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 50,
+      "effects": ["pierce", "confusion"]
+    },
+
+    "Pestilence": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 170,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_ailment"]
+    },
+
+    "Javelin Rain": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 90,
+      "power": 260,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 108,
+      "crit": 40,
+      "ailment_chance": 0,
+      "effects": ["seal"]
+    },
+
+    "Gaea Rage": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 170,
+      "power": 270,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Deadly Fury": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 50,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["always_crit"]
+    },
+
+    "Agi": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 10,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Agilao": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 20,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Agidyne": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 35,
+      "power": 215,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Agibarion": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 50,
+      "power": 265,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Maragi": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 15,
+      "power": 95,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Maragilon": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 30,
+      "power": 120,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Maragidyne": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 50,
+      "power": 155,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Maragibarion": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 75,
+      "power": 185,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Fire Breath": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 25,
+      "power": 90,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Fire Dracostrike": {
+      "element": "Fire",
+      "type": "Physical",
+      "mp": 25,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Ragnarok": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 60,
+      "power": 150,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Trisagion": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 65,
+      "power": 230,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Ghastfire Rain": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 30,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Hell Burner": {
+      "element": "Fire",
+      "type": "Physical",
+      "mp": 40,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Raging Hellfire": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 40,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mirage Shot": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 15,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 75,
+      "effects": ["mirage"]
+    },
+
+    "Hellish Brand": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 70,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["dekaja"]
+    },
+
+    "Megido Flame": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 130,
+      "power": 250,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Magma Axis": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 49,
+      "power": 180,
+      "hits_low": 3,
+      "hits_high": 8,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Inferno of God": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 59,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Falling Star Fire": {
+      "element": "Fire",
+      "type": "Special",
+      "mp": 112,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Bufu": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 10,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Bufula": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 20,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Bufudyne": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 35,
+      "power": 215,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Bufubarion": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 50,
+      "power": 265,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mabufu": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 15,
+      "power": 95,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mabufula": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 30,
+      "power": 120,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mabufudyne": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 50,
+      "power": 155,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mabufubarion": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 75,
+      "power": 185,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Ice Breath": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 25,
+      "power": 90,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Ice Dracostrike": {
+      "element": "Ice",
+      "type": "Physical",
+      "mp": 25,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Glacial Blast": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 60,
+      "power": 150,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Ice Age": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 65,
+      "power": 230,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Stormcaller Song": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 18,
+      "power": 60,
+      "hits_low": 3,
+      "hits_high": 6,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Jack Bufula": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 20,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-def", "-spdef"]
+    },
+
+    "Hellish Spurt": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 25,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Eternal Blizzard": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 50,
+      "power": 90,
+      "hits_low": 3,
+      "hits_high": 6,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "King Bufula": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 35,
+      "power": 110,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-def", "-spdef"]
+    },
+
+    "Raging Blizzard": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 40,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Hailstorm of God": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 59,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Falling Star": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 112,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Thalassic Calamity": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 45,
+      "power": 95,
+      "hits_low": 3,
+      "hits_high": 7,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Moonlight Frost": {
+      "element": "Ice",
+      "type": "Special",
+      "mp": 100,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Zio": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 10,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Zionga": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 20,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Ziodyne": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 35,
+      "power": 215,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Ziobarion": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 50,
+      "power": 265,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mazio": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 15,
+      "power": 95,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mazionga": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 30,
+      "power": 120,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Maziodyne": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 50,
+      "power": 155,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Maziobarion": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 75,
+      "power": 185,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Shockbound": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 25,
+      "power": 90,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Storm Dracostrike": {
+      "element": "Electric",
+      "type": "Physical",
+      "mp": 25,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Thunder Reign": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 60,
+      "power": 150,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Narukami": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 65,
+      "power": 230,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Raging Lightning": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 40,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Souffle D'eclair": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 55,
+      "power": 330,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Ruinous Thunder": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 20,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Keraunos": {
+      "element": "Electric",
+      "type": "Physical",
+      "mp": 55,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 118,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Dreadful Gleam": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 52,
+      "power": 220,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Lightning of God": {
+      "element": "Electric",
+      "type": "Special",
+      "mp": 59,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Zan": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 10,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Zanma": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 20,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Zandyne": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 35,
+      "power": 215,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Zanbarion": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 50,
+      "power": 265,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mazan": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 15,
+      "power": 95,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mazanma": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 30,
+      "power": 120,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mazandyne": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 50,
+      "power": 155,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mazanbarion": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 75,
+      "power": 185,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Wind Breath": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 25,
+      "power": 90,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Wind Dracostrike": {
+      "element": "Force",
+      "type": "Physical",
+      "mp": 25,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Floral Gust": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 60,
+      "power": 150,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Deadly Wind": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 65,
+      "power": 230,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["pierce"]
+    },
+
+    "Raging Tempest": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 40,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Sacrifice of Clay": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 50,
+      "power": 140,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-atk","-def","-spatk","-spdef"]
+    },
+
+    "Hell Exhaust": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 40,
+      "power": 120,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["dekaja"]
+    },
+
+    "Tornado of God": {
+      "element": "Force",
+      "type": "Special",
+      "mp": 59,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Lunar Hurricane": {
+      "element": "Force",
+      "type": "Physical",
+      "mp": 40,
+      "power": 70,
+      "hits_low": 1,
+      "hits_high": 9,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Hama": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 15,
+      "power": 140,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "Hamaon": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 25,
+      "power": 175,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "Hamabarion": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 55,
+      "power": 265,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "Mahama": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 25,
+      "power": 105,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 30,
+      "effects": ["instakill_weak"]
+    },
+
+    "Mahamaon": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 40,
+      "power": 135,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 30,
+      "effects": ["instakill_weak"]
+    },
+
+    "Mahamabarion": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 80,
+      "power": 185,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 30,
+      "effects": ["instakill_weak"]
+    },
+
+    "White Dracostrike": {
+      "element": "Light",
+      "type": "Physical",
+      "mp": 30,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "Light's Descent": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 60,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "God's Bow": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 60,
+      "power": 100,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 150,
+      "effects": ["instakill_weak"]
+    },
+
+    "Paraselene Blur": {
+      "element": "Light",
+      "type": "Special",
+      "mp": 45,
+      "power": 150,
+      "hits_low": 4,
+      "hits_high": 4,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mudo": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 15,
+      "power": 140,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "Mudoon": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 25,
+      "power": 175,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "Mudobarion": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 55,
+      "power": 265,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "Mamudo": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 25,
+      "power": 105,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 30,
+      "effects": ["instakill_weak"]
+    },
+
+    "Mamudoon": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 40,
+      "power": 135,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 30,
+      "effects": ["instakill_weak"]
+    },
+
+    "Mamudobarion": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 80,
+      "power": 185,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 30,
+      "effects": ["instakill_weak"]
+    },
+
+    "Black Dracostrike": {
+      "element": "Dark",
+      "type": "Physical",
+      "mp": 30,
+      "power": 200,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["instakill_weak"]
+    },
+
+    "Die For Me!": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 35,
+      "power": 120,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Toxic Breath": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 30,
+      "power": 140,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 50,
+      "effects": ["poison"]
+    },
+
+    "Profaned Land": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 35,
+      "power": 240,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 100,
+      "effects": ["poison"]
+    },
+
+    "Walpurgisnacht": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 40,
+      "power": 300,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 100,
+      "effects": ["instakill_weak"]
+    },
+
+    "Death Flies": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 120,
+      "power": 320,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 60,
+      "effects": ["instakill_weak"]
+    },
+
+    "Fallen Destroyer": {
+      "element": "Dark",
+      "type": "Special",
+      "mp": 70,
+      "power": 250,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 50,
+      "effects": ["instakill_weak"]
+    },
+
+    "Megido": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 70,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Megidolaon": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 120,
+      "power": 190,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Freikugel": {
+      "element": "Almighty",
+      "type": "Physical",
+      "mp": 60,
+      "power": 230,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 20,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Life Drain": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 10,
+      "power": 120,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain"]
+    },
+
+    "Spirit Drain": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 5,
+      "power": 100,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_mp"]
+    },
+
+    "Energy Drain": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 15,
+      "power": 80,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_hp_mp"]
+    },
+
+    "Sanguine Drain": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 15,
+      "power": 120,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-atk","-spatk","drain"]
+    },
+
+    "Violent Rage": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 70,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["seal"]
+    },
+
+    "Silt of Ruin": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 45,
+      "power": 140,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-spd"]
+    },
+
+    "Fire of Sinai": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 80,
+      "power": 105,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Sakanagi": {
+      "element": "Almighty",
+      "type": "Physical",
+      "mp": 20,
+      "power": 230,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Marakumo": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 50,
+      "power": 275,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_crit_dmg"]
+    },
+
+    "Divine Arrowfall": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 35,
+      "power": 170,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Death Lust": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 70,
+      "power": 160,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 45,
+      "effects": ["charm"]
+    },
+
+    "Babylon Goblet": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 80,
+      "power": 180,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 45,
+      "effects": ["confusion"]
+    },
+
+    "Meditation": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 5,
+      "power": 120,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_hp_mp"]
+    },
+
+    "Soul Divide": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 50,
+      "power": 230,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 50,
+      "crit": 0,
+      "ailment_chance": 50,
+      "effects": ["seal"]
+    },
+
+    "Madness Glint": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 50,
+      "power": 150,
+      "hits_low": 2,
+      "hits_high": 5,
+      "target": "Random",
+      "accuracy": 108,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["seal"]
+    },
+
+    "Tandava": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 160,
+      "power": 230,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-def", "-def", "-def", "-def", "-spdef", "-spdef", "-spdef", "-spdef"]
+    },
+
+    "Heavenly Ikuyumi": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 65,
+      "power": 150,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["bonus_debuff"]
+    },
+
+    "Morning Star": {
+      "element": "Almighty",
+      "type": "Special",
+      "mp": 132,
+      "power": 240,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Dormina": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 80,
+      "effects": ["sleep"]
+    },
+
+    "Dustoma": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 75,
+      "effects": ["mirage"]
+    },
+
+    "Marin Karin": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 70,
+      "effects": ["charm"]
+    },
+
+    "Poisma": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 85,
+      "effects": ["poison"]
+    },
+
+    "Pulinpa": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 70,
+      "effects": ["confusion"]
+    },
+
+    "Makajama": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 65,
+      "effects": ["seal"]
+    },
+
+    "Lullaby": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 25,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 55,
+      "effects": ["sleep"]
+    },
+
+    "Fogna": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 25,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 50,
+      "effects": ["mirage"]
+    },
+
+    "Sexy Dance": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 25,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 45,
+      "effects": ["charm"]
+    },
+
+    "Toxic Cloud": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 25,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 60,
+      "effects": ["poison"]
+    },
+
+    "Tentarafoo": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 25,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 45,
+      "effects": ["confusion"]
+    },
+
+    "Makajamaon": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 25,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["seal"]
+    },
+
+    "Toxic Spray": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 15,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 55,
+      "effects": ["sleep", "-def", "-spdef"]
+    },
+
+    "Slumber Vortex": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 35,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["sleep", "mirage"]
+    },
+
+    "Preach": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 35,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 100,
+      "effects": ["sleep", "charm", "confusion"]
+    },
+
+    "Frolic": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 80,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 40,
+      "effects": ["charm", "-def", "-spdef", "-atk", "-spatk", "-def", "-spdef", "-atk", "-spatk"]
+    },
+
+    "Stagnant Air": {
+      "element": "Status",
+      "type": "Status",
+      "mp": 50,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 100,
+      "effects": ["mirage", "-spd", "-def", "-spdef"]
+    },
+
+    "Dia": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 8,
+      "power": 15,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Diarama": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 15,
+      "power": 30,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Diarahan": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 35,
+      "power": 100,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Media": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 30,
+      "power": 15,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mediarama": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 60,
+      "power": 30,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Mediarahan": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 150,
+      "power": 100,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Patra": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 8,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["patra"]
+    },
+
+    "Me Patra": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 30,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["patra"]
+    },
+
+    "Recarm": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 20,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["recarm"]
+    },
+
+    "Samarecarm": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 60,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["samarecarm"]
+    },
+
+    "Diamrita": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 30,
+      "power": 30,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["patra"]
+    },
+
+    "Sun's Radiance": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 12,
+      "power": 30,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["patra"]
+    },
+
+    "Humble Blessing": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 15,
+      "power": 15,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Harvest Dance": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 30,
+      "power": 15,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+def", "+spdef", "+def", "+spdef"]
+    },
+
+    "Eleusinian Harvest": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 150,
+      "power": 130,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Matriarch's Love": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 200,
+      "power": 30,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["patra", "dekunda"]
+    },
+
+    "Golden Apple": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 180,
+      "power": 30,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+atk", "+spatk", "+def", "+spdef", "+spd"]
+    },
+
+    "Miracle Water": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 20,
+      "power": 15,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": []
+    },
+
+    "Revival Chant": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 100,
+      "power": 100,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["revivalchant"]
+    },
+
+    "Light of Order": {
+      "element": "Healing",
+      "type": "Healing",
+      "mp": 150,
+      "power": 30,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["dekunda", "+atk", "+spatk", "+def", "+spdef", "+spd"]
+    },
+
+    "Tarunda": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 8,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-atk", "-spatk"]
+    },
+
+    "Rakunda": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 8,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-def", "-spdef"]
+    },
+
+    "Sukunda": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 8,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-spd"]
+    },
+
+    "Matarunda": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 30,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-atk", "-spatk"]
+    },
+
+    "Marakunda": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 30,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-def", "-spdef"]
+    },
+
+    "Masukunda": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 30,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-spd"]
+    },
+
+    "Debilitate": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 150,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["-atk", "-spatk", "-def", "-spdef", "-spd"]
+    },
+
+    "Tarukaja": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 8,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+atk", "+spatk"]
+    },
+
+    "Rakukaja": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 8,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+def", "+spdef"]
+    },
+
+    "Sukukaja": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 8,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+spd"]
+    },
+
+    "Matarukaja": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 30,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+atk", "+spatk"]
+    },
+
+    "Marakukaja": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 30,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+def", "+spdef"]
+    },
+
+    "Masukukaja": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 30,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+spd"]
+    },
+
+    "Luster Candy": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 150,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+atk", "+spatk", "+def", "+spdef", "+spd"]
+    },
+
+    "Red Capote": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 12,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+spd", "+spd"]
+    },
+
+    "Cautious Cheer": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 50,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+def", "+spdef", "+spd"]
+    },
+
+    "Dekaja": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["dekaja"]
+    },
+
+    "Dekunda": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["dekunda"]
+    },
+
+    "Charge": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["charge"]
+    },
+
+    "Concentrate": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["concentrate"]
+    },
+
+    "Donum Gladi": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["charge"]
+    },
+
+    "Donum Magici": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["concentrate"]
+    },
+
+    "Critical Aura": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 25,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["next_hit", "next_crit"]
+    },
+
+    "Impaler's Animus": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 50,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["next_dmg", "next_pierce"]
+    },
+
+    "Bowl of Hygieia": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 20,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["next_heal"]
+    },
+
+    "Tetrakarn": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 50,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["reflect_physical"]
+    },
+
+    "Makarakarn": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 50,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["reflect_magic"]
+    },
+
+    "Phys Block": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 70,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_physical"]
+    },
+
+    "Fire Block": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_fire"]
+    },
+
+    "Ice Block": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_ice"]
+    },
+
+    "Elec Block": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_electric"]
+    },
+
+    "Force Block": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_force"]
+    },
+
+    "Light Block": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_light"]
+    },
+
+    "Dark Block": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 40,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_dark"]
+    },
+
+    "Kannabi Veil": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 15,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "All",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["reduce_dmg"]
+    },
+
+    "Taunt": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 10,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["taunt"]
+    },
+
+    "Fierce Roar": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 30,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["taunt", "+def", "+spdef"]
+    },
+
+    "Witness Me": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 5,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["taunt", "+spd", "+spd"]
+    },
+
+    "Inflaming Divinity": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 50,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+atk", "+atk", "+def", "+def", "+spatk", "+spatk", "+spdef", "+spdef", "+spd", "+spd"]
+    },
+
+    "Life Spring": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_max_hp"]
+    },
+
+    "Great Life Spring": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_max_hp", "increase_max_hp"]
+    },
+
+    "Mana Spring": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_max_mp"]
+    },
+
+    "Great Mana Spring": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_max_mp", "increase_max_mp"]
+    },
+
+    "Light Life Aid": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["recover_after_victory_hp"]
+    },
+
+    "Life Aid": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["recover_after_victory_hp", "recover_after_victory_hp"]
+    },
+
+    "Light Mana Aid": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["recover_after_victory_mp"]
+    },
+
+    "Mana Aid": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["recover_after_victory_mp", "recover_after_victory_mp"]
+    },
+
+    "Resist Phys": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["resist_physical"]
+    },
+
+    "Resist Fire": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["resist_fire"]
+    },
+
+    "Resist Ice": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["resist_ice"]
+    },
+
+    "Resist Elec": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["resist_ice"]
+    },
+
+    "Resist Force": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["resist_force"]
+    },
+
+    "Resist Light": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["resist_light"]
+    },
+
+    "Resist Dark": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["resist_dark"]
+    },
+
+    "Null Phys": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_physical"]
+    },
+
+    "Null Fire": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_fire"]
+    },
+
+    "Null Ice": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_ice"]
+    },
+
+    "Null Elec": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_electric"]
+    },
+
+    "Null Force": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_force"]
+    },
+
+    "Null Light": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_light"]
+    },
+
+    "Null Dark": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_dark"]
+    },
+
+    "Repel Phys": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["repel_physical"]
+    },
+
+    "Repel Fire": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["repel_fire"]
+    },
+
+    "Repel Ice": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["repel_ice"]
+    },
+
+    "Repel Elec": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["repel_electric"]
+    },
+
+    "Repel Force": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["repel_force"]
+    },
+
+    "Repel Light": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["repel_light"]
+    },
+
+    "Repel Dark": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["repel_dark"]
+    },
+
+    "Drain Phys": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_physical"]
+    },
+
+    "Drain Fire": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_fire"]
+    },
+
+    "Drain Ice": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_ice"]
+    },
+
+    "Drain Elec": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_electric"]
+    },
+
+    "Drain Force": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_force"]
+    },
+
+    "Drain Light": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_light"]
+    },
+
+    "Drain Dark": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["drain_dark"]
+    },
+
+    "Hellish Mask": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["dodge_instakill", "dodge_ailment"]
+    },
+
+    "Abyssal Mask": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["dodge_instakill", "dodge_ailment", "dodge_instakill", "dodge_ailment"]
+    },
+
+    "Restore": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["heal_mp_weakness"]
+    },
+
+    "High Restore": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["heal_mp_weakness", "heal_mp_weakness"]
+    },
+
+    "Curse Siphon": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["heal_mp_ailment"]
+    },
+
+    "Great Curse Siphon": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["heal_mp_ailment", "heal_mp_ailment"]
+    },
+
+    "Counter": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["counter"]
+    },
+
+    "Retaliate": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["counter", "counter"]
+    },
+
+    "Safeguard": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["null_press_turn_loss"]
+    },
+
+    "Beast Eye": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_accuracy"]
+    },
+
+    "Dragon Eye": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_accuracy", "increase_accuracy"]
+    },
+
+    "Bloody Glee": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_critical"]
+    },
+
+    "Murderous Glee": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_critical", "increase_critical"]
+    },
+
+    "Phys Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_physical"]
+    },
+
+    "Fire Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_fire"]
+    },
+
+    "Ice Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_ice"]
+    },
+
+    "Elec Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_electric"]
+    },
+
+    "Force Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_force"]
+    },
+
+    "Light Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_light"]
+    },
+
+    "Dark Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_dark"]
+    },
+
+    "Heal Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_heal"]
+    },
+
+    "Almighty Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_almighty"]
+    },
+
+    "High Phys Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_physical", "increase_physical"]
+    },
+
+    "High Fire Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_fire", "increase_fire"]
+    },
+
+    "High Ice Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_ice", "increase_ice"]
+    },
+
+    "High Elec Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_electric", "increase_electric"]
+    },
+
+    "High Force Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_force", "increase_force"]
+    },
+
+    "High Light Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_light", "increase_light"]
+    },
+
+    "High Dark Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_dark", "increase_dark"]
+    },
+
+    "High Heal Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_heal", "increase_heal"]
+    },
+
+    "High Almighty Pieroma": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_almighty", "increase_almighty"]
+    },
+
+    "Poison Adept": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_poison_dmg"]
+    },
+
+    "Poison Master": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["increase_poison_dmg", "increase_poison_dmg"]
+    },
+
+    "Boon Boost": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["up_support_length"]
+    },
+
+    "Critical Zealot": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["up_crit_down_normal"]
+    },
+
+    "Endure": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["endure"]
+    },
+
+    "Enduring Soul": {
+      "element": "Passive",
+      "type": "Passive",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Self",
+      "accuracy": 100,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["enduring_soul"]
+    }
+
+  }
+}
