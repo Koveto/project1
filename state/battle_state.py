@@ -117,8 +117,21 @@ class BattleState(GameState):
                 # SELECT (Z or ENTER)
                 # -------------------------
                 elif event.key in (pygame.K_z, pygame.K_RETURN):
+
+                    # PASS OPTION (index 2)
+                    if self.menu_mode == "main" and self.menu_index == 6:
+                        # End the turn immediately
+                        self.model.handle_action_press_turn_cost(1)
+                        self.model.next_turn()
+                        # Reset menu state
+                        self.menu_mode = "main"
+                        self.menu_index = 0
+                        return
+
+                    # Otherwise go to submenu
                     self.previous_menu_index = self.menu_index
                     self.menu_mode = "submenu"
+
 
             # -------------------------
             # SUBMENU MODE

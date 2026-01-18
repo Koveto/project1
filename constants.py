@@ -1,3 +1,6 @@
+import os
+import pygame
+
 # Scale factor
 SCALE = 4
 
@@ -15,3 +18,27 @@ ACTUAL_TILE_SIZE = LOGICAL_TILE_SIZE * SCALE
 SPEED = 4
 
 TARGET_FPS = 30
+
+
+# Root folder for all sprite assets
+SPRITE_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "sprites")
+)
+
+def sprite_path(name):
+    return os.path.join(SPRITE_ROOT, name)
+
+def load_scaled_sprite(name, scale=1.0, colorkey=None):
+    """
+    Loads a sprite from /sprites/, applies optional colorkey,
+    and scales it by a multiplier.
+    """
+    path = sprite_path(name)
+    img = pygame.image.load(path).convert()
+
+    if colorkey is not None:
+        img.set_colorkey(colorkey)
+
+    w, h = img.get_size()
+    img = pygame.transform.scale(img, (int(w * scale), int(h * scale)))
+    return img

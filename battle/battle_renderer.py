@@ -3,35 +3,72 @@
 import pygame, os, math
 from battle.battle_font import BattleFont
 from pokedex.pokemon_sprites import load_pokemon_sprite, load_player_sprite
+from constants import load_scaled_sprite
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 FRAME_PATH = os.path.join(ROOT, "sprites", "battleframe.png")
 FRAME_W = 240
 FRAME_H = 48
+PT_X = 820
+PT_Y = 305
+PT_SPACING = 34
 
 class BattleRenderer:
 
     def __init__(self, background_surface, model):
         self.background = background_surface
         self.model = model
+
         self.font0 = BattleFont("font3.png", glyph_w=7, glyph_h=13, scale=4, spacing=28)
         self.font1 = BattleFont("font5.png", glyph_w=7, glyph_h=13, scale=3, spacing=16)
-        self.cursor_sprite = self.load_cursor_sprite()
-        self.hpmp_sprite = self.load_hpmp_sprite()
-        self.lv_sprite = self.load_lv_sprite(scale=3)
 
-        # Preload sprites for player team (None → None)
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        sprite_path = lambda name: os.path.join(root, "sprites", name)
+
+        # --- Universal sprite loading ---
+        self.cursor_sprite = load_scaled_sprite(
+            sprite_path("cursor.png"),
+            scale=4,
+            colorkey=(255, 255, 255)   # white transparent
+        )
+
+        self.hpmp_sprite = load_scaled_sprite(
+            sprite_path("hpmp.png"),
+            scale=4,
+            colorkey=(255, 0, 228)     # magenta transparent
+        )
+
+        self.lv_sprite = load_scaled_sprite(
+            sprite_path("lv.png"),
+            scale=3,
+            colorkey=None              # no transparency
+        )
+
+        # Press Turn icons (new)
+        self.press_turn_red = load_scaled_sprite(
+            sprite_path("pokeballred.png"),
+            scale=2,
+            colorkey=(255, 0, 228)
+        )
+
+        self.press_turn_blue = load_scaled_sprite(
+            sprite_path("pokeballblue.png"),
+            scale=2,
+            colorkey=(255, 0, 228)
+        )
+
+        # --- Pokémon sprites ---
         self.player_sprites = [
-            self._load_sprite_for_pokemon(p, is_back=True) if p is not None else None
+            self._load_sprite_for_pokemon(p, is_back=True) if p else None
             for p in model.player_team
         ]
 
-        # Preload sprites for enemy team (None → None)
         self.enemy_sprites = [
-            self._load_sprite_for_pokemon(p, is_back=False) if p is not None else None
+            self._load_sprite_for_pokemon(p, is_back=False) if p else None
             for p in model.enemy_team
         ]
 
+        # --- Battle frame ---
         self.battleframe = self.load_battle_frame()
 
         # Layout constants
@@ -43,20 +80,15 @@ class BattleRenderer:
         self.ENEMY_Y = 0
         self.ENEMY_SPACING = 152
 
-        self.PLAYER_OFFSET = 50  # player character offset
+        self.PLAYER_OFFSET = 50
 
         self.menu_positions = [
-            (65, 525),   # Skills
-            (316, 525),  # Item
-            (536, 525),  # Guard
-            (765, 525),  # Talk
-            (65, 573),   # Change
-            (316, 573),  # Escape
-            (536, 573),  # Pass
-            (765, 573)   # Info
+            (65, 525), (316, 525), (536, 525), (765, 525),
+            (65, 573), (316, 573), (536, 573), (765, 573)
         ]
 
         self.anim_frame = 0
+
 
     # ---------------------------------------------------------
     # Sprite loading
@@ -89,43 +121,6 @@ class BattleRenderer:
             scale=4
         )
     
-    def load_cursor_sprite(self, scale=4):
-        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        path = os.path.join(root, "sprites", "cursor.png")
-
-        img = pygame.image.load(path).convert()
-        img.set_colorkey((255, 255, 255))  # white = transparent
-
-        w, h = img.get_size()
-        img = pygame.transform.scale(img, (w * scale, h * scale))
-        return img
-    
-    def load_hpmp_sprite(self, scale=4):
-        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        path = os.path.join(root, "sprites", "hpmp.png")
-
-        img = pygame.image.load(path).convert()
-
-        # FF00E4 → transparent
-        img.set_colorkey((255, 0, 228))
-
-        w, h = img.get_size()
-        img = pygame.transform.scale(img, (w * scale, h * scale))
-
-        return img
-
-    def load_lv_sprite(self, scale=4):
-        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        path = os.path.join(root, "sprites", "lv.png")
-
-        img = pygame.image.load(path).convert()   # no alpha → convert()
-
-        w, h = img.get_size()
-        img = pygame.transform.scale(img, (w * scale, h * scale))
-
-        return img
-
-    
     def load_battle_frame(self, scale=4):
         """
         Loads sprites/battleframe.png (240x48, no alpha).
@@ -150,11 +145,28 @@ class BattleRenderer:
         )
 
         return scaled
+        
 
 
     # ---------------------------------------------------------
     # Drawing
     # ---------------------------------------------------------
+    def draw_press_turn_icon(self, screen, state, x, y):
+        if state == "transparent":
+            return
+
+        if state == "solid_blue":
+            screen.blit(self.press_turn_blue, (x, y))
+        elif state == "solid_red":
+            screen.blit(self.press_turn_red, (x, y))
+        elif state == "flash_blue":
+            # Flashing: draw only on “on” frames
+            if (self.anim_frame // 10) % 2 == 0:
+                screen.blit(self.press_turn_blue, (x, y))
+        elif state == "flash_red":
+            if (self.anim_frame // 10) % 2 == 0:
+                screen.blit(self.press_turn_red, (x, y))
+
 
     def draw(self, screen, menu_index, menu_mode, previous_menu_index):
 
@@ -166,7 +178,7 @@ class BattleRenderer:
 
         self.anim_frame += 1
 
-        AMP = 4
+        AMP = 8
         SPEED = 0.18
 
         poke_offset = int(AMP * math.sin(self.anim_frame * SPEED))
@@ -180,12 +192,17 @@ class BattleRenderer:
         # ---------------------------------------------------------
         # Enemy Pokémon (no HP/MP box for now)
         # ---------------------------------------------------------
-        for i, sprite in enumerate(self.enemy_sprites):
+        # Desired draw order: 1, 3, 0, 2
+        draw_order = [1, 3, 0, 2]
+
+        for i in draw_order:
+            sprite = self.enemy_sprites[i]
             if sprite is None:
                 continue
 
             x = self.ENEMY_BASE_X + i * self.ENEMY_SPACING
             screen.blit(sprite, (x, self.ENEMY_Y))
+
 
         # ---------------------------------------------------------
         # Player-side sprites (Pokémon + player)
@@ -205,7 +222,7 @@ class BattleRenderer:
                 y = self.PLAYER_Y + 64
             else:
                 # Normal Pokémon base position
-                y = self.PLAYER_Y
+                y = self.PLAYER_Y + 16
 
             # Apply bounce to the active party member (including Brendan if index 0)
             if i == active_index:
@@ -215,7 +232,7 @@ class BattleRenderer:
 
         
         # ---------------------------------------------------------
-        # HP/MP
+        # HP/MP + Frame
         # ---------------------------------------------------------
         """
         screen.blit(self.hpmp_sprite, (0, 0))
@@ -230,6 +247,16 @@ class BattleRenderer:
         self.font1.draw_text(screen, str(active_pokemon.level), 902, hpmp_y + 14)
         
         screen.blit(self.battleframe, (0, 448))
+
+        # ---------------------------------------------------------
+        # Press Turn Icons
+        # ---------------------------------------------------------
+        press_turn_states = self.model.get_press_turn_icon_states(self.anim_frame)
+
+        for i, state in enumerate(press_turn_states):
+            x = PT_X + i * PT_SPACING   # left → right
+            y = PT_Y + hp_offset
+            self.draw_press_turn_icon(screen, state, x, y)
 
         # ---------------------------------------------------------
         # Menu text
