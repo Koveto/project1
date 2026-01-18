@@ -5,13 +5,14 @@ from constants import *
 from battle.battle_constants import *
 from battle.battle_font import BattleFont
 from pokedex.pokemon_sprites import load_pokemon_sprite, load_player_sprite
-from data.smt.smt_moves import load_moves
 
 class BattleRenderer:
 
-    def __init__(self, background_surface, model):
+    def __init__(self, background_surface, model, moves):
         self.background = background_surface
         self.model = model
+        self.smt_moves = moves
+        self.anim_frame = 0
 
         self.font0 = BattleFont(FONT0_FILENAME, glyph_w=FONT0_WIDTH, glyph_h=FONT0_HEIGHT, scale=FONT0_SCALE, spacing=FONT0_SPACING)
         self.font1 = BattleFont(FONT1_FILENAME, glyph_w=FONT1_WIDTH, glyph_h=FONT1_HEIGHT, scale=FONT1_SCALE, spacing=FONT1_SPACING)
@@ -25,6 +26,11 @@ class BattleRenderer:
         
         self.mp_fill = load_scaled_sprite(
             sprite_path(FILENAME_MPFILL), 
+            scale=SCALE
+        )
+
+        self.mp_cost_fill = load_scaled_sprite(
+            sprite_path(FILENAME_MPCOSTFILL), 
             scale=SCALE
         )
 
@@ -74,11 +80,6 @@ class BattleRenderer:
             for p in model.enemy_team
         ]
 
-        
-
-        self.anim_frame = 0
-        
-        self.smt_moves = load_moves(FILENAME_MOVES)
 
 
 
@@ -132,7 +133,7 @@ class BattleRenderer:
             if (self.anim_frame // PT_DURATION_FLASH) % 2 == 0:
                 screen.blit(self.press_turn_red, (x, y))
 
-    def draw_hp_bar(self, screen, pokemon, hp_offset):
+    def draw_hp_bar(self, screen, pokemon, hp_offset, base_x=HP_BAR_X, base_y=HP_BAR_Y):
         if pokemon.max_hp <= 0:
             return
 
@@ -147,9 +148,10 @@ class BattleRenderer:
             self.hp_fill,
             (fill_width, HP_BAR_HEIGHT)
         )
-        screen.blit(fill_surface, (HP_BAR_X, HP_BAR_Y + hp_offset))
+        screen.blit(fill_surface, (base_x, base_y + hp_offset))
 
-    def draw_mp_bar(self, screen, pokemon, hp_offset):
+
+    def draw_mp_bar(self, screen, pokemon, hp_offset, base_x=MP_BAR_X, base_y=MP_BAR_Y):
         if pokemon.max_mp <= 0:
             return
 
@@ -164,9 +166,45 @@ class BattleRenderer:
             self.mp_fill,
             (fill_width, MP_BAR_HEIGHT)
         )
-        screen.blit(fill_surface, (MP_BAR_X, MP_BAR_Y + hp_offset))
+        screen.blit(fill_surface, (base_x, base_y + hp_offset))
 
-    def draw(self, screen, menu_index, menu_mode, previous_menu_index):
+
+    def draw_mp_cost_bar(self, screen, pokemon, move_name, hp_offset):
+        move = self.smt_moves.get(move_name)
+        if not move:
+            return
+
+        cost = move["mp"]
+        max_mp = pokemon.max_mp
+
+        if max_mp <= 0 or cost <= 0:
+            return
+
+        # Cost as a fraction of max MP
+        ratio = cost / max_mp
+        ratio = max(0.0, min(1.0, ratio))
+
+        fill_width = int(MP_BAR_WIDTH * ratio)
+        if fill_width <= 0:
+            return
+
+        fill_surface = pygame.transform.scale(
+            self.mp_cost_fill,
+            (fill_width, MP_BAR_HEIGHT)
+        )
+
+        # Anchor the cost bar on the RIGHT side of the MP bar
+        right_edge = MP_BAR_X + MP_BAR_WIDTH
+        left_edge = right_edge - fill_width
+
+        screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset))
+
+
+
+    def draw(self, screen, menu_index, 
+             menu_mode, previous_menu_index, 
+             skills_cursor, skills_scroll,
+             target_index):
 
         # ---------------------------------------------------------
         # Active Pokémon based on turn_index
@@ -226,19 +264,65 @@ class BattleRenderer:
         # ---------------------------------------------------------
         # HP/MP + Frame
         # ---------------------------------------------------------
-        """
-        screen.blit(self.hpmp_sprite, (0, 0))
-        self.font1.draw_text(screen, p.name, 20, 14)
-        screen.blit(self.lv_sprite, (205, 23))
-        self.font1.draw_text(screen, str(p.level), 230, 14)
-        """
+        # --- Player HP/MP (always drawn) ---
         hpmp_y = HPMP_Y + hp_offset
         screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y))
-        self.font1.draw_text(screen, active_pokemon.name, ACTIVE_POKEMON_NAME_X, hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET)
+
+        self.font1.draw_text(
+            screen,
+            active_pokemon.name,
+            ACTIVE_POKEMON_NAME_X,
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET
+        )
+
         screen.blit(self.lv_sprite, (LV_X, hpmp_y + LV_Y_OFFSET))
-        self.font1.draw_text(screen, str(active_pokemon.level), LV_TEXT_X, hpmp_y + LV_TEXT_Y_OFFSET)
+
+        self.font1.draw_text(
+            screen,
+            str(active_pokemon.level),
+            LV_TEXT_X,
+            hpmp_y + LV_TEXT_Y_OFFSET
+        )
+
         self.draw_hp_bar(screen, active_pokemon, hp_offset)
         self.draw_mp_bar(screen, active_pokemon, hp_offset)
+
+        # --- Enemy HP (only in target-select mode) ---
+        if menu_mode == MENU_MODE_TARGET_SELECT:
+            
+            target = self.model.enemy_team[target_index]
+
+            # Enemy HPMP frame at enemy coordinates
+            screen.blit(self.hpmp_sprite, (HPMP_ENEMY_X, HPMP_ENEMY_Y + hp_offset))
+
+            # Enemy name
+            self.font1.draw_text(
+                screen,
+                target.name,
+                ACTIVE_TARGET_NAME_X,
+                HPMP_ENEMY_Y + ACTIVE_TARGET_NAME_Y_OFFSET + hp_offset
+            )
+
+            # Enemy level
+            screen.blit(self.lv_sprite, (LV_X_ENEMY, HPMP_ENEMY_Y + LVL_Y_OFFSET_ENEMY + hp_offset))
+
+            self.font1.draw_text(
+                screen,
+                str(target.level),
+                LV_TEXT_X_ENEMY,
+                HPMP_ENEMY_Y + LV_TEXT_Y_OFFSET_ENEMY + hp_offset
+            )
+
+            self.draw_hp_bar(screen, target, hp_offset, base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_0)
+            self.draw_mp_bar(screen, target, hp_offset, base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_1)
+
+        if menu_mode == MENU_MODE_SKILLS:
+            # Determine which move is selected
+            selected_index = skills_scroll + skills_cursor
+            if selected_index < len(active_pokemon.moves):
+                selected_move = active_pokemon.moves[selected_index]
+                self.draw_mp_cost_bar(screen, active_pokemon, selected_move, hp_offset)
+
         screen.blit(self.battleframe, COORDS_FRAME)
 
         # ---------------------------------------------------------
@@ -262,16 +346,30 @@ class BattleRenderer:
             cursor_x, cursor_y = COORDS_MENU_MAIN[menu_index]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
         elif menu_mode == MENU_MODE_SKILLS:
-            pokemon = active_pokemon
-
+            visible_moves = active_pokemon.moves[skills_scroll : skills_scroll + 3]
             y = SKILLS_Y
-            for move_name in pokemon.moves:
-                text = pokemon.format_move_for_menu(move_name, self.smt_moves)
+            for move_name in visible_moves:
+                text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
                 self.font2.draw_text(screen, text, SKILLS_X, y)
                 y += SKILLS_Y_INCR
 
-            # Draw cursor
-            cursor_x, cursor_y = COORDS_MENU_SKILLS[menu_index]
+            # Draw cursor at one of the 3 fixed positions
+            cursor_x, cursor_y = COORDS_MENU_SKILLS[skills_cursor]
+            screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+        elif menu_mode == MENU_MODE_TARGET_SELECT:
+            # Determine which move is selected
+            selected_index = skills_scroll + skills_cursor
+            move_name = active_pokemon.moves[selected_index]
+
+            # Draw ONLY the selected move, but in the same row it was before
+            cursor_row = skills_cursor  # 0, 1, or 2
+            y = SKILLS_Y + cursor_row * SKILLS_Y_INCR
+
+            text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
+            self.font2.draw_text(screen, text, SKILLS_X, y)
+
+            # Draw cursor in the same place too
+            cursor_x, cursor_y = COORDS_MENU_SKILLS[cursor_row]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
         else:
             msg = DUMMY_TEXTS[previous_menu_index]

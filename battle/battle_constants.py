@@ -33,15 +33,18 @@ FONT2_SPACING = 21
 COLOR_WHITE = (255, 255, 255)
 COLOR_MAGENTA = (255, 0, 228)
 
-FILENAME_HPFILL  = "hpfill.png"
-FILENAME_MPFILL  = "mpfill.png"
-FILENAME_CURSOR  = "cursor.png"
-FILENAME_HPMP    = "hpmp.png"
-FILENAME_LV      = "lv.png"
-FILENAME_PBRED   = "pokeballred.png"
-FILENAME_PBBLUE  = "pokeballblue.png"
-FILENAME_MOVES   = "data/smt/smt_moves.json"
-FILENAME_FRAME   = "battleframe.png"
+FILENAME_MOVES      = "data/smt/smt_moves.json"
+FILENAME_STATS      = "data/smt/smt_stats.json"
+
+FILENAME_HPFILL     = "hpfill.png"
+FILENAME_MPFILL     = "mpfill.png"
+FILENAME_MPCOSTFILL = "mpcostfill.png"
+FILENAME_CURSOR     = "cursor.png"
+FILENAME_HPMP       = "hpmp.png"
+FILENAME_LV         = "lv.png"
+FILENAME_PBRED      = "pokeballred.png"
+FILENAME_PBBLUE     = "pokeballblue.png"
+FILENAME_FRAME      = "battleframe.png"
 
 SCALE_PRESSTURN = 2
 
@@ -54,18 +57,15 @@ ENEMY_Y = 0
 ENEMY_SPACING = 152
 
 PLAYER_OFFSET = 50
+FRAME_Y = 448
 
 COORDS_BACKGROUND = (0, 0)
-COORDS_FRAME= (0, 448)
+COORDS_FRAME= (0, FRAME_Y)
 COORDS_MENU_MAIN = [
     (65, 525), (316, 525), (536, 525), (765, 525),
     (65, 573), (316, 573), (536, 573), (765, 573)
 ]
-COORDS_MENU_SKILLS = [
-    (40, 475), 
-    (40, 525), 
-    (40, 575)
-]
+
 
 PT_STATE_TRANSPARENT = "transparent"
 PT_STATE_SOLIDBLUE   = "solid_blue"
@@ -85,6 +85,19 @@ NORMAL_Y_OFFSET = 16
 
 HPMP_X = 672
 HPMP_Y = 328
+HPMP_ENEMY_X = 0
+HPMP_ENEMY_Y = 0
+HPMP_TO_FILL_X = 76
+HPMP_TO_FILL_Y_0 = 68
+HPMP_TO_FILL_Y_1 = 88
+
+
+ACTIVE_TARGET_NAME_X = 20
+ACTIVE_TARGET_NAME_Y_OFFSET = 14
+LV_X_ENEMY = 205
+LVL_Y_OFFSET_ENEMY = 23
+LV_TEXT_X_ENEMY = 230
+LV_TEXT_Y_OFFSET_ENEMY = 14
 
 ACTIVE_POKEMON_NAME_X = 692
 ACTIVE_POKEMON_NAME_Y_OFFSET = 14
@@ -102,11 +115,17 @@ MENU_MAIN_LINE_2 = "  Change   Escape  Pass    Info"
 
 MENU_MODE_MAIN = "main"
 MENU_MODE_SKILLS = "skills"
+MENU_MODE_TARGET_SELECT = "target_select"
 MENU_MODE_SUBMENU = "submenu"
 
 SKILLS_X = 80
 SKILLS_Y = 470
-SKILLS_Y_INCR = 50
+SKILLS_Y_INCR = 49
+COORDS_MENU_SKILLS = [
+    (40, SKILLS_Y), 
+    (40, SKILLS_Y + SKILLS_Y_INCR), 
+    (40, SKILLS_Y + SKILLS_Y_INCR + SKILLS_Y_INCR)
+]
 
 DUMMY_TEXTS = [
     "Skills submenu placeholder",

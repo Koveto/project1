@@ -1,22 +1,24 @@
 # state/battle_state.py
 
 import pygame
+from battle.battle_constants import *
 from state.state_manager import GameState
 from battle.battle_model import BattleModel
 from battle.battle_renderer import BattleRenderer
 from pokedex.pokemon import Pokemon
 from data.smt.smt_stats import load_smt_from_json, get_smt_pokemon_by_number
-
+from data.smt.smt_moves import load_moves
 
 class BattleState(GameState):
 
     def __init__(self, background_surface):
 
         # Load SMT Pokémon data
-        smt_pokemon = load_smt_from_json("data/smt/smt_stats.json")
+        self.smt_pokemon = load_smt_from_json(FILENAME_STATS)
+        self.smt_moves = load_moves(FILENAME_MOVES)
 
         # Fetch Bulbasaur (no = 1)
-        bulbasaur_data = get_smt_pokemon_by_number(smt_pokemon, 1)
+        bulbasaur_data = get_smt_pokemon_by_number(self.smt_pokemon, 1)
 
         # Create the player Pokémon using Bulbasaur's data
         player_pokemon = Pokemon(
@@ -32,24 +34,27 @@ class BattleState(GameState):
         # Build teams
         player_team = [
             player_pokemon,
-            get_smt_pokemon_by_number(smt_pokemon, 34),   # Nidoking
-            get_smt_pokemon_by_number(smt_pokemon, 115),  # Kangaskhan
-            get_smt_pokemon_by_number(smt_pokemon, 6)     # Charizard
+            get_smt_pokemon_by_number(self.smt_pokemon, 34),   # Nidoking
+            get_smt_pokemon_by_number(self.smt_pokemon, 115),  # Kangaskhan
+            get_smt_pokemon_by_number(self.smt_pokemon, 6)     # Charizard
         ]
 
         enemy_team = [
-            get_smt_pokemon_by_number(smt_pokemon, 9),    # Blastoise
-            get_smt_pokemon_by_number(smt_pokemon, 3),    # Venusaur
-            get_smt_pokemon_by_number(smt_pokemon, 150),  # Mewtwo
-            get_smt_pokemon_by_number(smt_pokemon, 12)    # Butterfree
+            get_smt_pokemon_by_number(self.smt_pokemon, 9),    # Blastoise
+            get_smt_pokemon_by_number(self.smt_pokemon, 3),    # Venusaur
+            get_smt_pokemon_by_number(self.smt_pokemon, 150),  # Mewtwo
+            get_smt_pokemon_by_number(self.smt_pokemon, 12)    # Butterfree
         ]
 
         self.model = BattleModel(player_team, enemy_team)
-        self.renderer = BattleRenderer(background_surface, self.model)
+        self.renderer = BattleRenderer(background_surface, self.model, self.smt_moves)
 
         self.menu_index = 0
         self.menu_mode = "main"
         self.previous_menu_index = 0
+        self.skills_cursor = 0
+        self.skills_scroll = 0
+        self.target_index = 0
 
 
     def handle_event(self, event):
@@ -120,42 +125,122 @@ class BattleState(GameState):
                 elif event.key in (pygame.K_z, pygame.K_RETURN):
 
                     # SKILLS OPTION (index 0)
-                    if self.menu_mode == "main" and self.menu_index == 0:
+                    if self.menu_mode == MENU_MODE_MAIN and self.menu_index == 0:
                         # Reset menu state
-                        self.menu_mode = "skills"
+                        self.menu_mode = MENU_MODE_SKILLS
                         self.previous_menu_index = self.menu_index
                         self.menu_index = 0
                         return
 
                     # PASS OPTION (index 6)
-                    if self.menu_mode == "main" and self.menu_index == 6:
+                    if self.menu_mode == MENU_MODE_MAIN and self.menu_index == 6:
                         # End the turn immediately
                         self.model.handle_action_press_turn_cost(1)
                         self.model.next_turn()
                         # Reset menu state
-                        self.menu_mode = "main"
+                        self.menu_mode = MENU_MODE_MAIN
                         self.menu_index = 0
                         return
 
                     # Otherwise go to submenu
                     self.previous_menu_index = self.menu_index
-                    self.menu_mode = "submenu"
+                    self.menu_mode = MENU_MODE_SUBMENU
+
+            elif self.menu_mode == MENU_MODE_SKILLS:
+
+                if event.key == pygame.K_DOWN:
+                    total = len(self.model.get_active_pokemon().moves)
+
+                    # Case 1: cursor can move down within the visible window
+                    if self.skills_cursor < 2 and self.skills_cursor < total - 1:
+                        self.skills_cursor += 1
+
+                    # Case 2: cursor is at bottom, but we can scroll
+                    elif self.skills_scroll + 3 < total:
+                        self.skills_scroll += 1
+
+                    # Case 3: cursor moves again after scrolling is maxed out
+                    elif self.skills_cursor < 2:
+                        self.skills_cursor += 1
+                
+                if event.key == pygame.K_UP:
+                    total = len(self.model.get_active_pokemon().moves)
+
+                    # Case 1: cursor can move up within the visible window
+                    if self.skills_cursor > 0:
+                        self.skills_cursor -= 1
+
+                    # Case 2: cursor is at top, but we can scroll up
+                    elif self.skills_scroll > 0:
+                        self.skills_scroll -= 1
+
+                    # Case 3: cursor moves again after scrolling is maxed out
+                    elif self.skills_cursor > 0:
+                        self.skills_cursor -= 1
+
+                elif event.key in (pygame.K_z, pygame.K_RETURN):
+                    pokemon = self.model.get_active_pokemon()
+
+                    # Determine selected move
+                    selected_index = self.skills_scroll + self.skills_cursor
+                    move_name = pokemon.moves[selected_index]
+                    move = self.smt_moves.get(move_name)
+
+                    # --- Assumption checks ---
+                    if (
+                        move["target"] == "Single" and
+                        move["type"] in ("Physical", "Special") and
+                        pokemon.remaining_mp >= move["mp"]
+                    ):
+                        # Enter target selection mode
+                        self.menu_mode = MENU_MODE_TARGET_SELECT
+                        self.target_index = 0
+                        return
+
+                    # Otherwise: do nothing yet (future cases)
+
+
+                if event.key == pygame.K_x:
+                    self.menu_mode = MENU_MODE_MAIN
+
+
+            elif self.menu_mode == MENU_MODE_TARGET_SELECT:
+
+                enemy_count = len(self.model.enemy_team)
+
+                if event.key == pygame.K_LEFT:
+                    if enemy_count > 0:
+                        self.target_index = (self.target_index - 1) % enemy_count
+
+                elif event.key == pygame.K_RIGHT:
+                    if enemy_count > 0:
+                        self.target_index = (self.target_index + 1) % enemy_count
+
+                elif event.key == pygame.K_x:
+                    # Return to skills menu
+                    self.menu_mode = MENU_MODE_SKILLS
+                    return
+
+                if event.key == pygame.K_x:
+                    # Return to skills menu
+                    self.menu_mode = MENU_MODE_SKILLS
+                    return
 
 
             # -------------------------
             # SUBMENU MODE
             # -------------------------
-            elif self.menu_mode == "submenu" or \
-                 self.menu_mode == "skills":
+            elif self.menu_mode == MENU_MODE_SUBMENU:
 
                 # Return to main menu
                 if event.key == pygame.K_x:
-                    self.menu_mode = "main"
-
-
-
+                    self.menu_mode = MENU_MODE_MAIN
 
     def draw(self, screen):
-        self.renderer.draw(screen, self.menu_index, self.menu_mode, self.previous_menu_index)
+        self.renderer.draw(screen, self.menu_index, 
+                           self.menu_mode, self.previous_menu_index,
+                           self.skills_cursor, self.skills_scroll,
+                           self.target_index)
 
+    
 

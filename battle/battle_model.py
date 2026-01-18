@@ -90,3 +90,21 @@ class BattleModel:
                 states.append(PT_STATE_TRANSPARENT)
 
         return states
+
+    def get_player_team(self):
+        return self.player_team
+    
+    def get_enemy_team(self):
+        return self.enemy_team
+    
+    def get_turn_index(self):
+        return self.turn_index
+    
+    def get_press_turns(self):
+        return self.press_turns
+    
+    def is_player_turn(self):
+        return self.is_player_turn
+
+    def get_active_pokemon(self):
+        return self.player_team[self.turn_index]
