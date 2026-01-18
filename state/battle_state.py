@@ -22,10 +22,11 @@ class BattleState(GameState):
         player_pokemon = Pokemon(
             pokedex_number=-1,          # special player marker
             name="Brendan",             # override name
-            level=bulbasaur_data.level,
+            level=99,
             stats=bulbasaur_data.base_stats,
             affinities=bulbasaur_data.affinities,
-            learnset=bulbasaur_data.learnset
+            learnset=bulbasaur_data.learnset,
+            moves=["Lunge", "Bestial Bite", "Hellish Slash", "Gram Slice"]
         )
 
         # Build teams
@@ -118,7 +119,15 @@ class BattleState(GameState):
                 # -------------------------
                 elif event.key in (pygame.K_z, pygame.K_RETURN):
 
-                    # PASS OPTION (index 2)
+                    # SKILLS OPTION (index 0)
+                    if self.menu_mode == "main" and self.menu_index == 0:
+                        # Reset menu state
+                        self.menu_mode = "skills"
+                        self.previous_menu_index = self.menu_index
+                        self.menu_index = 0
+                        return
+
+                    # PASS OPTION (index 6)
                     if self.menu_mode == "main" and self.menu_index == 6:
                         # End the turn immediately
                         self.model.handle_action_press_turn_cost(1)
@@ -136,7 +145,8 @@ class BattleState(GameState):
             # -------------------------
             # SUBMENU MODE
             # -------------------------
-            elif self.menu_mode == "submenu":
+            elif self.menu_mode == "submenu" or \
+                 self.menu_mode == "skills":
 
                 # Return to main menu
                 if event.key == pygame.K_x:

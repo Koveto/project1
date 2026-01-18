@@ -1,26 +1,11 @@
 # battle/battle_renderer.py
 
-import pygame, os, math
+import pygame, math
+from constants import *
+from battle.battle_constants import *
 from battle.battle_font import BattleFont
 from pokedex.pokemon_sprites import load_pokemon_sprite, load_player_sprite
-from constants import load_scaled_sprite
-
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-FRAME_PATH = os.path.join(ROOT, "sprites", "battleframe.png")
-FRAME_W = 240
-FRAME_H = 48
-PT_X = 820
-PT_Y = 305
-PT_SPACING = 34
-HP_BAR_HEIGHT = 8
-MP_BAR_HEIGHT = 8
-HP_BAR_X = 748   # where the HP fill starts on screen
-HP_BAR_Y = 396
-HP_BAR_WIDTH = 192   # how wide the HP bar can be
-MP_BAR_X = 748
-MP_BAR_Y = 416
-MP_BAR_WIDTH = 192
-
+from data.smt.smt_moves import load_moves
 
 class BattleRenderer:
 
@@ -28,52 +13,54 @@ class BattleRenderer:
         self.background = background_surface
         self.model = model
 
-        self.font0 = BattleFont("font3.png", glyph_w=7, glyph_h=13, scale=4, spacing=28)
-        self.font1 = BattleFont("font5.png", glyph_w=7, glyph_h=13, scale=3, spacing=16)
-
-        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        sprite_path = lambda name: os.path.join(root, "sprites", name)
+        self.font0 = BattleFont(FONT0_FILENAME, glyph_w=FONT0_WIDTH, glyph_h=FONT0_HEIGHT, scale=FONT0_SCALE, spacing=FONT0_SPACING)
+        self.font1 = BattleFont(FONT1_FILENAME, glyph_w=FONT1_WIDTH, glyph_h=FONT1_HEIGHT, scale=FONT1_SCALE, spacing=FONT1_SPACING)
+        self.font2 = BattleFont(FONT2_FILENAME, glyph_w=FONT2_WIDTH, glyph_h=FONT2_HEIGHT, scale=FONT2_SCALE, spacing=FONT2_SPACING)
 
         # --- Universal sprite loading ---
         self.hp_fill = load_scaled_sprite(
-            sprite_path("hpfill.png"), 
-            scale=4
+            sprite_path(FILENAME_HPFILL), 
+            scale=SCALE
         )
         
         self.mp_fill = load_scaled_sprite(
-            sprite_path("mpfill.png"), 
-            scale=4
+            sprite_path(FILENAME_MPFILL), 
+            scale=SCALE
         )
 
         self.cursor_sprite = load_scaled_sprite(
-            sprite_path("cursor.png"),
-            scale=4,
-            colorkey=(255, 255, 255)   # white transparent
+            sprite_path(FILENAME_CURSOR),
+            scale=SCALE,
+            colorkey=COLOR_WHITE
         )
 
         self.hpmp_sprite = load_scaled_sprite(
-            sprite_path("hpmp.png"),
-            scale=4,
-            colorkey=(255, 0, 228)     # magenta transparent
+            sprite_path(FILENAME_HPMP),
+            scale=SCALE,
+            colorkey=COLOR_MAGENTA
         )
 
         self.lv_sprite = load_scaled_sprite(
-            sprite_path("lv.png"),
-            scale=3,
-            colorkey=None              # no transparency
+            sprite_path(FILENAME_LV),
+            scale=FONT1_SCALE
+        )
+
+        self.battleframe = load_scaled_sprite(
+            sprite_path(FILENAME_FRAME),
+            scale=SCALE,
         )
 
         # Press Turn icons (new)
         self.press_turn_red = load_scaled_sprite(
-            sprite_path("pokeballred.png"),
-            scale=2,
-            colorkey=(255, 0, 228)
+            sprite_path(FILENAME_PBRED),
+            scale=SCALE_PRESSTURN,
+            colorkey=COLOR_MAGENTA
         )
 
         self.press_turn_blue = load_scaled_sprite(
-            sprite_path("pokeballblue.png"),
-            scale=2,
-            colorkey=(255, 0, 228)
+            sprite_path(FILENAME_PBBLUE),
+            scale=SCALE_PRESSTURN,
+            colorkey=COLOR_MAGENTA
         )
 
         # --- Pokémon sprites ---
@@ -87,26 +74,11 @@ class BattleRenderer:
             for p in model.enemy_team
         ]
 
-        # --- Battle frame ---
-        self.battleframe = self.load_battle_frame()
-
-        # Layout constants
-        self.PLAYER_BASE_X = -64
-        self.PLAYER_Y = 192
-        self.PLAYER_SPACING = 150
-
-        self.ENEMY_BASE_X = 300
-        self.ENEMY_Y = 0
-        self.ENEMY_SPACING = 152
-
-        self.PLAYER_OFFSET = 50
-
-        self.menu_positions = [
-            (65, 525), (316, 525), (536, 525), (765, 525),
-            (65, 573), (316, 573), (536, 573), (765, 573)
-        ]
+        
 
         self.anim_frame = 0
+        
+        self.smt_moves = load_moves(FILENAME_MOVES)
 
 
 
@@ -124,7 +96,7 @@ class BattleRenderer:
             return None
 
         if pokemon.is_player:
-            return load_player_sprite(scale=4)
+            return load_player_sprite(scale=SCALE)
 
         dex = pokemon.pokedex_number
 
@@ -138,53 +110,26 @@ class BattleRenderer:
             index=index,
             is_shiny=pokemon.is_shiny,
             is_back=is_back,
-            scale=4
+            scale=SCALE
         )
-    
-    def load_battle_frame(self, scale=4):
-        """
-        Loads sprites/battleframe.png (240x48, no alpha).
-        Returns a scaled pygame.Surface.
-        """
-
-        # Resolve path relative to battle/ folder
-        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        frame_path = os.path.join(root, "sprites", "battleframe.png")
-
-        # Raw size
-        FRAME_W = 240
-        FRAME_H = 48
-
-        # Load (no alpha → convert())
-        img = pygame.image.load(frame_path).convert()
-
-        # Scale
-        scaled = pygame.transform.scale(
-            img,
-            (FRAME_W * scale, FRAME_H * scale)
-        )
-
-        return scaled
-        
-
 
     # ---------------------------------------------------------
     # Drawing
     # ---------------------------------------------------------
     def draw_press_turn_icon(self, screen, state, x, y):
-        if state == "transparent":
+        if state == PT_STATE_TRANSPARENT:
             return
 
-        if state == "solid_blue":
+        if state == PT_STATE_SOLIDBLUE:
             screen.blit(self.press_turn_blue, (x, y))
-        elif state == "solid_red":
+        elif state == PT_STATE_SOLIDRED:
             screen.blit(self.press_turn_red, (x, y))
-        elif state == "flash_blue":
+        elif state == PT_STATE_FLASHBLUE:
             # Flashing: draw only on “on” frames
-            if (self.anim_frame // 10) % 2 == 0:
+            if (self.anim_frame // PT_DURATION_FLASH) % 2 == 0:
                 screen.blit(self.press_turn_blue, (x, y))
-        elif state == "flash_red":
-            if (self.anim_frame // 10) % 2 == 0:
+        elif state == PT_STATE_FLASHRED:
+            if (self.anim_frame // PT_DURATION_FLASH) % 2 == 0:
                 screen.blit(self.press_turn_red, (x, y))
 
     def draw_hp_bar(self, screen, pokemon, hp_offset):
@@ -231,30 +176,24 @@ class BattleRenderer:
 
         self.anim_frame += 1
 
-        AMP = 8
-        SPEED = 0.18
-
         poke_offset = int(AMP * math.sin(self.anim_frame * SPEED))
-        hp_offset = int(-AMP * math.sin(self.anim_frame * SPEED + 0.6))
+        hp_offset = int(-AMP * math.sin(self.anim_frame * SPEED + PHASE))
 
         # ---------------------------------------------------------
-        # Background + battleframe
+        # Background
         # ---------------------------------------------------------
-        screen.blit(self.background, (0, 0))
+        screen.blit(self.background, COORDS_BACKGROUND)
 
         # ---------------------------------------------------------
         # Enemy Pokémon (no HP/MP box for now)
         # ---------------------------------------------------------
-        # Desired draw order: 1, 3, 0, 2
-        draw_order = [1, 3, 0, 2]
-
-        for i in draw_order:
+        for i in ENEMY_DRAW_ORDER:
             sprite = self.enemy_sprites[i]
             if sprite is None:
                 continue
 
-            x = self.ENEMY_BASE_X + i * self.ENEMY_SPACING
-            screen.blit(sprite, (x, self.ENEMY_Y))
+            x = ENEMY_BASE_X + i * ENEMY_SPACING
+            screen.blit(sprite, (x, ENEMY_Y))
 
 
         # ---------------------------------------------------------
@@ -267,15 +206,15 @@ class BattleRenderer:
             pokemon = self.model.player_team[i]
 
             slot = i
-            x = self.PLAYER_BASE_X + slot * self.PLAYER_SPACING
+            x = PLAYER_BASE_X + slot * PLAYER_SPACING
 
             if pokemon.is_player:
                 # Player sprite base position
-                x += self.PLAYER_OFFSET
-                y = self.PLAYER_Y + 64
+                x += PLAYER_OFFSET
+                y = PLAYER_Y + PLAYER_Y_OFFSET
             else:
                 # Normal Pokémon base position
-                y = self.PLAYER_Y + 16
+                y = PLAYER_Y + NORMAL_Y_OFFSET
 
             # Apply bounce to the active party member (including Brendan if index 0)
             if i == active_index:
@@ -293,14 +232,14 @@ class BattleRenderer:
         screen.blit(self.lv_sprite, (205, 23))
         self.font1.draw_text(screen, str(p.level), 230, 14)
         """
-        hpmp_y = 328 + hp_offset
-        screen.blit(self.hpmp_sprite, (672, hpmp_y))
-        self.font1.draw_text(screen, active_pokemon.name, 692, hpmp_y + 14)
-        screen.blit(self.lv_sprite, (877, hpmp_y + 23))
-        self.font1.draw_text(screen, str(active_pokemon.level), 902, hpmp_y + 14)
+        hpmp_y = HPMP_Y + hp_offset
+        screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y))
+        self.font1.draw_text(screen, active_pokemon.name, ACTIVE_POKEMON_NAME_X, hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET)
+        screen.blit(self.lv_sprite, (LV_X, hpmp_y + LV_Y_OFFSET))
+        self.font1.draw_text(screen, str(active_pokemon.level), LV_TEXT_X, hpmp_y + LV_TEXT_Y_OFFSET)
         self.draw_hp_bar(screen, active_pokemon, hp_offset)
         self.draw_mp_bar(screen, active_pokemon, hp_offset)
-        screen.blit(self.battleframe, (0, 448))
+        screen.blit(self.battleframe, COORDS_FRAME)
 
         # ---------------------------------------------------------
         # Press Turn Icons
@@ -315,26 +254,27 @@ class BattleRenderer:
         # ---------------------------------------------------------
         # Menu text
         # ---------------------------------------------------------
-        if menu_mode == "main":
-            self.font0.draw_text(screen, f"What will {active_pokemon.name} do?", 40, 470)
-            self.font0.draw_text(screen, "  Skills   Item    Guard   Talk", 40, 517)
-            self.font0.draw_text(screen, "  Change   Escape  Pass    Info", 40, 565)
+        if menu_mode == MENU_MODE_MAIN:
+            self.font0.draw_text(screen, f"What will {active_pokemon.name} do?", X_MENU_MAIN, Y_MENU_MAIN_0)
+            self.font0.draw_text(screen, MENU_MAIN_LINE_1, X_MENU_MAIN, Y_MENU_MAIN_1)
+            self.font0.draw_text(screen, MENU_MAIN_LINE_2, X_MENU_MAIN, Y_MENU_MAIN_2)
 
-            cursor_x, cursor_y = self.menu_positions[menu_index]
+            cursor_x, cursor_y = COORDS_MENU_MAIN[menu_index]
+            screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+        elif menu_mode == MENU_MODE_SKILLS:
+            pokemon = active_pokemon
+
+            y = SKILLS_Y
+            for move_name in pokemon.moves:
+                text = pokemon.format_move_for_menu(move_name, self.smt_moves)
+                self.font2.draw_text(screen, text, SKILLS_X, y)
+                y += SKILLS_Y_INCR
+
+            # Draw cursor
+            cursor_x, cursor_y = COORDS_MENU_SKILLS[menu_index]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
         else:
-            dummy_texts = [
-                "Skills submenu placeholder",
-                "Item submenu placeholder",
-                "Guard submenu placeholder",
-                "Talk submenu placeholder",
-                "Change submenu placeholder",
-                "Escape submenu placeholder",
-                "Pass submenu placeholder",
-                "Info submenu placeholder"
-            ]
-
-            msg = dummy_texts[previous_menu_index]
-            self.font0.draw_text(screen, msg, 40, 470)
-            self.font0.draw_text(screen, "(Press X to return)", 40, 517)
+            msg = DUMMY_TEXTS[previous_menu_index]
+            self.font0.draw_text(screen, msg, X_MENU_MAIN, Y_MENU_MAIN_0)
+            self.font0.draw_text(screen, DUMMY_MSG, X_MENU_MAIN, Y_MENU_MAIN_1)
 

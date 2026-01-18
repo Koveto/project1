@@ -13,6 +13,7 @@ class Pokemon:
         stats=None,        # dict: {"hp": X, "atk": X, ...}
         affinities=None,
         learnset=None,
+        moves=None,
         bst=None
     ):
         self.pokedex_number = pokedex_number
@@ -24,12 +25,15 @@ class Pokemon:
         self.base_stats = stats or {}
         self.affinities = affinities or []
         self.learnset = learnset or []
-        self.moves = []
+        if moves is not None: 
+            self.moves = moves 
+        else: 
+            self.moves = []
         self.bst = bst
 
         # Compute actual stats
         self.recalculate_stats()
-        self.update_current_moves()
+        #self.update_current_moves()
 
     # ---------------------------------------------------------
     # Stat calculation logic
@@ -70,6 +74,27 @@ class Pokemon:
 
         # Keep only the last 5 moves learned
         self.moves = learned[-5:]
+
+    def format_move_for_menu(self, move_name, smt_moves):
+        m = smt_moves.get(move_name)
+        if not m:
+            return f"{move_name[:12]:<12} {'---':>3}  {'----':<4}  {'---':>3}  {'---':<12}"
+
+        name = move_name[:12]
+
+        # Right‑align numbers in 3 spaces
+        mp = f"{m['mp']:>3}"
+        power = f"{m['power']:>3}" if m["power"] is not None else "---"
+
+        type_short = f"{m['type'][:4]:<4}"
+
+        desc = m.get("description", "")[:12]
+        desc = f"{desc:<12}"
+
+        return f"{name:<12} {mp}  {type_short}  {power}  {desc}"
+
+
+
 
     @property
     def is_player(self):

@@ -1,4 +1,5 @@
 # battle/battle_model.py
+from battle.battle_constants import *
 
 class BattleModel:
     """
@@ -10,7 +11,7 @@ class BattleModel:
         self.enemy_team = enemy_team        # list of Pokémon objects
         self.turn_index = 0
         # Press Turn system
-        self.press_turns = [2, 2, 2, 2]   # 4 full turns
+        self.press_turns = FRESH_PRESS_TURNS   # 4 full turns
         self.is_player_turn = True        # True = blue icons, False = red icons
 
 
@@ -20,12 +21,12 @@ class BattleModel:
     def get_active_player_pokemon(self):
         # Always return the special player Pokémon (-1)
         for p in self.player_team:
-            if p.pokedex_number == -1:
+            if p.pokedex_number == PLAYER_DEX_NO:
                 return p
 
         # Fallback: first real Pokémon
         for p in self.player_team:
-            if p.pokedex_number != -1:
+            if p.pokedex_number != PLAYER_DEX_NO:
                 return p
 
         return None
@@ -58,7 +59,7 @@ class BattleModel:
         self.is_player_turn = not self.is_player_turn
 
         # Reset press turns for the new side
-        self.press_turns = [2, 2, 2, 2]
+        self.press_turns = FRESH_PRESS_TURNS
 
     def handle_action_press_turn_cost(self, cost):
         """
@@ -84,8 +85,8 @@ class BattleModel:
             if value == 2:
                 states.append(f"solid_{color}")
             elif value == 1:
-                states.append(f"flash_{color}" if flashing_on else "transparent")
+                states.append(f"flash_{color}" if flashing_on else PT_STATE_TRANSPARENT)
             else:
-                states.append("transparent")
+                states.append(PT_STATE_TRANSPARENT)
 
         return states

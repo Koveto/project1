@@ -2,6 +2,7 @@
 
 import pygame
 import os
+from battle.battle_constants import *
 
 class BattleFont:
     """
@@ -22,7 +23,7 @@ class BattleFont:
 
         # Load sheet (white = transparent)
         sheet = pygame.image.load(font_path).convert()
-        sheet.set_colorkey((255, 255, 255))
+        sheet.set_colorkey(COLOR_WHITE)
 
         self.glyphs = {}
         self._slice_sheet(sheet)

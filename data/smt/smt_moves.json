@@ -11,7 +11,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Bestial Bite": {
@@ -25,7 +26,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_crit_dmg"]
+      "effects": ["bonus_crit_dmg"],
+      "description": "Crit Dmg Up"
     },
 
     "Hellish Slash": {
@@ -39,7 +41,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": "x4, Low Acc"
     },
 
     "Gram Slice": {
@@ -53,7 +56,8 @@
       "accuracy": 98,
       "crit": 30,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Dream Needle": {
@@ -67,7 +71,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 55,
-      "effects": ["sleep"]
+      "effects": ["sleep"],
+      "description": ""
     },
 
     "Toxic Sting": {
@@ -81,7 +86,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 60,
-      "effects": ["poison"]
+      "effects": ["poison"],
+      "description": ""
     },
 
     "Critical Slash": {
@@ -95,7 +101,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["always_crit"]
+      "effects": ["always_crit"],
+      "description": ""
     },
 
     "Madness Needle": {
@@ -109,7 +116,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 45,
-      "effects": ["confusion"]
+      "effects": ["confusion"],
+      "description": ""
     },
 
     "Aramasa": {
@@ -123,7 +131,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Bouncing Claw": {
@@ -137,7 +146,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Scratch Dance": {
@@ -151,7 +161,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Berserker God": {
@@ -165,7 +176,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Needle Spray": {
@@ -179,7 +191,8 @@
       "accuracy": 98,
       "crit": 20,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Fang Breaker": {
@@ -193,7 +206,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk"]
+      "effects": ["-atk", "-spatk"],
+      "description": ""
     },
 
     "Pierce Armor": {
@@ -207,7 +221,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"]
+      "effects": ["-def", "-spdef"],
+      "description": ""
     },
 
     "Blinding Strike": {
@@ -221,7 +236,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-spd"]
+      "effects": ["-spd"],
+      "description": ""
     },
 
     "Heavy Blow": {
@@ -235,7 +251,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_crit_dmg"]
+      "effects": ["bonus_crit_dmg"],
+      "description": ""
     },
 
     "Heat Wave": {
@@ -249,7 +266,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Puncture Punch": {
@@ -263,7 +281,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Venom Chaser": {
@@ -277,7 +296,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_poison"]
+      "effects": ["bonus_poison"],
+      "description": ""
     },
 
     "Beatdown": {
@@ -291,7 +311,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["scale_hp"]
+      "effects": ["scale_hp"],
+      "description": ""
     },
 
     "Blight": {
@@ -305,7 +326,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 35,
-      "effects": ["poison"]
+      "effects": ["poison"],
+      "description": ""
     },
 
     "Carnage Fang": {
@@ -319,7 +341,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_crit_dmg"]
+      "effects": ["bonus_crit_dmg"],
+      "description": ""
     },
 
     "Crusher Onslaught": {
@@ -333,7 +356,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Hysterical Slap": {
@@ -347,7 +371,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_charm"]
+      "effects": ["bonus_charm"],
+      "description": ""
     },
 
     "Dream Fist": {
@@ -361,7 +386,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_sleep"]
+      "effects": ["bonus_sleep"],
+      "description": ""
     },
 
     "Eat Whole": {
@@ -375,7 +401,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain"]
+      "effects": ["drain"],
+      "description": ""
     },
 
     "Axel Claw": {
@@ -389,7 +416,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Damascus Claw": {
@@ -403,7 +431,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Critical Wave": {
@@ -417,7 +446,8 @@
       "accuracy": 98,
       "crit": 20,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Dark Sword": {
@@ -431,7 +461,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 30,
-      "effects": ["seal"]
+      "effects": ["seal"],
+      "description": ""
     },
 
     "Acrobat Kick": {
@@ -445,7 +476,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["always_crit"]
+      "effects": ["always_crit"],
+      "description": ""
     },
 
     "Fatal Sword": {
@@ -459,7 +491,8 @@
       "accuracy": 98,
       "crit": 30,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Severing Bite": {
@@ -473,7 +506,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Purple Smoke": {
@@ -487,7 +521,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_confuse"]
+      "effects": ["bonus_confuse"],
+      "description": ""
     },
 
     "Steel Needle": {
@@ -501,7 +536,8 @@
       "accuracy": 98,
       "crit": 20,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Frenzied Chomp": {
@@ -515,7 +551,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 25,
-      "effects": ["poison","confusion","charm"]
+      "effects": ["poison","confusion","charm"],
+      "description": ""
     },
 
     "Mighty Cleave": {
@@ -529,7 +566,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["always_crit"]
+      "effects": ["always_crit"],
+      "description": ""
     },
 
     "Mortal Jihad": {
@@ -543,7 +581,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Deathbound": {
@@ -557,7 +596,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Rampage": {
@@ -571,7 +611,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mist Rush": {
@@ -585,7 +626,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 35,
-      "effects": ["mirage"]
+      "effects": ["mirage"],
+      "description": ""
     },
 
     "Wrath Tempest": {
@@ -599,7 +641,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_crit_dmg"]
+      "effects": ["bonus_crit_dmg"],
+      "description": ""
     },
 
     "Madness Nails": {
@@ -613,7 +656,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Nihil Claw": {
@@ -627,7 +671,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Power Punch": {
@@ -641,7 +686,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["scale_hp"]
+      "effects": ["scale_hp"],
+      "description": ""
     },
 
     "Hell Thrust": {
@@ -655,7 +701,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Brave Blade": {
@@ -669,7 +716,8 @@
       "accuracy": 98,
       "crit": 30,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Akashic Arts": {
@@ -683,7 +731,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_crit_dmg"]
+      "effects": ["bonus_crit_dmg"],
+      "description": ""
     },
 
     "Mac an Luin": {
@@ -697,7 +746,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_crit_dmg"]
+      "effects": ["bonus_crit_dmg"],
+      "description": ""
     },
 
     "Pandemonic Crush": {
@@ -711,7 +761,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"]
+      "effects": ["-def", "-spdef"],
+      "description": ""
     },
 
     "Megaton Press": {
@@ -725,7 +776,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Yabusame Shot": {
@@ -739,7 +791,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce", "always_crit"]
+      "effects": ["pierce", "always_crit"],
+      "description": ""
     },
 
     "Figment Slash": {
@@ -753,7 +806,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["always_crit"]
+      "effects": ["always_crit"],
+      "description": ""
     },
 
     "Myriad Slashes": {
@@ -767,7 +821,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Hades Blast": {
@@ -781,7 +836,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Titanomachia": {
@@ -795,7 +851,8 @@
       "accuracy": 98,
       "crit": 20,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Hassou Tobi": {
@@ -809,7 +866,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["always_crit"]
+      "effects": ["always_crit"],
+      "description": ""
     },
 
     "Catastrophe": {
@@ -823,7 +881,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Karnak": {
@@ -837,7 +896,8 @@
       "accuracy": 98,
       "crit": 30,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Gungnir": {
@@ -851,7 +911,8 @@
       "accuracy": 118,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Dancing Strike": {
@@ -865,7 +926,8 @@
       "accuracy": 98,
       "crit": 30,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Astral Saintstrike": {
@@ -879,7 +941,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Headcrush": {
@@ -893,7 +956,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 70,
-      "effects": ["confusion"]
+      "effects": ["confusion"],
+      "description": ""
     },
 
     "Somersault": {
@@ -907,7 +971,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk", "-atk", "-spatk"]
+      "effects": ["-atk", "-spatk", "-atk", "-spatk"],
+      "description": ""
     },
 
     "Andalucia": {
@@ -921,7 +986,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Hell Spin": {
@@ -935,7 +1001,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Terror Blade": {
@@ -949,7 +1016,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 50,
-      "effects": ["pierce", "confusion"]
+      "effects": ["pierce", "confusion"],
+      "description": ""
     },
 
     "Pestilence": {
@@ -963,7 +1031,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_ailment"]
+      "effects": ["bonus_ailment"],
+      "description": ""
     },
 
     "Javelin Rain": {
@@ -977,7 +1046,8 @@
       "accuracy": 108,
       "crit": 40,
       "ailment_chance": 0,
-      "effects": ["seal"]
+      "effects": ["seal"],
+      "description": ""
     },
 
     "Gaea Rage": {
@@ -991,7 +1061,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Deadly Fury": {
@@ -1005,7 +1076,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["always_crit"]
+      "effects": ["always_crit"],
+      "description": ""
     },
 
     "Agi": {
@@ -1019,7 +1091,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Agilao": {
@@ -1033,7 +1106,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Agidyne": {
@@ -1047,7 +1121,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Agibarion": {
@@ -1061,7 +1136,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Maragi": {
@@ -1075,7 +1151,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Maragilon": {
@@ -1089,7 +1166,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Maragidyne": {
@@ -1103,7 +1181,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Maragibarion": {
@@ -1117,7 +1196,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Fire Breath": {
@@ -1131,7 +1211,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Fire Dracostrike": {
@@ -1145,7 +1226,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Ragnarok": {
@@ -1159,7 +1241,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Trisagion": {
@@ -1173,7 +1256,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Ghastfire Rain": {
@@ -1187,7 +1271,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Hell Burner": {
@@ -1201,7 +1286,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Raging Hellfire": {
@@ -1215,7 +1301,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mirage Shot": {
@@ -1229,7 +1316,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 75,
-      "effects": ["mirage"]
+      "effects": ["mirage"],
+      "description": ""
     },
 
     "Hellish Brand": {
@@ -1243,7 +1331,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["dekaja"]
+      "effects": ["dekaja"],
+      "description": ""
     },
 
     "Megido Flame": {
@@ -1257,7 +1346,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Magma Axis": {
@@ -1271,7 +1361,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Inferno of God": {
@@ -1285,7 +1376,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Falling Star Fire": {
@@ -1299,7 +1391,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Bufu": {
@@ -1313,7 +1406,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Bufula": {
@@ -1327,7 +1421,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Bufudyne": {
@@ -1341,7 +1436,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Bufubarion": {
@@ -1355,7 +1451,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mabufu": {
@@ -1369,7 +1466,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mabufula": {
@@ -1383,7 +1481,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mabufudyne": {
@@ -1397,7 +1496,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mabufubarion": {
@@ -1411,7 +1511,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Ice Breath": {
@@ -1425,7 +1526,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Ice Dracostrike": {
@@ -1439,7 +1541,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Glacial Blast": {
@@ -1453,7 +1556,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Ice Age": {
@@ -1467,7 +1571,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Stormcaller Song": {
@@ -1481,7 +1586,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Jack Bufula": {
@@ -1495,7 +1601,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"]
+      "effects": ["-def", "-spdef"],
+      "description": ""
     },
 
     "Hellish Spurt": {
@@ -1509,7 +1616,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Eternal Blizzard": {
@@ -1523,7 +1631,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "King Bufula": {
@@ -1537,7 +1646,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"]
+      "effects": ["-def", "-spdef"],
+      "description": ""
     },
 
     "Raging Blizzard": {
@@ -1551,7 +1661,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Hailstorm of God": {
@@ -1565,7 +1676,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Falling Star": {
@@ -1579,7 +1691,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Thalassic Calamity": {
@@ -1593,7 +1706,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Moonlight Frost": {
@@ -1607,7 +1721,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Zio": {
@@ -1621,7 +1736,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Zionga": {
@@ -1635,7 +1751,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Ziodyne": {
@@ -1649,7 +1766,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Ziobarion": {
@@ -1663,7 +1781,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mazio": {
@@ -1677,7 +1796,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mazionga": {
@@ -1691,7 +1811,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Maziodyne": {
@@ -1705,7 +1826,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Maziobarion": {
@@ -1719,7 +1841,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Shockbound": {
@@ -1733,7 +1856,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Storm Dracostrike": {
@@ -1747,7 +1871,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Thunder Reign": {
@@ -1761,7 +1886,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Narukami": {
@@ -1775,7 +1901,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Raging Lightning": {
@@ -1789,7 +1916,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Souffle D'eclair": {
@@ -1803,7 +1931,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Ruinous Thunder": {
@@ -1817,7 +1946,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Keraunos": {
@@ -1831,7 +1961,8 @@
       "accuracy": 118,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Dreadful Gleam": {
@@ -1845,7 +1976,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Lightning of God": {
@@ -1859,7 +1991,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Zan": {
@@ -1873,7 +2006,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Zanma": {
@@ -1887,7 +2021,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Zandyne": {
@@ -1901,7 +2036,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Zanbarion": {
@@ -1915,7 +2051,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mazan": {
@@ -1929,7 +2066,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mazanma": {
@@ -1943,7 +2081,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mazandyne": {
@@ -1957,7 +2096,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mazanbarion": {
@@ -1971,7 +2111,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Wind Breath": {
@@ -1985,7 +2126,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Wind Dracostrike": {
@@ -1999,7 +2141,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Floral Gust": {
@@ -2013,7 +2156,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Deadly Wind": {
@@ -2027,7 +2171,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["pierce"]
+      "effects": ["pierce"],
+      "description": ""
     },
 
     "Raging Tempest": {
@@ -2041,7 +2186,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Sacrifice of Clay": {
@@ -2055,7 +2201,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk","-def","-spatk","-spdef"]
+      "effects": ["-atk","-def","-spatk","-spdef"],
+      "description": ""
     },
 
     "Hell Exhaust": {
@@ -2069,7 +2216,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["dekaja"]
+      "effects": ["dekaja"],
+      "description": ""
     },
 
     "Tornado of God": {
@@ -2083,7 +2231,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Lunar Hurricane": {
@@ -2097,7 +2246,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Hama": {
@@ -2111,7 +2261,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Hamaon": {
@@ -2125,7 +2276,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Hamabarion": {
@@ -2139,7 +2291,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Mahama": {
@@ -2153,7 +2306,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 30,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Mahamaon": {
@@ -2167,7 +2321,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 30,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Mahamabarion": {
@@ -2181,7 +2336,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 30,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "White Dracostrike": {
@@ -2195,7 +2351,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Light's Descent": {
@@ -2209,7 +2366,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "God's Bow": {
@@ -2223,7 +2381,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 150,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Paraselene Blur": {
@@ -2237,7 +2396,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mudo": {
@@ -2251,7 +2411,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Mudoon": {
@@ -2265,7 +2426,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Mudobarion": {
@@ -2279,7 +2441,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Mamudo": {
@@ -2293,7 +2456,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 30,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Mamudoon": {
@@ -2307,7 +2471,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 30,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Mamudobarion": {
@@ -2321,7 +2486,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 30,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Black Dracostrike": {
@@ -2335,7 +2501,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Die For Me!": {
@@ -2349,7 +2516,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Toxic Breath": {
@@ -2363,7 +2531,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 50,
-      "effects": ["poison"]
+      "effects": ["poison"],
+      "description": ""
     },
 
     "Profaned Land": {
@@ -2377,7 +2546,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 100,
-      "effects": ["poison"]
+      "effects": ["poison"],
+      "description": ""
     },
 
     "Walpurgisnacht": {
@@ -2391,7 +2561,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 100,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Death Flies": {
@@ -2405,7 +2576,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 60,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Fallen Destroyer": {
@@ -2419,7 +2591,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 50,
-      "effects": ["instakill_weak"]
+      "effects": ["instakill_weak"],
+      "description": ""
     },
 
     "Megido": {
@@ -2433,7 +2606,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Megidolaon": {
@@ -2447,7 +2621,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Freikugel": {
@@ -2461,7 +2636,8 @@
       "accuracy": 98,
       "crit": 20,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Life Drain": {
@@ -2475,7 +2651,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain"]
+      "effects": ["drain"],
+      "description": ""
     },
 
     "Spirit Drain": {
@@ -2489,7 +2666,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_mp"]
+      "effects": ["drain_mp"],
+      "description": ""
     },
 
     "Energy Drain": {
@@ -2503,7 +2681,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_hp_mp"]
+      "effects": ["drain_hp_mp"],
+      "description": ""
     },
 
     "Sanguine Drain": {
@@ -2517,7 +2696,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk","-spatk","drain"]
+      "effects": ["-atk","-spatk","drain"],
+      "description": ""
     },
 
     "Violent Rage": {
@@ -2531,7 +2711,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["seal"]
+      "effects": ["seal"],
+      "description": ""
     },
 
     "Silt of Ruin": {
@@ -2545,7 +2726,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-spd"]
+      "effects": ["-spd"],
+      "description": ""
     },
 
     "Fire of Sinai": {
@@ -2559,7 +2741,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Sakanagi": {
@@ -2573,7 +2756,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Marakumo": {
@@ -2587,7 +2771,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_crit_dmg"]
+      "effects": ["bonus_crit_dmg"],
+      "description": ""
     },
 
     "Divine Arrowfall": {
@@ -2601,7 +2786,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Death Lust": {
@@ -2615,7 +2801,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 45,
-      "effects": ["charm"]
+      "effects": ["charm"],
+      "description": ""
     },
 
     "Babylon Goblet": {
@@ -2629,7 +2816,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 45,
-      "effects": ["confusion"]
+      "effects": ["confusion"],
+      "description": ""
     },
 
     "Meditation": {
@@ -2643,7 +2831,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_hp_mp"]
+      "effects": ["drain_hp_mp"],
+      "description": ""
     },
 
     "Soul Divide": {
@@ -2657,7 +2846,8 @@
       "accuracy": 50,
       "crit": 0,
       "ailment_chance": 50,
-      "effects": ["seal"]
+      "effects": ["seal"],
+      "description": ""
     },
 
     "Madness Glint": {
@@ -2671,7 +2861,8 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["seal"]
+      "effects": ["seal"],
+      "description": ""
     },
 
     "Tandava": {
@@ -2685,7 +2876,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-def", "-def", "-def", "-spdef", "-spdef", "-spdef", "-spdef"]
+      "effects": ["-def", "-def", "-def", "-def", "-spdef", "-spdef", "-spdef", "-spdef"],
+      "description": ""
     },
 
     "Heavenly Ikuyumi": {
@@ -2699,7 +2891,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["bonus_debuff"]
+      "effects": ["bonus_debuff"],
+      "description": ""
     },
 
     "Morning Star": {
@@ -2713,7 +2906,8 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Dormina": {
@@ -2727,7 +2921,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 80,
-      "effects": ["sleep"]
+      "effects": ["sleep"],
+      "description": ""
     },
 
     "Dustoma": {
@@ -2741,7 +2936,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 75,
-      "effects": ["mirage"]
+      "effects": ["mirage"],
+      "description": ""
     },
 
     "Marin Karin": {
@@ -2755,7 +2951,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 70,
-      "effects": ["charm"]
+      "effects": ["charm"],
+      "description": ""
     },
 
     "Poisma": {
@@ -2769,7 +2966,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 85,
-      "effects": ["poison"]
+      "effects": ["poison"],
+      "description": ""
     },
 
     "Pulinpa": {
@@ -2783,7 +2981,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 70,
-      "effects": ["confusion"]
+      "effects": ["confusion"],
+      "description": ""
     },
 
     "Makajama": {
@@ -2797,7 +2996,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 65,
-      "effects": ["seal"]
+      "effects": ["seal"],
+      "description": ""
     },
 
     "Lullaby": {
@@ -2811,7 +3011,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 55,
-      "effects": ["sleep"]
+      "effects": ["sleep"],
+      "description": ""
     },
 
     "Fogna": {
@@ -2825,7 +3026,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 50,
-      "effects": ["mirage"]
+      "effects": ["mirage"],
+      "description": ""
     },
 
     "Sexy Dance": {
@@ -2839,7 +3041,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 45,
-      "effects": ["charm"]
+      "effects": ["charm"],
+      "description": ""
     },
 
     "Toxic Cloud": {
@@ -2853,7 +3056,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 60,
-      "effects": ["poison"]
+      "effects": ["poison"],
+      "description": ""
     },
 
     "Tentarafoo": {
@@ -2867,7 +3071,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 45,
-      "effects": ["confusion"]
+      "effects": ["confusion"],
+      "description": ""
     },
 
     "Makajamaon": {
@@ -2881,7 +3086,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["seal"]
+      "effects": ["seal"],
+      "description": ""
     },
 
     "Toxic Spray": {
@@ -2895,7 +3101,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 55,
-      "effects": ["sleep", "-def", "-spdef"]
+      "effects": ["sleep", "-def", "-spdef"],
+      "description": ""
     },
 
     "Slumber Vortex": {
@@ -2909,7 +3116,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["sleep", "mirage"]
+      "effects": ["sleep", "mirage"],
+      "description": ""
     },
 
     "Preach": {
@@ -2923,7 +3131,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 100,
-      "effects": ["sleep", "charm", "confusion"]
+      "effects": ["sleep", "charm", "confusion"],
+      "description": ""
     },
 
     "Frolic": {
@@ -2937,7 +3146,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["charm", "-def", "-spdef", "-atk", "-spatk", "-def", "-spdef", "-atk", "-spatk"]
+      "effects": ["charm", "-def", "-spdef", "-atk", "-spatk", "-def", "-spdef", "-atk", "-spatk"],
+      "description": ""
     },
 
     "Stagnant Air": {
@@ -2951,7 +3161,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 100,
-      "effects": ["mirage", "-spd", "-def", "-spdef"]
+      "effects": ["mirage", "-spd", "-def", "-spdef"],
+      "description": ""
     },
 
     "Dia": {
@@ -2965,7 +3176,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Diarama": {
@@ -2979,7 +3191,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Diarahan": {
@@ -2993,7 +3206,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Media": {
@@ -3007,7 +3221,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mediarama": {
@@ -3021,7 +3236,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Mediarahan": {
@@ -3035,7 +3251,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Patra": {
@@ -3049,7 +3266,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["patra"]
+      "effects": ["patra"],
+      "description": ""
     },
 
     "Me Patra": {
@@ -3063,7 +3281,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["patra"]
+      "effects": ["patra"],
+      "description": ""
     },
 
     "Recarm": {
@@ -3077,7 +3296,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["recarm"]
+      "effects": ["recarm"],
+      "description": ""
     },
 
     "Samarecarm": {
@@ -3091,7 +3311,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["samarecarm"]
+      "effects": ["samarecarm"],
+      "description": ""
     },
 
     "Diamrita": {
@@ -3105,7 +3326,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["patra"]
+      "effects": ["patra"],
+      "description": ""
     },
 
     "Sun's Radiance": {
@@ -3119,7 +3341,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["patra"]
+      "effects": ["patra"],
+      "description": ""
     },
 
     "Humble Blessing": {
@@ -3133,7 +3356,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Harvest Dance": {
@@ -3147,7 +3371,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+def", "+spdef", "+def", "+spdef"]
+      "effects": ["+def", "+spdef", "+def", "+spdef"],
+      "description": ""
     },
 
     "Eleusinian Harvest": {
@@ -3161,7 +3386,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Matriarch's Love": {
@@ -3175,7 +3401,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["patra", "dekunda"]
+      "effects": ["patra", "dekunda"],
+      "description": ""
     },
 
     "Golden Apple": {
@@ -3189,7 +3416,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+spatk", "+def", "+spdef", "+spd"]
+      "effects": ["+atk", "+spatk", "+def", "+spdef", "+spd"],
+      "description": ""
     },
 
     "Miracle Water": {
@@ -3203,7 +3431,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": []
+      "effects": [],
+      "description": ""
     },
 
     "Revival Chant": {
@@ -3217,7 +3446,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["revivalchant"]
+      "effects": ["revivalchant"],
+      "description": ""
     },
 
     "Light of Order": {
@@ -3231,7 +3461,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["dekunda", "+atk", "+spatk", "+def", "+spdef", "+spd"]
+      "effects": ["dekunda", "+atk", "+spatk", "+def", "+spdef", "+spd"],
+      "description": ""
     },
 
     "Tarunda": {
@@ -3245,7 +3476,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk"]
+      "effects": ["-atk", "-spatk"],
+      "description": ""
     },
 
     "Rakunda": {
@@ -3259,7 +3491,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"]
+      "effects": ["-def", "-spdef"],
+      "description": ""
     },
 
     "Sukunda": {
@@ -3273,7 +3506,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-spd"]
+      "effects": ["-spd"],
+      "description": ""
     },
 
     "Matarunda": {
@@ -3287,7 +3521,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk"]
+      "effects": ["-atk", "-spatk"],
+      "description": ""
     },
 
     "Marakunda": {
@@ -3301,7 +3536,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"]
+      "effects": ["-def", "-spdef"],
+      "description": ""
     },
 
     "Masukunda": {
@@ -3315,7 +3551,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-spd"]
+      "effects": ["-spd"],
+      "description": ""
     },
 
     "Debilitate": {
@@ -3329,7 +3566,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk", "-def", "-spdef", "-spd"]
+      "effects": ["-atk", "-spatk", "-def", "-spdef", "-spd"],
+      "description": ""
     },
 
     "Tarukaja": {
@@ -3343,7 +3581,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+spatk"]
+      "effects": ["+atk", "+spatk"],
+      "description": ""
     },
 
     "Rakukaja": {
@@ -3357,7 +3596,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+def", "+spdef"]
+      "effects": ["+def", "+spdef"],
+      "description": ""
     },
 
     "Sukukaja": {
@@ -3371,7 +3611,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+spd"]
+      "effects": ["+spd"],
+      "description": ""
     },
 
     "Matarukaja": {
@@ -3385,7 +3626,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+spatk"]
+      "effects": ["+atk", "+spatk"],
+      "description": ""
     },
 
     "Marakukaja": {
@@ -3399,7 +3641,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+def", "+spdef"]
+      "effects": ["+def", "+spdef"],
+      "description": ""
     },
 
     "Masukukaja": {
@@ -3413,7 +3656,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+spd"]
+      "effects": ["+spd"],
+      "description": ""
     },
 
     "Luster Candy": {
@@ -3427,7 +3671,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+spatk", "+def", "+spdef", "+spd"]
+      "effects": ["+atk", "+spatk", "+def", "+spdef", "+spd"],
+      "description": ""
     },
 
     "Red Capote": {
@@ -3441,7 +3686,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+spd", "+spd"]
+      "effects": ["+spd", "+spd"],
+      "description": ""
     },
 
     "Cautious Cheer": {
@@ -3455,7 +3701,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+def", "+spdef", "+spd"]
+      "effects": ["+def", "+spdef", "+spd"],
+      "description": ""
     },
 
     "Dekaja": {
@@ -3469,7 +3716,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["dekaja"]
+      "effects": ["dekaja"],
+      "description": ""
     },
 
     "Dekunda": {
@@ -3483,7 +3731,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["dekunda"]
+      "effects": ["dekunda"],
+      "description": ""
     },
 
     "Charge": {
@@ -3497,7 +3746,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["charge"]
+      "effects": ["charge"],
+      "description": ""
     },
 
     "Concentrate": {
@@ -3511,7 +3761,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["concentrate"]
+      "effects": ["concentrate"],
+      "description": ""
     },
 
     "Donum Gladi": {
@@ -3525,7 +3776,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["charge"]
+      "effects": ["charge"],
+      "description": ""
     },
 
     "Donum Magici": {
@@ -3539,7 +3791,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["concentrate"]
+      "effects": ["concentrate"],
+      "description": ""
     },
 
     "Critical Aura": {
@@ -3553,7 +3806,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["next_hit", "next_crit"]
+      "effects": ["next_hit", "next_crit"],
+      "description": ""
     },
 
     "Impaler's Animus": {
@@ -3567,7 +3821,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["next_dmg", "next_pierce"]
+      "effects": ["next_dmg", "next_pierce"],
+      "description": ""
     },
 
     "Bowl of Hygieia": {
@@ -3581,7 +3836,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["next_heal"]
+      "effects": ["next_heal"],
+      "description": ""
     },
 
     "Tetrakarn": {
@@ -3595,7 +3851,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["reflect_physical"]
+      "effects": ["reflect_physical"],
+      "description": ""
     },
 
     "Makarakarn": {
@@ -3609,7 +3866,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["reflect_magic"]
+      "effects": ["reflect_magic"],
+      "description": ""
     },
 
     "Phys Block": {
@@ -3623,7 +3881,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_physical"]
+      "effects": ["null_physical"],
+      "description": ""
     },
 
     "Fire Block": {
@@ -3637,7 +3896,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_fire"]
+      "effects": ["null_fire"],
+      "description": ""
     },
 
     "Ice Block": {
@@ -3651,7 +3911,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_ice"]
+      "effects": ["null_ice"],
+      "description": ""
     },
 
     "Elec Block": {
@@ -3665,7 +3926,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_electric"]
+      "effects": ["null_electric"],
+      "description": ""
     },
 
     "Force Block": {
@@ -3679,7 +3941,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_force"]
+      "effects": ["null_force"],
+      "description": ""
     },
 
     "Light Block": {
@@ -3693,7 +3956,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_light"]
+      "effects": ["null_light"],
+      "description": ""
     },
 
     "Dark Block": {
@@ -3707,7 +3971,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_dark"]
+      "effects": ["null_dark"],
+      "description": ""
     },
 
     "Kannabi Veil": {
@@ -3721,7 +3986,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["reduce_dmg"]
+      "effects": ["reduce_dmg"],
+      "description": ""
     },
 
     "Taunt": {
@@ -3735,7 +4001,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["taunt"]
+      "effects": ["taunt"],
+      "description": ""
     },
 
     "Fierce Roar": {
@@ -3749,7 +4016,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["taunt", "+def", "+spdef"]
+      "effects": ["taunt", "+def", "+spdef"],
+      "description": ""
     },
 
     "Witness Me": {
@@ -3763,7 +4031,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["taunt", "+spd", "+spd"]
+      "effects": ["taunt", "+spd", "+spd"],
+      "description": ""
     },
 
     "Inflaming Divinity": {
@@ -3777,7 +4046,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+atk", "+def", "+def", "+spatk", "+spatk", "+spdef", "+spdef", "+spd", "+spd"]
+      "effects": ["+atk", "+atk", "+def", "+def", "+spatk", "+spatk", "+spdef", "+spdef", "+spd", "+spd"],
+      "description": ""
     },
 
     "Life Spring": {
@@ -3791,7 +4061,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_max_hp"]
+      "effects": ["increase_max_hp"],
+      "description": ""
     },
 
     "Great Life Spring": {
@@ -3805,7 +4076,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_max_hp", "increase_max_hp"]
+      "effects": ["increase_max_hp", "increase_max_hp"],
+      "description": ""
     },
 
     "Mana Spring": {
@@ -3819,7 +4091,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_max_mp"]
+      "effects": ["increase_max_mp"],
+      "description": ""
     },
 
     "Great Mana Spring": {
@@ -3833,7 +4106,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_max_mp", "increase_max_mp"]
+      "effects": ["increase_max_mp", "increase_max_mp"],
+      "description": ""
     },
 
     "Light Life Aid": {
@@ -3847,7 +4121,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["recover_after_victory_hp"]
+      "effects": ["recover_after_victory_hp"],
+      "description": ""
     },
 
     "Life Aid": {
@@ -3861,7 +4136,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["recover_after_victory_hp", "recover_after_victory_hp"]
+      "effects": ["recover_after_victory_hp", "recover_after_victory_hp"],
+      "description": ""
     },
 
     "Light Mana Aid": {
@@ -3875,7 +4151,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["recover_after_victory_mp"]
+      "effects": ["recover_after_victory_mp"],
+      "description": ""
     },
 
     "Mana Aid": {
@@ -3889,7 +4166,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["recover_after_victory_mp", "recover_after_victory_mp"]
+      "effects": ["recover_after_victory_mp", "recover_after_victory_mp"],
+      "description": ""
     },
 
     "Resist Phys": {
@@ -3903,7 +4181,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["resist_physical"]
+      "effects": ["resist_physical"],
+      "description": ""
     },
 
     "Resist Fire": {
@@ -3917,7 +4196,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["resist_fire"]
+      "effects": ["resist_fire"],
+      "description": ""
     },
 
     "Resist Ice": {
@@ -3931,7 +4211,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["resist_ice"]
+      "effects": ["resist_ice"],
+      "description": ""
     },
 
     "Resist Elec": {
@@ -3945,7 +4226,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["resist_ice"]
+      "effects": ["resist_ice"],
+      "description": ""
     },
 
     "Resist Force": {
@@ -3959,7 +4241,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["resist_force"]
+      "effects": ["resist_force"],
+      "description": ""
     },
 
     "Resist Light": {
@@ -3973,7 +4256,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["resist_light"]
+      "effects": ["resist_light"],
+      "description": ""
     },
 
     "Resist Dark": {
@@ -3987,7 +4271,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["resist_dark"]
+      "effects": ["resist_dark"],
+      "description": ""
     },
 
     "Null Phys": {
@@ -4001,7 +4286,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_physical"]
+      "effects": ["null_physical"],
+      "description": ""
     },
 
     "Null Fire": {
@@ -4015,7 +4301,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_fire"]
+      "effects": ["null_fire"],
+      "description": ""
     },
 
     "Null Ice": {
@@ -4029,7 +4316,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_ice"]
+      "effects": ["null_ice"],
+      "description": ""
     },
 
     "Null Elec": {
@@ -4043,7 +4331,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_electric"]
+      "effects": ["null_electric"],
+      "description": ""
     },
 
     "Null Force": {
@@ -4057,7 +4346,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_force"]
+      "effects": ["null_force"],
+      "description": ""
     },
 
     "Null Light": {
@@ -4071,7 +4361,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_light"]
+      "effects": ["null_light"],
+      "description": ""
     },
 
     "Null Dark": {
@@ -4085,7 +4376,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_dark"]
+      "effects": ["null_dark"],
+      "description": ""
     },
 
     "Repel Phys": {
@@ -4099,7 +4391,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["repel_physical"]
+      "effects": ["repel_physical"],
+      "description": ""
     },
 
     "Repel Fire": {
@@ -4113,7 +4406,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["repel_fire"]
+      "effects": ["repel_fire"],
+      "description": ""
     },
 
     "Repel Ice": {
@@ -4127,7 +4421,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["repel_ice"]
+      "effects": ["repel_ice"],
+      "description": ""
     },
 
     "Repel Elec": {
@@ -4141,7 +4436,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["repel_electric"]
+      "effects": ["repel_electric"],
+      "description": ""
     },
 
     "Repel Force": {
@@ -4155,7 +4451,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["repel_force"]
+      "effects": ["repel_force"],
+      "description": ""
     },
 
     "Repel Light": {
@@ -4169,7 +4466,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["repel_light"]
+      "effects": ["repel_light"],
+      "description": ""
     },
 
     "Repel Dark": {
@@ -4183,7 +4481,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["repel_dark"]
+      "effects": ["repel_dark"],
+      "description": ""
     },
 
     "Drain Phys": {
@@ -4197,7 +4496,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_physical"]
+      "effects": ["drain_physical"],
+      "description": ""
     },
 
     "Drain Fire": {
@@ -4211,7 +4511,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_fire"]
+      "effects": ["drain_fire"],
+      "description": ""
     },
 
     "Drain Ice": {
@@ -4225,7 +4526,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_ice"]
+      "effects": ["drain_ice"],
+      "description": ""
     },
 
     "Drain Elec": {
@@ -4239,7 +4541,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_electric"]
+      "effects": ["drain_electric"],
+      "description": ""
     },
 
     "Drain Force": {
@@ -4253,7 +4556,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_force"]
+      "effects": ["drain_force"],
+      "description": ""
     },
 
     "Drain Light": {
@@ -4267,7 +4571,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_light"]
+      "effects": ["drain_light"],
+      "description": ""
     },
 
     "Drain Dark": {
@@ -4281,7 +4586,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["drain_dark"]
+      "effects": ["drain_dark"],
+      "description": ""
     },
 
     "Hellish Mask": {
@@ -4295,7 +4601,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["dodge_instakill", "dodge_ailment"]
+      "effects": ["dodge_instakill", "dodge_ailment"],
+      "description": ""
     },
 
     "Abyssal Mask": {
@@ -4309,7 +4616,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["dodge_instakill", "dodge_ailment", "dodge_instakill", "dodge_ailment"]
+      "effects": ["dodge_instakill", "dodge_ailment", "dodge_instakill", "dodge_ailment"],
+      "description": ""
     },
 
     "Restore": {
@@ -4323,7 +4631,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["heal_mp_weakness"]
+      "effects": ["heal_mp_weakness"],
+      "description": ""
     },
 
     "High Restore": {
@@ -4337,7 +4646,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["heal_mp_weakness", "heal_mp_weakness"]
+      "effects": ["heal_mp_weakness", "heal_mp_weakness"],
+      "description": ""
     },
 
     "Curse Siphon": {
@@ -4351,7 +4661,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["heal_mp_ailment"]
+      "effects": ["heal_mp_ailment"],
+      "description": ""
     },
 
     "Great Curse Siphon": {
@@ -4365,7 +4676,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["heal_mp_ailment", "heal_mp_ailment"]
+      "effects": ["heal_mp_ailment", "heal_mp_ailment"],
+      "description": ""
     },
 
     "Counter": {
@@ -4379,7 +4691,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["counter"]
+      "effects": ["counter"],
+      "description": ""
     },
 
     "Retaliate": {
@@ -4393,7 +4706,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["counter", "counter"]
+      "effects": ["counter", "counter"],
+      "description": ""
     },
 
     "Safeguard": {
@@ -4407,7 +4721,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["null_press_turn_loss"]
+      "effects": ["null_press_turn_loss"],
+      "description": ""
     },
 
     "Beast Eye": {
@@ -4421,7 +4736,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_accuracy"]
+      "effects": ["increase_accuracy"],
+      "description": ""
     },
 
     "Dragon Eye": {
@@ -4435,7 +4751,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_accuracy", "increase_accuracy"]
+      "effects": ["increase_accuracy", "increase_accuracy"],
+      "description": ""
     },
 
     "Bloody Glee": {
@@ -4449,7 +4766,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_critical"]
+      "effects": ["increase_critical"],
+      "description": ""
     },
 
     "Murderous Glee": {
@@ -4463,7 +4781,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_critical", "increase_critical"]
+      "effects": ["increase_critical", "increase_critical"],
+      "description": ""
     },
 
     "Phys Pieroma": {
@@ -4477,7 +4796,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_physical"]
+      "effects": ["increase_physical"],
+      "description": ""
     },
 
     "Fire Pieroma": {
@@ -4491,7 +4811,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_fire"]
+      "effects": ["increase_fire"],
+      "description": ""
     },
 
     "Ice Pieroma": {
@@ -4505,7 +4826,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_ice"]
+      "effects": ["increase_ice"],
+      "description": ""
     },
 
     "Elec Pieroma": {
@@ -4519,7 +4841,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_electric"]
+      "effects": ["increase_electric"],
+      "description": ""
     },
 
     "Force Pieroma": {
@@ -4533,7 +4856,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_force"]
+      "effects": ["increase_force"],
+      "description": ""
     },
 
     "Light Pieroma": {
@@ -4547,7 +4871,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_light"]
+      "effects": ["increase_light"],
+      "description": ""
     },
 
     "Dark Pieroma": {
@@ -4561,7 +4886,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_dark"]
+      "effects": ["increase_dark"],
+      "description": ""
     },
 
     "Heal Pieroma": {
@@ -4575,7 +4901,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_heal"]
+      "effects": ["increase_heal"],
+      "description": ""
     },
 
     "Almighty Pieroma": {
@@ -4589,7 +4916,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_almighty"]
+      "effects": ["increase_almighty"],
+      "description": ""
     },
 
     "High Phys Pieroma": {
@@ -4603,7 +4931,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_physical", "increase_physical"]
+      "effects": ["increase_physical", "increase_physical"],
+      "description": ""
     },
 
     "High Fire Pieroma": {
@@ -4617,7 +4946,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_fire", "increase_fire"]
+      "effects": ["increase_fire", "increase_fire"],
+      "description": ""
     },
 
     "High Ice Pieroma": {
@@ -4631,7 +4961,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_ice", "increase_ice"]
+      "effects": ["increase_ice", "increase_ice"],
+      "description": ""
     },
 
     "High Elec Pieroma": {
@@ -4645,7 +4976,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_electric", "increase_electric"]
+      "effects": ["increase_electric", "increase_electric"],
+      "description": ""
     },
 
     "High Force Pieroma": {
@@ -4659,7 +4991,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_force", "increase_force"]
+      "effects": ["increase_force", "increase_force"],
+      "description": ""
     },
 
     "High Light Pieroma": {
@@ -4673,7 +5006,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_light", "increase_light"]
+      "effects": ["increase_light", "increase_light"],
+      "description": ""
     },
 
     "High Dark Pieroma": {
@@ -4687,7 +5021,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_dark", "increase_dark"]
+      "effects": ["increase_dark", "increase_dark"],
+      "description": ""
     },
 
     "High Heal Pieroma": {
@@ -4701,7 +5036,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_heal", "increase_heal"]
+      "effects": ["increase_heal", "increase_heal"],
+      "description": ""
     },
 
     "High Almighty Pieroma": {
@@ -4715,7 +5051,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_almighty", "increase_almighty"]
+      "effects": ["increase_almighty", "increase_almighty"],
+      "description": ""
     },
 
     "Poison Adept": {
@@ -4729,7 +5066,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_poison_dmg"]
+      "effects": ["increase_poison_dmg"],
+      "description": ""
     },
 
     "Poison Master": {
@@ -4743,7 +5081,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["increase_poison_dmg", "increase_poison_dmg"]
+      "effects": ["increase_poison_dmg", "increase_poison_dmg"],
+      "description": ""
     },
 
     "Boon Boost": {
@@ -4757,7 +5096,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["up_support_length"]
+      "effects": ["up_support_length"],
+      "description": ""
     },
 
     "Critical Zealot": {
@@ -4771,7 +5111,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["up_crit_down_normal"]
+      "effects": ["up_crit_down_normal"],
+      "description": ""
     },
 
     "Endure": {
@@ -4785,7 +5126,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["endure"]
+      "effects": ["endure"],
+      "description": ""
     },
 
     "Enduring Soul": {
@@ -4799,7 +5141,8 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["enduring_soul"]
+      "effects": ["enduring_soul"],
+      "description": ""
     }
 
   }
