@@ -86,12 +86,12 @@ class Pokemon:
         mp = f"{m['mp']:>3}"
         power = f"{m['power']:>3}" if m["power"] is not None else "---"
 
-        type_short = f"{m['type'][:4]:<4}"
+        element_short = f"{m['element'][:4]:<4}"
 
         desc = m.get("description", "")[:12]
         desc = f"{desc:<12}"
 
-        return f"{name:<12} {mp}  {type_short}  {power}  {desc}"
+        return f"{name:<12} {mp}  {element_short}  {power}  {desc}"
 
 
 

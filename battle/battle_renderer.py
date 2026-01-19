@@ -202,15 +202,16 @@ class BattleRenderer:
 
 
     def draw(self, screen, menu_index, 
-             menu_mode, previous_menu_index, 
-             skills_cursor, skills_scroll,
-             target_index):
+            menu_mode, previous_menu_index, 
+            skills_cursor, skills_scroll,
+            target_index):
 
         # ---------------------------------------------------------
         # Active Pokémon based on turn_index
         # ---------------------------------------------------------
         active_index = self.model.turn_index
         active_pokemon = self.model.player_team[active_index]
+        target = self.model.enemy_team[target_index]
 
         self.anim_frame += 1
 
@@ -223,20 +224,31 @@ class BattleRenderer:
         screen.blit(self.background, COORDS_BACKGROUND)
 
         # ---------------------------------------------------------
-        # Enemy Pokémon (no HP/MP box for now)
+        # Enemy Pokémon
         # ---------------------------------------------------------
+        target_enemy_pos = None  # we'll store this for later re-draw
         for i in ENEMY_DRAW_ORDER:
             sprite = self.enemy_sprites[i]
             if sprite is None:
                 continue
 
             x = ENEMY_BASE_X + i * ENEMY_SPACING
-            screen.blit(sprite, (x, ENEMY_Y))
+            y = ENEMY_Y
 
+            # Bounce the targeted enemy in target-select mode
+            if menu_mode == MENU_MODE_TARGET_SELECT and i == target_index:
+                y += poke_offset
+
+            screen.blit(sprite, (x, y))
+
+            if menu_mode == MENU_MODE_TARGET_SELECT and i == target_index:
+                target_enemy_pos = (sprite, x, y)
 
         # ---------------------------------------------------------
         # Player-side sprites (Pokémon + player)
         # ---------------------------------------------------------
+        active_pokemon_pos = None
+
         for i, sprite in enumerate(self.player_sprites):
             if sprite is None:
                 continue
@@ -247,20 +259,74 @@ class BattleRenderer:
             x = PLAYER_BASE_X + slot * PLAYER_SPACING
 
             if pokemon.is_player:
-                # Player sprite base position
                 x += PLAYER_OFFSET
                 y = PLAYER_Y + PLAYER_Y_OFFSET
             else:
-                # Normal Pokémon base position
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
-            # Apply bounce to the active party member (including Brendan if index 0)
             if i == active_index:
                 y += poke_offset
 
             screen.blit(sprite, (x, y))
 
-        
+            if i == active_index:
+                active_pokemon_pos = (sprite, x, y)
+
+        # ---------------------------------------------------------
+        # Darken battlefield in target-select mode
+        # + affinity-based flashing on target
+        # ---------------------------------------------------------
+        if menu_mode == MENU_MODE_TARGET_SELECT:
+            # Which move is being used?
+            selected_index = skills_scroll + skills_cursor
+            move_name = active_pokemon.moves[selected_index]
+            move = self.smt_moves[move_name]
+
+            element = move["element"]          # e.g. "Fire"
+            element_index = ELEMENT_INDEX[element]
+            affinity_value = target.affinities[element_index]
+
+            # Darken everything above the frame
+            dark_surface = pygame.Surface((ACTUAL_WIDTH, FRAME_Y))
+            dark_surface.set_alpha(140)  # tweak to taste
+            dark_surface.fill((0, 0, 0))
+            screen.blit(dark_surface, (0, 0))
+
+            # Re-draw active Pokémon on top
+            if active_pokemon_pos is not None:
+                sprite, x, y = active_pokemon_pos
+                screen.blit(sprite, (x, y))
+
+            # Re-draw targeted enemy on top
+            if target_enemy_pos is not None:
+                sprite, x, y = target_enemy_pos
+                screen.blit(sprite, (x, y))
+
+                # Affinity-based flashing overlay on the target
+                if affinity_value != 0:
+                    flash = (math.sin(self.anim_frame * 0.3) + 1) * 0.5
+                    alpha = int(120 * flash)
+
+                    if affinity_value > 0:
+                        flash_color = (255, 0, 0)
+                    else:
+                        flash_color = (0, 255, 0)
+
+                    sprite_alpha = sprite.convert_alpha()
+                    w, h = sprite_alpha.get_size()
+
+                    tint = pygame.Surface((w, h), pygame.SRCALPHA)
+                    tint.fill((*flash_color, 255))  # <-- FIXED: full alpha
+
+                    tint.blit(sprite_alpha, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+
+                    tint.set_alpha(alpha)
+
+                    screen.blit(tint, (x, y))
+
+
+
+
         # ---------------------------------------------------------
         # HP/MP + Frame
         # ---------------------------------------------------------
@@ -289,8 +355,6 @@ class BattleRenderer:
 
         # --- Enemy HP (only in target-select mode) ---
         if menu_mode == MENU_MODE_TARGET_SELECT:
-            
-            target = self.model.enemy_team[target_index]
 
             # Enemy HPMP frame at enemy coordinates
             screen.blit(self.hpmp_sprite, (HPMP_ENEMY_X, HPMP_ENEMY_Y + hp_offset))

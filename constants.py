@@ -19,6 +19,15 @@ SPEED = 4
 
 TARGET_FPS = 30
 
+ELEMENT_INDEX = {
+    "Physical": 0,
+    "Fire": 1,
+    "Force": 2,
+    "Ice": 3,
+    "Electric": 4,
+    "Light": 5,
+    "Dark": 6
+}
 
 # Root folder for all sprite assets
 SPRITE_ROOT = os.path.abspath(
