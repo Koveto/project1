@@ -116,6 +116,7 @@ MENU_MAIN_LINE_2 = "  Change   Escape  Pass    Info"
 MENU_MODE_MAIN = "main"
 MENU_MODE_SKILLS = "skills"
 MENU_MODE_TARGET_SELECT = "target_select"
+MENU_MODE_DAMAGING_ENEMY = "damaging_enemy"
 MENU_MODE_SUBMENU = "submenu"
 
 SKILLS_X = 80

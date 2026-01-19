@@ -204,7 +204,9 @@ class BattleRenderer:
     def draw(self, screen, menu_index, 
             menu_mode, previous_menu_index, 
             skills_cursor, skills_scroll,
-            target_index):
+            target_index, scroll_text,
+            scroll_index, scroll_speed,
+            scroll_done):
 
         # ---------------------------------------------------------
         # Active Pokémon based on turn_index
@@ -226,7 +228,7 @@ class BattleRenderer:
         # ---------------------------------------------------------
         # Enemy Pokémon
         # ---------------------------------------------------------
-        target_enemy_pos = None  # we'll store this for later re-draw
+        target_enemy_pos = None
         for i in ENEMY_DRAW_ORDER:
             sprite = self.enemy_sprites[i]
             if sprite is None:
@@ -235,13 +237,13 @@ class BattleRenderer:
             x = ENEMY_BASE_X + i * ENEMY_SPACING
             y = ENEMY_Y
 
-            # Bounce the targeted enemy in target-select mode
+            # Bounce ONLY in target-select mode
             if menu_mode == MENU_MODE_TARGET_SELECT and i == target_index:
                 y += poke_offset
 
             screen.blit(sprite, (x, y))
 
-            if menu_mode == MENU_MODE_TARGET_SELECT and i == target_index:
+            if i == target_index:
                 target_enemy_pos = (sprite, x, y)
 
         # ---------------------------------------------------------
@@ -264,8 +266,10 @@ class BattleRenderer:
             else:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
-            if i == active_index:
+            # Active Pokémon bounces in all modes EXCEPT damaging
+            if i == active_index and menu_mode != MENU_MODE_DAMAGING_ENEMY:
                 y += poke_offset
+
 
             screen.blit(sprite, (x, y))
 
@@ -273,65 +277,68 @@ class BattleRenderer:
                 active_pokemon_pos = (sprite, x, y)
 
         # ---------------------------------------------------------
-        # Darken battlefield in target-select mode
-        # + affinity-based flashing on target
+        # Darken battlefield in BOTH target-select and damaging states
         # ---------------------------------------------------------
-        if menu_mode == MENU_MODE_TARGET_SELECT:
-            # Which move is being used?
-            selected_index = skills_scroll + skills_cursor
-            move_name = active_pokemon.moves[selected_index]
-            move = self.smt_moves[move_name]
-
-            element = move["element"]          # e.g. "Fire"
-            element_index = ELEMENT_INDEX[element]
-            affinity_value = target.affinities[element_index]
+        if menu_mode in (MENU_MODE_TARGET_SELECT, MENU_MODE_DAMAGING_ENEMY):
 
             # Darken everything above the frame
             dark_surface = pygame.Surface((ACTUAL_WIDTH, FRAME_Y))
-            dark_surface.set_alpha(140)  # tweak to taste
+            dark_surface.set_alpha(140)
             dark_surface.fill((0, 0, 0))
             screen.blit(dark_surface, (0, 0))
 
-            # Re-draw active Pokémon on top
+            # Re-draw active Pokémon
             if active_pokemon_pos is not None:
                 sprite, x, y = active_pokemon_pos
                 screen.blit(sprite, (x, y))
 
-            # Re-draw targeted enemy on top
+            # Re-draw targeted enemy
             if target_enemy_pos is not None:
                 sprite, x, y = target_enemy_pos
                 screen.blit(sprite, (x, y))
 
-                # Affinity-based flashing overlay on the target
+            # -----------------------------------------------------
+            # Flashing ONLY in target-select mode
+            # -----------------------------------------------------
+            if menu_mode == MENU_MODE_TARGET_SELECT:
+                selected_index = skills_scroll + skills_cursor
+                move_name = active_pokemon.moves[selected_index]
+                move = self.smt_moves[move_name]
+
+                element = move["element"]
+                element_index = ELEMENT_INDEX[element]
+                affinity_value = target.affinities[element_index]
+
                 if affinity_value != 0:
                     flash = (math.sin(self.anim_frame * 0.3) + 1) * 0.5
                     alpha = int(120 * flash)
 
-                    if affinity_value > 0:
-                        flash_color = (255, 0, 0)
-                    else:
-                        flash_color = (0, 255, 0)
+                    flash_color = (255, 0, 0) if affinity_value > 0 else (0, 255, 0)
 
                     sprite_alpha = sprite.convert_alpha()
                     w, h = sprite_alpha.get_size()
 
                     tint = pygame.Surface((w, h), pygame.SRCALPHA)
-                    tint.fill((*flash_color, 255))  # <-- FIXED: full alpha
-
+                    tint.fill((*flash_color, 255))
                     tint.blit(sprite_alpha, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
-
                     tint.set_alpha(alpha)
 
                     screen.blit(tint, (x, y))
 
-
-
-
         # ---------------------------------------------------------
         # HP/MP + Frame
         # ---------------------------------------------------------
+        # If we are damaging the enemy, freeze the UI (no bounce)
+        if menu_mode == MENU_MODE_DAMAGING_ENEMY:
+            hpmp_y = HPMP_Y
+            enemy_hpmp_y = HPMP_ENEMY_Y
+            ui_hp_offset = 0
+        else:
+            hpmp_y = HPMP_Y + hp_offset
+            enemy_hpmp_y = HPMP_ENEMY_Y + hp_offset
+            ui_hp_offset = hp_offset
+
         # --- Player HP/MP (always drawn) ---
-        hpmp_y = HPMP_Y + hp_offset
         screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y))
 
         self.font1.draw_text(
@@ -350,42 +357,36 @@ class BattleRenderer:
             hpmp_y + LV_TEXT_Y_OFFSET
         )
 
-        self.draw_hp_bar(screen, active_pokemon, hp_offset)
-        self.draw_mp_bar(screen, active_pokemon, hp_offset)
+        self.draw_hp_bar(screen, active_pokemon, ui_hp_offset)
+        self.draw_mp_bar(screen, active_pokemon, ui_hp_offset)
 
-        # --- Enemy HP (only in target-select mode) ---
-        if menu_mode == MENU_MODE_TARGET_SELECT:
+        # --- Enemy HP/MP (shown in BOTH target-select and damaging states) ---
+        if menu_mode in (MENU_MODE_TARGET_SELECT, MENU_MODE_DAMAGING_ENEMY):
 
-            # Enemy HPMP frame at enemy coordinates
-            screen.blit(self.hpmp_sprite, (HPMP_ENEMY_X, HPMP_ENEMY_Y + hp_offset))
+            screen.blit(self.hpmp_sprite, (HPMP_ENEMY_X, enemy_hpmp_y))
 
-            # Enemy name
             self.font1.draw_text(
                 screen,
                 target.name,
                 ACTIVE_TARGET_NAME_X,
-                HPMP_ENEMY_Y + ACTIVE_TARGET_NAME_Y_OFFSET + hp_offset
+                enemy_hpmp_y + ACTIVE_TARGET_NAME_Y_OFFSET
             )
 
-            # Enemy level
-            screen.blit(self.lv_sprite, (LV_X_ENEMY, HPMP_ENEMY_Y + LVL_Y_OFFSET_ENEMY + hp_offset))
+            screen.blit(self.lv_sprite,
+                        (LV_X_ENEMY, enemy_hpmp_y + LVL_Y_OFFSET_ENEMY))
 
             self.font1.draw_text(
                 screen,
                 str(target.level),
                 LV_TEXT_X_ENEMY,
-                HPMP_ENEMY_Y + LV_TEXT_Y_OFFSET_ENEMY + hp_offset
+                enemy_hpmp_y + LV_TEXT_Y_OFFSET_ENEMY
             )
 
-            self.draw_hp_bar(screen, target, hp_offset, base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_0)
-            self.draw_mp_bar(screen, target, hp_offset, base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_1)
+            self.draw_hp_bar(screen, target, ui_hp_offset,
+                            base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_0)
+            self.draw_mp_bar(screen, target, ui_hp_offset,
+                            base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_1)
 
-        if menu_mode == MENU_MODE_SKILLS:
-            # Determine which move is selected
-            selected_index = skills_scroll + skills_cursor
-            if selected_index < len(active_pokemon.moves):
-                selected_move = active_pokemon.moves[selected_index]
-                self.draw_mp_cost_bar(screen, active_pokemon, selected_move, hp_offset)
 
         screen.blit(self.battleframe, COORDS_FRAME)
 
@@ -395,48 +396,62 @@ class BattleRenderer:
         press_turn_states = self.model.get_press_turn_icon_states(self.anim_frame)
 
         for i, state in enumerate(press_turn_states):
-            x = PT_X + i * PT_SPACING   # left → right
-            y = PT_Y + hp_offset
+            x = PT_X + i * PT_SPACING
+            if menu_mode == MENU_MODE_DAMAGING_ENEMY:
+                y = PT_Y
+            else:
+                y = PT_Y + hp_offset
+
             self.draw_press_turn_icon(screen, state, x, y)
 
         # ---------------------------------------------------------
         # Menu text
         # ---------------------------------------------------------
         if menu_mode == MENU_MODE_MAIN:
-            self.font0.draw_text(screen, f"What will {active_pokemon.name} do?", X_MENU_MAIN, Y_MENU_MAIN_0)
-            self.font0.draw_text(screen, MENU_MAIN_LINE_1, X_MENU_MAIN, Y_MENU_MAIN_1)
-            self.font0.draw_text(screen, MENU_MAIN_LINE_2, X_MENU_MAIN, Y_MENU_MAIN_2)
+            self.font0.draw_text(screen, f"What will {active_pokemon.name} do?",
+                                X_MENU_MAIN, Y_MENU_MAIN_0)
+            self.font0.draw_text(screen, MENU_MAIN_LINE_1,
+                                X_MENU_MAIN, Y_MENU_MAIN_1)
+            self.font0.draw_text(screen, MENU_MAIN_LINE_2,
+                                X_MENU_MAIN, Y_MENU_MAIN_2)
 
             cursor_x, cursor_y = COORDS_MENU_MAIN[menu_index]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+
         elif menu_mode == MENU_MODE_SKILLS:
-            visible_moves = active_pokemon.moves[skills_scroll : skills_scroll + 3]
+            visible_moves = active_pokemon.moves[skills_scroll:skills_scroll + 3]
             y = SKILLS_Y
             for move_name in visible_moves:
                 text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
                 self.font2.draw_text(screen, text, SKILLS_X, y)
                 y += SKILLS_Y_INCR
 
-            # Draw cursor at one of the 3 fixed positions
             cursor_x, cursor_y = COORDS_MENU_SKILLS[skills_cursor]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+
         elif menu_mode == MENU_MODE_TARGET_SELECT:
-            # Determine which move is selected
             selected_index = skills_scroll + skills_cursor
             move_name = active_pokemon.moves[selected_index]
 
-            # Draw ONLY the selected move, but in the same row it was before
-            cursor_row = skills_cursor  # 0, 1, or 2
+            cursor_row = skills_cursor
             y = SKILLS_Y + cursor_row * SKILLS_Y_INCR
 
             text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
             self.font2.draw_text(screen, text, SKILLS_X, y)
 
-            # Draw cursor in the same place too
             cursor_x, cursor_y = COORDS_MENU_SKILLS[cursor_row]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+
+        elif menu_mode == MENU_MODE_DAMAGING_ENEMY:
+
+            # Do NOT update scroll_index here, just use what was passed in
+            visible = scroll_text[:scroll_index]
+            self.font0.draw_text(screen, visible, X_MENU_MAIN, Y_MENU_MAIN_0)
+
+
+
+
         else:
             msg = DUMMY_TEXTS[previous_menu_index]
             self.font0.draw_text(screen, msg, X_MENU_MAIN, Y_MENU_MAIN_0)
             self.font0.draw_text(screen, DUMMY_MSG, X_MENU_MAIN, Y_MENU_MAIN_1)
-

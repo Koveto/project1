@@ -55,6 +55,11 @@ class BattleState(GameState):
         self.skills_cursor = 0
         self.skills_scroll = 0
         self.target_index = 0
+        self.scroll_text = ""
+        self.scroll_index = 0
+        self.scroll_speed = 2      # characters per frame (tweak)
+        self.scroll_done = False
+
 
 
     def handle_event(self, event):
@@ -212,18 +217,47 @@ class BattleState(GameState):
                     if enemy_count > 0:
                         self.target_index = (self.target_index - 1) % enemy_count
 
-                elif event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT:
                     if enemy_count > 0:
                         self.target_index = (self.target_index + 1) % enemy_count
 
-                elif event.key == pygame.K_x:
-                    # Return to skills menu
-                    self.menu_mode = MENU_MODE_SKILLS
+                if event.key in (pygame.K_z, pygame.K_RETURN):
+
+                    # Switch to damaging state
+                    self.menu_mode = MENU_MODE_DAMAGING_ENEMY
+
+                    # Build the scrolling message
+                    selected_index = self.skills_scroll + self.skills_cursor
+                    move_name = self.model.get_active_player_pokemon().moves[selected_index]
+                    enemy = self.model.enemy_team[self.target_index]
+
+                    self.scroll_text = f"{self.model.get_active_player_pokemon().name} uses {move_name} on {enemy.name}!"
+                    self.scroll_index = 0
+                    self.scroll_done = False
+
                     return
 
                 if event.key == pygame.K_x:
-                    # Return to skills menu
                     self.menu_mode = MENU_MODE_SKILLS
+                    return
+
+                
+            elif self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
+
+                # If text is still scrolling, Z/Enter should finish it instantly
+                if not self.scroll_done:
+                    if event.key in (pygame.K_z, pygame.K_RETURN):
+                        self.scroll_index = len(self.scroll_text)
+                        self.scroll_done = True
+                    return
+
+                # If text is finished, allow advancing to next state
+                if event.key in (pygame.K_z, pygame.K_RETURN):
+                    self.model.handle_action_press_turn_cost(1)
+                    self.model.next_turn()
+                    # Reset menu state
+                    self.menu_mode = MENU_MODE_MAIN
+                    self.menu_index = 0
                     return
 
 
@@ -240,7 +274,18 @@ class BattleState(GameState):
         self.renderer.draw(screen, self.menu_index, 
                            self.menu_mode, self.previous_menu_index,
                            self.skills_cursor, self.skills_scroll,
-                           self.target_index)
+                           self.target_index, self.scroll_text,
+                           self.scroll_index, self.scroll_speed,
+                           self.scroll_done)
+        
+    def update(self):
+        # Update scrolling text ONLY in damaging mode
+        if self.menu_mode == MENU_MODE_DAMAGING_ENEMY and not self.scroll_done:
+            self.scroll_index += self.scroll_speed
+            if self.scroll_index >= len(self.scroll_text):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
 
-    
+
+        
 
