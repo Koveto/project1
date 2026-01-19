@@ -143,3 +143,4 @@ DUMMY_MSG = "(Press X to return)"
 FRESH_PRESS_TURNS = [2, 2, 2, 2]
 
 PLAYER_DEX_NO = -1
+WRAP = 32

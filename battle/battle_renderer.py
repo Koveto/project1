@@ -200,6 +200,30 @@ class BattleRenderer:
         screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset))
 
 
+    def wrap_text(self, text, max_width=WRAP):
+        words = text.split()
+        lines = []
+        current = ""
+
+        for word in words:
+            # If adding this word exceeds width, wrap
+            if len(current) + len(word) + (1 if current else 0) > max_width:
+                lines.append(current)
+                current = word
+            else:
+                current = word if not current else current + " " + word
+
+        # Add the last line
+        if current:
+            lines.append(current)
+
+        # Ensure exactly 3 lines (empty if needed)
+        while len(lines) < 3:
+            lines.append("")
+
+        return lines[:3]
+
+
 
     def draw(self, screen, menu_index, 
             menu_mode, previous_menu_index, 
@@ -443,9 +467,17 @@ class BattleRenderer:
 
         elif menu_mode == MENU_MODE_DAMAGING_ENEMY:
 
-            # Do NOT update scroll_index here, just use what was passed in
+            # Only draw what has scrolled so far
             visible = scroll_text[:scroll_index]
-            self.font0.draw_text(screen, visible, X_MENU_MAIN, Y_MENU_MAIN_0)
+
+            # Wrap into up to 3 lines
+            line0, line1, line2 = self.wrap_text(visible, max_width=32)
+
+            # Draw each line
+            self.font0.draw_text(screen, line0, X_MENU_MAIN, Y_MENU_MAIN_0)
+            self.font0.draw_text(screen, line1, X_MENU_MAIN, Y_MENU_MAIN_1)
+            self.font0.draw_text(screen, line2, X_MENU_MAIN, Y_MENU_MAIN_2)
+
 
         else:
             msg = DUMMY_TEXTS[previous_menu_index]
