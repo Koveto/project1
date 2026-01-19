@@ -205,8 +205,7 @@ class BattleRenderer:
             menu_mode, previous_menu_index, 
             skills_cursor, skills_scroll,
             target_index, scroll_text,
-            scroll_index, scroll_speed,
-            scroll_done):
+            scroll_index):
 
         # ---------------------------------------------------------
         # Active Pokémon based on turn_index
@@ -447,9 +446,6 @@ class BattleRenderer:
             # Do NOT update scroll_index here, just use what was passed in
             visible = scroll_text[:scroll_index]
             self.font0.draw_text(screen, visible, X_MENU_MAIN, Y_MENU_MAIN_0)
-
-
-
 
         else:
             msg = DUMMY_TEXTS[previous_menu_index]

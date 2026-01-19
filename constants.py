@@ -19,6 +19,8 @@ SPEED = 4
 
 TARGET_FPS = 30
 
+SCROLL_SPEED = 5
+
 ELEMENT_INDEX = {
     "Physical": 0,
     "Fire": 1,

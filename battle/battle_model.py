@@ -19,17 +19,8 @@ class BattleModel:
         pass
 
     def get_active_player_pokemon(self):
-        # Always return the special player Pokémon (-1)
-        for p in self.player_team:
-            if p.pokedex_number == PLAYER_DEX_NO:
-                return p
+        return self.player_team[self.turn_index]
 
-        # Fallback: first real Pokémon
-        for p in self.player_team:
-            if p.pokedex_number != PLAYER_DEX_NO:
-                return p
-
-        return None
 
     def next_turn(self):
         # Move to the next Pokémon on the player team

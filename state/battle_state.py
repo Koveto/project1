@@ -1,6 +1,7 @@
 # state/battle_state.py
 
 import pygame
+from constants import *
 from battle.battle_constants import *
 from state.state_manager import GameState
 from battle.battle_model import BattleModel
@@ -22,7 +23,7 @@ class BattleState(GameState):
 
         # Create the player Pokémon using Bulbasaur's data
         player_pokemon = Pokemon(
-            pokedex_number=-1,          # special player marker
+            pokedex_number=PLAYER_DEX_NO,          # special player marker
             name="Brendan",             # override name
             level=99,
             stats=bulbasaur_data.base_stats,
@@ -39,12 +40,21 @@ class BattleState(GameState):
             get_smt_pokemon_by_number(self.smt_pokemon, 6)     # Charizard
         ]
 
+        player_team[1].moves = ["Lunge", "Agi", "Bufu", "Zio"]
+        player_team[2].moves = ["Lunge", "Agi", "Bufu", "Zio"]
+        player_team[3].moves = ["Lunge", "Agi", "Bufu", "Zio"]
+
         enemy_team = [
             get_smt_pokemon_by_number(self.smt_pokemon, 9),    # Blastoise
             get_smt_pokemon_by_number(self.smt_pokemon, 3),    # Venusaur
             get_smt_pokemon_by_number(self.smt_pokemon, 150),  # Mewtwo
             get_smt_pokemon_by_number(self.smt_pokemon, 12)    # Butterfree
         ]
+
+        enemy_team[0].moves = ["Lunge", "Agi", "Bufu", "Zio"]
+        enemy_team[1].moves = ["Lunge", "Agi", "Bufu", "Zio"]
+        enemy_team[2].moves = ["Lunge", "Agi", "Bufu", "Zio"]
+        enemy_team[3].moves = ["Lunge", "Agi", "Bufu", "Zio"]
 
         self.model = BattleModel(player_team, enemy_team)
         self.renderer = BattleRenderer(background_surface, self.model, self.smt_moves)
@@ -57,7 +67,9 @@ class BattleState(GameState):
         self.target_index = 0
         self.scroll_text = ""
         self.scroll_index = 0
-        self.scroll_speed = 2      # characters per frame (tweak)
+        self.scroll_speed = 2
+        self.scroll_delay = SCROLL_SPEED
+        self.scroll_timer = 0
         self.scroll_done = False
 
 
@@ -275,16 +287,22 @@ class BattleState(GameState):
                            self.menu_mode, self.previous_menu_index,
                            self.skills_cursor, self.skills_scroll,
                            self.target_index, self.scroll_text,
-                           self.scroll_index, self.scroll_speed,
-                           self.scroll_done)
+                           self.scroll_index)
         
     def update(self):
         # Update scrolling text ONLY in damaging mode
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY and not self.scroll_done:
-            self.scroll_index += self.scroll_speed
-            if self.scroll_index >= len(self.scroll_text):
-                self.scroll_index = len(self.scroll_text)
-                self.scroll_done = True
+            # Count frames
+            self.scroll_timer += 1
+
+            # When enough frames pass, reveal the next character
+            if self.scroll_timer >= self.scroll_speed:
+                self.scroll_timer = 0
+                self.scroll_index += 1
+
+                if self.scroll_index >= len(self.scroll_text):
+                    self.scroll_index = len(self.scroll_text)
+                    self.scroll_done = True
 
 
         
