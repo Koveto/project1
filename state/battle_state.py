@@ -71,6 +71,19 @@ class BattleState(GameState):
         self.scroll_delay = SCROLL_SPEED
         self.scroll_timer = 0
         self.scroll_done = False
+        self.pending_move_name = None
+        self.damage_animating = False
+        self.damage_started = False
+        self.damage_done = False
+        self.affinity_text = None
+        self.affinity_done = False
+        self.affinity_scroll_index = 0
+        self.affinity_scroll_done = False
+        self.delay_started = False
+        self.delay_frames = 0
+
+
+
 
 
 
@@ -240,12 +253,25 @@ class BattleState(GameState):
 
                     # Build the scrolling message
                     selected_index = self.skills_scroll + self.skills_cursor
-                    move_name = self.model.get_active_player_pokemon().moves[selected_index]
+                    active_pokemon = self.model.get_active_pokemon()
+                    move_name = active_pokemon.moves[selected_index]
                     enemy = self.model.enemy_team[self.target_index]
 
-                    self.scroll_text = f"{self.model.get_active_player_pokemon().name} uses {move_name} on {enemy.name}!"
+                    # Remember which move will be used for damage
+                    self.pending_move_name = move_name
+
+                    self.scroll_text = f"{active_pokemon.name} uses {move_name} on {enemy.name}!"
                     self.scroll_index = 0
                     self.scroll_done = False
+
+                    self.damage_started = False
+                    self.damage_done = False
+
+                    self.affinity_text = None
+                    self.affinity_done = False
+                    self.affinity_scroll_index = 0
+                    self.affinity_scroll_done = False
+
 
                     return
 
@@ -253,24 +279,60 @@ class BattleState(GameState):
                     self.menu_mode = MENU_MODE_SKILLS
                     return
 
+
                 
             elif self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
 
-                # If text is still scrolling, Z/Enter should finish it instantly
+                enemy = self.model.enemy_team[self.target_index]
+
+                # 1) If text is still scrolling, allow skip
                 if not self.scroll_done:
                     if event.key in (pygame.K_z, pygame.K_RETURN):
                         self.scroll_index = len(self.scroll_text)
                         self.scroll_done = True
                     return
 
-                # If text is finished, allow advancing to next state
+                # 2) If damage is still animating, ignore input
+                if not self.damage_done:
+                    return
+
+                # 3) Affinity text phase
+                if self.affinity_text and not self.affinity_done:
+                    # If still scrolling, Z finishes it
+                    if not self.affinity_scroll_done:
+                        if event.key in (pygame.K_z, pygame.K_RETURN):
+                            self.affinity_scroll_index = len(self.affinity_text)
+                            self.affinity_scroll_done = True
+                        return
+
+                    # Scrolling is done — Z should advance the turn immediately
+                    if event.key in (pygame.K_z, pygame.K_RETURN):
+                        self.finish_damage_phase()
+                    return
+
+
+
+                # 4) Everything done → now Z advances the turn
                 if event.key in (pygame.K_z, pygame.K_RETURN):
+                    self.damage_started = False
+                    self.damage_done = False
+                    self.affinity_done = False
+                    self.affinity_text = None
+                    self.pending_move_name = None
+
                     self.model.handle_action_press_turn_cost(1)
                     self.model.next_turn()
-                    # Reset menu state
                     self.menu_mode = MENU_MODE_MAIN
                     self.menu_index = 0
                     return
+
+                # Neutral damage: no affinity text, waiting for Z
+                # Do nothing — renderer will keep drawing the attack text
+                return
+
+
+
+
 
 
             # -------------------------
@@ -282,28 +344,153 @@ class BattleState(GameState):
                 if event.key == pygame.K_x:
                     self.menu_mode = MENU_MODE_MAIN
 
+
+    def finish_damage_phase(self):
+        self.damage_started = False
+        self.damage_done = False
+        self.affinity_done = False
+        self.affinity_text = None
+        self.pending_move_name = None
+
+        self.model.handle_action_press_turn_cost(1)
+        self.model.next_turn()
+        self.menu_mode = MENU_MODE_MAIN
+        self.menu_index = 0
+
+
+
     def draw(self, screen):
         self.renderer.draw(screen, self.menu_index, 
                            self.menu_mode, self.previous_menu_index,
                            self.skills_cursor, self.skills_scroll,
                            self.target_index, self.scroll_text,
-                           self.scroll_index)
+                           int(self.scroll_index), self.scroll_done,
+                           self.damage_done, self.affinity_done,
+                           self.affinity_text, self.affinity_scroll_index,
+                           self.affinity_scroll_done)
         
     def update(self):
-        # Update scrolling text ONLY in damaging mode
+
+        # ---------------------------------------------------------
+        # PHASE 1 — ATTACK TEXT SCROLLING
+        # ---------------------------------------------------------
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY and not self.scroll_done:
-            # Count frames
-            self.scroll_timer += 1
 
-            # When enough frames pass, reveal the next character
-            if self.scroll_timer >= self.scroll_speed:
-                self.scroll_timer = 0
-                self.scroll_index += 1
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / 60
 
-                if self.scroll_index >= len(self.scroll_text):
-                    self.scroll_index = len(self.scroll_text)
-                    self.scroll_done = True
+            self.scroll_index += chars_per_frame
+            visible_chars = int(self.scroll_index)
+
+            if visible_chars >= len(self.scroll_text):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
 
 
-        
+        # ---------------------------------------------------------
+        # PHASE 1.5 — DELAY BEFORE DAMAGE ANIMATION
+        # ---------------------------------------------------------
+        if (self.menu_mode == MENU_MODE_DAMAGING_ENEMY and
+            self.scroll_done and
+            not self.damage_started):
 
+            if not self.delay_started:
+                self.delay_started = True
+                self.delay_frames = 0
+
+            self.delay_frames += 1
+            if self.delay_frames < WAIT_FRAMES_BEFORE_DAMAGE:
+                return
+
+            # Delay finished → start damage
+            self.delay_started = False
+            self.delay_frames = 0
+
+            enemy = self.model.enemy_team[self.target_index]
+            attacker = self.model.get_active_pokemon()
+            move = self.smt_moves[self.pending_move_name]
+            damage = move["power"]
+
+            enemy.hp_target = max(0, enemy.remaining_hp - damage)
+            enemy.hp_anim = enemy.remaining_hp
+
+            damage_pixels = int((damage / enemy.max_hp) * HP_BAR_WIDTH)
+            enemy.hp_anim_speed = max(1, min(12, damage_pixels // 4))
+
+            enemy.remaining_hp = enemy.hp_target
+
+            self.damage_started = True
+            self.damage_animating = True
+
+
+        # ---------------------------------------------------------
+        # PHASE 2 — HP ANIMATION
+        # ---------------------------------------------------------
+        if self.damage_animating:
+            enemy = self.model.enemy_team[self.target_index]
+
+            if enemy.hp_anim > enemy.hp_target:
+                diff = enemy.hp_anim - enemy.hp_target
+                step = max(1, int(diff ** 0.7))
+                enemy.hp_anim -= step
+
+                if enemy.hp_anim < enemy.hp_target:
+                    enemy.hp_anim = enemy.hp_target
+
+            else:
+                # HP animation finished
+                self.damage_animating = False
+                self.damage_done = True
+
+                # Reset affinity state
+                self.affinity_done = False
+                self.affinity_scroll_done = False
+                self.affinity_text = None
+                self.affinity_scroll_index = 0   # <-- REQUIRED FIX
+
+                # Determine affinity text
+                attacker = self.model.get_active_pokemon()
+                move = self.smt_moves[self.pending_move_name]
+                element = move["element"]
+                element_index = ELEMENT_INDEX[element]
+                affinity = enemy.affinities[element_index]
+
+                if affinity == 0:
+                    # Neutral hit
+                    self.affinity_text = None
+                    self.affinity_done = True
+                    self.affinity_scroll_done = True
+                else:
+                    # Non-neutral hit
+                    if affinity < 0:
+                        self.affinity_text = "It's super effective!"
+                    elif affinity in (1, 2):
+                        self.affinity_text = "It's not very effective..."
+                    elif 3 <= affinity <= 8:
+                        self.affinity_text = "But it had no effect!"
+                    elif affinity == 9:
+                        self.affinity_text = "But it was reflected back!"
+
+                    # Start scrolling affinity text
+                    self.affinity_scroll_index = 0
+                    self.affinity_scroll_done = False
+
+
+
+        # ---------------------------------------------------------
+        # PHASE 3 — AFFINITY TEXT SCROLLING
+        # ---------------------------------------------------------
+        if (self.menu_mode == MENU_MODE_DAMAGING_ENEMY and
+            self.damage_done and
+            not self.affinity_done and
+            self.affinity_text):
+
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / 60
+
+            self.affinity_scroll_index += chars_per_frame
+            visible = int(self.affinity_scroll_index)
+
+            if visible >= len(self.affinity_text):
+                self.affinity_scroll_index = len(self.affinity_text)
+                self.affinity_scroll_done = True

@@ -133,22 +133,34 @@ class BattleRenderer:
             if (self.anim_frame // PT_DURATION_FLASH) % 2 == 0:
                 screen.blit(self.press_turn_red, (x, y))
 
-    def draw_hp_bar(self, screen, pokemon, hp_offset, base_x=HP_BAR_X, base_y=HP_BAR_Y):
+    def draw_hp_bar(self, screen, pokemon, hp_offset,
+                base_x=HP_BAR_X, base_y=HP_BAR_Y,
+                override_hp=None):
+
+        # Safety: no HP bar if max HP is invalid
         if pokemon.max_hp <= 0:
             return
 
-        ratio = pokemon.remaining_hp / pokemon.max_hp
-        ratio = max(0.0, min(1.0, ratio))
+        # Use animated HP if provided, otherwise use the real remaining HP
+        hp_value = override_hp if override_hp is not None else pokemon.remaining_hp
 
+        # Clamp ratio between 0 and 1
+        ratio = max(0.0, min(1.0, hp_value / pokemon.max_hp))
+
+        # Compute fill width
         fill_width = int(HP_BAR_WIDTH * ratio)
         if fill_width <= 0:
             return
 
+        # Scale the fill sprite to the correct width
         fill_surface = pygame.transform.scale(
             self.hp_fill,
             (fill_width, HP_BAR_HEIGHT)
         )
+
+        # Draw the bar
         screen.blit(fill_surface, (base_x, base_y + hp_offset))
+
 
 
     def draw_mp_bar(self, screen, pokemon, hp_offset, base_x=MP_BAR_X, base_y=MP_BAR_Y):
@@ -200,28 +212,29 @@ class BattleRenderer:
         screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset))
 
 
-    def wrap_text(self, text, max_width=WRAP):
+    def wrap_text_words(self, text, max_width=32):
         words = text.split()
         lines = []
-        current = ""
+        current = []
 
         for word in words:
-            # If adding this word exceeds width, wrap
-            if len(current) + len(word) + (1 if current else 0) > max_width:
+            # Predict length if we add this word
+            predicted = " ".join(current + [word])
+            if len(predicted) > max_width:
                 lines.append(current)
-                current = word
+                current = [word]
             else:
-                current = word if not current else current + " " + word
+                current.append(word)
 
-        # Add the last line
         if current:
             lines.append(current)
 
-        # Ensure exactly 3 lines (empty if needed)
+        # Ensure exactly 3 lines
         while len(lines) < 3:
-            lines.append("")
+            lines.append([])
 
         return lines[:3]
+
 
 
 
@@ -229,7 +242,10 @@ class BattleRenderer:
             menu_mode, previous_menu_index, 
             skills_cursor, skills_scroll,
             target_index, scroll_text,
-            scroll_index):
+            scroll_index, scroll_done,
+            damage_done, affinity_done,
+            affinity_text, affinity_scroll_index,
+            affinity_scroll_done):
 
         # ---------------------------------------------------------
         # Active Pokémon based on turn_index
@@ -239,6 +255,8 @@ class BattleRenderer:
         target = self.model.enemy_team[target_index]
 
         self.anim_frame += 1
+        blink = (self.anim_frame // 20) % 2 == 0
+
 
         poke_offset = int(AMP * math.sin(self.anim_frame * SPEED))
         hp_offset = int(-AMP * math.sin(self.anim_frame * SPEED + PHASE))
@@ -405,8 +423,18 @@ class BattleRenderer:
                 enemy_hpmp_y + LV_TEXT_Y_OFFSET_ENEMY
             )
 
-            self.draw_hp_bar(screen, target, ui_hp_offset,
-                            base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_0)
+            # Use animated HP if present
+            hp_source = getattr(target, "hp_anim", target.remaining_hp)
+
+            self.draw_hp_bar(
+                screen,
+                target,
+                ui_hp_offset,
+                base_x=HPMP_TO_FILL_X,
+                base_y=HPMP_TO_FILL_Y_0,
+                override_hp=hp_source
+            )
+
             self.draw_mp_bar(screen, target, ui_hp_offset,
                             base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_1)
 
@@ -452,34 +480,107 @@ class BattleRenderer:
             cursor_x, cursor_y = COORDS_MENU_SKILLS[skills_cursor]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
 
-        elif menu_mode == MENU_MODE_TARGET_SELECT:
-            selected_index = skills_scroll + skills_cursor
-            move_name = active_pokemon.moves[selected_index]
-
-            cursor_row = skills_cursor
-            y = SKILLS_Y + cursor_row * SKILLS_Y_INCR
-
-            text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
-            self.font2.draw_text(screen, text, SKILLS_X, y)
-
-            cursor_x, cursor_y = COORDS_MENU_SKILLS[cursor_row]
-            screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
-
         elif menu_mode == MENU_MODE_DAMAGING_ENEMY:
 
-            # Only draw what has scrolled so far
-            visible = scroll_text[:scroll_index]
+            # ---------------------------------------------------------
+            # PHASE 3/4 — Affinity text (scrolling or full)
+            # ---------------------------------------------------------
+            if damage_done and affinity_text:
 
-            # Wrap into up to 3 lines
-            line0, line1, line2 = self.wrap_text(visible, max_width=32)
+                # PHASE 3 — affinity text scrolling
+                if not affinity_done:
+                    visible = int(affinity_scroll_index)
+                    text_to_draw = affinity_text[:visible]
 
-            # Draw each line
-            self.font0.draw_text(screen, line0, X_MENU_MAIN, Y_MENU_MAIN_0)
-            self.font0.draw_text(screen, line1, X_MENU_MAIN, Y_MENU_MAIN_1)
-            self.font0.draw_text(screen, line2, X_MENU_MAIN, Y_MENU_MAIN_2)
+                    self.font0.draw_text(
+                        screen, text_to_draw,
+                        X_MENU_MAIN, Y_MENU_MAIN_0
+                    )
 
+                    if affinity_scroll_done and blink:
+                        screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
+
+                    return
+
+                # PHASE 4 — affinity text fully displayed
+                self.font0.draw_text(
+                    screen, affinity_text,
+                    X_MENU_MAIN, Y_MENU_MAIN_0
+                )
+
+                if blink:
+                    screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
+                return
+
+
+            # ---------------------------------------------------------
+            # PHASE 4b — Neutral damage: KEEP ATTACK TEXT VISIBLE
+            # ---------------------------------------------------------
+            if damage_done and not affinity_text:
+
+                full_word_lines = self.wrap_text_words(scroll_text, max_width=32)
+
+                if len(full_word_lines) > 0:
+                    self.font0.draw_text(screen, full_word_lines[0],
+                                        X_MENU_MAIN, Y_MENU_MAIN_0)
+                if len(full_word_lines) > 1:
+                    self.font0.draw_text(screen, full_word_lines[1],
+                                        X_MENU_MAIN, Y_MENU_MAIN_1)
+                if len(full_word_lines) > 2:
+                    self.font0.draw_text(screen, full_word_lines[2],
+                                        X_MENU_MAIN, Y_MENU_MAIN_2)
+
+                if blink:
+                    screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
+
+                return
+
+
+            # ---------------------------------------------------------
+            # PHASE 1 — Attack text scrolls (pre‑damage)
+            # ---------------------------------------------------------
+            full_word_lines = self.wrap_text_words(scroll_text, max_width=32)
+
+            visible_chars = scroll_index
+            visible_lines = ["", "", ""]
+
+            for line_idx, words in enumerate(full_word_lines):
+                for word in words:
+                    chunk = (word + " ")
+                    if visible_chars >= len(chunk):
+                        visible_lines[line_idx] += chunk
+                        visible_chars -= len(chunk)
+                    else:
+                        visible_lines[line_idx] += chunk[:visible_chars]
+                        visible_chars = 0
+                        break
+
+                if visible_chars == 0:
+                    break
+
+            # Draw attack text (scrolling)
+            self.font0.draw_text(screen, visible_lines[0], X_MENU_MAIN, Y_MENU_MAIN_0)
+            self.font0.draw_text(screen, visible_lines[1], X_MENU_MAIN, Y_MENU_MAIN_1)
+            self.font0.draw_text(screen, visible_lines[2], X_MENU_MAIN, Y_MENU_MAIN_2)
+
+            # ---------------------------------------------------------
+            # PHASE 2 — Scroll done, HP anim running (NO ARROW)
+            # ---------------------------------------------------------
+            if scroll_done and not damage_done:
+                return
+
+            # ---------------------------------------------------------
+            # PHASE 1.5 — Scroll done, HP anim not started yet
+            # ---------------------------------------------------------
+            if scroll_done and not damage_done and not self.damage_started:
+                if blink:
+                    screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
+                return
+
+        
 
         else:
             msg = DUMMY_TEXTS[previous_menu_index]
             self.font0.draw_text(screen, msg, X_MENU_MAIN, Y_MENU_MAIN_0)
             self.font0.draw_text(screen, DUMMY_MSG, X_MENU_MAIN, Y_MENU_MAIN_1)
+
