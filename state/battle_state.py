@@ -126,7 +126,7 @@ class BattleState(GameState):
                 return
 
             if self.menu_mode == MENU_MODE_MAIN and self.menu_index == 6:
-                self.model.handle_action_press_turn_cost(1)
+                self.model.handle_action_press_turn_cost(PRESS_TURN_HALF)
                 self.model.next_turn()
                 self.menu_mode = MENU_MODE_MAIN
                 self.menu_index = 0
@@ -274,12 +274,29 @@ class BattleState(GameState):
         self.damage_done = False
         self.affinity_done = False
         self.affinity_text = None
-        self.pending_move_name = None
 
-        self.model.handle_action_press_turn_cost(1)
+        # We need the affinity of the move that just resolved
+        attacker = self.model.get_active_pokemon()
+        move = self.smt_moves[self.pending_move_name]
+        element = move["element"]
+        element_index = ELEMENT_INDEX[element]
+
+        enemy = self.model.enemy_team[self.target_index]
+        affinity = enemy.affinities[element_index]
+
+        # NEW: determine press turn cost based on affinity
+        cost = self.calculate_press_turns_consumed(affinity)
+
+        # Apply press turn cost
+        cost = self.calculate_press_turns_consumed(affinity)
+        self.model.handle_action_press_turn_cost(cost)
+
+        # Cleanup
+        self.pending_move_name = None
         self.model.next_turn()
         self.menu_mode = MENU_MODE_MAIN
         self.menu_index = 0
+
 
     def draw(self, screen):
         self.renderer.draw(screen, self.menu_index, 
@@ -303,6 +320,32 @@ class BattleState(GameState):
 
         # Otherwise, base damage = move power (placeholder)
         return move["power"]
+    
+    def calculate_press_turns_consumed(self, affinity):
+        """
+        Returns:
+        - 1 for weakness (affinity < AFFINITY_NEUTRAL)
+        - 2 for neutral (affinity == AFFINITY_NEUTRAL)
+        - PRESS_TURN_WIPE for null or reflect
+        """
+
+        # Weakness → half turn
+        if affinity < AFFINITY_NEUTRAL:
+            return PRESS_TURN_HALF
+
+        # Neutral → full turn
+        if (affinity == AFFINITY_NEUTRAL) or \
+           (AFFINITY_RESIST <= affinity < AFFINITY_NULL):
+            return PRESS_TURN_FULL
+        
+        # Null or Reflect → wipe all remaining turns
+        if affinity >= AFFINITY_NULL:
+            return PRESS_TURN_WIPE
+
+        # Fallback
+        return PRESS_TURN_FULL
+
+
     
     def determine_damage_recipient(self, attacker, target, affinity_value):
         """

@@ -78,9 +78,9 @@ class BattleModel:
         cost = 1 for half turn (weakness, pass)
         cost = 2 for full turn (neutral, guard, miss)
         """
-        if cost == 1:
+        if cost == PRESS_TURN_HALF:
             self._consume_half_turn()
-        elif cost == 2:
+        elif cost == PRESS_TURN_FULL:
             self._consume_full_turn()
         else:
             # Safety: ignore invalid costs
@@ -95,14 +95,18 @@ class BattleModel:
         self.press_turns = FRESH_PRESS_TURNS.copy()
 
     def handle_action_press_turn_cost(self, cost):
-        """
-        cost = 2 for full turn
-        cost = 1 for half turn
-        """
+        # Special case: wipe all remaining press turns
+        if cost == PRESS_TURN_WIPE:
+            self.press_turns = [NULL, NULL, NULL, NULL]
+            self.next_side()
+            return
+
+        # Normal half/full turn consumption
         self.consume_press_turn(cost)
 
         if not self.has_press_turns_left():
             self.next_side()
+
 
     # -----------------------------
     # UI helpers
