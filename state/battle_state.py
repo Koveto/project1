@@ -364,14 +364,14 @@ class BattleState(GameState):
                     self.affinity_done = True
                     self.affinity_scroll_done = True
                 else:
-                    if affinity < 0:
-                        self.affinity_text = "It's super effective!"
-                    elif affinity in (1, 2):
-                        self.affinity_text = "It's not very effective..."
-                    elif 3 <= affinity <= 8:
-                        self.affinity_text = "But it had no effect!"
-                    elif affinity == 9:
-                        self.affinity_text = "But it was reflected back!"
+                    if affinity < AFFINITY_NEUTRAL:
+                        self.affinity_text = AFFINITY_TEXT_WEAK
+                    elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
+                        self.affinity_text = AFFINITY_TEXT_RESIST
+                    elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
+                        self.affinity_text = AFFINITY_TEXT_NULL
+                    elif affinity == AFFINITY_REFLECT:
+                        self.affinity_text = AFFINITY_TEXT_REFLECT
 
                     self.affinity_scroll_index = 0
                     self.affinity_scroll_done = False
