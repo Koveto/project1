@@ -20,7 +20,7 @@ class HPMPRenderer:
             return
 
         # Use animated HP if provided, otherwise use the real remaining HP
-        hp_value = override_hp if override_hp is not None else pokemon.remaining_hp
+        hp_value = override_hp if override_hp is not None else getattr(pokemon, "hp_anim", pokemon.remaining_hp)
 
         # Clamp ratio between 0 and 1
         ratio = max(0.0, min(1.0, hp_value / pokemon.max_hp))

@@ -291,6 +291,33 @@ class BattleState(GameState):
                            self.affinity_text, self.affinity_scroll_index,
                            self.affinity_scroll_done)
         
+    def calculate_raw_damage(self, move, affinity_value):
+        """
+        Returns the raw damage number for a move, before routing.
+        No side effects. No HP changes. No text.
+        """
+
+        # Null tier → zero damage
+        if AFFINITY_NULL <= affinity_value < AFFINITY_REFLECT:
+            return 0
+
+        # Otherwise, base damage = move power (placeholder)
+        return move["power"]
+    
+    def determine_damage_recipient(self, attacker, target, affinity_value):
+        """
+        Determines which Pokémon should receive the damage.
+        Does not calculate the damage amount.
+        Does not modify HP.
+        """
+
+        # Reflect → attacker takes the damage
+        if affinity_value == AFFINITY_REFLECT:
+            return attacker
+
+        # Otherwise → target takes the damage
+        return target
+        
     def update_damage_phase(self):
         # PHASE 1 — scrolling
         if not self.scroll_done:
@@ -319,29 +346,46 @@ class BattleState(GameState):
             enemy = self.model.enemy_team[self.target_index]
             attacker = self.model.get_active_pokemon()
             move = self.smt_moves[self.pending_move_name]
-            damage = move["power"]
 
-            enemy.hp_target = max(0, enemy.remaining_hp - damage)
-            enemy.hp_anim = enemy.remaining_hp
+            # Determine affinity
+            element = move["element"]
+            element_index = ELEMENT_INDEX[element]
+            affinity = enemy.affinities[element_index]
 
-            damage_pixels = int((damage / enemy.max_hp) * HP_BAR_WIDTH)
-            enemy.hp_anim_speed = max(1, min(12, damage_pixels // 4))
+            # NEW: calculate raw damage
+            raw_damage = self.calculate_raw_damage(move, affinity)
 
-            enemy.remaining_hp = enemy.hp_target
+            # NEW: determine who takes the damage (reflect support)
+            damage_target = self.determine_damage_recipient(attacker, enemy, affinity)
+
+            # Apply damage to the correct Pokémon
+            damage_target.hp_target = max(0, damage_target.remaining_hp - raw_damage)
+            damage_target.hp_anim = damage_target.remaining_hp
+
+            damage_pixels = int((raw_damage / damage_target.max_hp) * HP_BAR_WIDTH)
+            damage_target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
+
+            damage_target.remaining_hp = damage_target.hp_target
+
+            # Store for renderer (important for reflect)
+            self.damage_target = damage_target
+
 
             self.damage_started = True
             self.damage_animating = True
             return
 
+
         # PHASE 2 — HP animation
         if self.damage_animating:
-            enemy = self.model.enemy_team[self.target_index]
-            if enemy.hp_anim > enemy.hp_target:
-                diff = enemy.hp_anim - enemy.hp_target
+            damage_target = self.damage_target
+
+            if damage_target.hp_anim > damage_target.hp_target:
+                diff = damage_target.hp_anim - damage_target.hp_target
                 step = max(1, int(diff ** 0.7))
-                enemy.hp_anim -= step
-                if enemy.hp_anim < enemy.hp_target:
-                    enemy.hp_anim = enemy.hp_target
+                damage_target.hp_anim -= step
+                if damage_target.hp_anim < damage_target.hp_target:
+                    damage_target.hp_anim = damage_target.hp_target
             else:
                 self.damage_animating = False
                 self.damage_done = True
@@ -352,11 +396,15 @@ class BattleState(GameState):
                 self.affinity_text = None
                 self.affinity_scroll_index = 0
 
-                # Determine affinity
+                # Determine affinity (still based on enemy)
                 attacker = self.model.get_active_pokemon()
                 move = self.smt_moves[self.pending_move_name]
                 element = move["element"]
                 element_index = ELEMENT_INDEX[element]
+
+                # IMPORTANT: affinity is always based on the enemy's affinities,
+                # not the damage target.
+                enemy = self.model.enemy_team[self.target_index]
                 affinity = enemy.affinities[element_index]
 
                 if affinity == 0:
@@ -375,7 +423,9 @@ class BattleState(GameState):
 
                     self.affinity_scroll_index = 0
                     self.affinity_scroll_done = False
+
             return
+
 
         # PHASE 3 — affinity scroll
         if self.damage_done and not self.affinity_done and self.affinity_text:
