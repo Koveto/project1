@@ -1,5 +1,12 @@
-# battle/battle_model.py
+from constants import *
 from battle.battle_constants import *
+
+# For clarity, these should be defined in battle_constants.py,
+# but we’ll assume they are:
+# SOLID = 2
+# FLASH = 1
+# NULL  = 0
+# FRESH_PRESS_TURNS = [SOLID, SOLID, SOLID, SOLID]
 
 class BattleModel:
     """
@@ -10,10 +17,11 @@ class BattleModel:
         self.player_team = player_team      # list of Pokémon objects
         self.enemy_team = enemy_team        # list of Pokémon objects
         self.turn_index = 0
-        # Press Turn system
-        self.press_turns = FRESH_PRESS_TURNS   # 4 full turns
-        self.is_player_turn = True        # True = blue icons, False = red icons
 
+        # Press Turn system
+        # IMPORTANT: always copy the template list
+        self.press_turns = FRESH_PRESS_TURNS.copy()
+        self.is_player_turn = True  # True = blue icons, False = red icons
 
     def update(self):
         pass
@@ -21,36 +29,70 @@ class BattleModel:
     def get_active_player_pokemon(self):
         return self.player_team[self.turn_index]
 
+    def get_active_pokemon(self):
+        # For now, only player side is implemented as active
+        return self.player_team[self.turn_index]
 
     def next_turn(self):
         # Move to the next Pokémon on the player team
         self.turn_index = (self.turn_index + 1) % len(self.player_team)
 
-    def consume_press_turn(self, amount):
+    # -----------------------------
+    # Press Turn core logic
+    # -----------------------------
+
+    def _consume_half_turn(self):
         """
-        amount = 2 for full turn
-        amount = 1 for half turn
-        Consumes the leftmost non-zero icon.
+        Half turn (cost = 1):
+        - If any SOLID exists, convert the leftmost SOLID to FLASH.
+        - Else, if any FLASH exists, convert the leftmost FLASH to NULL.
         """
+
+        # First, try to downgrade a SOLID to FLASH
         for i in range(4):
-            if self.press_turns[i] > 0:
-                # Reduce the icon
-                self.press_turns[i] -= amount
+            if self.press_turns[i] == SOLID:
+                self.press_turns[i] = FLASH
+                return
 
-                # Clamp to zero (never negative)
-                if self.press_turns[i] < 0:
-                    self.press_turns[i] = 0
+        # If no SOLID, downgrade a FLASH to NULL
+        for i in range(4):
+            if self.press_turns[i] == FLASH:
+                self.press_turns[i] = NULL
+                return
 
-                break
+        # If no SOLID or FLASH, nothing to consume
+
+    def _consume_full_turn(self):
+        """
+        Full turn (cost = 2):
+        - Convert the leftmost non-NULL icon (SOLID or FLASH) to NULL.
+        """
+
+        for i in range(4):
+            if self.press_turns[i] != NULL:
+                self.press_turns[i] = NULL
+                return
+
+    def consume_press_turn(self, cost):
+        """
+        cost = 1 for half turn (weakness, pass)
+        cost = 2 for full turn (neutral, guard, miss)
+        """
+        if cost == 1:
+            self._consume_half_turn()
+        elif cost == 2:
+            self._consume_full_turn()
+        else:
+            # Safety: ignore invalid costs
+            return
 
     def has_press_turns_left(self):
         return any(v > 0 for v in self.press_turns)
-    
+
     def next_side(self):
         self.is_player_turn = not self.is_player_turn
-
         # Reset press turns for the new side
-        self.press_turns = FRESH_PRESS_TURNS
+        self.press_turns = FRESH_PRESS_TURNS.copy()
 
     def handle_action_press_turn_cost(self, cost):
         """
@@ -61,6 +103,10 @@ class BattleModel:
 
         if not self.has_press_turns_left():
             self.next_side()
+
+    # -----------------------------
+    # UI helpers
+    # -----------------------------
 
     def get_press_turn_icon_states(self, anim_frame):
         """
@@ -73,29 +119,29 @@ class BattleModel:
         flashing_on = (anim_frame // 10) % 2 == 0
 
         for value in self.press_turns:
-            if value == 2:
+            if value == SOLID:
                 states.append(f"solid_{color}")
-            elif value == 1:
-                states.append(f"flash_{color}" if flashing_on else PT_STATE_TRANSPARENT)
+            elif value == FLASH:
+                # You can alternate between two flash sprites if you want,
+                # but it should never be transparent.
+                states.append(f"flash_{color}")
             else:
                 states.append(PT_STATE_TRANSPARENT)
 
         return states
 
+    # -----------------------------
+    # Accessors
+    # -----------------------------
+
     def get_player_team(self):
         return self.player_team
-    
+
     def get_enemy_team(self):
         return self.enemy_team
-    
+
     def get_turn_index(self):
         return self.turn_index
-    
+
     def get_press_turns(self):
         return self.press_turns
-    
-    def is_player_turn(self):
-        return self.is_player_turn
-
-    def get_active_pokemon(self):
-        return self.player_team[self.turn_index]

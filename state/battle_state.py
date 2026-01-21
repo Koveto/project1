@@ -276,10 +276,39 @@ class BattleState(GameState):
         self.affinity_text = None
         self.pending_move_name = None
 
-        self.model.handle_action_press_turn_cost(1)
+        # Determine press turn cost based on affinity
+        attacker = self.model.get_active_pokemon()
+        move = self.smt_moves[self.pending_move_name]
+        element = move["element"]
+        element_index = ELEMENT_INDEX[element]
+        enemy = self.model.enemy_team[self.target_index]
+        affinity = enemy.affinities[element_index]
+
+        # Weakness → half turn (same as pass)
+        if affinity < AFFINITY_NEUTRAL:
+            cost = 1
+
+        # Neutral → full turn
+        elif affinity == AFFINITY_NEUTRAL:
+            cost = 2
+
+        # Resist → full turn
+        elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
+            cost = 2
+
+        # Null / Reflect → full turn AND end turn
+        elif affinity >= AFFINITY_NULL:
+            cost = 2
+            # You may want to force turn end here, depending on SMT rules
+
+        # Apply press turn cost
+        self.model.handle_action_press_turn_cost(cost)
+
+        # Move to next Pokémon
         self.model.next_turn()
         self.menu_mode = MENU_MODE_MAIN
         self.menu_index = 0
+
 
     def draw(self, screen):
         self.renderer.draw(screen, self.menu_index, 

@@ -158,3 +158,7 @@ AFFINITY_TEXT_WEAK = "It's super effective!"
 AFFINITY_TEXT_RESIST = "It's not very effective..."
 AFFINITY_TEXT_NULL = "But it had no effect!"
 AFFINITY_TEXT_REFLECT = "But it was reflected back!"
+
+NULL = 0
+FLASH = 1
+SOLID = 2
