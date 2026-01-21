@@ -72,7 +72,6 @@ class TextRenderer:
         # PHASE 4b — Neutral damage: KEEP ATTACK TEXT VISIBLE
         # ---------------------------------------------------------
         if damage_done and not affinity_text:
-
             full_word_lines = self.wrap_text_words(scroll_text, max_width=32)
 
             if len(full_word_lines) > 0:
@@ -87,8 +86,6 @@ class TextRenderer:
 
             if blink:
                 screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
-
-            return
 
 
         # ---------------------------------------------------------
