@@ -34,3 +34,14 @@ class MenuRenderer:
         msg = DUMMY_TEXTS[previous_menu_index]
         self.font0.draw_text(screen, msg, X_MENU_MAIN, Y_MENU_MAIN_0)
         self.font0.draw_text(screen, DUMMY_MSG, X_MENU_MAIN, Y_MENU_MAIN_1)
+
+    def draw_target_select_menu(self, screen, active_pokemon,
+                            skills_scroll, skills_cursor):
+        selected_index = skills_scroll + skills_cursor
+        move_name = active_pokemon.moves[selected_index]
+        text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
+        y = SKILLS_Y + (skills_cursor * SKILLS_Y_INCR)
+        self.font2.draw_text(screen, text, SKILLS_X, y)
+        cursor_x, cursor_y = COORDS_MENU_SKILLS[skills_cursor]
+        screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+

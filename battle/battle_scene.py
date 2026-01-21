@@ -145,21 +145,12 @@ class BattleRenderer:
             self.menu_renderer.draw_skills_menu(screen, active_pokemon, skills_scroll, skills_cursor)
 
         elif menu_mode == MENU_MODE_TARGET_SELECT:
-            selected_index = skills_scroll + skills_cursor
-            move_name = active_pokemon.moves[selected_index]
-
-            # Format the move exactly like the skills menu
-            text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
-
-            # Draw it in the same row it appeared in the skills menu
-            y = SKILLS_Y + (skills_cursor * SKILLS_Y_INCR)
-
-            self.font2.draw_text(screen, text, SKILLS_X, y)
-            # Draw cursor in the same row as the skills menu
-            cursor_x, cursor_y = COORDS_MENU_SKILLS[skills_cursor]
-            screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
-
-
+            self.menu_renderer.draw_target_select_menu(
+                screen,
+                active_pokemon,
+                skills_scroll,
+                skills_cursor
+            )
 
         elif menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.text_renderer.draw_damaging_enemy(
