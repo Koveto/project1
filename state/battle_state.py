@@ -5,7 +5,7 @@ from constants import *
 from battle.battle_constants import *
 from state.state_manager import GameState
 from battle.battle_model import BattleModel
-from battle.battle_renderer import BattleRenderer
+from battle.battle_scene import BattleRenderer
 from pokedex.pokemon import Pokemon
 from data.smt.smt_stats import load_smt_from_json, get_smt_pokemon_by_number
 from data.smt.smt_moves import load_moves
