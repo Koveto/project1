@@ -30,6 +30,7 @@ class Pokemon:
         else: 
             self.moves = []
         self.bst = bst
+        self.is_guarding = False
 
         # Compute actual stats
         self.recalculate_stats()

@@ -119,17 +119,17 @@ class BattleState(GameState):
                 self.menu_index += 4
 
         elif event.key in (pygame.K_z, pygame.K_RETURN):
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == 0:
+            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_SKILLS:
                 self.menu_mode = MENU_MODE_SKILLS
                 self.previous_menu_index = self.menu_index
                 self.menu_index = 0
                 return
 
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == 6:
+            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_PASS:
                 self.model.handle_action_press_turn_cost(PRESS_TURN_HALF)
                 self.model.next_turn()
                 self.menu_mode = MENU_MODE_MAIN
-                self.menu_index = 0
+                self.menu_index = MENU_INDEX_SKILLS
                 return
 
             self.previous_menu_index = self.menu_index

@@ -114,6 +114,7 @@ MENU_MAIN_LINE_1 = "  Skills   Item    Guard   Talk"
 MENU_MAIN_LINE_2 = "  Change   Escape  Pass    Info"
 
 MENU_MODE_MAIN = "main"
+MENU_MODE_GUARDING = "guard"
 MENU_MODE_SKILLS = "skills"
 MENU_MODE_TARGET_SELECT = "target_select"
 MENU_MODE_DAMAGING_ENEMY = "damaging_enemy"
@@ -165,3 +166,7 @@ SOLID = 2
 PRESS_TURN_HALF = 1
 PRESS_TURN_FULL = 2
 PRESS_TURN_WIPE = -1
+
+MENU_INDEX_SKILLS = 0
+MENU_INDEX_GUARD = 2
+MENU_INDEX_PASS = 6
