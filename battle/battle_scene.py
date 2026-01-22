@@ -169,6 +169,19 @@ class BattleRenderer:
                 blink
             )
             return
+        
+        elif menu_mode == MENU_MODE_TALK:
+            self.text_renderer.draw_simple_scroll(
+                screen, scroll_text, scroll_index, scroll_done, blink
+            )
+            return
+
+        elif menu_mode == MENU_MODE_ESCAPE:
+            self.text_renderer.draw_simple_scroll(
+                screen, scroll_text, scroll_index, scroll_done, blink
+            )
+            return
+
 
         else:
             self.menu_renderer.draw_dummy_menu(screen, previous_menu_index)

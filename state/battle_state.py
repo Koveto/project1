@@ -81,7 +81,6 @@ class BattleState(GameState):
         self.affinity_scroll_done = False
         self.delay_started = False
         self.delay_frames = 0
-        self.guard_action_pending = False
 
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
@@ -117,31 +116,85 @@ class BattleState(GameState):
                 self.menu_index += 4
 
         elif event.key in (pygame.K_z, pygame.K_RETURN):
+            # SKILLS
             if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_SKILLS:
                 self.menu_mode = MENU_MODE_SKILLS
                 self.previous_menu_index = self.menu_index
                 self.menu_index = 0
                 return
             
+            # GUARD
             if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_GUARD:
                 active = self.model.get_active_player_pokemon()
                 active.is_guarding = True
                 self.scroll_text = f"{active.name} guards!"
                 self.scroll_index = 0
                 self.scroll_done = False
-                self.guard_action_pending = True
                 self.menu_mode = MENU_MODE_GUARDING
                 return
 
+            # PASS
             if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_PASS:
                 self.model.handle_action_press_turn_cost(PRESS_TURN_HALF)
                 self.model.next_turn()
                 self.menu_mode = MENU_MODE_MAIN
                 self.menu_index = MENU_INDEX_SKILLS
                 return
+            
+            # TALK
+            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_TALK:
+                self.scroll_text = TALK_TEXT
+                self.scroll_index = 0
+                self.scroll_done = False
+                self.menu_mode = MENU_MODE_TALK
+                return
+
+            # ESCAPE
+            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_ESCAPE:
+                self.scroll_text = ESCAPE_TEXT
+                self.scroll_index = 0
+                self.scroll_done = False
+                self.menu_mode = MENU_MODE_ESCAPE
+                return
+
 
             self.previous_menu_index = self.menu_index
             self.menu_mode = MENU_MODE_SUBMENU
+
+    def handle_talk_event(self, event):
+        if event.type != pygame.KEYDOWN:
+            return
+
+        if not self.scroll_done:
+            if event.key in (pygame.K_z, pygame.K_RETURN, pygame.K_x):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
+            return
+
+        if event.key in (pygame.K_z, pygame.K_RETURN, pygame.K_x):
+            self.menu_mode = MENU_MODE_MAIN
+            self.menu_index = MENU_INDEX_SKILLS
+            self.scroll_text = ""
+            self.scroll_index = 0
+            self.scroll_done = True
+
+    def handle_escape_event(self, event):
+        if event.type != pygame.KEYDOWN:
+            return
+
+        if not self.scroll_done:
+            if event.key in (pygame.K_z, pygame.K_RETURN, pygame.K_x):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
+            return
+
+        if event.key in (pygame.K_z, pygame.K_RETURN, pygame.K_x):
+            self.menu_mode = MENU_MODE_MAIN
+            self.menu_index = MENU_INDEX_SKILLS
+            self.scroll_text = ""
+            self.scroll_index = 0
+            self.scroll_done = True
+        
 
     def handle_guarding_event(self, event):
         if event.type != pygame.KEYDOWN:
@@ -287,11 +340,16 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_GUARDING:
             self.handle_guarding_event(event)
 
+        elif self.menu_mode == MENU_MODE_TALK:
+            self.handle_talk_event(event)
+
+        elif self.menu_mode == MENU_MODE_ESCAPE:
+            self.handle_escape_event(event)
+
         elif self.menu_mode == MENU_MODE_SUBMENU:
             self.handle_submenu_event(event)
 
     def finish_guard_phase(self):
-        self.guard_action_pending = False
         self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
         self.model.next_turn()
         self.menu_mode = MENU_MODE_MAIN
@@ -391,6 +449,25 @@ class BattleState(GameState):
 
         # Otherwise → target takes the damage
         return target
+    
+    def update_talk_phase(self):
+        if not self.scroll_done:
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
+            self.scroll_index += chars_per_frame
+            if int(self.scroll_index) >= len(self.scroll_text):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
+
+    def update_escape_phase(self):
+        if not self.scroll_done:
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
+            self.scroll_index += chars_per_frame
+            if int(self.scroll_index) >= len(self.scroll_text):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
+
     
     def update_guard_phase(self):
         if not self.scroll_done:
@@ -525,3 +602,7 @@ class BattleState(GameState):
             self.update_damage_phase()
         elif self.menu_mode == MENU_MODE_GUARDING:
             self.update_guard_phase()
+        elif self.menu_mode == MENU_MODE_ESCAPE:
+            self.update_escape_phase()
+        elif self.menu_mode == MENU_MODE_TALK:
+            self.update_talk_phase()
