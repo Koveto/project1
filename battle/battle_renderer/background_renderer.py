@@ -100,7 +100,19 @@ class BackgroundRenderer:
         flash = (math.sin(anim_frame * 0.3) + 1) * 0.5
         alpha = int(120 * flash)
 
-        flash_color = (255, 0, 0) if affinity_value > 0 else (0, 255, 0)
+        # Determine flash color based on affinity tiers
+        if affinity_value < AFFINITY_RESIST:
+            flash_color = COLOR_GREEN
+
+        elif AFFINITY_RESIST <= affinity_value < AFFINITY_NULL:
+            flash_color = COLOR_RED
+
+        elif AFFINITY_NULL <= affinity_value < AFFINITY_REFLECT:
+            flash_color = COLOR_BLACK
+
+        elif affinity_value == AFFINITY_REFLECT:
+            flash_color = COLOR_BLACK
+
 
         sprite_alpha = sprite.convert_alpha()
         w, h = sprite_alpha.get_size()

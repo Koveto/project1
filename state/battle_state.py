@@ -82,9 +82,6 @@ class BattleState(GameState):
         self.delay_started = False
         self.delay_frames = 0
 
-    def in_damage_phase(self):
-        return self.menu_mode == MENU_MODE_DAMAGING_ENEMY
-
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
             if 0 <= self.menu_index <= 2:
@@ -263,7 +260,7 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_TARGET_SELECT:
             self.handle_target_select_event(event)
 
-        elif self.in_damage_phase():
+        elif self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.handle_damaging_enemy_event(event)
 
         elif self.menu_mode == MENU_MODE_SUBMENU:
@@ -481,5 +478,5 @@ class BattleState(GameState):
 
         
     def update(self):
-        if self.in_damage_phase():
+        if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.update_damage_phase()
