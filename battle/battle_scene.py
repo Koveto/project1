@@ -159,6 +159,16 @@ class BattleRenderer:
                 affinity_scroll_index, affinity_scroll_done, blink
             )
             return
+        
+        elif menu_mode == MENU_MODE_GUARDING:
+            self.text_renderer.draw_simple_scroll(
+                screen,
+                scroll_text,
+                scroll_index,
+                scroll_done,
+                blink
+            )
+            return
 
         else:
             self.menu_renderer.draw_dummy_menu(screen, previous_menu_index)

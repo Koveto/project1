@@ -81,6 +81,7 @@ class BattleState(GameState):
         self.affinity_scroll_done = False
         self.delay_started = False
         self.delay_frames = 0
+        self.guard_action_pending = False
 
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
@@ -121,6 +122,16 @@ class BattleState(GameState):
                 self.previous_menu_index = self.menu_index
                 self.menu_index = 0
                 return
+            
+            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_GUARD:
+                active = self.model.get_active_player_pokemon()
+                active.is_guarding = True
+                self.scroll_text = f"{active.name} guards!"
+                self.scroll_index = 0
+                self.scroll_done = False
+                self.guard_action_pending = True
+                self.menu_mode = MENU_MODE_GUARDING
+                return
 
             if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_PASS:
                 self.model.handle_action_press_turn_cost(PRESS_TURN_HALF)
@@ -132,6 +143,16 @@ class BattleState(GameState):
             self.previous_menu_index = self.menu_index
             self.menu_mode = MENU_MODE_SUBMENU
 
+    def handle_guarding_event(self, event):
+        if event.type != pygame.KEYDOWN:
+            return
+        if not self.scroll_done:
+            if event.key in (pygame.K_z, pygame.K_RETURN):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
+            return
+        if event.key in (pygame.K_z, pygame.K_RETURN):
+            self.finish_guard_phase()
 
     def handle_skills_menu_event(self, event):
         if event.key == pygame.K_DOWN:
@@ -263,8 +284,21 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.handle_damaging_enemy_event(event)
 
+        elif self.menu_mode == MENU_MODE_GUARDING:
+            self.handle_guarding_event(event)
+
         elif self.menu_mode == MENU_MODE_SUBMENU:
             self.handle_submenu_event(event)
+
+    def finish_guard_phase(self):
+        self.guard_action_pending = False
+        self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
+        self.model.next_turn()
+        self.menu_mode = MENU_MODE_MAIN
+        self.menu_index = MENU_INDEX_SKILLS
+        self.scroll_text = ""
+        self.scroll_index = 0
+        self.scroll_done = True
 
     def finish_damage_phase(self):
         self.damage_started = False
@@ -357,12 +391,21 @@ class BattleState(GameState):
 
         # Otherwise → target takes the damage
         return target
+    
+    def update_guard_phase(self):
+        if not self.scroll_done:
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
+            self.scroll_index += chars_per_frame
+            if int(self.scroll_index) >= len(self.scroll_text):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
         
     def update_damage_phase(self):
         # PHASE 1 — scrolling
         if not self.scroll_done:
             chars_per_second = self.scroll_delay * 20
-            chars_per_frame = chars_per_second / 60
+            chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
             self.scroll_index += chars_per_frame
             if int(self.scroll_index) >= len(self.scroll_text):
                 self.scroll_index = len(self.scroll_text)
@@ -480,3 +523,5 @@ class BattleState(GameState):
     def update(self):
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.update_damage_phase()
+        elif self.menu_mode == MENU_MODE_GUARDING:
+            self.update_guard_phase()

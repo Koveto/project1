@@ -36,6 +36,8 @@ class BattleModel:
     def next_turn(self):
         # Move to the next Pokémon on the player team
         self.turn_index = (self.turn_index + 1) % len(self.player_team)
+        active = self.get_active_pokemon()
+        active.is_guarding = False
 
     # -----------------------------
     # Press Turn core logic

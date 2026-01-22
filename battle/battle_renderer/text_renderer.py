@@ -29,6 +29,36 @@ class TextRenderer:
 
         return lines[:3]
     
+    def draw_simple_scroll(self, screen, scroll_text, scroll_index, scroll_done, blink):
+        full_word_lines = self.wrap_text_words(scroll_text, max_width=32)
+
+        visible_chars = scroll_index
+        visible_lines = ["", "", ""]
+
+        for line_idx, words in enumerate(full_word_lines):
+            for word in words:
+                chunk = (word + " ")
+                if visible_chars >= len(chunk):
+                    visible_lines[line_idx] += chunk
+                    visible_chars -= len(chunk)
+                else:
+                    visible_lines[line_idx] += chunk[:visible_chars]
+                    visible_chars = 0
+                    break
+
+            if visible_chars == 0:
+                break
+
+        # Draw text
+        self.font0.draw_text(screen, visible_lines[0], X_MENU_MAIN, Y_MENU_MAIN_0)
+        self.font0.draw_text(screen, visible_lines[1], X_MENU_MAIN, Y_MENU_MAIN_1)
+        self.font0.draw_text(screen, visible_lines[2], X_MENU_MAIN, Y_MENU_MAIN_2)
+
+        # Draw arrow if scroll finished
+        if scroll_done and blink:
+            screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
+
+    
     def draw_damaging_enemy(
             self, screen,
             scroll_text, scroll_index, scroll_done,
