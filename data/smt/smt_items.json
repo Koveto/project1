@@ -1,0 +1,42 @@
+{
+    "Medicine": {
+        "description": "Restores 50 HP.",
+        "type": "heal_fixed",
+        "amount": 50
+    },
+    "Bead": {
+        "description": "Restores all HP.",
+        "type": "heal_percent",
+        "amount": 100
+    },
+    "Fire Gem": {
+        "description": "Casts heavy Fire to 1 foe.",
+        "type": "damage_Agibarion",
+        "amount": 215
+    },
+    "Ice Gem": {
+        "description": "Casts heavy Ice to 1 foe.",
+        "type": "damage_Bufubarion",
+        "amount": 215
+    },
+    "Elec Gem": {
+        "description": "Casts heavy Elec to 1 foe.",
+        "type": "damage_Ziobarion",
+        "amount": 215
+    },
+    "Force Gem": {
+        "description": "Casts heavy Force to 1 foe.",
+        "type": "damage_Zanbarion",
+        "amount": 215
+    },
+    "Light Gem": {
+        "description": "Casts heavy Light to 1 foe.",
+        "type": "damage_Hamabarion",
+        "amount": 215
+    },
+    "Dark Gem": {
+        "description": "Casts heavy Dark to 1 foe.",
+        "type": "damage_Mudobarion",
+        "amount": 215
+    }
+}

@@ -119,6 +119,7 @@ MENU_MAIN_LINE_1 = "  Skills   Item    Guard   Talk"
 MENU_MAIN_LINE_2 = "  Change   Escape  Pass    Info"
 
 MENU_MODE_MAIN = "main"
+MENU_MODE_ITEMS = "items"
 MENU_MODE_GUARDING = "guard"
 MENU_MODE_SKILLS = "skills"
 MENU_MODE_TARGET_SELECT = "target_select"
@@ -187,3 +188,10 @@ SCROLL_CONSTANT = 2
 
 TALK_TEXT = "The Pokemon are crazed for battle!"
 ESCAPE_TEXT = "You are unable to escape!"
+
+X_ITEM = 80
+Y_ITEM = 470
+ITEM_ROWS = 3
+ITEM_COLS = 3
+ITEM_ROW_SIZE = 49
+ITEM_COL_SIZE = 290

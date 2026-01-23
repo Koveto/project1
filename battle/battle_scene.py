@@ -95,7 +95,8 @@ class BattleRenderer:
              skills_cursor, skills_scroll, target_index,
              scroll_text, scroll_index, scroll_done,
              damage_done, affinity_done, affinity_text,
-             affinity_scroll_index, affinity_scroll_done):
+             affinity_scroll_index, affinity_scroll_done,
+             inventory, item_cursor_x, item_cursor_y):
 
         # Active Pokémon
         active_index = self.model.turn_index
@@ -157,6 +158,15 @@ class BattleRenderer:
                 screen, scroll_text, scroll_index, scroll_done,
                 damage_done, affinity_done, affinity_text,
                 affinity_scroll_index, affinity_scroll_done, blink
+            )
+            return
+        
+        elif menu_mode == MENU_MODE_ITEMS:
+            self.menu_renderer.draw_item_menu(
+                screen,
+                inventory,
+                item_cursor_x,
+                item_cursor_y
             )
             return
         

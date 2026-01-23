@@ -45,3 +45,28 @@ class MenuRenderer:
         cursor_x, cursor_y = COORDS_MENU_SKILLS[skills_cursor]
         screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
 
+    def draw_item_menu(self, screen, inventory, cursor_x, cursor_y):
+        item_names = list(inventory.keys())
+
+        index = 0
+        for row in range(ITEM_ROWS):
+            for col in range(ITEM_COLS):
+                if index < len(item_names):
+                    name = item_names[index]
+
+                    # Compute coordinates
+                    x = X_ITEM + col * ITEM_COL_SIZE
+                    y = Y_ITEM + row * ITEM_ROW_SIZE
+
+                    # Draw item name
+                    self.font2.draw_text(screen, name, x, y)
+
+                index += 1
+
+        # Draw cursor
+        cursor_x_pos = X_MENU_MAIN + cursor_x * ITEM_COL_SIZE
+        cursor_y_pos = Y_ITEM + cursor_y * ITEM_ROW_SIZE
+        screen.blit(self.cursor_sprite, (cursor_x_pos, cursor_y_pos))
+
+
+

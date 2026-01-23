@@ -81,6 +81,8 @@ class BattleState(GameState):
         self.affinity_scroll_done = False
         self.delay_started = False
         self.delay_frames = 0
+        self.item_cursor_x = 0
+        self.item_cursor_y = 0
 
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
@@ -123,6 +125,13 @@ class BattleState(GameState):
                 self.menu_index = 0
                 return
             
+            # ITEM
+            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_ITEMS:
+                self.menu_mode = MENU_MODE_ITEMS
+                self.item_cursor_x = 0
+                self.item_cursor_y = 0
+                return
+            
             # GUARD
             if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_GUARD:
                 active = self.model.get_active_player_pokemon()
@@ -160,6 +169,47 @@ class BattleState(GameState):
 
             self.previous_menu_index = self.menu_index
             self.menu_mode = MENU_MODE_SUBMENU
+
+
+    def handle_items_event(self, event):
+        
+        item_names = list(self.model.inventory.keys())
+        item_count = len(item_names)
+
+        # LEFT
+        if event.key == pygame.K_LEFT:
+            new_x = max(0, self.item_cursor_x - 1)
+            new_index = self.item_cursor_y * 3 + new_x
+            if new_index < item_count:
+                self.item_cursor_x = new_x
+
+        # RIGHT
+        elif event.key == pygame.K_RIGHT:
+            new_x = min(2, self.item_cursor_x + 1)
+            new_index = self.item_cursor_y * 3 + new_x
+            if new_index < item_count:
+                self.item_cursor_x = new_x
+
+        # UP
+        elif event.key == pygame.K_UP:
+            new_y = max(0, self.item_cursor_y - 1)
+            new_index = new_y * 3 + self.item_cursor_x
+            if new_index < item_count:
+                self.item_cursor_y = new_y
+
+        # DOWN
+        elif event.key == pygame.K_DOWN:
+            new_y = min(2, self.item_cursor_y + 1)
+            new_index = new_y * 3 + self.item_cursor_x
+            if new_index < item_count:
+                self.item_cursor_y = new_y
+
+        # BACK
+        elif event.key == pygame.K_x:
+            self.menu_mode = MENU_MODE_MAIN
+            self.menu_index = MENU_INDEX_SKILLS
+            return
+
 
     def handle_talk_event(self, event):
         if event.type != pygame.KEYDOWN:
@@ -346,8 +396,14 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_ESCAPE:
             self.handle_escape_event(event)
 
+        elif self.menu_mode == MENU_MODE_ITEMS:
+            self.handle_items_event(event)
+
         elif self.menu_mode == MENU_MODE_SUBMENU:
             self.handle_submenu_event(event)
+
+            
+
 
     def finish_guard_phase(self):
         self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
@@ -395,7 +451,9 @@ class BattleState(GameState):
                            int(self.scroll_index), self.scroll_done,
                            self.damage_done, self.affinity_done,
                            self.affinity_text, self.affinity_scroll_index,
-                           self.affinity_scroll_done)
+                           self.affinity_scroll_done,
+                           self.model.inventory,
+                           self.item_cursor_x, self.item_cursor_y)
         
     def calculate_raw_damage(self, move, affinity_value):
         """
@@ -467,7 +525,6 @@ class BattleState(GameState):
             if int(self.scroll_index) >= len(self.scroll_text):
                 self.scroll_index = len(self.scroll_text)
                 self.scroll_done = True
-
     
     def update_guard_phase(self):
         if not self.scroll_done:

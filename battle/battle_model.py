@@ -1,5 +1,6 @@
 from constants import *
 from battle.battle_constants import *
+from data.smt.smt_items import SMT_ITEMS
 
 # For clarity, these should be defined in battle_constants.py,
 # but we’ll assume they are:
@@ -17,6 +18,18 @@ class BattleModel:
         self.player_team = player_team      # list of Pokémon objects
         self.enemy_team = enemy_team        # list of Pokémon objects
         self.turn_index = 0
+
+        self.smt_items = SMT_ITEMS
+        self.inventory = {
+            "Medicine": 1,
+            "Bead": 1,
+            "Fire Gem": 1,
+            "Ice Gem": 1,
+            "Elec Gem": 1,
+            "Force Gem": 1,
+            "Light Gem": 1,
+            "Dark Gem": 1
+        }
 
         # Press Turn system
         # IMPORTANT: always copy the template list
