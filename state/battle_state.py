@@ -1,6 +1,6 @@
 # state/battle_state.py
 
-import pygame
+import pygame, random
 from constants import *
 from battle.battle_constants import *
 from state.state_manager import GameState
@@ -691,6 +691,38 @@ class BattleState(GameState):
         # Otherwise → target takes the damage
         return target
     
+    def start_enemy_turn(self):
+        self.menu_mode = MENU_MODE_DAMAGING_PLAYER
+
+        # Pick the enemy who is acting (for now, always index 0)
+        self.active_enemy_index = 0
+        enemy = self.model.enemy_team[self.active_enemy_index]
+
+        # Pick a random move
+        self.pending_enemy_move = random.choice(enemy.moves)
+
+        # Pick a random player target
+        self.enemy_target_index = random.randrange(len(self.model.player_team))
+        target = self.model.player_team[self.enemy_target_index]
+
+        # Prepare scroll text
+        self.scroll_text = f"{enemy.name} uses {self.pending_enemy_move} on {target.name}!"
+        self.scroll_index = 0
+        self.scroll_done = False
+
+        # Reset damage flags
+        self.damage_started = False
+        self.damage_done = False
+        self.affinity_text = None
+        self.affinity_done = False
+        self.affinity_scroll_index = 0
+        self.affinity_scroll_done = False
+
+        # Reset confirm flag
+        self.enemy_waiting_for_confirm = False
+
+
+    
     def update_talk_phase(self):
         if not self.scroll_done:
             chars_per_second = self.scroll_delay * 20
@@ -913,10 +945,36 @@ class BattleState(GameState):
 
         # PHASE 5 — wait for confirm (handled in input)
         return
+    
+    def update_enemy_damaging_phase(self):
+        # For now, do nothing except scroll the text
+        if not self.scroll_done:
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / 60
+            self.scroll_index += chars_per_frame
+
+            if int(self.scroll_index) >= len(self.scroll_text):
+                self.scroll_index = len(self.scroll_text)
+                self.scroll_done = True
+
+            return
+
+        # Later: animate damage, apply damage, handle press turns, etc.
+        # For now: immediately end the enemy turn
+        #self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
+        #self.model.next_side()  # back to player
+        #self.menu_mode = MENU_MODE_MAIN
+
 
 
         
     def update(self):
+        if not self.model.is_player_turn:
+            # Enemy turn begins → enter damaging-player phase
+            if self.menu_mode != MENU_MODE_DAMAGING_PLAYER:
+                self.start_enemy_turn()
+            elif self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
+                self.update_enemy_damaging_phase()
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.update_damage_phase()
         elif self.menu_mode == MENU_MODE_GUARDING:

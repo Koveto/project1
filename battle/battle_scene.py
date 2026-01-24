@@ -159,7 +159,8 @@ class BattleRenderer:
                                                      pending_item_data)
 
         # HP/MP UI
-        if menu_mode == MENU_MODE_DAMAGING_ENEMY:
+        if menu_mode in (MENU_MODE_DAMAGING_ENEMY,
+                         MENU_MODE_DAMAGING_PLAYER):
             hpmp_y = HPMP_Y
             enemy_hpmp_y = HPMP_ENEMY_Y
             ui_hp_offset = 0
@@ -180,14 +181,16 @@ class BattleRenderer:
 
         if menu_mode in (MENU_MODE_TARGET_SELECT, 
                          MENU_MODE_DAMAGING_ENEMY,
-                         MENU_MODE_ITEM_TARGET_SELECT):
+                         MENU_MODE_ITEM_TARGET_SELECT,
+                         MENU_MODE_DAMAGING_PLAYER):
             self.hpmp_renderer.draw_enemy_hpmp(screen, target, enemy_hpmp_y, ui_hp_offset)
 
         screen.blit(self.battleframe, COORDS_FRAME)
 
         # Press Turn icons
         press_turn_states = self.model.get_press_turn_icon_states(self.animation.anim_frame)
-        self.press_turn_renderer.draw_all(screen, press_turn_states, menu_mode, hp_offset, self.animation.anim_frame)
+        self.press_turn_renderer.draw_all(screen, press_turn_states, menu_mode, hp_offset, self.animation.anim_frame, self.model.is_player_turn)
+
 
         # Menus + text
         if menu_mode == MENU_MODE_MAIN:
@@ -274,7 +277,16 @@ class BattleRenderer:
                 screen, scroll_text, scroll_index, scroll_done, blink
             )
             return
-
+        
+        elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            self.text_renderer.draw_enemy_attack_text(
+                screen,
+                scroll_text,
+                scroll_index,
+                scroll_done,
+                blink
+            )
+            return
 
         else:
             self.menu_renderer.draw_dummy_menu(screen, previous_menu_index)
