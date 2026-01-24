@@ -418,6 +418,8 @@ class BattleState(GameState):
                 self.target_index = (self.target_index + 1) % enemy_count
 
         elif key_confirm(event.key):
+            self.model.consume_item(self.pending_item_name)
+            
             self.menu_mode = MENU_MODE_DAMAGING_ENEMY
 
             active_pokemon = self.model.get_active_pokemon()
