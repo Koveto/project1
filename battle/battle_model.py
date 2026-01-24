@@ -21,7 +21,7 @@ class BattleModel:
 
         self.smt_items = SMT_ITEMS
         self.inventory = {
-            "Medicine": 1,
+            "Medicine": 2,
             "Bead": 1,
             "Fire Gem": 1,
             "Ice Gem": 1,

@@ -53,13 +53,30 @@ class MenuRenderer:
             for col in range(ITEM_COLS):
                 if index < len(item_names):
                     name = item_names[index]
+                    qty = inventory[name]
+
+                    # Build display string
+                    if qty > 1:
+                        suffix = f" x{qty}"
+                        base_len = 13 - len(suffix)
+
+                        # Truncate name if needed
+                        if len(name) > base_len:
+                            display_name = name[:base_len]
+                        else:
+                            display_name = name
+
+                        display_text = display_name + suffix
+                    else:
+                        # Single item: truncate to 13 chars max
+                        display_text = name[:13]
 
                     # Compute coordinates
                     x = X_ITEM + col * ITEM_COL_SIZE
                     y = Y_ITEM + row * ITEM_ROW_SIZE
 
-                    # Draw item name
-                    self.font2.draw_text(screen, name, x, y)
+                    # Draw item text
+                    self.font2.draw_text(screen, display_text, x, y)
 
                 index += 1
 
@@ -67,6 +84,7 @@ class MenuRenderer:
         cursor_x_pos = X_MENU_MAIN + cursor_x * ITEM_COL_SIZE
         cursor_y_pos = Y_ITEM + cursor_y * ITEM_ROW_SIZE
         screen.blit(self.cursor_sprite, (cursor_x_pos, cursor_y_pos))
+
 
     def draw_item_info(self, screen, item_data, text_renderer):
         # Word-wrap the description
