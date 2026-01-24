@@ -234,8 +234,3 @@ class TextRenderer:
         # Draw confirm arrow sprite (same behavior as draw_simple_scroll)
         if scroll_done and blink:
             screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
-
-
-
-
-

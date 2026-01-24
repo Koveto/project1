@@ -312,16 +312,25 @@ class BattleRenderer:
             return
         
         elif menu_mode == MENU_MODE_ENEMY_DAMAGE:
-            # During enemy damage, keep showing the attack text
-            # (same as MENU_MODE_DAMAGING_PLAYER but without the cursor)
-            self.text_renderer.draw_enemy_attack_text(
+            # Enemy damage phase uses the same multi-phase renderer
+            # as the player-side damaging phase.
+            self.text_renderer.draw_damaging_enemy(
                 screen,
                 scroll_text,
                 scroll_index,
-                True,   # force scroll_done = True so full text is shown
-                False   # no blinking cursor during damage animation
+                scroll_done,
+                damage_done,
+                affinity_done,
+                affinity_text,
+                affinity_scroll_index,
+                affinity_scroll_done,
+                damage_text,
+                damage_scroll_index,
+                damage_scroll_done,
+                blink
             )
             return
+
 
 
         else:

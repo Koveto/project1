@@ -993,7 +993,9 @@ class BattleState(GameState):
         #self.menu_mode = MENU_MODE_MAIN
 
     def update_enemy_damage_phase(self):
+        # -----------------------------
         # PHASE 1.5 — delay before damage
+        # -----------------------------
         if not self.damage_started:
             if not self.delay_started:
                 self.delay_started = True
@@ -1003,7 +1005,7 @@ class BattleState(GameState):
             if self.delay_frames < WAIT_FRAMES_BEFORE_DAMAGE:
                 return
 
-            # Start damage
+            # Begin damage
             self.delay_started = False
             self.delay_frames = 0
 
@@ -1017,8 +1019,10 @@ class BattleState(GameState):
             element_index = ELEMENT_INDEX[element]
             affinity = target.affinities[element_index]
 
-            # TEMP: simple damage (no reflect, no animation)
+            # Calculate raw damage
             raw_damage = self.calculate_raw_damage(move, affinity)
+            self.damage_amount = raw_damage
+
             # Set up HP animation
             target.hp_target = max(0, target.remaining_hp - raw_damage)
             target.hp_anim = target.remaining_hp
@@ -1027,16 +1031,17 @@ class BattleState(GameState):
             target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
 
             target.remaining_hp = target.hp_target
-            self.damage_target = target
-            self.damage_animating = True
 
-            self.damage_amount = raw_damage
+            # Store for renderer
+            self.damage_target = target
 
             self.damage_started = True
-            self.damage_done = True  # TEMP: skip animation
+            self.damage_animating = True
             return
-        
+
+        # -----------------------------
         # PHASE 2 — HP animation
+        # -----------------------------
         if self.damage_animating:
             t = self.damage_target
 
@@ -1048,11 +1053,77 @@ class BattleState(GameState):
                 if t.hp_anim < t.hp_target:
                     t.hp_anim = t.hp_target
             else:
+                # HP animation finished
                 self.damage_animating = False
                 self.damage_done = True
-                return
+
+                # Reset affinity state
+                self.affinity_done = False
+                self.affinity_scroll_done = False
+                self.affinity_text = None
+                self.affinity_scroll_index = 0
+
+                # Determine affinity text (based on target's affinities)
+                move = self.smt_moves[self.pending_enemy_move]
+                element = move["element"]
+                element_index = ELEMENT_INDEX[element]
+                affinity = self.model.player_team[self.enemy_target_index].affinities[element_index]
+
+                if affinity == 0:
+                    # Neutral → skip affinity text
+                    self.affinity_text = None
+                    self.affinity_done = True
+                    self.affinity_scroll_done = True
+                else:
+                    # Non-neutral → set appropriate text
+                    if affinity < AFFINITY_NEUTRAL:
+                        self.affinity_text = AFFINITY_TEXT_WEAK
+                    elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
+                        self.affinity_text = AFFINITY_TEXT_RESIST
+                    elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
+                        self.affinity_text = AFFINITY_TEXT_NULL
+                    elif affinity == AFFINITY_REFLECT:
+                        self.affinity_text = AFFINITY_TEXT_REFLECT
+
+                    self.affinity_scroll_index = 0
+                    self.affinity_scroll_done = False
+
+                # Prepare damage text
+                self.damage_text = f"Dealt {self.damage_amount} damage."
+                self.damage_scroll_index = 0
+                self.damage_scroll_done = False
 
             return
+
+        # -----------------------------
+        # PHASE 3a — affinity scroll
+        # -----------------------------
+        if self.damage_done and not self.affinity_done and self.affinity_text:
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / 60
+            self.affinity_scroll_index += chars_per_frame
+
+            if int(self.affinity_scroll_index) >= len(self.affinity_text):
+                self.affinity_scroll_index = len(self.affinity_text)
+                self.affinity_scroll_done = True
+                self.affinity_done = True
+
+            return
+
+        # -----------------------------
+        # PHASE 3b — damage text scroll
+        # -----------------------------
+        if self.damage_done and not self.damage_scroll_done:
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / 60
+            self.damage_scroll_index += chars_per_frame
+
+            if int(self.damage_scroll_index) >= len(self.damage_text):
+                self.damage_scroll_index = len(self.damage_text)
+                self.damage_scroll_done = True
+
+            return
+
 
         """if self.damage_done:
             self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
