@@ -100,6 +100,7 @@ class BattleState(GameState):
         self.item_recover_scroll_done = False
         self.item_heal_amount = 0
         self.enemy_target_index = 0
+        self.enemy_waiting_for_confirm = False
 
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
@@ -498,6 +499,19 @@ class BattleState(GameState):
             self.menu_index = MENU_INDEX_ITEMS
             return
 
+    def handle_enemy_damaging_event(self, event):
+        if event.type == pygame.KEYDOWN and key_confirm(event.key):
+            if self.enemy_waiting_for_confirm:
+                # Later: apply damage, affinity, press turn logic
+                # For now: end enemy turn and return to player
+                self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
+
+                # If enemy has no turns left, switch back to player
+                if not self.model.is_player_turn:
+                    self.model.next_side()
+
+                self.menu_mode = MENU_MODE_MAIN
+                return
 
 
 
@@ -541,6 +555,9 @@ class BattleState(GameState):
 
         elif self.menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
             self.handle_item_target_select_event(event)
+
+        elif self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            self.handle_enemy_damaging_event(event)
 
         elif self.menu_mode == MENU_MODE_SUBMENU:
             self.handle_submenu_event(event)
@@ -960,6 +977,9 @@ class BattleState(GameState):
                 self.scroll_done = True
 
             return
+        
+        if not self.enemy_waiting_for_confirm:
+            self.enemy_waiting_for_confirm = True
 
         # Later: animate damage, apply damage, handle press turns, etc.
         # For now: immediately end the enemy turn

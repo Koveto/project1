@@ -205,16 +205,16 @@ class TextRenderer:
             if recover_scroll_done and blink:
                 screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
 
-    def draw_enemy_attack_text(self, screen, text, scroll_index, scroll_done, blink):
-        # Word-wrap to 32 characters per line
-        lines = self.wrap_text_words(text, max_width=32)
+    def draw_enemy_attack_text(self, screen, scroll_text, scroll_index, scroll_done, blink):
+        # Word-wrap to 32 characters
+        full_word_lines = self.wrap_text_words(scroll_text, max_width=32)
 
-        visible_chars = int(scroll_index)
+        visible_chars = scroll_index
         visible_lines = ["", "", ""]
 
-        for line_idx, words in enumerate(lines):
+        for line_idx, words in enumerate(full_word_lines):
             for word in words:
-                chunk = word + " "
+                chunk = (word + " ")
                 if visible_chars >= len(chunk):
                     visible_lines[line_idx] += chunk
                     visible_chars -= len(chunk)
@@ -222,13 +222,19 @@ class TextRenderer:
                     visible_lines[line_idx] += chunk[:visible_chars]
                     visible_chars = 0
                     break
+
             if visible_chars == 0:
                 break
 
-        # Draw up to three lines starting at Y_MENU_MAIN_0
+        # Draw the wrapped text
         self.font0.draw_text(screen, visible_lines[0], X_MENU_MAIN, Y_MENU_MAIN_0)
         self.font0.draw_text(screen, visible_lines[1], X_MENU_MAIN, Y_MENU_MAIN_1)
         self.font0.draw_text(screen, visible_lines[2], X_MENU_MAIN, Y_MENU_MAIN_2)
+
+        # Draw confirm arrow sprite (same behavior as draw_simple_scroll)
+        if scroll_done and blink:
+            screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
+
 
 
 
