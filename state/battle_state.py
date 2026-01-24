@@ -86,6 +86,10 @@ class BattleState(GameState):
         self.pending_item_name = None
         self.pending_item_data = None
         self.selected_ally = 0
+        self.damage_amount = 0
+        self.damage_text = None
+        self.damage_scroll_index = 0
+        self.damage_scroll_done = False
 
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
@@ -493,7 +497,8 @@ class BattleState(GameState):
                            self.affinity_scroll_done,
                            self.model.inventory,
                            self.item_cursor_x, self.item_cursor_y,
-                           self.pending_item_data, self.selected_ally)
+                           self.pending_item_data, self.selected_ally,
+                           self.damage_text, self.damage_scroll_index, self.damage_scroll_done)
         
     def calculate_raw_damage(self, move, affinity_value):
         """
@@ -611,6 +616,7 @@ class BattleState(GameState):
 
             # NEW: calculate raw damage
             raw_damage = self.calculate_raw_damage(move, affinity)
+            self.damage_amount = raw_damage
 
             # NEW: determine who takes the damage (reflect support)
             damage_target = self.determine_damage_recipient(attacker, enemy, affinity)
@@ -681,17 +687,40 @@ class BattleState(GameState):
                     self.affinity_scroll_index = 0
                     self.affinity_scroll_done = False
 
+            # Prepare damage text for the next phase
+            self.damage_text = f"Dealt {self.damage_amount} damage."
+            self.damage_scroll_index = 0
+            self.damage_scroll_done = False
+
             return
 
 
-        # PHASE 3 — affinity scroll
+
+        # PHASE 3a — affinity scroll (only if there IS affinity text)
         if self.damage_done and not self.affinity_done and self.affinity_text:
             chars_per_second = self.scroll_delay * 20
             chars_per_frame = chars_per_second / 60
             self.affinity_scroll_index += chars_per_frame
+
             if int(self.affinity_scroll_index) >= len(self.affinity_text):
                 self.affinity_scroll_index = len(self.affinity_text)
                 self.affinity_scroll_done = True
+                self.affinity_done = True
+
+            return
+
+        # PHASE 3b — damage text scroll
+        if self.damage_done and not self.damage_scroll_done:
+            chars_per_second = self.scroll_delay * 20
+            chars_per_frame = chars_per_second / 60
+            self.damage_scroll_index += chars_per_frame
+
+            if int(self.damage_scroll_index) >= len(self.damage_text):
+                self.damage_scroll_index = len(self.damage_text)
+                self.damage_scroll_done = True
+
+            return
+
 
         
     def update(self):

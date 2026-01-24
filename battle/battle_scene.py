@@ -97,7 +97,8 @@ class BattleRenderer:
              damage_done, affinity_done, affinity_text,
              affinity_scroll_index, affinity_scroll_done,
              inventory, item_cursor_x, item_cursor_y,
-             pending_item_data, selected_ally):
+             pending_item_data, selected_ally,
+             damage_text, damage_scroll_index, damage_scroll_done):
 
         # Active Pokémon
         active_index = self.model.turn_index
@@ -200,7 +201,9 @@ class BattleRenderer:
             self.text_renderer.draw_damaging_enemy(
                 screen, scroll_text, scroll_index, scroll_done,
                 damage_done, affinity_done, affinity_text,
-                affinity_scroll_index, affinity_scroll_done, blink
+                affinity_scroll_index, affinity_scroll_done, 
+                damage_text, damage_scroll_index, damage_scroll_done, 
+                blink
             )
             return
         
