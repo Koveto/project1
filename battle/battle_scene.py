@@ -193,6 +193,8 @@ class BattleRenderer:
         if menu_mode in (MENU_MODE_ITEM_INFO,
                          MENU_MODE_ITEM_USE):
             pokemon_for_hpmp = self.model.player_team[selected_ally]
+        if menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            pokemon_for_hpmp = self.model.player_team[enemy_target_index]
 
         self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
 
