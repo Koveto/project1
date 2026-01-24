@@ -101,7 +101,8 @@ class BattleRenderer:
              damage_text, damage_scroll_index, damage_scroll_done,
              item_use_text, item_use_scroll_index,
              item_use_scroll_done,
-             item_recover_text, item_recover_scroll_index, item_recover_scroll_done):
+             item_recover_text, item_recover_scroll_index, item_recover_scroll_done,
+             enemy_target_index):
 
         # Active Pokémon
         active_index = self.model.turn_index
@@ -122,6 +123,8 @@ class BattleRenderer:
         # Override in ITEM_INFO: bounce the selected ally instead
         if menu_mode == MENU_MODE_ITEM_INFO:
             bounce_index = selected_ally
+        elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            bounce_index = enemy_target_index
 
         active_pokemon_pos = self.background_renderer.draw_players(
             screen, menu_mode, bounce_index, poke_offset, self.model
@@ -144,6 +147,20 @@ class BattleRenderer:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
             y += poke_offset
+            highlight_player_pos = (sprite, x, y)
+
+        if menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            # Compute selected ally’s position the same way draw_players does
+            sprite = self.background_renderer.player_sprites[enemy_target_index]
+            pokemon = self.model.player_team[enemy_target_index]
+
+            x = PLAYER_BASE_X + enemy_target_index * PLAYER_SPACING
+            if pokemon.is_player:
+                x += PLAYER_OFFSET
+                y = PLAYER_Y + PLAYER_Y_OFFSET
+            else:
+                y = PLAYER_Y + NORMAL_Y_OFFSET
+
             highlight_player_pos = (sprite, x, y)
 
         self.background_renderer.draw_dark_overlay(

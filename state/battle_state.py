@@ -99,6 +99,7 @@ class BattleState(GameState):
         self.item_recover_scroll_index = 0
         self.item_recover_scroll_done = False
         self.item_heal_amount = 0
+        self.enemy_target_index = 0
 
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
@@ -636,7 +637,8 @@ class BattleState(GameState):
                            self.item_use_scroll_done,
                            self.item_recover_text,
                            self.item_recover_scroll_index,
-                           self.item_recover_scroll_done)
+                           self.item_recover_scroll_done,
+                           self.enemy_target_index)
         
     def calculate_raw_damage(self, move, affinity_value):
         """

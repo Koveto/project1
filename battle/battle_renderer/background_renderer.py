@@ -68,7 +68,8 @@ class BackgroundRenderer:
             MENU_MODE_TARGET_SELECT,
             MENU_MODE_DAMAGING_ENEMY,
             MENU_MODE_ITEM_INFO,
-            MENU_MODE_ITEM_TARGET_SELECT
+            MENU_MODE_ITEM_TARGET_SELECT,
+            MENU_MODE_DAMAGING_PLAYER
         ):
             return
 
