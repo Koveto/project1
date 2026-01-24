@@ -53,7 +53,8 @@ class BackgroundRenderer:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
             if i == active_index and menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
-                                                       MENU_MODE_DAMAGING_PLAYER):
+                                                       MENU_MODE_DAMAGING_PLAYER,
+                                                       MENU_MODE_ENEMY_DAMAGE):
                 y += poke_offset
 
             screen.blit(sprite, (x, y))
@@ -69,7 +70,8 @@ class BackgroundRenderer:
             MENU_MODE_DAMAGING_ENEMY,
             MENU_MODE_ITEM_INFO,
             MENU_MODE_ITEM_TARGET_SELECT,
-            MENU_MODE_DAMAGING_PLAYER
+            MENU_MODE_DAMAGING_PLAYER,
+            MENU_MODE_ENEMY_DAMAGE
         ):
             return
 

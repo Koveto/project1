@@ -149,7 +149,8 @@ class BattleRenderer:
             y += poke_offset
             highlight_player_pos = (sprite, x, y)
 
-        if menu_mode == MENU_MODE_DAMAGING_PLAYER:
+        if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
+                         MENU_MODE_ENEMY_DAMAGE):
             # Compute selected ally’s position the same way draw_players does
             sprite = self.background_renderer.player_sprites[enemy_target_index]
             pokemon = self.model.player_team[enemy_target_index]
@@ -177,7 +178,8 @@ class BattleRenderer:
 
         # HP/MP UI
         if menu_mode in (MENU_MODE_DAMAGING_ENEMY,
-                         MENU_MODE_DAMAGING_PLAYER):
+                         MENU_MODE_DAMAGING_PLAYER,
+                         MENU_MODE_ENEMY_DAMAGE):
             hpmp_y = HPMP_Y
             enemy_hpmp_y = HPMP_ENEMY_Y
             ui_hp_offset = 0
@@ -193,7 +195,8 @@ class BattleRenderer:
         if menu_mode in (MENU_MODE_ITEM_INFO,
                          MENU_MODE_ITEM_USE):
             pokemon_for_hpmp = self.model.player_team[selected_ally]
-        if menu_mode == MENU_MODE_DAMAGING_PLAYER:
+        if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
+                         MENU_MODE_ENEMY_DAMAGE):
             pokemon_for_hpmp = self.model.player_team[enemy_target_index]
 
         self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
@@ -201,7 +204,8 @@ class BattleRenderer:
         if menu_mode in (MENU_MODE_TARGET_SELECT, 
                          MENU_MODE_DAMAGING_ENEMY,
                          MENU_MODE_ITEM_TARGET_SELECT,
-                         MENU_MODE_DAMAGING_PLAYER):
+                         MENU_MODE_DAMAGING_PLAYER,
+                         MENU_MODE_ENEMY_DAMAGE):
             self.hpmp_renderer.draw_enemy_hpmp(screen, target, enemy_hpmp_y, ui_hp_offset)
 
         screen.blit(self.battleframe, COORDS_FRAME)
@@ -306,6 +310,19 @@ class BattleRenderer:
                 blink
             )
             return
+        
+        elif menu_mode == MENU_MODE_ENEMY_DAMAGE:
+            # During enemy damage, keep showing the attack text
+            # (same as MENU_MODE_DAMAGING_PLAYER but without the cursor)
+            self.text_renderer.draw_enemy_attack_text(
+                screen,
+                scroll_text,
+                scroll_index,
+                True,   # force scroll_done = True so full text is shown
+                False   # no blinking cursor during damage animation
+            )
+            return
+
 
         else:
             self.menu_renderer.draw_dummy_menu(screen, previous_menu_index)

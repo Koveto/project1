@@ -504,13 +504,18 @@ class BattleState(GameState):
             if self.enemy_waiting_for_confirm:
                 # Later: apply damage, affinity, press turn logic
                 # For now: end enemy turn and return to player
-                self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
+                """self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
 
                 # If enemy has no turns left, switch back to player
                 if not self.model.is_player_turn:
                     self.model.next_side()
 
-                self.menu_mode = MENU_MODE_MAIN
+                self.menu_mode = MENU_MODE_MAIN"""
+                self.menu_mode = MENU_MODE_ENEMY_DAMAGE
+                self.damage_started = False
+                self.affinity_done = False
+                self.affinity_scroll_done = False
+                self.damage_animating = False
                 return
 
 
@@ -722,10 +727,10 @@ class BattleState(GameState):
 
         # Pick a random player target
         self.enemy_target_index = random.randrange(len(self.model.player_team))
-        target = self.model.player_team[self.enemy_target_index]
+        self.damage_target = self.model.player_team[self.enemy_target_index]
 
         # Prepare scroll text
-        self.scroll_text = f"{enemy.name} uses {self.pending_enemy_move} on {target.name}!"
+        self.scroll_text = f"{enemy.name} uses {self.pending_enemy_move} on {self.damage_target.name}!"
         self.scroll_index = 0
         self.scroll_done = False
 
@@ -987,16 +992,90 @@ class BattleState(GameState):
         #self.model.next_side()  # back to player
         #self.menu_mode = MENU_MODE_MAIN
 
+    def update_enemy_damage_phase(self):
+        # PHASE 1.5 — delay before damage
+        if not self.damage_started:
+            if not self.delay_started:
+                self.delay_started = True
+                self.delay_frames = 0
+
+            self.delay_frames += 1
+            if self.delay_frames < WAIT_FRAMES_BEFORE_DAMAGE:
+                return
+
+            # Start damage
+            self.delay_started = False
+            self.delay_frames = 0
+
+            # Attacker and target
+            attacker = self.model.enemy_team[self.active_enemy_index]
+            target = self.model.player_team[self.enemy_target_index]
+
+            # Move data
+            move = self.smt_moves[self.pending_enemy_move]
+            element = move["element"]
+            element_index = ELEMENT_INDEX[element]
+            affinity = target.affinities[element_index]
+
+            # TEMP: simple damage (no reflect, no animation)
+            raw_damage = self.calculate_raw_damage(move, affinity)
+            # Set up HP animation
+            target.hp_target = max(0, target.remaining_hp - raw_damage)
+            target.hp_anim = target.remaining_hp
+
+            damage_pixels = int((raw_damage / target.max_hp) * HP_BAR_WIDTH)
+            target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
+
+            target.remaining_hp = target.hp_target
+            self.damage_target = target
+            self.damage_animating = True
+
+            self.damage_amount = raw_damage
+
+            self.damage_started = True
+            self.damage_done = True  # TEMP: skip animation
+            return
+        
+        # PHASE 2 — HP animation
+        if self.damage_animating:
+            t = self.damage_target
+
+            if t.hp_anim > t.hp_target:
+                diff = t.hp_anim - t.hp_target
+                step = max(1, int(diff ** 0.7))
+                t.hp_anim -= step
+
+                if t.hp_anim < t.hp_target:
+                    t.hp_anim = t.hp_target
+            else:
+                self.damage_animating = False
+                self.damage_done = True
+                return
+
+            return
+
+        """if self.damage_done:
+            self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
+            self.model.next_side()
+            self.menu_mode = MENU_MODE_MAIN
+            return"""
+
 
 
         
     def update(self):
         if not self.model.is_player_turn:
-            # Enemy turn begins → enter damaging-player phase
-            if self.menu_mode != MENU_MODE_DAMAGING_PLAYER:
-                self.start_enemy_turn()
-            elif self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            # Enemy turn state machine
+            if self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
                 self.update_enemy_damaging_phase()
+                return
+            elif self.menu_mode == MENU_MODE_ENEMY_DAMAGE:
+                self.update_enemy_damage_phase()
+                return
+            else:
+                # Enemy turn just started → set up attack announcement
+                self.start_enemy_turn()
+                return
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.update_damage_phase()
         elif self.menu_mode == MENU_MODE_GUARDING:
