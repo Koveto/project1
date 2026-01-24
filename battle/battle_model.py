@@ -39,6 +39,13 @@ class BattleModel:
     def update(self):
         pass
 
+    def consume_item(self, item_name):
+        if item_name in self.inventory:
+            self.inventory[item_name] -= 1
+            if self.inventory[item_name] <= 0:
+                del self.inventory[item_name]
+
+
     def get_active_player_pokemon(self):
         return self.player_team[self.turn_index]
 

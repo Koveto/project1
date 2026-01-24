@@ -98,7 +98,10 @@ class BattleRenderer:
              affinity_scroll_index, affinity_scroll_done,
              inventory, item_cursor_x, item_cursor_y,
              pending_item_data, selected_ally,
-             damage_text, damage_scroll_index, damage_scroll_done):
+             damage_text, damage_scroll_index, damage_scroll_done,
+             item_use_text, item_use_scroll_index,
+             item_use_scroll_done,
+             item_recover_text, item_recover_scroll_index, item_recover_scroll_done):
 
         # Active Pokémon
         active_index = self.model.turn_index
@@ -168,7 +171,8 @@ class BattleRenderer:
         pokemon_for_hpmp = active_pokemon
 
         # Override in ITEM_INFO
-        if menu_mode == MENU_MODE_ITEM_INFO:
+        if menu_mode in (MENU_MODE_ITEM_INFO,
+                         MENU_MODE_ITEM_USE):
             pokemon_for_hpmp = self.model.player_team[selected_ally]
 
         self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
@@ -224,6 +228,18 @@ class BattleRenderer:
             )
             return
 
+        elif menu_mode == MENU_MODE_ITEM_USE:
+            self.text_renderer.draw_item_use(
+                screen,
+                item_use_text,
+                item_use_scroll_index,
+                item_use_scroll_done,
+                item_recover_text,
+                item_recover_scroll_index,
+                item_recover_scroll_done,
+                blink
+            )
+            return
         
         elif menu_mode == MENU_MODE_GUARDING:
             self.text_renderer.draw_simple_scroll(
