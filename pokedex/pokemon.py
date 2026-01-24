@@ -1,6 +1,6 @@
 # pokedex/pokemon.py
 
-import math
+import math, random
 
 class Pokemon:
     def __init__(
@@ -47,23 +47,22 @@ class Pokemon:
         base_def  = self.base_stats.get("def", 1)
         base_spa  = self.base_stats.get("spatk", 1)
         base_spd  = self.base_stats.get("spdef", 1)
-        base_spe  = self.base_stats.get("spd", 1)
+        base_spe  = self.base_stats.get("spd", 1)   # SPEED
 
         # HP formula
         self.max_hp = math.floor((base_hp * 2 * lvl) / 100) + lvl + 10
         self.remaining_hp = self.max_hp
 
-        # For now, MP = HP
+        # MP = HP for now
         self.max_mp = self.max_hp
         self.remaining_mp = self.max_mp
 
-
         # Other stats
-        self.actual_atk  = math.floor(5 + math.floor((base_atk * lvl) / 100))
-        self.actual_def  = math.floor(5 + math.floor((base_def * lvl) / 100))
-        self.actual_spatk = math.floor(5 + math.floor((base_spa * lvl) / 100))
-        self.actual_spdef = math.floor(5 + math.floor((base_spd * lvl) / 100))
-        self.actual_spd   = math.floor(5 + math.floor((base_spe * lvl) / 100))
+        self.actual_atk    = math.floor(5 + math.floor((base_atk * lvl) / 100))
+        self.actual_def    = math.floor(5 + math.floor((base_def * lvl) / 100))
+        self.actual_spatk  = math.floor(5 + math.floor((base_spa * lvl) / 100))
+        self.actual_spdef  = math.floor(5 + math.floor((base_spd * lvl) / 100))
+        self.actual_speed  = math.floor(5 + math.floor((base_spe * lvl) / 100))
 
     def update_current_moves(self):
         """Populate current_moves based on level and learnset."""
@@ -94,8 +93,19 @@ class Pokemon:
 
         return f"{name:<12} {mp}  {element_short}  {power}  {desc}"
 
+    def choose_random_move(self):
+        """
+        Returns a random move name from this Pokémon's move list.
+        If the Pokémon has no moves, returns None.
+        """
+        if not self.moves:
+            return None
+        return random.choice(self.moves)
 
 
+    @property
+    def speed(self):
+        return self.actual_speed
 
     @property
     def is_player(self):

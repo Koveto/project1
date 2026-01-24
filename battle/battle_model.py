@@ -155,6 +155,21 @@ class BattleModel:
                 states.append(PT_STATE_TRANSPARENT)
 
         return states
+    
+    def choose_random_player_target(self):
+        """
+        Returns a random *living* player Pokémon index.
+        If all are KO'd (shouldn't happen), returns 0 as fallback.
+        """
+        import random
+
+        living = [i for i, p in enumerate(self.player_team) if p.remaining_hp > 0]
+
+        if not living:
+            return 0
+
+        return random.choice(living)
+
 
     # -----------------------------
     # Accessors

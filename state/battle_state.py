@@ -101,6 +101,12 @@ class BattleState(GameState):
         self.item_heal_amount = 0
         self.enemy_target_index = 0
         self.enemy_waiting_for_confirm = False
+        self.enemy_turn_index = 0
+        self.enemy_turn_order = None
+        self.active_enemy_index = 0
+
+    def get_current_enemy_attacker(self):
+        return self.enemy_turn_order[self.enemy_turn_index]
 
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
@@ -498,6 +504,12 @@ class BattleState(GameState):
             self.menu_mode = MENU_MODE_MAIN
             self.menu_index = MENU_INDEX_ITEMS
             return
+        
+    def handle_enemy_damage_event(self, event):
+        if event.type == pygame.KEYDOWN and key_confirm(event.key):
+            if self.damage_scroll_done:
+                self.finish_enemy_damage_phase()
+
 
     def handle_enemy_damaging_event(self, event):
         if event.type == pygame.KEYDOWN and key_confirm(event.key):
@@ -564,6 +576,9 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
             self.handle_enemy_damaging_event(event)
 
+        elif self.menu_mode == MENU_MODE_ENEMY_DAMAGE:
+            self.handle_enemy_damage_event(event)
+
         elif self.menu_mode == MENU_MODE_SUBMENU:
             self.handle_submenu_event(event)
 
@@ -613,6 +628,58 @@ class BattleState(GameState):
         self.scroll_index = 0
         self.scroll_done = True
 
+    def finish_enemy_damage_phase(self):
+        # Reset flags
+        self.damage_started = False
+        self.damage_done = False
+        self.affinity_done = False
+        self.affinity_text = None
+
+        # Determine affinity of the move that just resolved
+        attacker_index = self.get_current_enemy_attacker()
+        attacker = self.model.enemy_team[attacker_index]
+
+        move = self.smt_moves[self.pending_enemy_move]
+        element = move["element"]
+        element_index = ELEMENT_INDEX[element]
+
+        target = self.model.player_team[self.enemy_target_index]
+        affinity = target.affinities[element_index]
+
+        # Determine press turn cost
+        cost = self.calculate_press_turns_consumed(affinity)
+
+        # Apply cost to ENEMY press turns
+        # This may automatically switch sides if no press turns remain
+        self.model.handle_action_press_turn_cost(cost)
+
+        # Cleanup
+        self.pending_enemy_move = None
+
+        # If the side switched, enemy turn is over → player turn begins
+        if self.model.is_player_turn:
+            self.menu_mode = MENU_MODE_MAIN
+            self.menu_index = 0
+            return
+
+        # Otherwise, enemy still has press turns → next enemy attack
+        if self.model.has_press_turns_left():
+            # Advance to next enemy in SPD order
+            self.enemy_turn_index += 1
+            if self.enemy_turn_index >= len(self.enemy_turn_order):
+                self.enemy_turn_index = 0
+
+            # Start next attack
+            self.start_enemy_attack()
+            return
+
+        # Safety fallback: if somehow no press turns but side didn't flip
+        self.model.next_side()
+        self.menu_mode = MENU_MODE_MAIN
+        self.menu_index = 0
+
+
+
     def finish_damage_phase(self):
         self.damage_started = False
         self.damage_done = False
@@ -660,7 +727,8 @@ class BattleState(GameState):
                            self.item_recover_text,
                            self.item_recover_scroll_index,
                            self.item_recover_scroll_done,
-                           self.enemy_target_index)
+                           self.enemy_target_index,
+                           self.active_enemy_index)
         
     def calculate_raw_damage(self, move, affinity_value):
         """
@@ -715,12 +783,40 @@ class BattleState(GameState):
         # Otherwise → target takes the damage
         return target
     
+    def start_enemy_attack(self):
+        attacker_index = self.get_current_enemy_attacker()
+        attacker = self.model.enemy_team[attacker_index]
+
+        # Choose move + target
+        self.pending_enemy_move = attacker.choose_random_move()
+        self.enemy_target_index = self.model.choose_random_player_target()
+
+        # Build announcement text
+        target = self.model.player_team[self.enemy_target_index]
+        self.scroll_text = f"{attacker.name} uses {self.pending_enemy_move} on {target.name}!"
+        self.scroll_index = 0
+        self.scroll_done = False
+
+        # Enter announcement phase
+        self.menu_mode = MENU_MODE_DAMAGING_PLAYER
+        self.enemy_waiting_for_confirm = False
+
+    
     def start_enemy_turn(self):
         self.menu_mode = MENU_MODE_DAMAGING_PLAYER
 
-        # Pick the enemy who is acting (for now, always index 0)
-        self.active_enemy_index = 0
-        enemy = self.model.enemy_team[self.active_enemy_index]
+        # Build SPD‑sorted enemy order
+        self.enemy_turn_order = sorted(
+            range(len(self.model.enemy_team)),
+            key=lambda i: self.model.enemy_team[i].speed,
+            reverse=True
+        )
+        self.enemy_turn_index = 0
+
+        attacker_index = self.enemy_turn_order[self.enemy_turn_index]
+        self.active_enemy_index = attacker_index
+        enemy = self.model.enemy_team[attacker_index]
+
 
         # Pick a random move
         self.pending_enemy_move = random.choice(enemy.moves)
@@ -1023,17 +1119,21 @@ class BattleState(GameState):
             raw_damage = self.calculate_raw_damage(move, affinity)
             self.damage_amount = raw_damage
 
+            # NEW: determine who actually takes the damage (reflect support)
+            damage_target = self.determine_damage_recipient(attacker, target, affinity)
+
             # Set up HP animation
-            target.hp_target = max(0, target.remaining_hp - raw_damage)
-            target.hp_anim = target.remaining_hp
+            damage_target.hp_target = max(0, damage_target.remaining_hp - raw_damage)
+            damage_target.hp_anim = damage_target.remaining_hp
 
-            damage_pixels = int((raw_damage / target.max_hp) * HP_BAR_WIDTH)
-            target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
+            damage_pixels = int((raw_damage / damage_target.max_hp) * HP_BAR_WIDTH)
+            damage_target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
 
-            target.remaining_hp = target.hp_target
+            damage_target.remaining_hp = damage_target.hp_target
 
             # Store for renderer
-            self.damage_target = target
+            self.damage_target = damage_target
+
 
             self.damage_started = True
             self.damage_animating = True
@@ -1145,6 +1245,7 @@ class BattleState(GameState):
                 return
             else:
                 # Enemy turn just started → set up attack announcement
+                self.start_enemy_turn()
                 self.start_enemy_turn()
                 return
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:

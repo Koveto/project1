@@ -12,7 +12,7 @@ class BackgroundRenderer:
     def draw_background(self, screen):
         screen.blit(self.background, COORDS_BACKGROUND)
 
-    def draw_enemies(self, screen, menu_mode, target_index, poke_offset):
+    def draw_enemies(self, screen, menu_mode, target_index, poke_offset, active_enemy_index=None):
         target_enemy_pos = None
 
         for i in ENEMY_DRAW_ORDER:
@@ -23,17 +23,26 @@ class BackgroundRenderer:
             x = ENEMY_BASE_X + i * ENEMY_SPACING
             y = ENEMY_Y
 
-            if ((menu_mode == MENU_MODE_TARGET_SELECT) or \
-                 menu_mode == MENU_MODE_ITEM_TARGET_SELECT) and \
-                i == target_index:
-                y += poke_offset
+            # Bounce only during target selection
+            if menu_mode in (MENU_MODE_TARGET_SELECT, MENU_MODE_ITEM_TARGET_SELECT):
+                if i == target_index:
+                    y += poke_offset
 
+            # Draw sprite
             screen.blit(sprite, (x, y))
 
-            if i == target_index:
-                target_enemy_pos = (sprite, x, y)
+            # NORMAL CASE: highlight the target enemy
+            if menu_mode not in (MENU_MODE_DAMAGING_PLAYER, MENU_MODE_ENEMY_DAMAGE):
+                if i == target_index:
+                    target_enemy_pos = (sprite, x, y)
+
+            # ENEMY TURN CASE: highlight the attacking enemy
+            else:
+                if active_enemy_index is not None and i == active_enemy_index:
+                    target_enemy_pos = (sprite, x, y)
 
         return target_enemy_pos
+
 
     def draw_players(self, screen, menu_mode, active_index, poke_offset, model):
         active_pokemon_pos = None

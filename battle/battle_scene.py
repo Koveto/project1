@@ -102,7 +102,7 @@ class BattleRenderer:
              item_use_text, item_use_scroll_index,
              item_use_scroll_done,
              item_recover_text, item_recover_scroll_index, item_recover_scroll_done,
-             enemy_target_index):
+             enemy_target_index, active_enemy_index):
 
         # Active Pokémon
         active_index = self.model.turn_index
@@ -116,7 +116,9 @@ class BattleRenderer:
 
         # Background + sprites
         self.background_renderer.draw_background(screen)
-        target_enemy_pos = self.background_renderer.draw_enemies(screen, menu_mode, target_index, poke_offset)
+        target_enemy_pos = self.background_renderer.draw_enemies(screen, menu_mode, 
+                                                                 target_index, poke_offset,
+                                                                 active_enemy_index)
         # Default: bounce the active Pokémon
         bounce_index = active_index
 
@@ -201,12 +203,24 @@ class BattleRenderer:
 
         self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
 
-        if menu_mode in (MENU_MODE_TARGET_SELECT, 
-                         MENU_MODE_DAMAGING_ENEMY,
-                         MENU_MODE_ITEM_TARGET_SELECT,
-                         MENU_MODE_DAMAGING_PLAYER,
-                         MENU_MODE_ENEMY_DAMAGE):
-            self.hpmp_renderer.draw_enemy_hpmp(screen, target, enemy_hpmp_y, ui_hp_offset)
+        if menu_mode in (
+            MENU_MODE_TARGET_SELECT,
+            MENU_MODE_DAMAGING_ENEMY,
+            MENU_MODE_ITEM_TARGET_SELECT,
+            MENU_MODE_DAMAGING_PLAYER,
+            MENU_MODE_ENEMY_DAMAGE
+        ):
+            # Player turn: show the enemy being targeted
+            if menu_mode in (MENU_MODE_TARGET_SELECT,
+                            MENU_MODE_DAMAGING_ENEMY,
+                            MENU_MODE_ITEM_TARGET_SELECT):
+                enemy_for_hpmp = target
+
+            # Enemy turn: show the enemy who is attacking
+            else:  # MENU_MODE_DAMAGING_PLAYER, MENU_MODE_ENEMY_DAMAGE
+                enemy_for_hpmp = self.model.enemy_team[active_enemy_index]
+
+            self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset)
 
         screen.blit(self.battleframe, COORDS_FRAME)
 
