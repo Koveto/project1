@@ -68,5 +68,14 @@ class MenuRenderer:
         cursor_y_pos = Y_ITEM + cursor_y * ITEM_ROW_SIZE
         screen.blit(self.cursor_sprite, (cursor_x_pos, cursor_y_pos))
 
+    def draw_item_info(self, screen, item_data, text_renderer):
+        # Word-wrap the description
+        desc_lines = text_renderer.wrap_text_words(item_data["description"], max_width=32)
+    
+        y = Y_MENU_MAIN_0
+        for line in desc_lines:
+            text = " ".join(line)
+            self.font0.draw_text(screen, text, X_MENU_MAIN, y)
+            y += 100
 
 

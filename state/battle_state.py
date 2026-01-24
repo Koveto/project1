@@ -83,6 +83,9 @@ class BattleState(GameState):
         self.delay_frames = 0
         self.item_cursor_x = 0
         self.item_cursor_y = 0
+        self.pending_item_name = None
+        self.pending_item_data = None
+        self.selected_ally = 0
 
     def handle_main_menu_event(self, event):
         if event.key == pygame.K_RIGHT:
@@ -117,7 +120,7 @@ class BattleState(GameState):
             elif 0 <= self.menu_index <= 3:
                 self.menu_index += 4
 
-        elif event.key in (pygame.K_z, pygame.K_RETURN):
+        elif key_confirm(event.key):
             # SKILLS
             if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_SKILLS:
                 self.menu_mode = MENU_MODE_SKILLS
@@ -147,7 +150,7 @@ class BattleState(GameState):
                 self.model.handle_action_press_turn_cost(PRESS_TURN_HALF)
                 self.model.next_turn()
                 self.menu_mode = MENU_MODE_MAIN
-                self.menu_index = MENU_INDEX_SKILLS
+                self.menu_index = MENU_INDEX_PASS
                 return
             
             # TALK
@@ -170,6 +173,26 @@ class BattleState(GameState):
             self.previous_menu_index = self.menu_index
             self.menu_mode = MENU_MODE_SUBMENU
 
+    def handle_item_info_event(self, event):
+        if event.type != pygame.KEYDOWN:
+            return
+
+        # BACK
+        if key_back(event.key):
+            self.menu_mode = MENU_MODE_ITEMS
+            return
+
+        # LEFT
+        if event.key == pygame.K_LEFT:
+            ally_count = len(self.model.player_team)
+            self.selected_ally = (self.selected_ally - 1) % ally_count
+            return
+
+        # RIGHT
+        if event.key == pygame.K_RIGHT:
+            ally_count = len(self.model.player_team)
+            self.selected_ally = (self.selected_ally + 1) % ally_count
+            return
 
     def handle_items_event(self, event):
         
@@ -205,10 +228,23 @@ class BattleState(GameState):
                 self.item_cursor_y = new_y
 
         # BACK
-        elif event.key == pygame.K_x:
+        elif key_back(event.key):
             self.menu_mode = MENU_MODE_MAIN
-            self.menu_index = MENU_INDEX_SKILLS
+            self.menu_index = MENU_INDEX_ITEMS
             return
+        
+        # CONFIRM
+        elif key_confirm(event.key):
+            index = self.item_cursor_y * 3 + self.item_cursor_x
+            if index < item_count:
+                item_name = item_names[index]
+                item_data = self.model.smt_items[item_name]
+                if item_data["type"].startswith("heal_single"):
+                    self.pending_item_name = item_name
+                    self.pending_item_data = item_data
+                    self.menu_mode = MENU_MODE_ITEM_INFO
+                    return
+
 
 
     def handle_talk_event(self, event):
@@ -223,7 +259,7 @@ class BattleState(GameState):
 
         if event.key in (pygame.K_z, pygame.K_RETURN, pygame.K_x):
             self.menu_mode = MENU_MODE_MAIN
-            self.menu_index = MENU_INDEX_SKILLS
+            self.menu_index = MENU_INDEX_TALK
             self.scroll_text = ""
             self.scroll_index = 0
             self.scroll_done = True
@@ -240,7 +276,7 @@ class BattleState(GameState):
 
         if event.key in (pygame.K_z, pygame.K_RETURN, pygame.K_x):
             self.menu_mode = MENU_MODE_MAIN
-            self.menu_index = MENU_INDEX_SKILLS
+            self.menu_index = MENU_INDEX_ESCAPE
             self.scroll_text = ""
             self.scroll_index = 0
             self.scroll_done = True
@@ -250,11 +286,11 @@ class BattleState(GameState):
         if event.type != pygame.KEYDOWN:
             return
         if not self.scroll_done:
-            if event.key in (pygame.K_z, pygame.K_RETURN):
+            if key_confirm(event.key):
                 self.scroll_index = len(self.scroll_text)
                 self.scroll_done = True
             return
-        if event.key in (pygame.K_z, pygame.K_RETURN):
+        if key_confirm(event.key):
             self.finish_guard_phase()
 
     def handle_skills_menu_event(self, event):
@@ -276,7 +312,7 @@ class BattleState(GameState):
             elif self.skills_cursor > 0:
                 self.skills_cursor -= 1
 
-        elif event.key in (pygame.K_z, pygame.K_RETURN):
+        elif key_confirm(event.key):
             pokemon = self.model.get_active_pokemon()
             selected_index = self.skills_scroll + self.skills_cursor
             move_name = pokemon.moves[selected_index]
@@ -291,7 +327,7 @@ class BattleState(GameState):
                 self.target_index = 0
                 return
 
-        elif event.key == pygame.K_x:
+        elif key_back(event.key):
             self.menu_mode = MENU_MODE_MAIN
 
 
@@ -306,7 +342,7 @@ class BattleState(GameState):
             if enemy_count > 0:
                 self.target_index = (self.target_index + 1) % enemy_count
 
-        elif event.key in (pygame.K_z, pygame.K_RETURN):
+        elif key_confirm(event.key):
             self.menu_mode = MENU_MODE_DAMAGING_ENEMY
 
             selected_index = self.skills_scroll + self.skills_cursor
@@ -329,7 +365,7 @@ class BattleState(GameState):
             self.affinity_scroll_done = False
             return
 
-        elif event.key == pygame.K_x:
+        elif key_back(event.key):
             self.menu_mode = MENU_MODE_SKILLS
             return
 
@@ -337,7 +373,7 @@ class BattleState(GameState):
     def handle_damaging_enemy_event(self, event):
         # 1) If text is still scrolling, allow skip
         if not self.scroll_done:
-            if event.key in (pygame.K_z, pygame.K_RETURN):
+            if key_confirm(event.key):
                 self.scroll_index = len(self.scroll_text)
                 self.scroll_done = True
             return
@@ -349,17 +385,17 @@ class BattleState(GameState):
         # 3) Affinity text phase
         if self.affinity_text and not self.affinity_done:
             if not self.affinity_scroll_done:
-                if event.key in (pygame.K_z, pygame.K_RETURN):
+                if key_confirm(event.key):
                     self.affinity_scroll_index = len(self.affinity_text)
                     self.affinity_scroll_done = True
                 return
 
-            if event.key in (pygame.K_z, pygame.K_RETURN):
+            if key_confirm(event.key):
                 self.finish_damage_phase()
             return
 
         # 4) Everything done → now Z advances the turn
-        if event.key in (pygame.K_z, pygame.K_RETURN):
+        if key_confirm(event.key):
             self.finish_damage_phase()
             return
 
@@ -368,7 +404,7 @@ class BattleState(GameState):
 
 
     def handle_submenu_event(self, event):
-        if event.key == pygame.K_x:
+        if key_back(event.key):
             self.menu_mode = MENU_MODE_MAIN
 
     def handle_event(self, event):
@@ -399,6 +435,9 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_ITEMS:
             self.handle_items_event(event)
 
+        elif self.menu_mode == MENU_MODE_ITEM_INFO:
+            self.handle_item_info_event(event)
+
         elif self.menu_mode == MENU_MODE_SUBMENU:
             self.handle_submenu_event(event)
 
@@ -409,7 +448,7 @@ class BattleState(GameState):
         self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
         self.model.next_turn()
         self.menu_mode = MENU_MODE_MAIN
-        self.menu_index = MENU_INDEX_SKILLS
+        self.menu_index = MENU_INDEX_GUARD
         self.scroll_text = ""
         self.scroll_index = 0
         self.scroll_done = True
@@ -453,7 +492,8 @@ class BattleState(GameState):
                            self.affinity_text, self.affinity_scroll_index,
                            self.affinity_scroll_done,
                            self.model.inventory,
-                           self.item_cursor_x, self.item_cursor_y)
+                           self.item_cursor_x, self.item_cursor_y,
+                           self.pending_item_data, self.selected_ally)
         
     def calculate_raw_damage(self, move, affinity_value):
         """

@@ -1,12 +1,12 @@
 {
     "Medicine": {
         "description": "Restores 50 HP.",
-        "type": "heal_fixed",
+        "type": "heal_single_fixed",
         "amount": 50
     },
     "Bead": {
         "description": "Restores all HP.",
-        "type": "heal_percent",
+        "type": "heal_single_percent",
         "amount": 100
     },
     "Fire Gem": {

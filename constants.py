@@ -53,3 +53,9 @@ def load_scaled_sprite(name, scale=1.0, colorkey=None):
     w, h = img.get_size()
     img = pygame.transform.scale(img, (int(w * scale), int(h * scale)))
     return img
+
+def key_confirm(key):
+    return key in (pygame.K_z, pygame.K_RETURN)
+
+def key_back(key):
+    return key in (pygame.K_x, pygame.K_LSHIFT, pygame.K_RSHIFT)

@@ -120,6 +120,7 @@ MENU_MAIN_LINE_2 = "  Change   Escape  Pass    Info"
 
 MENU_MODE_MAIN = "main"
 MENU_MODE_ITEMS = "items"
+MENU_MODE_ITEM_INFO = "item_info"
 MENU_MODE_GUARDING = "guard"
 MENU_MODE_SKILLS = "skills"
 MENU_MODE_TARGET_SELECT = "target_select"
