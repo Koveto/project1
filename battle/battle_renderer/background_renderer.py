@@ -60,22 +60,36 @@ class BackgroundRenderer:
 
         return active_pokemon_pos
 
-    def draw_dark_overlay(self, screen, menu_mode, active_pokemon_pos, target_enemy_pos):
-        if menu_mode not in (MENU_MODE_TARGET_SELECT, MENU_MODE_DAMAGING_ENEMY):
+    def draw_dark_overlay(self, screen, menu_mode, highlight_player_pos, target_enemy_pos):
+        if menu_mode not in (
+            MENU_MODE_TARGET_SELECT,
+            MENU_MODE_DAMAGING_ENEMY,
+            MENU_MODE_ITEM_INFO
+        ):
             return
 
+        # Darken everything
         dark_surface = pygame.Surface((ACTUAL_WIDTH, FRAME_Y))
         dark_surface.set_alpha(140)
         dark_surface.fill((0, 0, 0))
         screen.blit(dark_surface, (0, 0))
 
-        if active_pokemon_pos is not None:
-            sprite, x, y = active_pokemon_pos
+        # In ITEM_INFO: only un-darken the selected ally
+        if menu_mode == MENU_MODE_ITEM_INFO:
+            if highlight_player_pos is not None:
+                sprite, x, y = highlight_player_pos
+                screen.blit(sprite, (x, y))
+            return
+
+        # Original behavior for TARGET_SELECT and DAMAGING_ENEMY
+        if highlight_player_pos is not None:
+            sprite, x, y = highlight_player_pos
             screen.blit(sprite, (x, y))
 
         if target_enemy_pos is not None:
             sprite, x, y = target_enemy_pos
             screen.blit(sprite, (x, y))
+
 
     def draw_affinity_flash(self, screen, menu_mode, active_pokemon, skills_scroll, skills_cursor, target, anim_frame, target_enemy_pos):
         if menu_mode != MENU_MODE_TARGET_SELECT:

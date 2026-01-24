@@ -112,8 +112,43 @@ class BattleRenderer:
         # Background + sprites
         self.background_renderer.draw_background(screen)
         target_enemy_pos = self.background_renderer.draw_enemies(screen, menu_mode, target_index, poke_offset)
-        active_pokemon_pos = self.background_renderer.draw_players(screen, menu_mode, active_index, poke_offset, self.model)
-        self.background_renderer.draw_dark_overlay(screen, menu_mode, active_pokemon_pos, target_enemy_pos)
+        # Default: bounce the active Pokémon
+        bounce_index = active_index
+
+        # Override in ITEM_INFO: bounce the selected ally instead
+        if menu_mode == MENU_MODE_ITEM_INFO:
+            bounce_index = selected_ally
+
+        active_pokemon_pos = self.background_renderer.draw_players(
+            screen, menu_mode, bounce_index, poke_offset, self.model
+        )
+
+        # Default: un-darken active Pokémon
+        highlight_player_pos = active_pokemon_pos
+
+        # Override in ITEM_INFO: un-darken selected ally instead
+        if menu_mode == MENU_MODE_ITEM_INFO:
+            # Compute selected ally’s position the same way draw_players does
+            sprite = self.background_renderer.player_sprites[selected_ally]
+            pokemon = self.model.player_team[selected_ally]
+
+            x = PLAYER_BASE_X + selected_ally * PLAYER_SPACING
+            if pokemon.is_player:
+                x += PLAYER_OFFSET
+                y = PLAYER_Y + PLAYER_Y_OFFSET
+            else:
+                y = PLAYER_Y + NORMAL_Y_OFFSET
+
+            y += poke_offset
+            highlight_player_pos = (sprite, x, y)
+
+        self.background_renderer.draw_dark_overlay(
+            screen,
+            menu_mode,
+            highlight_player_pos,
+            target_enemy_pos
+        )
+
         self.background_renderer.draw_affinity_flash(screen, menu_mode, active_pokemon,
                                                      skills_scroll, skills_cursor, target,
                                                      self.animation.anim_frame, target_enemy_pos)
