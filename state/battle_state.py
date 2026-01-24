@@ -278,6 +278,11 @@ class BattleState(GameState):
                     self.pending_item_data = item_data
                     self.menu_mode = MENU_MODE_ITEM_INFO
                     return
+                if item_data["type"].startswith("damage"):
+                    self.pending_item_name = item_name
+                    self.pending_item_data = item_data
+                    self.menu_mode = MENU_MODE_ITEM_TARGET_SELECT
+                    return
 
 
 
@@ -314,7 +319,6 @@ class BattleState(GameState):
             self.scroll_text = ""
             self.scroll_index = 0
             self.scroll_done = True
-        
 
     def handle_guarding_event(self, event):
         if event.type != pygame.KEYDOWN:
@@ -358,7 +362,6 @@ class BattleState(GameState):
                 pokemon.remaining_mp >= move["mp"]
             ):
                 self.menu_mode = MENU_MODE_TARGET_SELECT
-                self.target_index = 0
                 return
 
         elif key_back(event.key):
@@ -401,6 +404,43 @@ class BattleState(GameState):
 
         elif key_back(event.key):
             self.menu_mode = MENU_MODE_SKILLS
+            return
+        
+    def handle_item_target_select_event(self, event):
+        enemy_count = len(self.model.enemy_team)
+
+        if event.key == pygame.K_LEFT:
+            if enemy_count > 0:
+                self.target_index = (self.target_index - 1) % enemy_count
+
+        elif event.key == pygame.K_RIGHT:
+            if enemy_count > 0:
+                self.target_index = (self.target_index + 1) % enemy_count
+
+        elif key_confirm(event.key):
+            self.menu_mode = MENU_MODE_DAMAGING_ENEMY
+
+            active_pokemon = self.model.get_active_pokemon()
+            move_name = self.pending_item_data["type"].split("damage_")[1]
+            enemy = self.model.enemy_team[self.target_index]
+
+            self.pending_move_name = move_name
+
+            self.scroll_text = f"{active_pokemon.name} uses {self.pending_item_name}!"
+            self.scroll_index = 0
+            self.scroll_done = False
+
+            self.damage_started = False
+            self.damage_done = False
+
+            self.affinity_text = None
+            self.affinity_done = False
+            self.affinity_scroll_index = 0
+            self.affinity_scroll_done = False
+            return
+
+        elif key_back(event.key):
+            self.menu_mode = MENU_MODE_ITEMS
             return
 
 
@@ -496,6 +536,8 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_ITEM_USE:
             self.handle_item_use_event(event)
 
+        elif self.menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
+            self.handle_item_target_select_event(event)
 
         elif self.menu_mode == MENU_MODE_SUBMENU:
             self.handle_submenu_event(event)

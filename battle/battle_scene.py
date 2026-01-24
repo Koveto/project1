@@ -155,7 +155,8 @@ class BattleRenderer:
 
         self.background_renderer.draw_affinity_flash(screen, menu_mode, active_pokemon,
                                                      skills_scroll, skills_cursor, target,
-                                                     self.animation.anim_frame, target_enemy_pos)
+                                                     self.animation.anim_frame, target_enemy_pos,
+                                                     pending_item_data)
 
         # HP/MP UI
         if menu_mode == MENU_MODE_DAMAGING_ENEMY:
@@ -177,7 +178,9 @@ class BattleRenderer:
 
         self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
 
-        if menu_mode in (MENU_MODE_TARGET_SELECT, MENU_MODE_DAMAGING_ENEMY):
+        if menu_mode in (MENU_MODE_TARGET_SELECT, 
+                         MENU_MODE_DAMAGING_ENEMY,
+                         MENU_MODE_ITEM_TARGET_SELECT):
             self.hpmp_renderer.draw_enemy_hpmp(screen, target, enemy_hpmp_y, ui_hp_offset)
 
         screen.blit(self.battleframe, COORDS_FRAME)
@@ -240,6 +243,15 @@ class BattleRenderer:
                 blink
             )
             return
+        
+        elif menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
+            self.menu_renderer.draw_item_target_select_menu(
+                screen,
+                active_pokemon,
+                skills_scroll,
+                skills_cursor,
+                pending_item_data
+            )
         
         elif menu_mode == MENU_MODE_GUARDING:
             self.text_renderer.draw_simple_scroll(

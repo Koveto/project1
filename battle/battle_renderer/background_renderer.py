@@ -23,7 +23,9 @@ class BackgroundRenderer:
             x = ENEMY_BASE_X + i * ENEMY_SPACING
             y = ENEMY_Y
 
-            if menu_mode == MENU_MODE_TARGET_SELECT and i == target_index:
+            if ((menu_mode == MENU_MODE_TARGET_SELECT) or \
+                 menu_mode == MENU_MODE_ITEM_TARGET_SELECT) and \
+                i == target_index:
                 y += poke_offset
 
             screen.blit(sprite, (x, y))
@@ -64,7 +66,8 @@ class BackgroundRenderer:
         if menu_mode not in (
             MENU_MODE_TARGET_SELECT,
             MENU_MODE_DAMAGING_ENEMY,
-            MENU_MODE_ITEM_INFO
+            MENU_MODE_ITEM_INFO,
+            MENU_MODE_ITEM_TARGET_SELECT
         ):
             return
 
@@ -91,12 +94,19 @@ class BackgroundRenderer:
             screen.blit(sprite, (x, y))
 
 
-    def draw_affinity_flash(self, screen, menu_mode, active_pokemon, skills_scroll, skills_cursor, target, anim_frame, target_enemy_pos):
-        if menu_mode != MENU_MODE_TARGET_SELECT:
+    def draw_affinity_flash(self, screen, menu_mode, active_pokemon, 
+                            skills_scroll, skills_cursor, 
+                            target, anim_frame, target_enemy_pos,
+                            pending_item_data):
+        if menu_mode not in (MENU_MODE_TARGET_SELECT, 
+                             MENU_MODE_ITEM_TARGET_SELECT):
             return
 
         selected_index = skills_scroll + skills_cursor
-        move_name = active_pokemon.moves[selected_index]
+        if menu_mode == MENU_MODE_TARGET_SELECT:
+            move_name = active_pokemon.moves[selected_index]
+        else:
+            move_name = pending_item_data["type"].split("damage_")[1]
         move = self.smt_moves[move_name]
 
         element = move["element"]

@@ -45,6 +45,25 @@ class MenuRenderer:
         cursor_x, cursor_y = COORDS_MENU_SKILLS[skills_cursor]
         screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
 
+    def draw_item_target_select_menu(self, screen, active_pokemon,
+                                 skills_scroll, skills_cursor,
+                                 pending_item_data):
+
+        # Extract the skill name from the item type
+        item_type = pending_item_data["type"]  # e.g. "damage_Agibarion"
+        skill_name = item_type.split("damage_")[1]   # → "Agibarion"
+
+        # Format the move info using the existing skill formatter
+        text = active_pokemon.format_move_for_menu(skill_name, self.smt_moves)
+
+        # Draw it in the same row as the skills menu would
+        self.font2.draw_text(screen, text, SKILLS_X, SKILLS_Y)
+
+        # Draw cursor in the same place as the skills menu
+        cursor_x, cursor_y = COORDS_MENU_SKILLS[0]
+        screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+
+
     def draw_item_menu(self, screen, inventory, cursor_x, cursor_y):
         item_names = list(inventory.keys())
 
