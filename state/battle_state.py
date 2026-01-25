@@ -29,7 +29,7 @@ class BattleState(GameState):
             stats=bulbasaur_data.base_stats,
             affinities=bulbasaur_data.affinities,
             learnset=bulbasaur_data.learnset,
-            moves=["Lunge", "Agi", "Bufu", "Zio"]
+            moves=["Attack", "Agi", "Bufu", "Zio"]
         )
 
         # Build teams
@@ -40,9 +40,9 @@ class BattleState(GameState):
             get_smt_pokemon_by_number(self.smt_pokemon, 6)     # Charizard
         ]
 
-        player_team[1].moves = ["Lunge", "Agi", "Bufu", "Zio"]
-        player_team[2].moves = ["Lunge", "Agi", "Bufu", "Zio"]
-        player_team[3].moves = ["Lunge", "Agi", "Bufu", "Zio"]
+        player_team[1].moves = ["Attack", "Agi", "Bufu", "Zio"]
+        player_team[2].moves = ["Attack", "Agi", "Bufu", "Zio"]
+        player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio"]
 
         enemy_team = [
             get_smt_pokemon_by_number(self.smt_pokemon, 9),    # Blastoise
@@ -51,10 +51,10 @@ class BattleState(GameState):
             get_smt_pokemon_by_number(self.smt_pokemon, 12)    # Butterfree
         ]
 
-        enemy_team[0].moves = ["Lunge", "Agi", "Bufu", "Zio"]
-        enemy_team[1].moves = ["Lunge", "Agi", "Bufu", "Zio"]
-        enemy_team[2].moves = ["Lunge", "Agi", "Bufu", "Zio"]
-        enemy_team[3].moves = ["Lunge", "Agi", "Bufu", "Zio"]
+        enemy_team[0].moves = ["Attack", "Agi", "Bufu", "Zio"]
+        enemy_team[1].moves = ["Attack", "Agi", "Bufu", "Zio"]
+        enemy_team[2].moves = ["Attack", "Agi", "Bufu", "Zio"]
+        enemy_team[3].moves = ["Attack", "Agi", "Bufu", "Zio"]
 
         self.model = BattleModel(player_team, enemy_team)
         self.renderer = BattleRenderer(background_surface, self.model, self.smt_moves)
@@ -426,7 +426,11 @@ class BattleState(GameState):
             active_pokemon.remaining_mp = max(0, active_pokemon.remaining_mp - cost)
 
             # Build announcement text
-            self.scroll_text = f"{active_pokemon.name} uses {move_name} on {enemy.name}!"
+            if move_name == "Attack":
+                self.scroll_text = f"{active_pokemon.name} attacks {enemy.name}!"
+            else:
+                self.scroll_text = f"{active_pokemon.name} uses {move_name} on {enemy.name}!"
+
             self.scroll_index = 0
             self.scroll_done = False
 
@@ -873,7 +877,10 @@ class BattleState(GameState):
 
         # Build announcement text
         target = self.model.player_team[self.enemy_target_index]
-        self.scroll_text = f"{attacker.name} uses {self.pending_enemy_move} on {target.name}!"
+        if self.pending_enemy_move == "Attack":
+            self.scroll_text = f"{attacker.name} attacks {target.name}!"
+        else:
+            self.scroll_text = f"{attacker.name} uses {self.pending_enemy_move} on {target.name}!"
         self.scroll_index = 0
         self.scroll_done = False
 
@@ -1021,6 +1028,15 @@ class BattleState(GameState):
             element = move["element"]
             element_index = ELEMENT_INDEX[element]
             affinity = enemy.affinities[element_index]
+
+            # --- Critical hit check ---
+            is_crit = False
+            if move["type"] == "Physical":
+                # 8% crit chance
+                if random.random() < 1:
+                    is_crit = True
+                    print("CRITICAL HIT!")
+
 
             # Calculate raw damage
             raw_damage = self.calculate_raw_damage(move, affinity)
@@ -1260,6 +1276,14 @@ class BattleState(GameState):
             element = move["element"]
             element_index = ELEMENT_INDEX[element]
             affinity = target.affinities[element_index]
+
+            # --- Critical hit check ---
+            is_crit = False
+            if move["type"] == "Physical":
+                # 8% crit chance
+                if random.random() < 1:
+                    is_crit = True
+                    print("CRITICAL HIT!")
 
             # Guarding overrides weakness → neutral
             if target.is_guarding and affinity < AFFINITY_NEUTRAL:

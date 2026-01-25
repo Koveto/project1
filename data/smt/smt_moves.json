@@ -1,5 +1,20 @@
 {
   "moves": {
+    "Attack": {
+      "element": "Physical",
+      "type": "Physical",
+      "mp": 0,
+      "power": 100,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 98,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": [],
+      "description": ""
+    },
+
     "Lunge": {
       "element": "Physical",
       "type": "Physical",
@@ -3578,11 +3593,11 @@
       "hits_low": 1,
       "hits_high": 1,
       "target": "Single",
-      "accuracy": 100,
+      "accuracy": 300,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+spatk"],
-      "description": ""
+      "effects": ["+atk"],
+      "description": "Attack buff 3 turns"
     },
 
     "Rakukaja": {
