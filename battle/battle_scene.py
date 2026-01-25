@@ -61,12 +61,12 @@ class BattleRenderer:
         ]
 
         # Sub-renderers
+        self.stat_icon_renderer = StatIconRenderer()
         self.text_renderer = TextRenderer(self.font0, self.cursor_sprite)
         self.background_renderer = BackgroundRenderer(background_surface, self.player_sprites, self.enemy_sprites, self.smt_moves)
-        self.hpmp_renderer = HPMPRenderer(self.font1, self.font3, self.hpmp_sprite, self.hpmp_sprite_enemy, self.lv_sprite, self.hp_fill, self.mp_fill, self.mp_cost_fill)
+        self.hpmp_renderer = HPMPRenderer(self.font1, self.font3, self.hpmp_sprite, self.hpmp_sprite_enemy, self.lv_sprite, self.hp_fill, self.mp_fill, self.mp_cost_fill, self.stat_icon_renderer)
         self.menu_renderer = MenuRenderer(self.font0, self.font2, self.cursor_sprite, self.smt_moves)
         self.press_turn_renderer = PressTurnRenderer(self.press_turn_blue, self.press_turn_red)
-        self.stat_icon_renderer = StatIconRenderer()
         self.animation = AnimationRenderer()
 
 
@@ -244,7 +244,7 @@ class BattleRenderer:
 
         if (menu_mode != MENU_MODE_INFO) or \
             info_row == 1:
-            self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
+            self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset, blink)
 
         # Draw MP cost bar when selecting or targeting a skill
         if menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT):
@@ -283,7 +283,7 @@ class BattleRenderer:
 
             if (menu_mode != MENU_MODE_INFO) or \
                 (info_row == 0):
-                self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset)
+                self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset, blink)
 
         screen.blit(self.battleframe, COORDS_FRAME)
 

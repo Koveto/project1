@@ -3,7 +3,10 @@ from constants import *
 from battle.battle_constants import *
 
 class HPMPRenderer:
-    def __init__(self, font1, font3, hpmp_sprite, hpmp_sprite_enemy, lv_sprite, hp_fill, mp_fill, mp_cost_fill):
+    def __init__(self, font1, font3, hpmp_sprite, 
+                 hpmp_sprite_enemy, lv_sprite, 
+                 hp_fill, mp_fill, mp_cost_fill,
+                 stat_icon_renderer):
         self.font1 = font1
         self.font3 = font3
         self.hpmp_sprite = hpmp_sprite
@@ -12,6 +15,7 @@ class HPMPRenderer:
         self.hp_fill = hp_fill
         self.mp_fill = mp_fill
         self.mp_cost_fill = mp_cost_fill
+        self.stat_icon_renderer = stat_icon_renderer
 
     def format_hpmp_text(self, pokemon, hp_override=None):
         # Use animated HP if provided, otherwise logical remaining_hp
@@ -114,7 +118,7 @@ class HPMPRenderer:
         screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset))
 
 
-    def draw_player_hpmp(self, screen, active_pokemon, hpmp_y, ui_hp_offset):
+    def draw_player_hpmp(self, screen, active_pokemon, hpmp_y, ui_hp_offset, blink):
         # draws the player HP/MP UI block
         # --- Player HP/MP (always drawn) ---
         screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y))
@@ -148,9 +152,16 @@ class HPMPRenderer:
             hpmp_y + HPMP_RATIO_Y_OFFSET # we'll define this next
         )
 
+        # Draw stat buffs (only if non-zero)
+        self.draw_stat_buffs(
+            screen,
+            active_pokemon,
+            BUFF_X,
+            hpmp_y + BUFF_Y,
+            blink
+        )
 
-
-    def draw_enemy_hpmp(self, screen, target, enemy_hpmp_y, ui_hp_offset):
+    def draw_enemy_hpmp(self, screen, target, enemy_hpmp_y, ui_hp_offset, blink):
         # draws the enemy HP/MP UI block
         screen.blit(self.hpmp_sprite_enemy, (HPMP_ENEMY_X, enemy_hpmp_y))
 
@@ -191,4 +202,71 @@ class HPMPRenderer:
             HPMP_ENEMY_X + 20,                 # temporary X offset
             enemy_hpmp_y + HPMP_RATIO_Y_OFFSET # same offset for now
         )
+
+        self.draw_stat_buffs(
+            screen,
+            target,
+            BUFF_X_ENEMY,
+            enemy_hpmp_y + BUFF_Y_ENEMY,
+            blink
+        )
+
+
+    def draw_stat_buffs(self, screen, pokemon, base_x, base_y, blink):
+        """
+        Draws attack/defense/speed buff icons for the given Pokémon.
+        base_x/base_y are BUFF_X/BUFF_Y or BUFF_X_ENEMY/BUFF_Y_ENEMY.
+        """
+
+        # Map buff values (-2..+2) to column index in the spritesheet
+        stage_to_col = {
+            +1: 0,
+            +2: 1,
+            -1: 2,
+            -2: 3
+        }
+
+        # Attack
+        if pokemon.attack_buff != 0:
+            col = stage_to_col[pokemon.attack_buff]
+
+            # Flash if 1 turn left
+            if pokemon.attack_buff_turns == 1 and not blink:
+                pass
+            else:
+                self.stat_icon_renderer.draw_buff_icon(
+                    screen, 0, col,
+                    base_x,
+                    base_y
+                )
+
+
+        # Defense
+        if pokemon.defense_buff != 0:
+            col = stage_to_col[pokemon.defense_buff]
+
+            # Flash if 1 turn left
+            if pokemon.defense_buff_turns == 1 and not blink:
+                pass
+            else:
+                self.stat_icon_renderer.draw_buff_icon(
+                    screen, 1, col,
+                    base_x + BUFF_SPACING,
+                    base_y
+                )
+
+        # Speed
+        if pokemon.speed_buff != 0:
+            col = stage_to_col[pokemon.speed_buff]
+
+            # Flash if 1 turn left
+            if pokemon.speed_buff_turns == 1 and not blink:
+                pass
+            else:
+                self.stat_icon_renderer.draw_buff_icon(
+                    screen, 2, col,
+                    base_x + BUFF_SPACING + BUFF_SPACING,
+                    base_y
+                )
+
 

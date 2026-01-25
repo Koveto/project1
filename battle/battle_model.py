@@ -168,12 +168,28 @@ class BattleModel:
                 p.attack_buff_turns = max(0, p.attack_buff_turns - 1)
                 p.defense_buff_turns = max(0, p.defense_buff_turns - 1)
                 p.speed_buff_turns = max(0, p.speed_buff_turns - 1)
+                # After decrementing buff_turns for each Pokémon on that side:
+                if p.attack_buff_turns == 0:
+                    p.attack_buff = 0
+                if p.defense_buff_turns == 0:
+                    p.defense_buff = 0
+                if p.speed_buff_turns == 0:
+                    p.speed_buff = 0
+
         else:
             # Enemy turn starting → decrement enemy buffs
             for e in self.enemy_team:
                 e.attack_buff_turns = max(0, e.attack_buff_turns - 1)
                 e.defense_buff_turns = max(0, e.defense_buff_turns - 1)
                 e.speed_buff_turns = max(0, e.speed_buff_turns - 1)
+                # After decrementing buff_turns for each Pokémon on that side:
+                if e.attack_buff_turns == 0:
+                    e.attack_buff = 0
+                if e.defense_buff_turns == 0:
+                    e.defense_buff = 0
+                if e.speed_buff_turns == 0:
+                    e.speed_buff = 0
+
 
 
     def handle_action_press_turn_cost(self, cost):

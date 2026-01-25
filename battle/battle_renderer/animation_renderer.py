@@ -15,4 +15,4 @@ class AnimationRenderer:
         return poke_offset, hp_offset
 
     def get_blink(self):
-        return (self.anim_frame // 20) % 2 == 0
+        return (self.anim_frame // 10) % 2 == 0
