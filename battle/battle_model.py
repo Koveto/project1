@@ -115,6 +115,8 @@ class BattleModel:
         self.is_player_turn = not self.is_player_turn
         # Reset press turns for the new side
         self.press_turns = FRESH_PRESS_TURNS.copy()
+        if self.is_player_turn:
+            self.turn_index = 0
 
     def handle_action_press_turn_cost(self, cost):
         # Special case: wipe all remaining press turns
