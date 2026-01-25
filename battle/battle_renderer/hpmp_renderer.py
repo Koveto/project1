@@ -12,18 +12,19 @@ class HPMPRenderer:
         self.mp_fill = mp_fill
         self.mp_cost_fill = mp_cost_fill
 
-    def format_hpmp_text(self, pokemon):
-        # Fixed-width 3-digit fields so layout never shifts
-        hp_cur = f"{pokemon.remaining_hp:3d}"
+    def format_hpmp_text(self, pokemon, hp_override=None):
+        # Use animated HP if provided, otherwise logical remaining_hp
+        hp_value = hp_override if hp_override is not None else pokemon.remaining_hp
+
+        hp_cur = f"{hp_value:3d}"
         hp_max = f"{pokemon.max_hp:3d}"
         mp_cur = f"{pokemon.remaining_mp:3d}"
         mp_max = f"{pokemon.max_mp:3d}"
 
         hp_text = f"HP{hp_cur}/{hp_max}"
         mp_text = f"MP{mp_cur}/{mp_max}"
-
-        # Spaces between HP and MP blocks are now stable too
         return f"{hp_text}   {mp_text}"
+
 
 
 
@@ -130,7 +131,8 @@ class HPMPRenderer:
         self.draw_mp_bar(screen, active_pokemon, ui_hp_offset)
 
         # --- Draw HP/MP ratio text (temporary placement) ---
-        ratio_text = self.format_hpmp_text(active_pokemon)
+        hp_source = getattr(active_pokemon, "hp_anim", active_pokemon.remaining_hp)
+        ratio_text = self.format_hpmp_text(active_pokemon, hp_override=hp_source)
         self.font3.draw_text(
             screen,
             ratio_text,
@@ -177,7 +179,7 @@ class HPMPRenderer:
                         base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_1)
         
         # --- Draw HP/MP ratio text (temporary placement) ---
-        ratio_text = self.format_hpmp_text(target)
+        ratio_text = self.format_hpmp_text(target, hp_override=hp_source)
         self.font3.draw_text(
             screen,
             ratio_text,
