@@ -787,6 +787,9 @@ class BattleState(GameState):
         attacker_index = self.get_current_enemy_attacker()
         attacker = self.model.enemy_team[attacker_index]
 
+        # NEW: keep active_enemy_index in sync with the current attacker
+        self.active_enemy_index = attacker_index
+
         # Choose move + target
         self.pending_enemy_move = attacker.choose_random_move()
         self.enemy_target_index = self.model.choose_random_player_target()
@@ -800,6 +803,7 @@ class BattleState(GameState):
         # Enter announcement phase
         self.menu_mode = MENU_MODE_DAMAGING_PLAYER
         self.enemy_waiting_for_confirm = False
+
 
     
     def start_enemy_turn(self):
