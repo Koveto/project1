@@ -1,5 +1,3 @@
-# battle/battle_font.py
-
 import pygame
 import os
 from battle.battle_constants import *
@@ -67,8 +65,8 @@ class BattleFont:
             )
             self.glyphs[chr(ord('a') + i)] = glyph
 
-        # Row 2: digits + punctuation
-        row2 = "0123456789!?.-\"\"''/"
+        # Row 2: digits + punctuation (26 glyphs)
+        row2 = "0123456789!?.-\"\"''/"  # exactly 26 characters
 
         for i, ch in enumerate(row2):
             rect = pygame.Rect(

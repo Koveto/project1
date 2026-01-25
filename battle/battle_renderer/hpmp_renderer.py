@@ -3,13 +3,29 @@ from constants import *
 from battle.battle_constants import *
 
 class HPMPRenderer:
-    def __init__(self, font1, hpmp_sprite, lv_sprite, hp_fill, mp_fill, mp_cost_fill):
+    def __init__(self, font1, font3, hpmp_sprite, lv_sprite, hp_fill, mp_fill, mp_cost_fill):
         self.font1 = font1
+        self.font3 = font3
         self.hpmp_sprite = hpmp_sprite
         self.lv_sprite = lv_sprite
         self.hp_fill = hp_fill
         self.mp_fill = mp_fill
         self.mp_cost_fill = mp_cost_fill
+
+    def format_hpmp_text(self, pokemon):
+        # Fixed-width 3-digit fields so layout never shifts
+        hp_cur = f"{pokemon.remaining_hp:3d}"
+        hp_max = f"{pokemon.max_hp:3d}"
+        mp_cur = f"{pokemon.remaining_mp:3d}"
+        mp_max = f"{pokemon.max_mp:3d}"
+
+        hp_text = f"HP{hp_cur}/{hp_max}"
+        mp_text = f"MP{mp_cur}/{mp_max}"
+
+        # Spaces between HP and MP blocks are now stable too
+        return f"{hp_text}   {mp_text}"
+
+
 
     def draw_hp_bar(self, screen, pokemon, hp_offset,
                 base_x=HP_BAR_X, base_y=HP_BAR_Y,
@@ -113,6 +129,16 @@ class HPMPRenderer:
         self.draw_hp_bar(screen, active_pokemon, ui_hp_offset)
         self.draw_mp_bar(screen, active_pokemon, ui_hp_offset)
 
+        # --- Draw HP/MP ratio text (temporary placement) ---
+        ratio_text = self.format_hpmp_text(active_pokemon)
+        self.font3.draw_text(
+            screen,
+            ratio_text,
+            HPMP_X + 20,                 # temporary X offset
+            hpmp_y + HPMP_RATIO_Y_OFFSET # we'll define this next
+        )
+
+
 
     def draw_enemy_hpmp(self, screen, target, enemy_hpmp_y, ui_hp_offset):
         # draws the enemy HP/MP UI block
@@ -149,3 +175,13 @@ class HPMPRenderer:
 
         self.draw_mp_bar(screen, target, ui_hp_offset,
                         base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_1)
+        
+        # --- Draw HP/MP ratio text (temporary placement) ---
+        ratio_text = self.format_hpmp_text(target)
+        self.font3.draw_text(
+            screen,
+            ratio_text,
+            HPMP_ENEMY_X + 20,                 # temporary X offset
+            enemy_hpmp_y + HPMP_RATIO_Y_OFFSET # same offset for now
+        )
+

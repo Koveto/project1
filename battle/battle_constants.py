@@ -2,10 +2,10 @@ FRAME_W = 240
 FRAME_H = 48
 
 PT_X = 820
-PT_Y = 305
+PT_Y = 305 - 20
 PT_SPACING = 34
-PT_X_ENEMY = 72 * 2
-PT_Y_ENEMY = 120
+PT_X_ENEMY = 144
+PT_Y_ENEMY = 120 + 20
 
 HP_BAR_HEIGHT = 8
 MP_BAR_HEIGHT = 8
@@ -47,7 +47,7 @@ FILENAME_HPFILL     = "hpfill.png"
 FILENAME_MPFILL     = "mpfill.png"
 FILENAME_MPCOSTFILL = "mpcostfill.png"
 FILENAME_CURSOR     = "cursor.png"
-FILENAME_HPMP       = "hpmp.png"
+FILENAME_HPMP       = "hpmp0.png"
 FILENAME_LV         = "lv.png"
 FILENAME_PBRED      = "pokeballred.png"
 FILENAME_PBBLUE     = "pokeballblue.png"
@@ -91,12 +91,12 @@ PLAYER_Y_OFFSET = 64
 NORMAL_Y_OFFSET = 16
 
 HPMP_X = 672
-HPMP_Y = 328
+HPMP_Y = 328 - 20
 HPMP_ENEMY_X = 0
 HPMP_ENEMY_Y = 0
 HPMP_TO_FILL_X = 76
-HPMP_TO_FILL_Y_0 = 68
-HPMP_TO_FILL_Y_1 = 88
+HPMP_TO_FILL_Y_0 = 68 + 20
+HPMP_TO_FILL_Y_1 = 88 + 20
 
 
 ACTIVE_TARGET_NAME_X = 20
@@ -204,3 +204,5 @@ ITEM_ROW_SIZE = 49
 ITEM_COL_SIZE = 290
 
 DAMAGE_TEXT_INCR = 47
+
+HPMP_RATIO_Y_OFFSET = 52   # or whatever roughly lands in the new empty row

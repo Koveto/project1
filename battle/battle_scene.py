@@ -32,6 +32,8 @@ class BattleRenderer:
                                 scale=FONT1_SCALE, spacing=FONT1_SPACING)
         self.font2 = BattleFont(FONT2_FILENAME, glyph_w=FONT2_WIDTH, glyph_h=FONT2_HEIGHT,
                                 scale=FONT2_SCALE, spacing=FONT2_SPACING)
+        self.font3 = BattleFont(FONT1_FILENAME, glyph_w=FONT1_WIDTH, glyph_h=FONT1_HEIGHT,
+                                scale=2, spacing=12)
 
         # UI sprites
         self.hp_fill = load_scaled_sprite(sprite_path(FILENAME_HPFILL), scale=SCALE)
@@ -59,7 +61,7 @@ class BattleRenderer:
         # Sub-renderers
         self.text_renderer = TextRenderer(self.font0, self.cursor_sprite)
         self.background_renderer = BackgroundRenderer(background_surface, self.player_sprites, self.enemy_sprites, self.smt_moves)
-        self.hpmp_renderer = HPMPRenderer(self.font1, self.hpmp_sprite, self.lv_sprite, self.hp_fill, self.mp_fill, self.mp_cost_fill)
+        self.hpmp_renderer = HPMPRenderer(self.font1, self.font3, self.hpmp_sprite, self.lv_sprite, self.hp_fill, self.mp_fill, self.mp_cost_fill)
         self.menu_renderer = MenuRenderer(self.font0, self.font2, self.cursor_sprite, self.smt_moves)
         self.press_turn_renderer = PressTurnRenderer(self.press_turn_blue, self.press_turn_red)
         self.animation = AnimationRenderer()
