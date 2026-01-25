@@ -203,6 +203,20 @@ class BattleRenderer:
 
         self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
 
+        # Draw MP cost bar when selecting or targeting a skill
+        if menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT):
+            # The move the player currently has highlighted
+            move_name = self.model.get_active_pokemon().moves[skills_cursor]
+
+            self.hpmp_renderer.draw_mp_cost_bar(
+                screen,
+                self.model.get_active_pokemon(),
+                move_name,
+                ui_hp_offset,
+                self.smt_moves
+            )
+
+
         if menu_mode in (
             MENU_MODE_TARGET_SELECT,
             MENU_MODE_DAMAGING_ENEMY,

@@ -58,8 +58,8 @@ class HPMPRenderer:
         screen.blit(fill_surface, (base_x, base_y + hp_offset))
 
 
-    def draw_mp_cost_bar(self, screen, pokemon, move_name, hp_offset):
-        move = self.smt_moves.get(move_name)
+    def draw_mp_cost_bar(self, screen, pokemon, move_name, hp_offset, smt_moves):
+        move = smt_moves.get(move_name)
         if not move:
             return
 
