@@ -31,6 +31,14 @@ class Pokemon:
             self.moves = []
         self.bst = bst
         self.is_guarding = False
+        # Stat stage modifiers (range: -2 to +2)
+        self.attack_buff = 0
+        self.defense_buff = 0
+        self.speed_buff = 0
+        self.attack_buff_turns = 0
+        self.defense_buff_turns = 0
+        self.speed_buff_turns = 0
+
 
         # Compute actual stats
         self.recalculate_stats()

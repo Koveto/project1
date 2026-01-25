@@ -216,4 +216,6 @@ HPMP_RATIO_Y_OFFSET = 52   # or whatever roughly lands in the new empty row
 
 BUFF_X = HPMP_X
 BUFF_Y = HPMP_Y
+BUFF_X_ENEMY = 0
+BUFF_Y_ENEMY = 120
 BUFF_SPACING = 24

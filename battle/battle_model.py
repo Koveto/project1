@@ -151,11 +151,30 @@ class BattleModel:
         return any(v > 0 for v in self.press_turns)
 
     def next_side(self):
+        # Flip side
         self.is_player_turn = not self.is_player_turn
-        # Reset press turns for the new side
+
+        # Reset press turns
         self.press_turns = FRESH_PRESS_TURNS.copy()
+
+        # Reset player turn index when returning to player
         if self.is_player_turn:
             self.turn_index = 0
+
+        # Decrement buff durations for the side that is ABOUT to act
+        if self.is_player_turn:
+            # Player turn starting → decrement player buffs
+            for p in self.player_team:
+                p.attack_buff_turns = max(0, p.attack_buff_turns - 1)
+                p.defense_buff_turns = max(0, p.defense_buff_turns - 1)
+                p.speed_buff_turns = max(0, p.speed_buff_turns - 1)
+        else:
+            # Enemy turn starting → decrement enemy buffs
+            for e in self.enemy_team:
+                e.attack_buff_turns = max(0, e.attack_buff_turns - 1)
+                e.defense_buff_turns = max(0, e.defense_buff_turns - 1)
+                e.speed_buff_turns = max(0, e.speed_buff_turns - 1)
+
 
     def handle_action_press_turn_cost(self, cost):
         # Special case: wipe all remaining press turns
