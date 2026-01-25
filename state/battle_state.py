@@ -104,6 +104,7 @@ class BattleState(GameState):
         self.enemy_turn_index = 0
         self.enemy_turn_order = None
         self.active_enemy_index = 0
+        self.missed = False
 
     def get_current_enemy_attacker(self):
         return self.enemy_turn_order[self.enemy_turn_index]
@@ -662,7 +663,7 @@ class BattleState(GameState):
         self.affinity_done = False
         self.affinity_text = None
 
-        # Determine affinity of the move that just resolved
+        # Affinity of the move that just resolved
         attacker_index = self.get_current_enemy_attacker()
         attacker = self.model.enemy_team[attacker_index]
 
@@ -673,17 +674,22 @@ class BattleState(GameState):
         target = self.model.player_team[self.enemy_target_index]
         affinity = target.affinities[element_index]
 
-        # Determine press turn cost
-        cost = self.calculate_press_turns_consumed(affinity)
+        # Apply press turn cost (or skip if miss already handled it)
+        if not self.missed:
+            cost = self.calculate_press_turns_consumed(affinity)
+            self.model.handle_action_press_turn_cost(cost)
+        else:
+            self.missed = False  # reset for next action
+            # Miss already called self.model.consume_miss()
 
-        # Apply cost to ENEMY press turns
-        # This may automatically switch sides if no press turns remain
-        self.model.handle_action_press_turn_cost(cost)
+        # If no press turns left after this action, flip side
+        if not self.model.has_press_turns_left():
+            self.model.next_side()
 
         # Cleanup
         self.pending_enemy_move = None
 
-        # If the side switched, enemy turn is over → player turn begins
+        # If the side switched back to player, enemy turn is over
         if self.model.is_player_turn:
             self.menu_mode = MENU_MODE_MAIN
             self.menu_index = 0
@@ -691,29 +697,29 @@ class BattleState(GameState):
 
         # Otherwise, enemy still has press turns → next enemy attack
         if self.model.has_press_turns_left():
-            # Advance to next enemy in SPD order
             self.enemy_turn_index += 1
             if self.enemy_turn_index >= len(self.enemy_turn_order):
                 self.enemy_turn_index = 0
 
-            # Start next attack
             self.start_enemy_attack()
             return
 
-        # Safety fallback: if somehow no press turns but side didn't flip
+        # Safety fallback: no press turns but still enemy side
         self.model.next_side()
         self.menu_mode = MENU_MODE_MAIN
         self.menu_index = 0
 
 
 
+
     def finish_damage_phase(self):
+        # Reset flags
         self.damage_started = False
         self.damage_done = False
         self.affinity_done = False
         self.affinity_text = None
 
-        # We need the affinity of the move that just resolved
+        # Affinity of the move that just resolved
         attacker = self.model.get_active_pokemon()
         move = self.smt_moves[self.pending_move_name]
         element = move["element"]
@@ -722,18 +728,29 @@ class BattleState(GameState):
         enemy = self.model.enemy_team[self.target_index]
         affinity = enemy.affinities[element_index]
 
-        # NEW: determine press turn cost based on affinity
-        cost = self.calculate_press_turns_consumed(affinity)
+        # Apply press turn cost (or skip if miss already handled it)
+        if not self.missed:
+            cost = self.calculate_press_turns_consumed(affinity)
+            self.model.handle_action_press_turn_cost(cost)
+        else:
+            self.missed = False  # reset for next action
+            # Miss already called self.model.consume_miss()
 
-        # Apply press turn cost
-        cost = self.calculate_press_turns_consumed(affinity)
-        self.model.handle_action_press_turn_cost(cost)
+        # If no press turns left after this action, flip side
+        if not self.model.has_press_turns_left():
+            self.model.next_side()
 
         # Cleanup
         self.pending_move_name = None
-        self.model.next_turn()
+
+        # If it's still the player's side, go to next Pokémon
+        if self.model.is_player_turn:
+            self.model.next_turn()
+
+        # Back to main menu for the player
         self.menu_mode = MENU_MODE_MAIN
         self.menu_index = 0
+
 
 
     def draw(self, screen):
@@ -880,8 +897,11 @@ class BattleState(GameState):
         # Reset confirm flag
         self.enemy_waiting_for_confirm = False
 
-
-
+    def check_accuracy(self, move):
+        acc = move.get("accuracy", 100)
+        # 98 means 98% chance to hit
+        roll = random.randint(1, 100)
+        return roll <= acc
     
     def update_talk_phase(self):
         if not self.scroll_done:
@@ -939,19 +959,49 @@ class BattleState(GameState):
             attacker = self.model.get_active_pokemon()
             move = self.smt_moves[self.pending_move_name]
 
+            # --- Accuracy check ---
+            if not self.check_accuracy(move):
+                self.missed = True
+
+                # Missed: do zero damage
+                self.damage_amount = 0
+                self.damage_target = enemy
+                self.damage_started = True
+                self.damage_animating = False
+                self.damage_done = True
+
+                # Prepare miss text
+                self.affinity_text = None
+                self.affinity_done = True
+                self.affinity_scroll_done = True
+
+                self.damage_text = "But it missed!"
+                self.damage_scroll_index = 0
+                self.damage_scroll_done = False
+
+                # Press turn penalty
+                self.model.consume_miss()
+                """
+                if not self.model.has_press_turns_left():
+                    #self.model.next_side()
+                    self.finish_damage_phase()
+                """
+
+                return
+
             # Determine affinity
             element = move["element"]
             element_index = ELEMENT_INDEX[element]
             affinity = enemy.affinities[element_index]
 
-            # NEW: calculate raw damage
+            # Calculate raw damage
             raw_damage = self.calculate_raw_damage(move, affinity)
             self.damage_amount = raw_damage
 
-            # NEW: determine who takes the damage (reflect support)
+            # Determine who takes the damage (reflect support)
             damage_target = self.determine_damage_recipient(attacker, enemy, affinity)
 
-            # Apply damage to the correct Pokémon
+            # Apply damage
             damage_target.hp_target = max(0, damage_target.remaining_hp - raw_damage)
             damage_target.hp_anim = damage_target.remaining_hp
 
@@ -960,14 +1010,10 @@ class BattleState(GameState):
 
             damage_target.remaining_hp = damage_target.hp_target
 
-            # Store for renderer (important for reflect)
             self.damage_target = damage_target
-
-
             self.damage_started = True
             self.damage_animating = True
             return
-
 
         # PHASE 2 — HP animation
         if self.damage_animating:
@@ -983,50 +1029,51 @@ class BattleState(GameState):
                 self.damage_animating = False
                 self.damage_done = True
 
-                # Reset affinity state
-                self.affinity_done = False
-                self.affinity_scroll_done = False
-                self.affinity_text = None
-                self.affinity_scroll_index = 0
+                # --- IMPORTANT FIX ---
+                # Do NOT run affinity logic if the move missed
+                if not getattr(self, "missed", False):
 
-                # Determine affinity (still based on enemy)
-                attacker = self.model.get_active_pokemon()
-                move = self.smt_moves[self.pending_move_name]
-                element = move["element"]
-                element_index = ELEMENT_INDEX[element]
-
-                # IMPORTANT: affinity is always based on the enemy's affinities,
-                # not the damage target.
-                enemy = self.model.enemy_team[self.target_index]
-                affinity = enemy.affinities[element_index]
-
-                if affinity == 0:
-                    self.affinity_text = None
-                    self.affinity_done = True
-                    self.affinity_scroll_done = True
-                else:
-                    if affinity < AFFINITY_NEUTRAL:
-                        self.affinity_text = AFFINITY_TEXT_WEAK
-                    elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
-                        self.affinity_text = AFFINITY_TEXT_RESIST
-                    elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
-                        self.affinity_text = AFFINITY_TEXT_NULL
-                    elif affinity == AFFINITY_REFLECT:
-                        self.affinity_text = AFFINITY_TEXT_REFLECT
-
-                    self.affinity_scroll_index = 0
+                    # Reset affinity state
+                    self.affinity_done = False
                     self.affinity_scroll_done = False
+                    self.affinity_text = None
+                    self.affinity_scroll_index = 0
+
+                    # Determine affinity (still based on enemy)
+                    attacker = self.model.get_active_pokemon()
+                    move = self.smt_moves[self.pending_move_name]
+                    element = move["element"]
+                    element_index = ELEMENT_INDEX[element]
+
+                    enemy = self.model.enemy_team[self.target_index]
+                    affinity = enemy.affinities[element_index]
+
+                    if affinity == 0:
+                        self.affinity_text = None
+                        self.affinity_done = True
+                        self.affinity_scroll_done = True
+                    else:
+                        if affinity < AFFINITY_NEUTRAL:
+                            self.affinity_text = AFFINITY_TEXT_WEAK
+                        elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
+                            self.affinity_text = AFFINITY_TEXT_RESIST
+                        elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
+                            self.affinity_text = AFFINITY_TEXT_NULL
+                        elif affinity == AFFINITY_REFLECT:
+                            self.affinity_text = AFFINITY_TEXT_REFLECT
+
+                        self.affinity_scroll_index = 0
+                        self.affinity_scroll_done = False
 
             # Prepare damage text for the next phase
+            # (Even on miss, this is overwritten earlier)
             self.damage_text = f"Dealt {self.damage_amount} damage."
             self.damage_scroll_index = 0
             self.damage_scroll_done = False
 
             return
 
-
-
-        # PHASE 3a — affinity scroll (only if there IS affinity text)
+        # PHASE 3a — affinity scroll
         if self.damage_done and not self.affinity_done and self.affinity_text:
             chars_per_second = self.scroll_delay * 20
             chars_per_frame = chars_per_second / 60
@@ -1050,6 +1097,7 @@ class BattleState(GameState):
                 self.damage_scroll_done = True
 
             return
+
         
     def update_item_use_phase(self):
         # PHASE 1 — scroll "X uses Y!"
@@ -1151,18 +1199,47 @@ class BattleState(GameState):
 
             # Move data
             move = self.smt_moves[self.pending_enemy_move]
+
+            # --- Accuracy check ---
+            if not self.check_accuracy(move):
+                self.missed = True
+
+                self.damage_amount = 0
+                self.damage_target = target
+                self.damage_started = True
+                self.damage_animating = False
+                self.damage_done = True
+
+                # Prepare miss text
+                self.affinity_text = None
+                self.affinity_done = True
+                self.affinity_scroll_done = True
+
+                self.damage_text = "But it missed!"
+                self.damage_scroll_index = 0
+                self.damage_scroll_done = False
+
+                # Press turn penalty
+                self.model.consume_miss()
+                """
+                if not self.model.has_press_turns_left():
+                    self.model.next_side()
+                """
+
+                return
+
+            # Normal hit flow
             element = move["element"]
             element_index = ELEMENT_INDEX[element]
             affinity = target.affinities[element_index]
 
-            # Calculate raw damage
             raw_damage = self.calculate_raw_damage(move, affinity)
             self.damage_amount = raw_damage
 
-            # NEW: determine who actually takes the damage (reflect support)
+            # Reflect support
             damage_target = self.determine_damage_recipient(attacker, target, affinity)
 
-            # Set up HP animation
+            # HP animation setup
             damage_target.hp_target = max(0, damage_target.remaining_hp - raw_damage)
             damage_target.hp_anim = damage_target.remaining_hp
 
@@ -1171,10 +1248,7 @@ class BattleState(GameState):
 
             damage_target.remaining_hp = damage_target.hp_target
 
-            # Store for renderer
             self.damage_target = damage_target
-
-
             self.damage_started = True
             self.damage_animating = True
             return
@@ -1197,38 +1271,40 @@ class BattleState(GameState):
                 self.damage_animating = False
                 self.damage_done = True
 
-                # Reset affinity state
-                self.affinity_done = False
-                self.affinity_scroll_done = False
-                self.affinity_text = None
-                self.affinity_scroll_index = 0
+                # --- IMPORTANT FIX ---
+                # Do NOT run affinity logic if the move missed
+                if not getattr(self, "missed", False):
 
-                # Determine affinity text (based on target's affinities)
-                move = self.smt_moves[self.pending_enemy_move]
-                element = move["element"]
-                element_index = ELEMENT_INDEX[element]
-                affinity = self.model.player_team[self.enemy_target_index].affinities[element_index]
-
-                if affinity == 0:
-                    # Neutral → skip affinity text
-                    self.affinity_text = None
-                    self.affinity_done = True
-                    self.affinity_scroll_done = True
-                else:
-                    # Non-neutral → set appropriate text
-                    if affinity < AFFINITY_NEUTRAL:
-                        self.affinity_text = AFFINITY_TEXT_WEAK
-                    elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
-                        self.affinity_text = AFFINITY_TEXT_RESIST
-                    elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
-                        self.affinity_text = AFFINITY_TEXT_NULL
-                    elif affinity == AFFINITY_REFLECT:
-                        self.affinity_text = AFFINITY_TEXT_REFLECT
-
-                    self.affinity_scroll_index = 0
+                    # Reset affinity state
+                    self.affinity_done = False
                     self.affinity_scroll_done = False
+                    self.affinity_text = None
+                    self.affinity_scroll_index = 0
 
-                # Prepare damage text
+                    # Determine affinity text
+                    move = self.smt_moves[self.pending_enemy_move]
+                    element = move["element"]
+                    element_index = ELEMENT_INDEX[element]
+                    affinity = self.model.player_team[self.enemy_target_index].affinities[element_index]
+
+                    if affinity == 0:
+                        self.affinity_text = None
+                        self.affinity_done = True
+                        self.affinity_scroll_done = True
+                    else:
+                        if affinity < AFFINITY_NEUTRAL:
+                            self.affinity_text = AFFINITY_TEXT_WEAK
+                        elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
+                            self.affinity_text = AFFINITY_TEXT_RESIST
+                        elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
+                            self.affinity_text = AFFINITY_TEXT_NULL
+                        elif affinity == AFFINITY_REFLECT:
+                            self.affinity_text = AFFINITY_TEXT_REFLECT
+
+                        self.affinity_scroll_index = 0
+                        self.affinity_scroll_done = False
+
+                # Prepare damage text (miss case already set earlier)
                 self.damage_text = f"Dealt {self.damage_amount} damage."
                 self.damage_scroll_index = 0
                 self.damage_scroll_done = False
@@ -1263,13 +1339,6 @@ class BattleState(GameState):
                 self.damage_scroll_done = True
 
             return
-
-
-        """if self.damage_done:
-            self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
-            self.model.next_side()
-            self.menu_mode = MENU_MODE_MAIN
-            return"""
 
 
 

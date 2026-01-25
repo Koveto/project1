@@ -107,6 +107,45 @@ class BattleModel:
         else:
             # Safety: ignore invalid costs
             return
+        
+    def consume_miss(self):
+        """
+        SMT miss penalty:
+        - First: consume one full turn (leftmost non-NULL → NULL)
+        - Second: consume another icon, but FLASH behaves differently.
+        """
+
+        # --- First consumption: always full ---
+        self._consume_full_turn()
+
+        # --- Second consumption: special miss rule ---
+        # Find the next non-NULL icon
+        idx = None
+        for i in range(4):
+            if self.press_turns[i] != NULL:
+                idx = i
+                break
+
+        if idx is None:
+            return  # no icons left
+
+        # If it's SOLID → NULL
+        if self.press_turns[idx] == SOLID:
+            self.press_turns[idx] = NULL
+            return
+
+        # If it's FLASH:
+        # Check if there is another non-NULL after it
+        for j in range(idx + 1, 4):
+            if self.press_turns[j] != NULL:
+                # There is another icon → FLASH becomes NULL
+                self.press_turns[idx] = NULL
+                return
+
+        # If no non-NULL after it → leave FLASH as FLASH
+        # (SMT rule: last FLASH survives)
+        return
+
 
     def has_press_turns_left(self):
         return any(v > 0 for v in self.press_turns)
