@@ -213,3 +213,7 @@ ITEM_COL_SIZE = 290
 DAMAGE_TEXT_INCR = 47
 
 HPMP_RATIO_Y_OFFSET = 52   # or whatever roughly lands in the new empty row
+
+BUFF_X = HPMP_X
+BUFF_Y = HPMP_Y
+BUFF_SPACING = 24

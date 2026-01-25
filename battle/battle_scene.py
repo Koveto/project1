@@ -13,6 +13,7 @@ from battle.battle_renderer.hpmp_renderer import HPMPRenderer
 from battle.battle_renderer.menu_renderer import MenuRenderer
 from battle.battle_renderer.press_turn_renderer import PressTurnRenderer
 from battle.battle_renderer.animation_renderer import AnimationRenderer
+from battle.battle_renderer.stat_icon_renderer import StatIconRenderer
 
 
 class BattleRenderer:
@@ -65,6 +66,7 @@ class BattleRenderer:
         self.hpmp_renderer = HPMPRenderer(self.font1, self.font3, self.hpmp_sprite, self.hpmp_sprite_enemy, self.lv_sprite, self.hp_fill, self.mp_fill, self.mp_cost_fill)
         self.menu_renderer = MenuRenderer(self.font0, self.font2, self.cursor_sprite, self.smt_moves)
         self.press_turn_renderer = PressTurnRenderer(self.press_turn_blue, self.press_turn_red)
+        self.stat_icon_renderer = StatIconRenderer()
         self.animation = AnimationRenderer()
 
 
@@ -272,7 +274,7 @@ class BattleRenderer:
                             MENU_MODE_ITEM_TARGET_SELECT):
                 enemy_for_hpmp = target
             
-            if menu_mode == MENU_MODE_INFO and info_row == 0:
+            elif menu_mode == MENU_MODE_INFO and info_row == 0:
                 enemy_for_hpmp = self.model.enemy_team[info_col]
 
             # Enemy turn: show the enemy who is attacking
@@ -407,7 +409,7 @@ class BattleRenderer:
             return
 
         elif menu_mode == MENU_MODE_INFO:
-            self.font0.draw_text(screen, "INFO SCREEN", X_MENU_MAIN, Y_MENU_MAIN_0)
+            self.font0.draw_text(screen, "Press X to return", X_MENU_MAIN, Y_MENU_MAIN_0)
 
         else:
             self.menu_renderer.draw_dummy_menu(screen, previous_menu_index)
