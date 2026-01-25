@@ -3,10 +3,11 @@ from constants import *
 from battle.battle_constants import *
 
 class HPMPRenderer:
-    def __init__(self, font1, font3, hpmp_sprite, lv_sprite, hp_fill, mp_fill, mp_cost_fill):
+    def __init__(self, font1, font3, hpmp_sprite, hpmp_sprite_enemy, lv_sprite, hp_fill, mp_fill, mp_cost_fill):
         self.font1 = font1
         self.font3 = font3
         self.hpmp_sprite = hpmp_sprite
+        self.hpmp_sprite_enemy = hpmp_sprite_enemy
         self.lv_sprite = lv_sprite
         self.hp_fill = hp_fill
         self.mp_fill = mp_fill
@@ -24,9 +25,16 @@ class HPMPRenderer:
         hp_text = f"HP{hp_cur}/{hp_max}"
         mp_text = f"MP{mp_cur}/{mp_max}"
         return f"{hp_text}   {mp_text}"
+    
+    def format_hpmp_text_enemy(self, pokemon, hp_override=None):
+        # Use animated HP if provided, otherwise logical remaining_hp
+        hp_value = hp_override if hp_override is not None else pokemon.remaining_hp
 
+        hp_cur = f"{hp_value:3d}"
+        hp_max = f"{pokemon.max_hp:3d}"
 
-
+        hp_text = f"HP{hp_cur}/{hp_max}"
+        return f"{hp_text}"
 
     def draw_hp_bar(self, screen, pokemon, hp_offset,
                 base_x=HP_BAR_X, base_y=HP_BAR_Y,
@@ -144,7 +152,7 @@ class HPMPRenderer:
 
     def draw_enemy_hpmp(self, screen, target, enemy_hpmp_y, ui_hp_offset):
         # draws the enemy HP/MP UI block
-        screen.blit(self.hpmp_sprite, (HPMP_ENEMY_X, enemy_hpmp_y))
+        screen.blit(self.hpmp_sprite_enemy, (HPMP_ENEMY_X, enemy_hpmp_y))
 
         self.font1.draw_text(
             screen,
@@ -175,11 +183,8 @@ class HPMPRenderer:
             override_hp=hp_source
         )
 
-        self.draw_mp_bar(screen, target, ui_hp_offset,
-                        base_x=HPMP_TO_FILL_X, base_y=HPMP_TO_FILL_Y_1)
-        
         # --- Draw HP/MP ratio text (temporary placement) ---
-        ratio_text = self.format_hpmp_text(target, hp_override=hp_source)
+        ratio_text = self.format_hpmp_text_enemy(target, hp_override=hp_source)
         self.font3.draw_text(
             screen,
             ratio_text,
