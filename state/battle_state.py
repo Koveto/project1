@@ -105,6 +105,8 @@ class BattleState(GameState):
         self.enemy_turn_order = None
         self.active_enemy_index = 0
         self.missed = False
+        self.info_row = 1
+        self.info_col = 0
 
     def get_current_enemy_attacker(self):
         return self.enemy_turn_order[self.enemy_turn_index]
@@ -189,6 +191,10 @@ class BattleState(GameState):
                 self.scroll_index = 0
                 self.scroll_done = False
                 self.menu_mode = MENU_MODE_ESCAPE
+                return
+            
+            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_INFO:
+                self.menu_mode = MENU_MODE_INFO
                 return
 
 
@@ -558,7 +564,17 @@ class BattleState(GameState):
                 self.damage_animating = False
                 return
 
-
+    def handle_info_event(self, event):
+        if key_back(event.key):
+            self.menu_mode = MENU_MODE_MAIN
+        if event.key == pygame.K_LEFT:
+            self.info_col = (self.info_col - 1) % 4
+        if event.key == pygame.K_RIGHT:
+            self.info_col = (self.info_col + 1) % 4
+        if event.key == pygame.K_UP:
+            self.info_row = 0
+        if event.key == pygame.K_DOWN:
+            self.info_row = 1
 
     def handle_submenu_event(self, event):
         if key_back(event.key):
@@ -606,6 +622,9 @@ class BattleState(GameState):
 
         elif self.menu_mode == MENU_MODE_ENEMY_DAMAGE:
             self.handle_enemy_damage_event(event)
+
+        elif self.menu_mode == MENU_MODE_INFO:
+            self.handle_info_event(event)
 
         elif self.menu_mode == MENU_MODE_SUBMENU:
             self.handle_submenu_event(event)
@@ -772,7 +791,8 @@ class BattleState(GameState):
                            self.item_recover_scroll_index,
                            self.item_recover_scroll_done,
                            self.enemy_target_index,
-                           self.active_enemy_index)
+                           self.active_enemy_index,
+                           self.info_row, self.info_col)
         
     def calculate_raw_damage(self, move, affinity_value):
         """

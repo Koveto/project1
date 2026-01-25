@@ -12,7 +12,7 @@ class BackgroundRenderer:
     def draw_background(self, screen):
         screen.blit(self.background, COORDS_BACKGROUND)
 
-    def draw_enemies(self, screen, menu_mode, target_index, poke_offset, active_enemy_index=None):
+    def draw_enemies(self, screen, menu_mode, target_index, poke_offset, active_enemy_index=None, info_index=None):
         target_enemy_pos = None
 
         for i in ENEMY_DRAW_ORDER:
@@ -27,6 +27,9 @@ class BackgroundRenderer:
             if menu_mode in (MENU_MODE_TARGET_SELECT, MENU_MODE_ITEM_TARGET_SELECT):
                 if i == target_index:
                     y += poke_offset
+            if menu_mode == MENU_MODE_INFO:
+                if i == info_index:
+                    y += poke_offset
 
             # Draw sprite
             screen.blit(sprite, (x, y))
@@ -35,6 +38,9 @@ class BackgroundRenderer:
             if menu_mode not in (MENU_MODE_DAMAGING_PLAYER, MENU_MODE_ENEMY_DAMAGE):
                 if i == target_index:
                     target_enemy_pos = (sprite, x, y)
+
+            elif menu_mode == MENU_MODE_INFO:
+                target_enemy_pos = (sprite, x, y)
 
             # ENEMY TURN CASE: highlight the attacking enemy
             else:
@@ -80,7 +86,8 @@ class BackgroundRenderer:
             MENU_MODE_ITEM_INFO,
             MENU_MODE_ITEM_TARGET_SELECT,
             MENU_MODE_DAMAGING_PLAYER,
-            MENU_MODE_ENEMY_DAMAGE
+            MENU_MODE_ENEMY_DAMAGE,
+            MENU_MODE_INFO
         ):
             return
 

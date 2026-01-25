@@ -105,7 +105,8 @@ class BattleRenderer:
              item_use_text, item_use_scroll_index,
              item_use_scroll_done,
              item_recover_text, item_recover_scroll_index, item_recover_scroll_done,
-             enemy_target_index, active_enemy_index):
+             enemy_target_index, active_enemy_index,
+             info_row, info_col):
 
         # Active Pokémon
         active_index = self.model.turn_index
@@ -119,9 +120,15 @@ class BattleRenderer:
 
         # Background + sprites
         self.background_renderer.draw_background(screen)
+
+        bounce_index = 9
+        if menu_mode == MENU_MODE_INFO:
+            if info_row == 0:
+                bounce_index = info_col
         target_enemy_pos = self.background_renderer.draw_enemies(screen, menu_mode, 
                                                                  target_index, poke_offset,
-                                                                 active_enemy_index)
+                                                                 active_enemy_index,
+                                                                 bounce_index)
         # Default: bounce the active Pokémon
         bounce_index = active_index
 
@@ -130,6 +137,11 @@ class BattleRenderer:
             bounce_index = selected_ally
         elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
             bounce_index = enemy_target_index
+        elif menu_mode == MENU_MODE_INFO:
+            if info_row == 1:
+                bounce_index = info_col
+            else:
+                bounce_index = 9
 
         active_pokemon_pos = self.background_renderer.draw_players(
             screen, menu_mode, bounce_index, poke_offset, self.model
@@ -168,6 +180,29 @@ class BattleRenderer:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
             highlight_player_pos = (sprite, x, y)
+        if menu_mode == MENU_MODE_INFO:
+            if info_row == 0:
+                sprite = self.background_renderer.enemy_sprites[info_col]
+                pokemon = self.model.enemy_team[info_col]
+
+                x = ENEMY_BASE_X + info_col * ENEMY_SPACING
+                y = ENEMY_Y + poke_offset
+
+                highlight_player_pos = None
+                target_enemy_pos = (sprite, x, y)
+            if info_row == 1:
+                sprite = self.background_renderer.player_sprites[info_col]
+                pokemon = self.model.player_team[info_col]
+
+                x = PLAYER_BASE_X + info_col * PLAYER_SPACING
+                if pokemon.is_player:
+                    x += PLAYER_OFFSET
+                    y = PLAYER_Y + PLAYER_Y_OFFSET + poke_offset
+                else:
+                    y = PLAYER_Y + NORMAL_Y_OFFSET + poke_offset
+
+                highlight_player_pos = (sprite, x, y)
+                target_enemy_pos = None
 
         self.background_renderer.draw_dark_overlay(
             screen,
@@ -181,7 +216,6 @@ class BattleRenderer:
                                                      self.animation.anim_frame, target_enemy_pos,
                                                      pending_item_data)
 
-        # HP/MP UI
         if menu_mode in (MENU_MODE_DAMAGING_ENEMY,
                          MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
@@ -203,8 +237,12 @@ class BattleRenderer:
         if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
             pokemon_for_hpmp = self.model.player_team[enemy_target_index]
+        if menu_mode == MENU_MODE_INFO and info_row == 1:
+            pokemon_for_hpmp = self.model.player_team[info_col]
 
-        self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
+        if (menu_mode != MENU_MODE_INFO) or \
+            info_row == 1:
+            self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset)
 
         # Draw MP cost bar when selecting or targeting a skill
         if menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT):
@@ -225,26 +263,32 @@ class BattleRenderer:
             MENU_MODE_DAMAGING_ENEMY,
             MENU_MODE_ITEM_TARGET_SELECT,
             MENU_MODE_DAMAGING_PLAYER,
-            MENU_MODE_ENEMY_DAMAGE
+            MENU_MODE_ENEMY_DAMAGE,
+            MENU_MODE_INFO
         ):
             # Player turn: show the enemy being targeted
             if menu_mode in (MENU_MODE_TARGET_SELECT,
                             MENU_MODE_DAMAGING_ENEMY,
                             MENU_MODE_ITEM_TARGET_SELECT):
                 enemy_for_hpmp = target
+            
+            if menu_mode == MENU_MODE_INFO and info_row == 0:
+                enemy_for_hpmp = self.model.enemy_team[info_col]
 
             # Enemy turn: show the enemy who is attacking
             else:  # MENU_MODE_DAMAGING_PLAYER, MENU_MODE_ENEMY_DAMAGE
                 enemy_for_hpmp = self.model.enemy_team[active_enemy_index]
 
-            self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset)
+            if (menu_mode != MENU_MODE_INFO) or \
+                (info_row == 0):
+                self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset)
 
         screen.blit(self.battleframe, COORDS_FRAME)
 
         # Press Turn icons
-        press_turn_states = self.model.get_press_turn_icon_states(self.animation.anim_frame)
-        self.press_turn_renderer.draw_all(screen, press_turn_states, menu_mode, hp_offset, self.animation.anim_frame, self.model.is_player_turn)
-
+        if menu_mode != MENU_MODE_INFO:
+            press_turn_states = self.model.get_press_turn_icon_states(self.animation.anim_frame)
+            self.press_turn_renderer.draw_all(screen, press_turn_states, menu_mode, hp_offset, self.animation.anim_frame, self.model.is_player_turn)
 
         # Menus + text
         if menu_mode == MENU_MODE_MAIN:
@@ -362,7 +406,8 @@ class BattleRenderer:
             )
             return
 
-
+        elif menu_mode == MENU_MODE_INFO:
+            self.font0.draw_text(screen, "INFO SCREEN", X_MENU_MAIN, Y_MENU_MAIN_0)
 
         else:
             self.menu_renderer.draw_dummy_menu(screen, previous_menu_index)
