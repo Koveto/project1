@@ -379,40 +379,67 @@ class BattleState(GameState):
     def handle_target_select_event(self, event):
         enemy_count = len(self.model.enemy_team)
 
+        # ----------------------------------------
+        # LEFT / RIGHT: cycle enemy targets
+        # ----------------------------------------
         if event.key == pygame.K_LEFT:
             if enemy_count > 0:
                 self.target_index = (self.target_index - 1) % enemy_count
+            return
 
         elif event.key == pygame.K_RIGHT:
             if enemy_count > 0:
                 self.target_index = (self.target_index + 1) % enemy_count
+            return
 
+        # ----------------------------------------
+        # CONFIRM: lock in move + target
+        # ----------------------------------------
         elif key_confirm(event.key):
+
+            # Switch to damage phase
             self.menu_mode = MENU_MODE_DAMAGING_ENEMY
 
+            # Determine selected move
             selected_index = self.skills_scroll + self.skills_cursor
             active_pokemon = self.model.get_active_pokemon()
             move_name = active_pokemon.moves[selected_index]
             enemy = self.model.enemy_team[self.target_index]
 
+            # Store pending move
             self.pending_move_name = move_name
 
+            # ----------------------------------------
+            # NEW: MP consumption for player
+            # ----------------------------------------
+            move = self.smt_moves[move_name]
+            cost = move["mp"]
+            active_pokemon.remaining_mp = max(0, active_pokemon.remaining_mp - cost)
+
+            # Build announcement text
             self.scroll_text = f"{active_pokemon.name} uses {move_name} on {enemy.name}!"
             self.scroll_index = 0
             self.scroll_done = False
 
+            # Reset damage flags
             self.damage_started = False
             self.damage_done = False
 
+            # Reset affinity flags
             self.affinity_text = None
             self.affinity_done = False
             self.affinity_scroll_index = 0
             self.affinity_scroll_done = False
+
             return
 
+        # ----------------------------------------
+        # BACK: return to skills menu
+        # ----------------------------------------
         elif key_back(event.key):
             self.menu_mode = MENU_MODE_SKILLS
             return
+
         
     def handle_item_target_select_event(self, event):
         enemy_count = len(self.model.enemy_team)
@@ -787,12 +814,17 @@ class BattleState(GameState):
         attacker_index = self.get_current_enemy_attacker()
         attacker = self.model.enemy_team[attacker_index]
 
-        # NEW: keep active_enemy_index in sync with the current attacker
+        # Keep active_enemy_index in sync
         self.active_enemy_index = attacker_index
 
         # Choose move + target
         self.pending_enemy_move = attacker.choose_random_move()
         self.enemy_target_index = self.model.choose_random_player_target()
+
+        # ⭐ NEW: subtract MP here
+        move = self.smt_moves[self.pending_enemy_move]
+        cost = move["mp"]
+        attacker.remaining_mp = max(0, attacker.remaining_mp - cost)
 
         # Build announcement text
         target = self.model.player_team[self.enemy_target_index]
@@ -803,7 +835,6 @@ class BattleState(GameState):
         # Enter announcement phase
         self.menu_mode = MENU_MODE_DAMAGING_PLAYER
         self.enemy_waiting_for_confirm = False
-
 
     
     def start_enemy_turn(self):
@@ -821,9 +852,13 @@ class BattleState(GameState):
         self.active_enemy_index = attacker_index
         enemy = self.model.enemy_team[attacker_index]
 
-
         # Pick a random move
         self.pending_enemy_move = random.choice(enemy.moves)
+
+        # ⭐ NEW: subtract MP for the first enemy action
+        move = self.smt_moves[self.pending_enemy_move]
+        cost = move["mp"]
+        enemy.remaining_mp = max(0, enemy.remaining_mp - cost)
 
         # Pick a random player target
         self.enemy_target_index = random.randrange(len(self.model.player_team))
@@ -844,6 +879,7 @@ class BattleState(GameState):
 
         # Reset confirm flag
         self.enemy_waiting_for_confirm = False
+
 
 
     
