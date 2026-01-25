@@ -112,6 +112,8 @@ class BattleState(GameState):
         return self.enemy_turn_order[self.enemy_turn_index]
 
     def handle_main_menu_event(self, event):
+        self.model.get_active_pokemon().is_guarding = False
+
         if event.key == pygame.K_RIGHT:
             if 0 <= self.menu_index <= 2:
                 self.menu_index += 1
@@ -693,6 +695,12 @@ class BattleState(GameState):
         target = self.model.player_team[self.enemy_target_index]
         affinity = target.affinities[element_index]
 
+        # Guarding overrides weakness → neutral
+        if target.is_guarding and affinity < AFFINITY_NEUTRAL:
+            affinity = AFFINITY_NEUTRAL
+
+        target.is_guarding = False
+
         # Apply press turn cost (or skip if miss already handled it)
         if not self.missed:
             cost = self.calculate_press_turns_consumed(affinity)
@@ -1253,6 +1261,11 @@ class BattleState(GameState):
             element_index = ELEMENT_INDEX[element]
             affinity = target.affinities[element_index]
 
+            # Guarding overrides weakness → neutral
+            if target.is_guarding and affinity < AFFINITY_NEUTRAL:
+                affinity = AFFINITY_NEUTRAL
+
+
             raw_damage = self.calculate_raw_damage(move, affinity)
             self.damage_amount = raw_damage
 
@@ -1306,6 +1319,9 @@ class BattleState(GameState):
                     element = move["element"]
                     element_index = ELEMENT_INDEX[element]
                     affinity = self.model.player_team[self.enemy_target_index].affinities[element_index]
+
+                    if self.model.player_team[self.enemy_target_index].is_guarding and affinity < AFFINITY_NEUTRAL:
+                        affinity = AFFINITY_NEUTRAL
 
                     if affinity == 0:
                         self.affinity_text = None
