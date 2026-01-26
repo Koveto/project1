@@ -965,184 +965,6 @@ class BattleState(GameState):
                 self.scroll_index = len(self.scroll_text)
                 self.scroll_done = True
         
-    def update_damage_phase(self):
-        # PHASE 1 — scrolling
-        if not self.scroll_done:
-            chars_per_second = self.scroll_delay * 20
-            chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
-            self.scroll_index += chars_per_frame
-            if int(self.scroll_index) >= len(self.scroll_text):
-                self.scroll_index = len(self.scroll_text)
-                self.scroll_done = True
-            return
-
-        # PHASE 1.5 — delay before damage
-        if not self.damage_started:
-            if not self.delay_started:
-                self.delay_started = True
-                self.delay_frames = 0
-
-            self.delay_frames += 1
-            if self.delay_frames < WAIT_FRAMES_BEFORE_DAMAGE:
-                return
-
-            # Start damage
-            self.delay_started = False
-            self.delay_frames = 0
-
-            enemy = self.model.enemy_team[self.target_index]
-            attacker = self.model.get_active_pokemon()
-            move = self.smt_moves[self.pending_move_name]
-
-            # --- Accuracy check ---
-            if not self.check_accuracy(move):
-                self.missed = True
-
-                # Missed: do zero damage
-                self.damage_amount = 0
-                self.damage_target = enemy
-                self.damage_started = True
-                self.damage_animating = False
-                self.damage_done = True
-
-                # Prepare miss text
-                self.affinity_text = None
-                self.affinity_done = True
-                self.affinity_scroll_done = True
-
-                self.damage_text = "But it missed!"
-                self.damage_scroll_index = 0
-                self.damage_scroll_done = False
-
-                # Press turn penalty
-                self.model.consume_miss()
-                """
-                if not self.model.has_press_turns_left():
-                    #self.model.next_side()
-                    self.finish_damage_phase()
-                """
-
-                return
-
-            # Determine affinity
-            element = move["element"]
-            element_index = ELEMENT_INDEX[element]
-            affinity = enemy.affinities[element_index]
-
-            # --- Critical hit check ---
-            is_crit = False
-            if move["type"] == "Physical":
-                # 8% crit chance
-                if random.random() < 1:
-                    is_crit = True
-                    print("CRITICAL HIT!")
-
-
-            # Calculate raw damage
-            raw_damage = self.calculate_raw_damage(move, affinity)
-            self.damage_amount = raw_damage
-
-            # Determine who takes the damage (reflect support)
-            damage_target = self.determine_damage_recipient(attacker, enemy, affinity)
-
-            # Apply damage
-            damage_target.hp_target = max(0, damage_target.remaining_hp - raw_damage)
-            damage_target.hp_anim = damage_target.remaining_hp
-
-            damage_pixels = int((raw_damage / damage_target.max_hp) * HP_BAR_WIDTH)
-            damage_target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
-
-            damage_target.remaining_hp = damage_target.hp_target
-
-            self.damage_target = damage_target
-            self.damage_started = True
-            self.damage_animating = True
-            return
-
-        # PHASE 2 — HP animation
-        if self.damage_animating:
-            damage_target = self.damage_target
-
-            if damage_target.hp_anim > damage_target.hp_target:
-                diff = damage_target.hp_anim - damage_target.hp_target
-                step = max(1, int(diff ** 0.7))
-                damage_target.hp_anim -= step
-                if damage_target.hp_anim < damage_target.hp_target:
-                    damage_target.hp_anim = damage_target.hp_target
-            else:
-                self.damage_animating = False
-                self.damage_done = True
-
-                # --- IMPORTANT FIX ---
-                # Do NOT run affinity logic if the move missed
-                if not getattr(self, "missed", False):
-
-                    # Reset affinity state
-                    self.affinity_done = False
-                    self.affinity_scroll_done = False
-                    self.affinity_text = None
-                    self.affinity_scroll_index = 0
-
-                    # Determine affinity (still based on enemy)
-                    attacker = self.model.get_active_pokemon()
-                    move = self.smt_moves[self.pending_move_name]
-                    element = move["element"]
-                    element_index = ELEMENT_INDEX[element]
-
-                    enemy = self.model.enemy_team[self.target_index]
-                    affinity = enemy.affinities[element_index]
-
-                    if affinity == 0:
-                        self.affinity_text = None
-                        self.affinity_done = True
-                        self.affinity_scroll_done = True
-                    else:
-                        if affinity < AFFINITY_NEUTRAL:
-                            self.affinity_text = AFFINITY_TEXT_WEAK
-                        elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
-                            self.affinity_text = AFFINITY_TEXT_RESIST
-                        elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
-                            self.affinity_text = AFFINITY_TEXT_NULL
-                        elif affinity == AFFINITY_REFLECT:
-                            self.affinity_text = AFFINITY_TEXT_REFLECT
-
-                        self.affinity_scroll_index = 0
-                        self.affinity_scroll_done = False
-
-            # Prepare damage text for the next phase
-            # (Even on miss, this is overwritten earlier)
-            self.damage_text = f"Dealt {self.damage_amount} damage."
-            self.damage_scroll_index = 0
-            self.damage_scroll_done = False
-
-            return
-
-        # PHASE 3a — affinity scroll
-        if self.damage_done and not self.affinity_done and self.affinity_text:
-            chars_per_second = self.scroll_delay * 20
-            chars_per_frame = chars_per_second / 60
-            self.affinity_scroll_index += chars_per_frame
-
-            if int(self.affinity_scroll_index) >= len(self.affinity_text):
-                self.affinity_scroll_index = len(self.affinity_text)
-                self.affinity_scroll_done = True
-                self.affinity_done = True
-
-            return
-
-        # PHASE 3b — damage text scroll
-        if self.damage_done and not self.damage_scroll_done:
-            chars_per_second = self.scroll_delay * 20
-            chars_per_frame = chars_per_second / 60
-            self.damage_scroll_index += chars_per_frame
-
-            if int(self.damage_scroll_index) >= len(self.damage_text):
-                self.damage_scroll_index = len(self.damage_text)
-                self.damage_scroll_done = True
-
-            return
-
-        
     def update_item_use_phase(self):
         # PHASE 1 — scroll "X uses Y!"
         if not self.item_use_scroll_done:
@@ -1220,133 +1042,122 @@ class BattleState(GameState):
         #self.model.next_side()  # back to player
         #self.menu_mode = MENU_MODE_MAIN
 
-    def update_enemy_damage_phase(self):
-        # -----------------------------
-        # PHASE 1.5 — delay before damage
-        # -----------------------------
+    def update_generic_damage_phase(self, is_player=True):
+
+        if is_player:
+            if not self.scroll_done:
+                chars_per_second = self.scroll_delay * 20
+                chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
+                self.scroll_index += chars_per_frame
+                if int(self.scroll_index) >= len(self.scroll_text):
+                    self.scroll_index = len(self.scroll_text)
+                    self.scroll_done = True
+                return
+        
         if not self.damage_started:
             if not self.delay_started:
                 self.delay_started = True
                 self.delay_frames = 0
-
             self.delay_frames += 1
             if self.delay_frames < WAIT_FRAMES_BEFORE_DAMAGE:
                 return
-
-            # Begin damage
             self.delay_started = False
             self.delay_frames = 0
-
-            # Attacker and target
-            attacker = self.model.enemy_team[self.active_enemy_index]
-            target = self.model.player_team[self.enemy_target_index]
-
-            # Move data
-            move = self.smt_moves[self.pending_enemy_move]
-
-            # --- Accuracy check ---
+            enemy = None
+            if is_player:
+                enemy = self.model.enemy_team[self.target_index]
+            attacker = None
+            if not is_player:
+                attacker = self.model.enemy_team[self.active_enemy_index]
+            if is_player:
+                attacker = self.model.get_active_pokemon()
+            target = None
+            if not is_player:
+                target = self.model.player_team[self.enemy_target_index]
+            move = None
+            if is_player:
+                move = self.smt_moves[self.pending_move_name]
+            if not is_player:
+                move = self.smt_moves[self.pending_enemy_move]
             if not self.check_accuracy(move):
                 self.missed = True
-
                 self.damage_amount = 0
-                self.damage_target = target
+                self.damage_amount = None
+                if is_player:
+                    self.damage_target = enemy
+                if not is_player:
+                    self.damage_target = target
                 self.damage_started = True
                 self.damage_animating = False
                 self.damage_done = True
-
-                # Prepare miss text
                 self.affinity_text = None
                 self.affinity_done = True
                 self.affinity_scroll_done = True
-
                 self.damage_text = "But it missed!"
                 self.damage_scroll_index = 0
                 self.damage_scroll_done = False
-
-                # Press turn penalty
                 self.model.consume_miss()
-                """
-                if not self.model.has_press_turns_left():
-                    self.model.next_side()
-                """
-
                 return
-
-            # Normal hit flow
             element = move["element"]
             element_index = ELEMENT_INDEX[element]
-            affinity = target.affinities[element_index]
-
-            # --- Critical hit check ---
-            is_crit = False
+            affinity = None
+            if is_player:
+                affinity = enemy.affinities[element_index]
+            if not is_player:
+                affinity = target.affinities[element_index]
             if move["type"] == "Physical":
-                # 8% crit chance
-                if random.random() < 1:
-                    is_crit = True
+                if random.random() < CRIT_CHANCE:
                     print("CRITICAL HIT!")
-
-            # Guarding overrides weakness → neutral
-            if target.is_guarding and affinity < AFFINITY_NEUTRAL:
-                affinity = AFFINITY_NEUTRAL
-
-
-            raw_damage = self.calculate_raw_damage(move, affinity)
-            self.damage_amount = raw_damage
-
-            # Reflect support
-            damage_target = self.determine_damage_recipient(attacker, target, affinity)
-
-            # HP animation setup
-            damage_target.hp_target = max(0, damage_target.remaining_hp - raw_damage)
+            if not is_player:
+                if target.is_guarding and affinity < AFFINITY_NEUTRAL:
+                    affinity = AFFINITY_NEUTRAL
+            self.damage_amount = self.calculate_raw_damage(move, affinity)
+            damage_target = None
+            if is_player:
+                damage_target = self.determine_damage_recipient(attacker, enemy, affinity)
+            if not is_player:
+                damage_target = self.determine_damage_recipient(attacker, target, affinity)
+            damage_target.hp_target = max(0, damage_target.remaining_hp - self.damage_amount)
             damage_target.hp_anim = damage_target.remaining_hp
-
-            damage_pixels = int((raw_damage / damage_target.max_hp) * HP_BAR_WIDTH)
+            damage_pixels = int((self.damage_amount / damage_target.max_hp) * HP_BAR_WIDTH)
             damage_target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
-
             damage_target.remaining_hp = damage_target.hp_target
-
             self.damage_target = damage_target
             self.damage_started = True
             self.damage_animating = True
             return
-
-        # -----------------------------
-        # PHASE 2 — HP animation
-        # -----------------------------
+        
         if self.damage_animating:
-            t = self.damage_target
-
-            if t.hp_anim > t.hp_target:
-                diff = t.hp_anim - t.hp_target
+            damage_target = self.damage_target
+            if damage_target.hp_anim > damage_target.hp_target:
+                diff = damage_target.hp_anim - damage_target.hp_target
                 step = max(1, int(diff ** 0.7))
-                t.hp_anim -= step
-
-                if t.hp_anim < t.hp_target:
-                    t.hp_anim = t.hp_target
+                damage_target.hp_anim -= step
+                if damage_target.hp_anim < damage_target.hp_target:
+                    damage_target.hp_anim = damage_target.hp_target
             else:
-                # HP animation finished
                 self.damage_animating = False
                 self.damage_done = True
-
-                # --- IMPORTANT FIX ---
-                # Do NOT run affinity logic if the move missed
                 if not getattr(self, "missed", False):
-
-                    # Reset affinity state
                     self.affinity_done = False
                     self.affinity_scroll_done = False
                     self.affinity_text = None
                     self.affinity_scroll_index = 0
-
-                    # Determine affinity text
-                    move = self.smt_moves[self.pending_enemy_move]
+                    if is_player:
+                        attacker = self.model.get_active_pokemon()
+                    move = None
+                    if is_player:
+                        move = self.smt_moves[self.pending_move_name]
+                    if not is_player:
+                        move = self.smt_moves[self.pending_enemy_move]
                     element = move["element"]
                     element_index = ELEMENT_INDEX[element]
-                    affinity = self.model.player_team[self.enemy_target_index].affinities[element_index]
-
-                    if self.model.player_team[self.enemy_target_index].is_guarding and affinity < AFFINITY_NEUTRAL:
-                        affinity = AFFINITY_NEUTRAL
-
+                    if is_player:
+                        affinity = self.model.enemy_team[self.target_index].affinities[element_index]
+                    if not is_player:
+                        affinity = self.model.player_team[self.enemy_target_index].affinities[element_index]
+                        if self.model.player_team[self.enemy_target_index].is_guarding and affinity < AFFINITY_NEUTRAL:
+                            affinity = AFFINITY_NEUTRAL
                     if affinity == 0:
                         self.affinity_text = None
                         self.affinity_done = True
@@ -1360,25 +1171,17 @@ class BattleState(GameState):
                             self.affinity_text = AFFINITY_TEXT_NULL
                         elif affinity == AFFINITY_REFLECT:
                             self.affinity_text = AFFINITY_TEXT_REFLECT
-
                         self.affinity_scroll_index = 0
                         self.affinity_scroll_done = False
-
-                # Prepare damage text (miss case already set earlier)
                 self.damage_text = f"Dealt {self.damage_amount} damage."
                 self.damage_scroll_index = 0
                 self.damage_scroll_done = False
-
-            return
-
-        # -----------------------------
-        # PHASE 3a — affinity scroll
-        # -----------------------------
+                return
+            
         if self.damage_done and not self.affinity_done and self.affinity_text:
             chars_per_second = self.scroll_delay * 20
             chars_per_frame = chars_per_second / 60
             self.affinity_scroll_index += chars_per_frame
-
             if int(self.affinity_scroll_index) >= len(self.affinity_text):
                 self.affinity_scroll_index = len(self.affinity_text)
                 self.affinity_scroll_done = True
@@ -1386,9 +1189,6 @@ class BattleState(GameState):
 
             return
 
-        # -----------------------------
-        # PHASE 3b — damage text scroll
-        # -----------------------------
         if self.damage_done and not self.damage_scroll_done:
             chars_per_second = self.scroll_delay * 20
             chars_per_frame = chars_per_second / 60
@@ -1399,9 +1199,6 @@ class BattleState(GameState):
                 self.damage_scroll_done = True
 
             return
-
-
-
         
     def update(self):
         if not self.model.is_player_turn:
@@ -1410,7 +1207,7 @@ class BattleState(GameState):
                 self.update_enemy_damaging_phase()
                 return
             elif self.menu_mode == MENU_MODE_ENEMY_DAMAGE:
-                self.update_enemy_damage_phase()
+                self.update_generic_damage_phase(False)
                 return
             else:
                 # Enemy turn just started → set up attack announcement
@@ -1418,7 +1215,7 @@ class BattleState(GameState):
                 self.start_enemy_turn()
                 return
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
-            self.update_damage_phase()
+            self.update_generic_damage_phase(True)
         elif self.menu_mode == MENU_MODE_GUARDING:
             self.update_guard_phase()
         elif self.menu_mode == MENU_MODE_ESCAPE:
