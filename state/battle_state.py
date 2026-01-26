@@ -19,6 +19,14 @@ from battle.battle_menu import (
     handle_info_event,
     handle_submenu_event,
 )
+from battle.battle_text import (
+    handle_talk_event,
+    handle_escape_event,
+    handle_guarding_event,
+    update_simple_scroll_phase,
+    handle_scroll_skip,
+    scroll_text_generic,
+)
 
 
 class BattleState(GameState):
@@ -158,13 +166,13 @@ class BattleState(GameState):
             self._handle_damaging_enemy_event(event)
 
         elif self.menu_mode == MENU_MODE_GUARDING:
-            self._handle_guarding_event(event)
+            handle_guarding_event(self, event)
 
         elif self.menu_mode == MENU_MODE_TALK:
-            self._handle_talk_event(event)
+            handle_talk_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ESCAPE:
-            self._handle_escape_event(event)
+            handle_escape_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ITEMS:
             handle_items_event(self, event)
@@ -211,11 +219,11 @@ class BattleState(GameState):
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self._update_generic_damage_phase(True)
         elif self.menu_mode == MENU_MODE_GUARDING:
-            return self._update_simple_scroll_phase()
+            return update_simple_scroll_phase(self)
         elif self.menu_mode == MENU_MODE_ESCAPE:
-            return self._update_simple_scroll_phase()
+            return update_simple_scroll_phase(self)
         elif self.menu_mode == MENU_MODE_TALK:
-            return self._update_simple_scroll_phase()
+            return update_simple_scroll_phase(self)
         elif self.menu_mode == MENU_MODE_ITEM_USE:
             self._update_item_use_phase()
 
@@ -241,16 +249,7 @@ class BattleState(GameState):
 
         self.item_heal_animating = True
 
-    def _handle_scroll_skip(self, event, text_attr, index_attr, done_attr):
-        # If text is still scrolling
-        if not getattr(self, done_attr):
-            if key_confirm(event.key):
-                # Instantly finish the scroll
-                setattr(self, index_attr, len(getattr(self, text_attr)))
-                setattr(self, done_attr, True)
-            return True   # handled (still in scroll phase)
-
-        return False      # scroll already done, caller should continue
+    
 
     def _move_main_menu_cursor(self, dx, dy):
         row = self.menu_index // 4
@@ -260,12 +259,6 @@ class BattleState(GameState):
         new_col = (col + dx) % 4
 
         self.menu_index = new_row * 4 + new_col
-
-    def _start_text_mode(self, text, mode):
-        self.scroll_text = text
-        self.scroll_index = 0
-        self.scroll_done = False
-        self.menu_mode = mode
 
     def _start_item_use_phase(self, user_name, item_name):
         # Text scroll for "X uses Y!"
@@ -447,69 +440,15 @@ class BattleState(GameState):
 
     
 
-    
-
-    
-
-    def _handle_talk_event(self, event):
-        def finish():
-            self.menu_mode = MENU_MODE_MAIN
-            self.menu_index = MENU_INDEX_TALK
-            self.scroll_text = ""
-            self.scroll_index = 0
-            self.scroll_done = True
-
-        return self._handle_simple_scroll_event(
-            event,
-            confirm_keys=(pygame.K_z, pygame.K_RETURN, pygame.K_x),
-            on_finish=finish
-        )
-
-
-    def _handle_escape_event(self, event):
-        def finish():
-            self.menu_mode = MENU_MODE_MAIN
-            self.menu_index = MENU_INDEX_ESCAPE
-            self.scroll_text = ""
-            self.scroll_index = 0
-            self.scroll_done = True
-
-        return self._handle_simple_scroll_event(
-            event,
-            confirm_keys=(pygame.K_z, pygame.K_RETURN, pygame.K_x),
-            on_finish=finish
-        )
-
-
-    def _handle_guarding_event(self, event):
-        def finish():
-            self._finish_guard_phase()
-
-        return self._handle_simple_scroll_event(
-            event,
-            confirm_keys=(pygame.K_z, pygame.K_RETURN),  # or whatever key_confirm uses
-            on_finish=finish
-        )
-
-
-    
-
-
-
-    
-
-        
-    
-
 
     def _handle_damaging_enemy_event(self, event):
 
-        if self._handle_scroll_skip(event, "scroll_text", "scroll_index", "scroll_done"):
+        if handle_scroll_skip(self, event, "scroll_text", "scroll_index", "scroll_done"):
             return
         if not self.damage_done:
             return
         if self.affinity_text and not self.affinity_done:
-            if self._handle_scroll_skip(event, "affinity_text", "affinity_scroll_index", "affinity_scroll_done"):
+            if handle_scroll_skip(self, event, "affinity_text", "affinity_scroll_index", "affinity_scroll_done"):
                 return
 
             if key_confirm(event.key):
@@ -990,27 +929,12 @@ class BattleState(GameState):
         self._setup_damage_text()
         return
     
-    def _scroll_text_generic(self, text, index_attr, done_attr, extra_done_attr=None):
-        chars_per_second = self.scroll_delay * SCROLL_DELAY_CONSTANT
-        chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
-
-        # Increment index
-        index = getattr(self, index_attr)
-        index += chars_per_frame
-
-        # Clamp
-        if int(index) >= len(text):
-            index = len(text)
-            setattr(self, done_attr, True)
-            if extra_done_attr:
-                setattr(self, extra_done_attr, True)
-
-        setattr(self, index_attr, index)
-        return
+    
     
     def _scroll_then_flag(self, text_attr, index_attr, done_attr, flag_attr):
         if not getattr(self, done_attr):
-            return self._scroll_text_generic(
+            return scroll_text_generic(
+                self,
                 text=getattr(self, text_attr),
                 index_attr=index_attr,
                 done_attr=done_attr
@@ -1071,7 +995,8 @@ class BattleState(GameState):
     def _update_generic_damage_phase(self, is_player=True):
         if is_player and not self.scroll_done:
             if not self.scroll_done:
-                return self._scroll_text_generic(
+                return scroll_text_generic(
+                    self,
                     text=self.scroll_text,
                     index_attr="scroll_index",
                     done_attr="scroll_done"
@@ -1086,7 +1011,8 @@ class BattleState(GameState):
 
         # PHASE 3a — affinity scroll
         if self.damage_done and not self.affinity_done and self.affinity_text:
-            return self._scroll_text_generic(
+            return scroll_text_generic(
+                self,
                 text=self.affinity_text,
                 index_attr="affinity_scroll_index",
                 done_attr="affinity_scroll_done",
@@ -1095,19 +1021,14 @@ class BattleState(GameState):
 
         # PHASE 3b — damage text scroll
         if self.damage_done and not self.damage_scroll_done:
-            return self._scroll_text_generic(
+            return scroll_text_generic(
+                self,
                 text=self.damage_text,
                 index_attr="damage_scroll_index",
                 done_attr="damage_scroll_done"
             )
         
-    def _update_simple_scroll_phase(self):
-        if not self.scroll_done:
-            return self._scroll_text_generic(
-                text=self.scroll_text,
-                index_attr="scroll_index",
-                done_attr="scroll_done"
-            )
+    
 
         
     

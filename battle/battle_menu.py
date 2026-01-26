@@ -1,6 +1,7 @@
 import pygame
 from constants import *
 from battle.battle_constants import *
+from battle.battle_text import start_text_mode
 
 def handle_main_menu_event(battle, event):
     battle.model.get_active_pokemon().is_guarding = False
@@ -44,15 +45,15 @@ def handle_main_menu_event(battle, event):
         if battle.menu_mode == MENU_MODE_MAIN and battle.menu_index == MENU_INDEX_GUARD:
             active = battle.model.get_active_player_pokemon()
             active.is_guarding = True
-            return battle._start_text_mode(f"{active.name} guards!", MENU_MODE_GUARDING)
+            return start_text_mode(battle, f"{active.name} guards!", MENU_MODE_GUARDING)
 
         # TALK
         if battle.menu_mode == MENU_MODE_MAIN and battle.menu_index == MENU_INDEX_TALK:
-            return battle._start_text_mode(TALK_TEXT, MENU_MODE_TALK)
+            return start_text_mode(battle, TALK_TEXT, MENU_MODE_TALK)
 
         # ESCAPE
         if battle.menu_mode == MENU_MODE_MAIN and battle.menu_index == MENU_INDEX_ESCAPE:
-            return battle._start_text_mode(ESCAPE_TEXT, MENU_MODE_ESCAPE)
+            return start_text_mode(battle, ESCAPE_TEXT, MENU_MODE_ESCAPE)
 
         
         if battle.menu_mode == MENU_MODE_MAIN and battle.menu_index == MENU_INDEX_INFO:
