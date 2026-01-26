@@ -1045,88 +1045,77 @@ class BattleState(GameState):
         #self.model.next_side()  # back to player
         #self.menu_mode = MENU_MODE_MAIN
 
-    def _scroll_attack_text(self):
-        if not self.scroll_done:
-            chars_per_second = self.scroll_delay * SCROLL_DELAY_CONSTANT
-            chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
-            self.scroll_index += chars_per_frame
-            if int(self.scroll_index) >= len(self.scroll_text):
-                self.scroll_index = len(self.scroll_text)
-                self.scroll_done = True
-            return
-        
-    def _begin_damage_if_ready(self, is_player):
+    def _handle_damage_delay(self):
         if not self.delay_started:
             self.delay_started = True
             self.delay_frames = 0
 
         self.delay_frames += 1
         if self.delay_frames < WAIT_FRAMES_BEFORE_DAMAGE:
-            return
+            return False
 
         # Start damage
         self.delay_started = False
         self.delay_frames = 0
-
-        # --- Attacker / defender / target selection ---
+        return True
+    
+    def _select_combatants(self, is_player):
         if is_player:
             attacker = self.model.get_active_pokemon()
             defender = self.model.enemy_team[self.target_index]
-            target = defender  # for symmetry with enemy branch
             move = self.smt_moves[self.pending_move_name]
         else:
             attacker = self.model.enemy_team[self.active_enemy_index]
             defender = self.model.player_team[self.enemy_target_index]
-            target = defender
             move = self.smt_moves[self.pending_enemy_move]
 
-        # --- Accuracy check ---
-        if not self.check_accuracy(move):
-            self.missed = True
+        return attacker, defender, move
+    
+    def _handle_accuracy(self, move, defender):
+        if self.check_accuracy(move):
+            return False  # hit
 
-            # Missed: do zero damage (then None, as in original)
-            self.damage_amount = 0
-            self.damage_amount = None
+        # Missed
+        self.missed = True
+        self.damage_amount = 0
+        self.damage_amount = None  # preserve original quirk
 
-            # Damage target is the defender in both cases
-            self.damage_target = target
+        self.damage_target = defender
+        self.damage_started = True
+        self.damage_animating = False
+        self.damage_done = True
 
-            self.damage_started = True
-            self.damage_animating = False
-            self.damage_done = True
+        # Miss text
+        self.affinity_text = None
+        self.affinity_done = True
+        self.affinity_scroll_done = True
 
-            # Prepare miss text
-            self.affinity_text = None
-            self.affinity_done = True
-            self.affinity_scroll_done = True
+        self.damage_text = "But it missed!"
+        self.damage_scroll_index = 0
+        self.damage_scroll_done = False
 
-            self.damage_text = "But it missed!"
-            self.damage_scroll_index = 0
-            self.damage_scroll_done = False
-
-            # Press turn penalty
-            self.model.consume_miss()
-            return
-
-        # --- Affinity determination ---
+        self.model.consume_miss()
+        return True  # miss handled
+    
+    def _compute_and_apply_damage(self, attacker, defender, move, is_player):
+        # Affinity
         element = move["element"]
         element_index = ELEMENT_INDEX[element]
         affinity = defender.affinities[element_index]
 
-        # --- Critical hit check (no side effects yet) ---
+        # Crit (still no side effects)
         if move["type"] == "Physical":
             if random.random() < CRIT_CHANCE:
                 print("CRITICAL HIT!")
 
-        # --- Guarding override (enemy attacking player only) ---
-        if not is_player:
-            if defender.is_guarding and affinity < AFFINITY_NEUTRAL:
-                affinity = AFFINITY_NEUTRAL
+        # Guarding override (enemy → player only)
+        if not is_player and defender.is_guarding and affinity < AFFINITY_NEUTRAL:
+            affinity = AFFINITY_NEUTRAL
 
-        # --- Damage calculation ---
+        # Damage calculation
         self.damage_amount = self.calculate_raw_damage(move, affinity)
 
-        # --- Determine who actually takes the damage (reflect, etc.) ---
+        # Reflect / redirect
         damage_target = self.determine_damage_recipient(attacker, defender, affinity)
 
         # HP animation setup
@@ -1141,100 +1130,132 @@ class BattleState(GameState):
         self.damage_target = damage_target
         self.damage_started = True
         self.damage_animating = True
+        
+    def _begin_damage_if_ready(self, is_player):
+
+        # PHASE 1.5 — wait for delay
+        if not self._handle_damage_delay():
+            return
+
+        # Select attacker, defender, move
+        attacker, defender, move = self._select_combatants(is_player)
+
+        # Accuracy check (miss ends phase)
+        if self._handle_accuracy(move, defender):
+            return
+
+        # Compute damage, affinity, guarding, reflect, HP animation
+        self._compute_and_apply_damage(attacker, defender, move, is_player)
         return
+    
+    def _tick_hp_animation(self, damage_target):
+        diff = damage_target.hp_anim - damage_target.hp_target
+        step = max(1, int(diff ** TICK_CONSTANT))
+        damage_target.hp_anim -= step
+
+        if damage_target.hp_anim < damage_target.hp_target:
+            damage_target.hp_anim = damage_target.hp_target
+
+    def _setup_damage_text(self):
+        self.damage_text = f"Dealt {self.damage_amount} damage."
+        self.damage_scroll_index = 0
+        self.damage_scroll_done = False
     
     def _animate_hp_bar(self, is_player):
         damage_target = self.damage_target
 
+        # Continue HP animation
         if damage_target.hp_anim > damage_target.hp_target:
-            diff = damage_target.hp_anim - damage_target.hp_target
-            step = max(1, int(diff ** 0.7))
-            damage_target.hp_anim -= step
-            if damage_target.hp_anim < damage_target.hp_target:
-                damage_target.hp_anim = damage_target.hp_target
-        else:
-            # HP animation finished
-            self.damage_animating = False
-            self.damage_done = True
-
-            # --- IMPORTANT FIX ---
-            # Do NOT run affinity logic if the move missed
-            if not getattr(self, "missed", False):
-
-                # Reset affinity state
-                self.affinity_done = False
-                self.affinity_scroll_done = False
-                self.affinity_text = None
-                self.affinity_scroll_index = 0
-
-                # Re‑determine move and affinity for text
-                if is_player:
-                    move = self.smt_moves[self.pending_move_name]
-                    defender = self.model.enemy_team[self.target_index]
-                else:
-                    move = self.smt_moves[self.pending_enemy_move]
-                    defender = self.model.player_team[self.enemy_target_index]
-
-                element = move["element"]
-                element_index = ELEMENT_INDEX[element]
-                affinity = defender.affinities[element_index]
-
-                # Guarding override for enemy attacking player (text side)
-                if not is_player:
-                    if defender.is_guarding and affinity < AFFINITY_NEUTRAL:
-                        affinity = AFFINITY_NEUTRAL
-
-                # Affinity text selection
-                if affinity == 0:
-                    self.affinity_text = None
-                    self.affinity_done = True
-                    self.affinity_scroll_done = True
-                else:
-                    if affinity < AFFINITY_NEUTRAL:
-                        self.affinity_text = AFFINITY_TEXT_WEAK
-                    elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
-                        self.affinity_text = AFFINITY_TEXT_RESIST
-                    elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
-                        self.affinity_text = AFFINITY_TEXT_NULL
-                    elif affinity == AFFINITY_REFLECT:
-                        self.affinity_text = AFFINITY_TEXT_REFLECT
-
-                    self.affinity_scroll_index = 0
-                    self.affinity_scroll_done = False
-
-            # Prepare damage text for the next phase
-            self.damage_text = f"Dealt {self.damage_amount} damage."
-            self.damage_scroll_index = 0
-            self.damage_scroll_done = False
-
+            self._tick_hp_animation(damage_target)
             return
-        
-    def _scroll_affinity_text(self):
-        chars_per_second = self.scroll_delay * 20
-        chars_per_frame = chars_per_second / 60
-        self.affinity_scroll_index += chars_per_frame
 
-        if int(self.affinity_scroll_index) >= len(self.affinity_text):
-            self.affinity_scroll_index = len(self.affinity_text)
-            self.affinity_scroll_done = True
-            self.affinity_done = True
+        # HP animation finished
+        self.damage_animating = False
+        self.damage_done = True
 
+        # Only compute affinity text if the move hit
+        if not getattr(self, "missed", False):
+            self._compute_affinity_text(is_player)
+
+        # Prepare damage text
+        self._setup_damage_text()
+        return
+
+
+    
+    def _scroll_text_generic(self, text, index_attr, done_attr, extra_done_attr=None):
+        chars_per_second = self.scroll_delay * SCROLL_DELAY_CONSTANT
+        chars_per_frame = chars_per_second / (SCROLL_CONSTANT * TARGET_FPS)
+
+        # Increment index
+        index = getattr(self, index_attr)
+        index += chars_per_frame
+
+        # Clamp
+        if int(index) >= len(text):
+            index = len(text)
+            setattr(self, done_attr, True)
+            if extra_done_attr:
+                setattr(self, extra_done_attr, True)
+
+        setattr(self, index_attr, index)
         return
     
-    def _scroll_damage_text(self):
-        chars_per_second = self.scroll_delay * 20
-        chars_per_frame = chars_per_second / 60
-        self.damage_scroll_index += chars_per_frame
+    def _compute_affinity_text(self, is_player):
+        # Reset affinity scroll state
+        self.affinity_done = False
+        self.affinity_scroll_done = False
+        self.affinity_text = None
+        self.affinity_scroll_index = 0
 
-        if int(self.damage_scroll_index) >= len(self.damage_text):
-            self.damage_scroll_index = len(self.damage_text)
-            self.damage_scroll_done = True
+        # Determine move + defender
+        if is_player:
+            move = self.smt_moves[self.pending_move_name]
+            defender = self.model.enemy_team[self.target_index]
+        else:
+            move = self.smt_moves[self.pending_enemy_move]
+            defender = self.model.player_team[self.enemy_target_index]
 
-        return
+        # Determine affinity
+        element = move["element"]
+        element_index = ELEMENT_INDEX[element]
+        affinity = defender.affinities[element_index]
+
+        # Guarding override (enemy → player only)
+        if not is_player and defender.is_guarding and affinity < AFFINITY_NEUTRAL:
+            affinity = AFFINITY_NEUTRAL
+
+        # Select affinity text
+        if affinity == 0:
+            # Neutral affinity → skip scroll
+            self.affinity_text = None
+            self.affinity_done = True
+            self.affinity_scroll_done = True
+        else:
+            if affinity < AFFINITY_NEUTRAL:
+                self.affinity_text = AFFINITY_TEXT_WEAK
+            elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
+                self.affinity_text = AFFINITY_TEXT_RESIST
+            elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
+                self.affinity_text = AFFINITY_TEXT_NULL
+            elif affinity == AFFINITY_REFLECT:
+                self.affinity_text = AFFINITY_TEXT_REFLECT
+
+            # Reset scroll state for non‑neutral affinity
+            self.affinity_scroll_index = 0
+            self.affinity_scroll_done = False
+
+
 
     def update_generic_damage_phase(self, is_player=True):
         if is_player and not self.scroll_done:
-            return self._scroll_attack_text()
+            if not self.scroll_done:
+                return self._scroll_text_generic(
+                    text=self.scroll_text,
+                    index_attr="scroll_index",
+                    done_attr="scroll_done"
+                )
+
         
         if not self.damage_started:
             return self._begin_damage_if_ready(is_player)
@@ -1244,11 +1265,21 @@ class BattleState(GameState):
 
         # PHASE 3a — affinity scroll
         if self.damage_done and not self.affinity_done and self.affinity_text:
-            return self._scroll_affinity_text()
+            return self._scroll_text_generic(
+                text=self.affinity_text,
+                index_attr="affinity_scroll_index",
+                done_attr="affinity_scroll_done",
+                extra_done_attr="affinity_done"
+            )
 
         # PHASE 3b — damage text scroll
         if self.damage_done and not self.damage_scroll_done:
-            return self._scroll_damage_text()
+            return self._scroll_text_generic(
+                text=self.damage_text,
+                index_attr="damage_scroll_index",
+                done_attr="damage_scroll_done"
+            )
+
 
         
     def update(self):
