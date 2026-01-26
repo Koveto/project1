@@ -9,6 +9,17 @@ from battle.battle_scene import BattleRenderer
 from pokedex.pokemon import Pokemon
 from data.smt.smt_stats import load_smt_from_json, get_smt_pokemon_by_number
 from data.smt.smt_moves import load_moves
+from battle.battle_menu import (
+    handle_main_menu_event,
+    handle_skills_menu_event,
+    handle_target_select_event,
+    handle_items_event,
+    handle_item_info_event,
+    handle_item_target_select_event,
+    handle_info_event,
+    handle_submenu_event,
+)
+
 
 class BattleState(GameState):
 
@@ -135,13 +146,13 @@ class BattleState(GameState):
             return
 
         if self.menu_mode == MENU_MODE_MAIN:
-            self._handle_main_menu_event(event)
+            handle_main_menu_event(self, event)
 
         elif self.menu_mode == MENU_MODE_SKILLS:
-            self._handle_skills_menu_event(event)
+            handle_skills_menu_event(self, event)
 
         elif self.menu_mode == MENU_MODE_TARGET_SELECT:
-            self._handle_target_select_event(event)
+            handle_target_select_event(self, event)
 
         elif self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self._handle_damaging_enemy_event(event)
@@ -156,16 +167,16 @@ class BattleState(GameState):
             self._handle_escape_event(event)
 
         elif self.menu_mode == MENU_MODE_ITEMS:
-            self._handle_items_event(event)
+            handle_items_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ITEM_INFO:
-            self._handle_item_info_event(event)
+            handle_item_info_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ITEM_USE:
             self._handle_item_use_event(event)
 
         elif self.menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
-            self._handle_item_target_select_event(event)
+            handle_item_target_select_event(self, event)
 
         elif self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
             self._handle_enemy_damaging_event(event)
@@ -174,10 +185,10 @@ class BattleState(GameState):
             self._handle_enemy_damage_event(event)
 
         elif self.menu_mode == MENU_MODE_INFO:
-            self._handle_info_event(event)
+            handle_info_event(self, event)
 
         elif self.menu_mode == MENU_MODE_SUBMENU:
-            self._handle_submenu_event(event)
+            handle_submenu_event(self, event)
 
     def update(self):
         if not self.model.is_player_turn:
@@ -434,129 +445,11 @@ class BattleState(GameState):
     def _get_current_enemy_attacker(self):
         return self.enemy_turn_order[self.enemy_turn_index]
 
-    def _handle_main_menu_event(self, event):
-        self.model.get_active_pokemon().is_guarding = False
+    
 
-        if event.key == pygame.K_RIGHT:
-            return self._move_main_menu_cursor(dx=1, dy=0)
+    
 
-        elif event.key == pygame.K_LEFT:
-            return self._move_main_menu_cursor(dx=-1, dy=0)
-
-        elif event.key == pygame.K_DOWN:
-            return self._move_main_menu_cursor(dx=0, dy=1)
-
-        elif event.key == pygame.K_UP:
-            return self._move_main_menu_cursor(dx=0, dy=-1)
-
-        elif key_confirm(event.key):
-            # SKILLS
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_SKILLS:
-                self.menu_mode = MENU_MODE_SKILLS
-                self.previous_menu_index = self.menu_index
-                self.menu_index = 0
-                return
-            
-            # ITEM
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_ITEMS:
-                self.menu_mode = MENU_MODE_ITEMS
-                self.item_cursor_x = 0
-                self.item_cursor_y = 0
-                return
-
-            # PASS
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_PASS:
-                self.model.handle_action_press_turn_cost(PRESS_TURN_HALF)
-                self.model.next_turn()
-                self.menu_mode = MENU_MODE_MAIN
-                self.menu_index = MENU_INDEX_PASS
-                return
-            
-            # GUARD
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_GUARD:
-                active = self.model.get_active_player_pokemon()
-                active.is_guarding = True
-                return self._start_text_mode(f"{active.name} guards!", MENU_MODE_GUARDING)
-
-            # TALK
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_TALK:
-                return self._start_text_mode(TALK_TEXT, MENU_MODE_TALK)
-
-            # ESCAPE
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_ESCAPE:
-                return self._start_text_mode(ESCAPE_TEXT, MENU_MODE_ESCAPE)
-
-            
-            if self.menu_mode == MENU_MODE_MAIN and self.menu_index == MENU_INDEX_INFO:
-                self.menu_mode = MENU_MODE_INFO
-                return
-
-            self.previous_menu_index = self.menu_index
-            self.menu_mode = MENU_MODE_SUBMENU
-
-    def _handle_item_info_event(self, event):
-        if event.type != pygame.KEYDOWN:
-            return
-
-        # BACK
-        if key_back(event.key):
-            self.menu_mode = MENU_MODE_ITEMS
-            return
-
-        # LEFT
-        if event.key == pygame.K_LEFT:
-            ally_count = len(self.model.player_team)
-            self.selected_ally = (self.selected_ally - 1) % ally_count
-            return
-
-        # RIGHT
-        if event.key == pygame.K_RIGHT:
-            ally_count = len(self.model.player_team)
-            self.selected_ally = (self.selected_ally + 1) % ally_count
-            return
-        
-        # CONFIRM
-        if key_confirm(event.key):
-            # Build the scroll text
-            user = self.model.get_active_pokemon()
-            return self._start_item_use_phase(user.name, self.pending_item_name)
-
-
-    def _handle_items_event(self, event):
-        
-        item_names = list(self.model.inventory.keys())
-        item_count = len(item_names)
-
-        if event.key == pygame.K_LEFT:
-            return self._move_item_cursor(dx=-1, dy=0)
-
-        elif event.key == pygame.K_RIGHT:
-            return self._move_item_cursor(dx=1, dy=0)
-
-        elif event.key == pygame.K_UP:
-            return self._move_item_cursor(dx=0, dy=-1)
-
-        elif event.key == pygame.K_DOWN:
-            return self._move_item_cursor(dx=0, dy=1)
-
-        # BACK
-        elif key_back(event.key):
-            self.menu_mode = MENU_MODE_MAIN
-            self.menu_index = MENU_INDEX_ITEMS
-            return
-        
-        # CONFIRM
-        elif key_confirm(event.key):
-            index = self.item_cursor_y * 3 + self.item_cursor_x
-            if index < item_count:
-                item_name = item_names[index]
-                item_data = self.model.smt_items[item_name]
-
-                if item_data["type"].startswith("heal_single"):
-                    return self._select_item(item_name, item_data, MENU_MODE_ITEM_INFO)
-
-                if item_data["type"].startswith("damage"):
-                    return self._select_item(item_name, item_data, MENU_MODE_ITEM_TARGET_SELECT)
+    
 
     def _handle_talk_event(self, event):
         def finish():
@@ -599,75 +492,14 @@ class BattleState(GameState):
         )
 
 
-    def _handle_skills_menu_event(self, event):
-        if event.key == pygame.K_DOWN:
-            return self._move_skill_cursor(direction=1)
-
-        elif event.key == pygame.K_UP:
-            return self._move_skill_cursor(direction=-1)
-
-        elif key_confirm(event.key):
-            pokemon = self.model.get_active_pokemon()
-            selected_index = self.skills_scroll + self.skills_cursor
-            move_name = pokemon.moves[selected_index]
-            move = self.smt_moves.get(move_name)
-
-            if self._can_select_skill(move, pokemon):
-                self.menu_mode = MENU_MODE_TARGET_SELECT
-                return
-
-        elif key_back(event.key):
-            self.menu_mode = MENU_MODE_MAIN
+    
 
 
 
-    def _handle_target_select_event(self, event):
-        enemy_count = len(self.model.enemy_team)
-
-        # ----------------------------------------
-        # LEFT / RIGHT: cycle enemy targets
-        # ----------------------------------------
-        if event.key == pygame.K_LEFT:
-            if enemy_count > 0:
-                self.target_index = (self.target_index - 1) % enemy_count
-            return
-
-        elif event.key == pygame.K_RIGHT:
-            if enemy_count > 0:
-                self.target_index = (self.target_index + 1) % enemy_count
-            return
-
-        # ----------------------------------------
-        # CONFIRM: lock in move + target
-        # ----------------------------------------
-        elif key_confirm(event.key):
-            return self._start_player_attack_phase()
-
-        # ----------------------------------------
-        # BACK: return to skills menu
-        # ----------------------------------------
-        elif key_back(event.key):
-            self.menu_mode = MENU_MODE_SKILLS
-            return
+    
 
         
-    def _handle_item_target_select_event(self, event):
-        enemy_count = len(self.model.enemy_team)
-
-        if event.key == pygame.K_LEFT:
-            if enemy_count > 0:
-                self.target_index = (self.target_index - 1) % enemy_count
-
-        elif event.key == pygame.K_RIGHT:
-            if enemy_count > 0:
-                self.target_index = (self.target_index + 1) % enemy_count
-
-        elif key_confirm(event.key):
-            return self._start_item_attack_phase()
-
-        elif key_back(event.key):
-            self.menu_mode = MENU_MODE_ITEMS
-            return
+    
 
 
     def _handle_damaging_enemy_event(self, event):
@@ -723,21 +555,9 @@ class BattleState(GameState):
                 self.damage_animating = False
                 return
 
-    def _handle_info_event(self, event):
-        if key_back(event.key):
-            self.menu_mode = MENU_MODE_MAIN
-        if event.key == pygame.K_LEFT:
-            self.info_col = (self.info_col - 1) % 4
-        if event.key == pygame.K_RIGHT:
-            self.info_col = (self.info_col + 1) % 4
-        if event.key == pygame.K_UP:
-            self.info_row = 0
-        if event.key == pygame.K_DOWN:
-            self.info_row = 1
+    
 
-    def _handle_submenu_event(self, event):
-        if key_back(event.key):
-            self.menu_mode = MENU_MODE_MAIN
+    
 
     
 
