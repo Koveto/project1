@@ -20,12 +20,21 @@ from battle.battle_menu import (
     handle_submenu_event,
 )
 from battle.battle_text import (
+    start_text_mode,
     handle_talk_event,
     handle_escape_event,
     handle_guarding_event,
     update_simple_scroll_phase,
-    handle_scroll_skip,
     scroll_text_generic,
+    handle_scroll_skip
+)
+from battle.battle_items import (
+    handle_item_use_event,
+    update_item_use_phase,
+    apply_item_healing,
+    compute_heal_amount,
+    setup_heal_animation,
+    apply_heal_to_ally
 )
 
 
@@ -181,7 +190,7 @@ class BattleState(GameState):
             handle_item_info_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ITEM_USE:
-            self._handle_item_use_event(event)
+            handle_item_use_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
             handle_item_target_select_event(self, event)
@@ -225,29 +234,12 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_TALK:
             return update_simple_scroll_phase(self)
         elif self.menu_mode == MENU_MODE_ITEM_USE:
-            self._update_item_use_phase()
+            update_item_use_phase(self)
 
 
-    def _apply_heal_to_ally(self, ally, heal):
-        old_hp = ally.remaining_hp
-        new_hp = min(old_hp + heal, ally.max_hp)
-
-        # Store actual heal amount BEFORE animation
-        self.item_heal_amount = new_hp - old_hp
-
-        # Apply healed HP
-        ally.remaining_hp = new_hp
-
-        return old_hp, new_hp
     
-    def _setup_heal_animation(self, ally, old_hp, new_hp):
-        ally.hp_target = new_hp
-        ally.hp_anim = old_hp
-
-        heal_pixels = int(((new_hp - old_hp) / ally.max_hp) * HP_BAR_WIDTH)
-        ally.hp_anim_speed = max(1, min(12, heal_pixels // 4))
-
-        self.item_heal_animating = True
+    
+    
 
     
 
@@ -460,23 +452,7 @@ class BattleState(GameState):
 
         
     
-    def _handle_item_use_event(self, event):
-
-        if self.item_recover_scroll_done and key_confirm(event.key):
-
-            # 1. Consume the item
-            self.model.consume_item(self.pending_item_name)
-
-            # 2. Spend a full press turn
-            self.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
-
-            # 3. Advance to next turn
-            self.model.next_turn()
-
-            # 4. Return to main battle menu
-            self.menu_mode = MENU_MODE_MAIN
-            self.menu_index = MENU_INDEX_ITEMS
-            return
+    
         
     def _handle_enemy_damage_event(self, event):
         if event.type == pygame.KEYDOWN and key_confirm(event.key):
@@ -500,30 +476,9 @@ class BattleState(GameState):
 
     
 
-    def _compute_heal_amount(self, ally, item):
-        heal_type = item["type"]
-        amount = item["amount"]
-
-        if heal_type == "heal_single_fixed":
-            return amount
-
-        if heal_type == "heal_single_percent":
-            return int(ally.max_hp * (amount / 100))
-
-        return 0
+    
             
-    def _apply_item_healing(self):
-        item = self.pending_item_data
-        ally = self.model.player_team[self.selected_ally]
-
-        # 1) Compute heal amount
-        heal = self._compute_heal_amount(ally, item)
-
-        # 2) Apply heal + get old/new HP
-        old_hp, new_hp = self._apply_heal_to_ally(ally, heal)
-
-        # 3) Set up animation
-        self._setup_heal_animation(ally, old_hp, new_hp)
+    
 
     def _reset_damage_flags(self):
         self.damage_started = False
@@ -735,60 +690,7 @@ class BattleState(GameState):
 
         return self._begin_enemy_action(attacker_index, move_name, target_index)
         
-    def _update_item_use_phase(self):
-        # PHASE 1 — scroll "X uses Y!"
-        if not self.item_use_scroll_done:
-            chars_per_second = self.scroll_delay * 20
-            chars_per_frame = chars_per_second / 60
-            self.item_use_scroll_index += chars_per_frame
-
-            if int(self.item_use_scroll_index) >= len(self.item_use_text):
-                self.item_use_scroll_index = len(self.item_use_text)
-                self.item_use_scroll_done = True
-
-            return
-
-        # PHASE 2 — apply healing ONCE, then start animating
-        if not self.item_heal_done and not self.item_heal_animating:
-            self._apply_item_healing()
-            return
-
-        # PHASE 3 — animate HP rising
-        if self.item_heal_animating:
-            ally = self.model.player_team[self.selected_ally]
-
-            if ally.hp_anim < ally.hp_target:
-                diff = ally.hp_target - ally.hp_anim
-                step = max(1, int(diff ** 0.7))
-                ally.hp_anim += step
-                if ally.hp_anim > ally.hp_target:
-                    ally.hp_anim = ally.hp_target
-                return
-
-            # Animation finished
-            self.item_heal_animating = False
-            self.item_heal_done = True
-
-            # Prepare "Recovered X HP!" text
-            self.item_recover_text = f"Recovered {self.item_heal_amount} HP!"
-            self.item_recover_scroll_index = 0
-            self.item_recover_scroll_done = False
-            return
-
-        # PHASE 4 — scroll "Recovered X HP!"
-        if self.item_heal_done and not self.item_recover_scroll_done:
-            chars_per_second = self.scroll_delay * 20
-            chars_per_frame = chars_per_second / 60
-            self.item_recover_scroll_index += chars_per_frame
-
-            if int(self.item_recover_scroll_index) >= len(self.item_recover_text):
-                self.item_recover_scroll_index = len(self.item_recover_text)
-                self.item_recover_scroll_done = True
-
-            return
-
-        # PHASE 5 — wait for confirm (handled in input)
-        return
+    
 
     def _handle_damage_delay(self):
         if not self.delay_started:
