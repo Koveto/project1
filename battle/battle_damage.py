@@ -215,8 +215,8 @@ def finish_damage_phase(battle):
     move = battle.smt_moves[battle.pending_move_name]
 
     affinity = compute_affinity_after_damage(battle, attacker, defender, move)
-    battle._apply_press_turn_cost(affinity)
-    battle._handle_side_switch()
+    apply_press_turn_cost(battle, affinity)
+    handle_side_switch(battle)
 
     battle.pending_move_name = None
 
@@ -229,14 +229,14 @@ def finish_damage_phase(battle):
 def finish_enemy_damage_phase(battle):
     reset_damage_flags(battle)
 
-    attacker_index = battle._get_current_enemy_attacker()
+    attacker_index = get_current_enemy_attacker(battle)
     attacker = battle.model.enemy_team[attacker_index]
     defender = battle.model.player_team[battle.enemy_target_index]
     move = battle.smt_moves[battle.pending_enemy_move]
 
     affinity = compute_affinity_after_damage(battle, attacker, defender, move)
-    battle._apply_press_turn_cost(affinity)
-    battle._handle_side_switch()
+    apply_press_turn_cost(battle, affinity)
+    handle_side_switch(battle)
 
     battle.pending_enemy_move = None
 
@@ -247,7 +247,7 @@ def finish_enemy_damage_phase(battle):
 
     if battle.model.has_press_turns_left():
         battle.enemy_turn_index = (battle.enemy_turn_index + 1) % len(battle.enemy_turn_order)
-        battle._start_enemy_attack()
+        start_enemy_attack(battle)
         return
 
     # Safety fallback
@@ -312,12 +312,144 @@ def begin_damage_if_ready(battle, is_player):
         return
 
     # Select attacker, defender, move
-    attacker, defender, move = battle._select_combatants(is_player)
+    attacker, defender, move = select_combatants(battle, is_player)
 
     # Accuracy check (miss ends phase)
     if handle_accuracy(battle, move, defender):
         return
 
     # Compute damage, affinity, guarding, reflect, HP animation
-    battle._compute_and_apply_damage(attacker, defender, move, is_player)
+    compute_and_apply_damage(battle, attacker, defender, move, is_player)
     return
+
+def apply_press_turn_cost(battle, affinity):
+    if not battle.missed:
+        cost = calculate_press_turns_consumed(battle, affinity)
+        battle.model.handle_action_press_turn_cost(cost)
+    else:
+        battle.missed = False  # reset for next action
+
+def handle_side_switch(battle):
+    if not battle.model.has_press_turns_left():
+        battle.model.next_side()
+
+def get_current_enemy_attacker(battle):
+    return battle.enemy_turn_order[battle.enemy_turn_index]
+
+def start_enemy_attack(battle):
+    attacker_index = get_current_enemy_attacker(battle)
+    attacker = battle.model.enemy_team[attacker_index]
+
+    move_name = attacker.choose_random_move()
+    target_index = battle.model.choose_random_player_target()
+
+    return begin_enemy_action(battle, attacker_index, move_name, target_index)
+
+def select_combatants(battle, is_player):
+    if is_player:
+        attacker = battle.model.get_active_pokemon()
+        defender = battle.model.enemy_team[battle.target_index]
+        move = battle.smt_moves[battle.pending_move_name]
+    else:
+        attacker = battle.model.enemy_team[battle.active_enemy_index]
+        defender = battle.model.player_team[battle.enemy_target_index]
+        move = battle.smt_moves[battle.pending_enemy_move]
+
+    return attacker, defender, move
+
+def compute_and_apply_damage(battle, attacker, defender, move, is_player):
+    # Affinity
+    element = move["element"]
+    element_index = ELEMENT_INDEX[element]
+    affinity = defender.affinities[element_index]
+
+    # Crit (still no side effects)
+    if move["type"] == "Physical":
+        if random.random() < CRIT_CHANCE:
+            print("CRITICAL HIT!")
+
+    # Guarding override (enemy → player only)
+    if not is_player and defender.is_guarding and affinity < AFFINITY_NEUTRAL:
+        affinity = AFFINITY_NEUTRAL
+
+    # Damage calculation
+    battle.damage_amount = calculate_raw_damage(battle, move, affinity)
+
+    # Reflect / redirect
+    damage_target = determine_damage_recipient(battle, attacker, defender, affinity)
+
+    # HP animation setup
+    damage_target.hp_target = max(0, damage_target.remaining_hp - battle.damage_amount)
+    damage_target.hp_anim = damage_target.remaining_hp
+
+    damage_pixels = int((battle.damage_amount / damage_target.max_hp) * HP_BAR_WIDTH)
+    damage_target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
+
+    damage_target.remaining_hp = damage_target.hp_target
+
+    battle.damage_target = damage_target
+    battle.damage_started = True
+    battle.damage_animating = True
+
+def handle_enemy_damage_event(battle, event):
+    if event.type == pygame.KEYDOWN and key_confirm(event.key):
+        if battle.damage_scroll_done:
+            finish_enemy_damage_phase(battle)
+
+def begin_enemy_action(battle, attacker_index, move_name, target_index):
+    attacker = battle.model.enemy_team[attacker_index]
+
+    # Sync active index
+    battle.active_enemy_index = attacker_index
+
+    # Store pending move + target
+    battle.pending_enemy_move = move_name
+    battle.enemy_target_index = target_index
+
+    # Subtract MP
+    move = battle.smt_moves[move_name]
+    cost = move["mp"]
+    attacker.remaining_mp = max(0, attacker.remaining_mp - cost)
+
+    # Build announcement text
+    target = battle.model.player_team[target_index]
+    if move_name == "Attack":
+        battle.scroll_text = f"{attacker.name} attacks {target.name}!"
+    else:
+        battle.scroll_text = f"{attacker.name} uses {move_name} on {target.name}!"
+
+    # Reset scroll state
+    battle.scroll_index = 0
+    battle.scroll_done = False
+
+    # Reset damage flags
+    battle.damage_started = False
+    battle.damage_done = False
+    battle.affinity_text = None
+    battle.affinity_done = False
+    battle.affinity_scroll_index = 0
+    battle.affinity_scroll_done = False
+
+    # Enter announcement phase
+    battle.menu_mode = MENU_MODE_DAMAGING_PLAYER
+    battle.enemy_waiting_for_confirm = False
+
+def start_enemy_turn(battle):
+    # Enter announcement mode immediately
+    battle.menu_mode = MENU_MODE_DAMAGING_PLAYER
+
+    # Build SPD‑sorted order
+    battle.enemy_turn_order = sorted(
+        range(len(battle.model.enemy_team)),
+        key=lambda i: battle.model.enemy_team[i].speed,
+        reverse=True
+    )
+    battle.enemy_turn_index = 0
+
+    attacker_index = battle.enemy_turn_order[battle.enemy_turn_index]
+    attacker = battle.model.enemy_team[attacker_index]
+
+    move_name = random.choice(attacker.moves)
+    target_index = random.randrange(len(battle.model.player_team))
+
+    return begin_enemy_action(battle, attacker_index, move_name, target_index)

@@ -15,7 +15,8 @@ from battle.battle_text import (
     handle_guarding_event,
     update_simple_scroll_phase,
     scroll_text_generic,
-    handle_scroll_skip
+    handle_scroll_skip,
+    scroll_then_flag
 )
 from battle.battle_items import (
     handle_item_use_event,
@@ -42,29 +43,8 @@ from battle.battle_damage import (
     finish_enemy_damage_phase,
     update_generic_damage_phase,
     handle_damage_delay,
-    begin_damage_if_ready
+    begin_damage_if_ready,
+    handle_enemy_damage_event,
+    begin_enemy_action,
+    start_enemy_turn
 )
-
-
-
-battle_text...
-_handle_simple_scroll_event
-_finish_guard_phase
-
-battle_menu...
-_move_main_menu_cursor
-_move_skill_cursor
-_can_select_skill
-_start_player_attack_phase
-_move_item_cursor
-_select_item
-_start_item_use_phase
-_start_item_attack_phase
-
-battle_damage...
-_apply_press_turn_cost
-_handle_side_switch
-_get_current_enemy_attacker
-_start_enemy_attack
-_select_combatants
-_compute_and_apply_damage

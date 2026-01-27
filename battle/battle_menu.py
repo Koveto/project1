@@ -7,16 +7,16 @@ def handle_main_menu_event(battle, event):
     battle.model.get_active_pokemon().is_guarding = False
 
     if event.key == pygame.K_RIGHT:
-        return battle._move_main_menu_cursor(dx=1, dy=0)
+        return move_main_menu_cursor(battle, dx=1, dy=0)
 
     elif event.key == pygame.K_LEFT:
-        return battle._move_main_menu_cursor(dx=-1, dy=0)
+        return move_main_menu_cursor(battle, dx=-1, dy=0)
 
     elif event.key == pygame.K_DOWN:
-        return battle._move_main_menu_cursor(dx=0, dy=1)
+        return move_main_menu_cursor(battle, dx=0, dy=1)
 
     elif event.key == pygame.K_UP:
-        return battle._move_main_menu_cursor(dx=0, dy=-1)
+        return move_main_menu_cursor(battle, dx=0, dy=-1)
 
     elif key_confirm(event.key):
         # SKILLS
@@ -65,10 +65,10 @@ def handle_main_menu_event(battle, event):
 
 def handle_skills_menu_event(battle, event):
     if event.key == pygame.K_DOWN:
-        return battle._move_skill_cursor(direction=1)
+        return move_skill_cursor(battle, direction=1)
 
     elif event.key == pygame.K_UP:
-        return battle._move_skill_cursor(direction=-1)
+        return move_skill_cursor(battle, direction=-1)
 
     elif key_confirm(event.key):
         pokemon = battle.model.get_active_pokemon()
@@ -76,7 +76,7 @@ def handle_skills_menu_event(battle, event):
         move_name = pokemon.moves[selected_index]
         move = battle.smt_moves.get(move_name)
 
-        if battle._can_select_skill(move, pokemon):
+        if can_select_skill(battle, move, pokemon):
             battle.menu_mode = MENU_MODE_TARGET_SELECT
             return
 
@@ -103,7 +103,7 @@ def handle_target_select_event(battle, event):
     # CONFIRM: lock in move + target
     # ----------------------------------------
     elif key_confirm(event.key):
-        return battle._start_player_attack_phase()
+        return start_player_attack_phase(battle)
 
     # ----------------------------------------
     # BACK: return to skills menu
@@ -118,16 +118,16 @@ def handle_items_event(battle, event):
     item_count = len(item_names)
 
     if event.key == pygame.K_LEFT:
-        return battle._move_item_cursor(dx=-1, dy=0)
+        return move_item_cursor(battle, dx=-1, dy=0)
 
     elif event.key == pygame.K_RIGHT:
-        return battle._move_item_cursor(dx=1, dy=0)
+        return move_item_cursor(battle, dx=1, dy=0)
 
     elif event.key == pygame.K_UP:
-        return battle._move_item_cursor(dx=0, dy=-1)
+        return move_item_cursor(battle, dx=0, dy=-1)
 
     elif event.key == pygame.K_DOWN:
-        return battle._move_item_cursor(dx=0, dy=1)
+        return move_item_cursor(battle, dx=0, dy=1)
 
     # BACK
     elif key_back(event.key):
@@ -143,10 +143,10 @@ def handle_items_event(battle, event):
             item_data = battle.model.smt_items[item_name]
 
             if item_data["type"].startswith("heal_single"):
-                return battle._select_item(item_name, item_data, MENU_MODE_ITEM_INFO)
+                return select_item(battle, item_name, item_data, MENU_MODE_ITEM_INFO)
 
             if item_data["type"].startswith("damage"):
-                return battle._select_item(item_name, item_data, MENU_MODE_ITEM_TARGET_SELECT)
+                return select_item(battle, item_name, item_data, MENU_MODE_ITEM_TARGET_SELECT)
             
 def handle_item_info_event(battle, event):
     if event.type != pygame.KEYDOWN:
@@ -173,7 +173,7 @@ def handle_item_info_event(battle, event):
     if key_confirm(event.key):
         # Build the scroll text
         user = battle.model.get_active_pokemon()
-        return battle._start_item_use_phase(user.name, battle.pending_item_name)
+        return start_item_use_phase(battle, user.name, battle.pending_item_name)
     
 def handle_item_target_select_event(battle, event):
     enemy_count = len(battle.model.enemy_team)
@@ -187,7 +187,7 @@ def handle_item_target_select_event(battle, event):
             battle.target_index = (battle.target_index + 1) % enemy_count
 
     elif key_confirm(event.key):
-        return battle._start_item_attack_phase()
+        return start_item_attack_phase(battle)
 
     elif key_back(event.key):
         battle.menu_mode = MENU_MODE_ITEMS
@@ -208,3 +208,170 @@ def handle_info_event(battle, event):
 def handle_submenu_event(battle, event):
     if key_back(event.key):
         battle.menu_mode = MENU_MODE_MAIN
+
+def move_main_menu_cursor(battle, dx, dy):
+    row = battle.menu_index // 4
+    col = battle.menu_index % 4
+
+    new_row = (row + dy) % 2
+    new_col = (col + dx) % 4
+
+    battle.menu_index = new_row * 4 + new_col
+
+def move_skill_cursor(battle, direction):
+    """
+    direction = +1 for DOWN, -1 for UP
+    """
+    moves = battle.model.get_active_pokemon().moves
+    total = len(moves)
+
+    # Moving down
+    if direction == 1:
+        # Case 1: Move cursor down within visible window
+        if battle.skills_cursor < 2 and battle.skills_cursor < total - 1:
+            battle.skills_cursor += 1
+            return
+
+        # Case 2: Scroll down if more moves exist below
+        if battle.skills_scroll + 3 < total:
+            battle.skills_scroll += 1
+            return
+
+        # Case 3: Fallback — move cursor if possible
+        if battle.skills_cursor < 2:
+            battle.skills_cursor += 1
+            return
+
+    # Moving up
+    if direction == -1:
+        # Case 1: Move cursor up within visible window
+        if battle.skills_cursor > 0:
+            battle.skills_cursor -= 1
+            return
+
+        # Case 2: Scroll up if possible
+        if battle.skills_scroll > 0:
+            battle.skills_scroll -= 1
+            return
+
+        # Case 3: Fallback — move cursor if possible
+        if battle.skills_cursor > 0:
+            battle.skills_cursor -= 1
+            return
+        
+def can_select_skill(battle, move, pokemon):
+    return (
+        move["target"] == "Single" and
+        move["type"] in ("Physical", "Special") and
+        pokemon.remaining_mp >= move["mp"]
+    )
+
+def start_player_attack_phase(battle):
+    # Switch mode
+    battle.menu_mode = MENU_MODE_DAMAGING_ENEMY
+
+    # Determine move + target
+    selected_index = battle.skills_scroll + battle.skills_cursor
+    active = battle.model.get_active_pokemon()
+    move_name = active.moves[selected_index]
+    enemy = battle.model.enemy_team[battle.target_index]
+
+    # Store pending move
+    battle.pending_move_name = move_name
+
+    # MP consumption
+    move = battle.smt_moves[move_name]
+    cost = move["mp"]
+    active.remaining_mp = max(0, active.remaining_mp - cost)
+
+    # Build announcement text
+    if move_name == "Attack":
+        battle.scroll_text = f"{active.name} attacks {enemy.name}!"
+    else:
+        battle.scroll_text = f"{active.name} uses {move_name} on {enemy.name}!"
+
+    # Reset scroll state
+    battle.scroll_index = 0
+    battle.scroll_done = False
+
+    # Reset damage state
+    battle.damage_started = False
+    battle.damage_done = False
+
+    # Reset affinity state
+    battle.affinity_text = None
+    battle.affinity_done = False
+    battle.affinity_scroll_index = 0
+    battle.affinity_scroll_done = False
+
+def move_item_cursor(battle, dx, dy):
+    item_names = list(battle.model.inventory.keys())
+    item_count = len(item_names)
+
+    new_x = battle.item_cursor_x + dx
+    new_y = battle.item_cursor_y + dy
+
+    # Clamp to grid bounds (3 columns, 3 rows)
+    new_x = max(0, min(2, new_x))
+    new_y = max(0, min(2, new_y))
+
+    # Convert to linear index
+    new_index = new_y * 3 + new_x
+
+    # Only move if the slot exists
+    if new_index < item_count:
+        battle.item_cursor_x = new_x
+        battle.item_cursor_y = new_y
+
+def select_item(battle, item_name, item_data, next_mode):
+    battle.pending_item_name = item_name
+    battle.pending_item_data = item_data
+    battle.menu_mode = next_mode
+
+def start_item_use_phase(battle, user_name, item_name):
+    # Text scroll for "X uses Y!"
+    battle.item_use_text = f"{user_name} uses {item_name}!"
+    battle.item_use_scroll_index = 0
+    battle.item_use_scroll_done = False
+
+    # Heal animation state
+    battle.item_heal_animating = False
+    battle.item_heal_done = False
+
+    # Recovery text (e.g., "Recovered 20 HP!")
+    battle.item_recover_text = None
+    battle.item_recover_scroll_index = 0
+    battle.item_recover_scroll_done = False
+
+    # Switch mode
+    battle.menu_mode = MENU_MODE_ITEM_USE
+
+def start_item_attack_phase(battle):
+    # Consume the item
+    battle.model.consume_item(battle.pending_item_name)
+
+    # Switch to damage phase
+    battle.menu_mode = MENU_MODE_DAMAGING_ENEMY
+
+    # Determine move + target
+    active = battle.model.get_active_pokemon()
+    enemy = battle.model.enemy_team[battle.target_index]
+
+    # Item type looks like "damage_fire", "damage_ice", etc.
+    move_name = battle.pending_item_data["type"].split("damage_")[1]
+    battle.pending_move_name = move_name
+
+    # Announcement text
+    battle.scroll_text = f"{active.name} uses {battle.pending_item_name}!"
+    battle.scroll_index = 0
+    battle.scroll_done = False
+
+    # Reset damage state
+    battle.damage_started = False
+    battle.damage_done = False
+
+    # Reset affinity state
+    battle.affinity_text = None
+    battle.affinity_done = False
+    battle.affinity_scroll_index = 0
+    battle.affinity_scroll_done = False
