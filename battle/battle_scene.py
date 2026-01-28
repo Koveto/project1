@@ -91,208 +91,37 @@ class BattleRenderer:
             is_back=is_back,
             scale=SCALE
         )
-
-
-    # ---------------------------------------------------------
-    # Main draw function
-    # ---------------------------------------------------------
-    def draw(self, screen, menu_index, menu_mode, previous_menu_index,
-             skills_cursor, skills_scroll, target_index,
-             scroll_text, scroll_index, scroll_done,
-             damage_done, affinity_done, affinity_text,
-             affinity_scroll_index, affinity_scroll_done,
-             inventory, item_cursor_x, item_cursor_y,
-             pending_item_data, selected_ally,
-             damage_text, damage_scroll_index, damage_scroll_done,
-             item_use_text, item_use_scroll_index,
-             item_use_scroll_done,
-             item_recover_text, item_recover_scroll_index, item_recover_scroll_done,
-             enemy_target_index, active_enemy_index,
-             info_row, info_col):
-
-        # Active Pokémon
-        active_index = self.model.turn_index
-        active_pokemon = self.model.player_team[active_index]
-        target = self.model.enemy_team[target_index]
-
-        # Animation
-        self.animation.update()
-        blink = self.animation.get_blink()
-        poke_offset, hp_offset = self.animation.get_bounce_offsets()
-
-        # Background + sprites
-        self.background_renderer.draw_background(screen)
-
-        bounce_index = 9
-        if menu_mode == MENU_MODE_INFO:
-            if info_row == 0:
-                bounce_index = info_col
-        target_enemy_pos = self.background_renderer.draw_enemies(screen, menu_mode, 
-                                                                 target_index, poke_offset,
-                                                                 active_enemy_index,
-                                                                 bounce_index)
-        # Default: bounce the active Pokémon
-        bounce_index = active_index
-
-        # Override in ITEM_INFO: bounce the selected ally instead
-        if menu_mode == MENU_MODE_ITEM_INFO:
-            bounce_index = selected_ally
-        elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
-            bounce_index = enemy_target_index
-        elif menu_mode == MENU_MODE_INFO:
-            if info_row == 1:
-                bounce_index = info_col
-            else:
-                bounce_index = 9
-
-        active_pokemon_pos = self.background_renderer.draw_players(
-            screen, menu_mode, bounce_index, poke_offset, self.model
-        )
-
-        # Default: un-darken active Pokémon
-        highlight_player_pos = active_pokemon_pos
-
-        # Override in ITEM_INFO: un-darken selected ally instead
-        if menu_mode == MENU_MODE_ITEM_INFO:
-            # Compute selected ally’s position the same way draw_players does
-            sprite = self.background_renderer.player_sprites[selected_ally]
-            pokemon = self.model.player_team[selected_ally]
-
-            x = PLAYER_BASE_X + selected_ally * PLAYER_SPACING
-            if pokemon.is_player:
-                x += PLAYER_OFFSET
-                y = PLAYER_Y + PLAYER_Y_OFFSET
-            else:
-                y = PLAYER_Y + NORMAL_Y_OFFSET
-
-            y += poke_offset
-            highlight_player_pos = (sprite, x, y)
-
-        if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
-                         MENU_MODE_ENEMY_DAMAGE):
-            # Compute selected ally’s position the same way draw_players does
-            sprite = self.background_renderer.player_sprites[enemy_target_index]
-            pokemon = self.model.player_team[enemy_target_index]
-
-            x = PLAYER_BASE_X + enemy_target_index * PLAYER_SPACING
-            if pokemon.is_player:
-                x += PLAYER_OFFSET
-                y = PLAYER_Y + PLAYER_Y_OFFSET
-            else:
-                y = PLAYER_Y + NORMAL_Y_OFFSET
-
-            highlight_player_pos = (sprite, x, y)
-        if menu_mode == MENU_MODE_INFO:
-            if info_row == 0:
-                sprite = self.background_renderer.enemy_sprites[info_col]
-                pokemon = self.model.enemy_team[info_col]
-
-                x = ENEMY_BASE_X + info_col * ENEMY_SPACING
-                y = ENEMY_Y + poke_offset
-
-                highlight_player_pos = None
-                target_enemy_pos = (sprite, x, y)
-            if info_row == 1:
-                sprite = self.background_renderer.player_sprites[info_col]
-                pokemon = self.model.player_team[info_col]
-
-                x = PLAYER_BASE_X + info_col * PLAYER_SPACING
-                if pokemon.is_player:
-                    x += PLAYER_OFFSET
-                    y = PLAYER_Y + PLAYER_Y_OFFSET + poke_offset
-                else:
-                    y = PLAYER_Y + NORMAL_Y_OFFSET + poke_offset
-
-                highlight_player_pos = (sprite, x, y)
-                target_enemy_pos = None
-
-        self.background_renderer.draw_dark_overlay(
-            screen,
-            menu_mode,
-            highlight_player_pos,
-            target_enemy_pos
-        )
-
-        self.background_renderer.draw_affinity_flash(screen, menu_mode, active_pokemon,
-                                                     skills_scroll, skills_cursor, target,
-                                                     self.animation.anim_frame, target_enemy_pos,
-                                                     pending_item_data)
-
-        if menu_mode in (MENU_MODE_DAMAGING_ENEMY,
-                         MENU_MODE_DAMAGING_PLAYER,
-                         MENU_MODE_ENEMY_DAMAGE):
-            hpmp_y = HPMP_Y
-            enemy_hpmp_y = HPMP_ENEMY_Y
-            ui_hp_offset = 0
-        else:
-            hpmp_y = HPMP_Y + hp_offset
-            enemy_hpmp_y = HPMP_ENEMY_Y + hp_offset
-            ui_hp_offset = hp_offset
-
-        # Default: active Pokémon
-        pokemon_for_hpmp = active_pokemon
-
-        # Override in ITEM_INFO
-        if menu_mode in (MENU_MODE_ITEM_INFO,
-                         MENU_MODE_ITEM_USE):
-            pokemon_for_hpmp = self.model.player_team[selected_ally]
-        if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
-                         MENU_MODE_ENEMY_DAMAGE):
-            pokemon_for_hpmp = self.model.player_team[enemy_target_index]
-        if menu_mode == MENU_MODE_INFO and info_row == 1:
-            pokemon_for_hpmp = self.model.player_team[info_col]
-
-        if (menu_mode != MENU_MODE_INFO) or \
-            info_row == 1:
-            self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset, blink)
-
-        # Draw MP cost bar when selecting or targeting a skill
-        if menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT):
-            # The move the player currently has highlighted
-            move_name = self.model.get_active_pokemon().moves[skills_cursor]
-
-            self.hpmp_renderer.draw_mp_cost_bar(
-                screen,
-                self.model.get_active_pokemon(),
-                move_name,
-                ui_hp_offset,
-                self.smt_moves
-            )
-
-
-        if menu_mode in (
-            MENU_MODE_TARGET_SELECT,
-            MENU_MODE_DAMAGING_ENEMY,
-            MENU_MODE_ITEM_TARGET_SELECT,
-            MENU_MODE_DAMAGING_PLAYER,
-            MENU_MODE_ENEMY_DAMAGE,
-            MENU_MODE_INFO
-        ):
-            # Player turn: show the enemy being targeted
-            if menu_mode in (MENU_MODE_TARGET_SELECT,
-                            MENU_MODE_DAMAGING_ENEMY,
-                            MENU_MODE_ITEM_TARGET_SELECT):
-                enemy_for_hpmp = target
-            
-            elif menu_mode == MENU_MODE_INFO and info_row == 0:
-                enemy_for_hpmp = self.model.enemy_team[info_col]
-
-            # Enemy turn: show the enemy who is attacking
-            else:  # MENU_MODE_DAMAGING_PLAYER, MENU_MODE_ENEMY_DAMAGE
-                enemy_for_hpmp = self.model.enemy_team[active_enemy_index]
-
-            if (menu_mode != MENU_MODE_INFO) or \
-                (info_row == 0):
-                self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset, blink)
-
-        screen.blit(self.battleframe, COORDS_FRAME)
-
-        # Press Turn icons
-        if menu_mode != MENU_MODE_INFO:
-            press_turn_states = self.model.get_press_turn_icon_states(self.animation.anim_frame)
-            self.press_turn_renderer.draw_all(screen, press_turn_states, menu_mode, hp_offset, self.animation.anim_frame, self.model.is_player_turn)
-
-        # Menus + text
+    
+    def _call_menu_mode_function(self,
+                                 menu_mode,
+                                 screen,
+                                 active_pokemon,
+                                 menu_index,
+                                 skills_scroll,
+                                 skills_cursor,
+                                 scroll_text,
+                                 scroll_index,
+                                 scroll_done,
+                                 damage_done,
+                                 affinity_done,
+                                 affinity_text,
+                                 affinity_scroll_index,
+                                 affinity_scroll_done,
+                                 damage_text,
+                                 damage_scroll_index,
+                                 damage_scroll_done,
+                                 blink,
+                                 inventory,
+                                 item_cursor_x,
+                                 item_cursor_y,
+                                 pending_item_data,
+                                 item_use_text,
+                                 item_use_scroll_done,
+                                 item_use_scroll_index,
+                                 item_recover_text,
+                                 item_recover_scroll_index,
+                                 item_recover_scroll_done,
+                                 previous_menu_index):
         if menu_mode == MENU_MODE_MAIN:
             self.menu_renderer.draw_main_menu(screen, active_pokemon, menu_index)
 
@@ -413,3 +242,303 @@ class BattleRenderer:
 
         else:
             self.menu_renderer.draw_dummy_menu(screen, previous_menu_index)
+
+    def _draw_press_turn_icons(self,
+                               screen,
+                               menu_mode,
+                               hp_offset):
+        press_turn_states = self.model.get_press_turn_icon_states(self.animation.anim_frame)
+        self.press_turn_renderer.draw_all(screen, press_turn_states, menu_mode, hp_offset, self.animation.anim_frame, self.model.is_player_turn)
+
+    def _is_drawn_press_turn_icons(self, menu_mode):
+        return menu_mode != MENU_MODE_INFO
+    
+    def _draw_enemy_hpmp(self,
+                         menu_mode,
+                         target,
+                         info_row,
+                         info_col,
+                         active_enemy_index,
+                         screen,
+                         enemy_hpmp_y,
+                         ui_hp_offset,
+                         blink):
+        if menu_mode in (MENU_MODE_TARGET_SELECT,
+                        MENU_MODE_DAMAGING_ENEMY,
+                        MENU_MODE_ITEM_TARGET_SELECT):
+            enemy_for_hpmp = target
+        elif menu_mode == MENU_MODE_INFO and info_row == 0:
+            enemy_for_hpmp = self.model.enemy_team[info_col]
+        else:
+            enemy_for_hpmp = self.model.enemy_team[active_enemy_index]
+        if (menu_mode != MENU_MODE_INFO) or \
+            (info_row == 0):
+            self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset, blink)
+
+    def _is_drawn_enemy_hpmp(self, menu_mode):
+        return menu_mode in (
+            MENU_MODE_TARGET_SELECT,
+            MENU_MODE_DAMAGING_ENEMY,
+            MENU_MODE_ITEM_TARGET_SELECT,
+            MENU_MODE_DAMAGING_PLAYER,
+            MENU_MODE_ENEMY_DAMAGE,
+            MENU_MODE_INFO
+        )
+    
+    def _draw_mpcost(self, skills_cursor, screen, ui_hp_offset):
+        move_name = self.model.get_active_pokemon().moves[skills_cursor]
+        self.hpmp_renderer.draw_mp_cost_bar(
+            screen,
+            self.model.get_active_pokemon(),
+            move_name,
+            ui_hp_offset,
+            self.smt_moves
+        )
+
+    def _is_drawn_mpcost(self, menu_mode):
+        return menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT)
+    
+    def _is_drawn_player_hpmp(self, menu_mode, info_row):
+        return (menu_mode != MENU_MODE_INFO) or (info_row == ROW_PLAYER)
+            
+    def _draw_player_hpmp(self,
+                              screen,
+                              pokemon_for_hpmp,
+                              hpmp_y,
+                              ui_hp_offset,
+                              blink):
+        self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset, blink)
+
+    def _get_data_hpmp(self, 
+                       menu_mode, 
+                       hp_offset, 
+                       active_pokemon, 
+                       selected_ally,
+                       enemy_target_index,
+                       info_row,
+                       info_col):
+        hpmp_y = HPMP_Y
+        enemy_hpmp_y = HPMP_ENEMY_Y
+        ui_hp_offset = 0
+        pokemon_for_hpmp = None
+        if menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
+                             MENU_MODE_DAMAGING_PLAYER,
+                             MENU_MODE_ENEMY_DAMAGE):
+            hpmp_y += hp_offset
+            enemy_hpmp_y += hp_offset
+            ui_hp_offset += hp_offset
+        pokemon_for_hpmp = active_pokemon
+        if menu_mode in (MENU_MODE_ITEM_INFO,
+                         MENU_MODE_ITEM_USE):
+            pokemon_for_hpmp = self.model.player_team[selected_ally]
+        if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
+                         MENU_MODE_ENEMY_DAMAGE):
+            pokemon_for_hpmp = self.model.player_team[enemy_target_index]
+        if menu_mode == MENU_MODE_INFO and info_row == 1:
+            pokemon_for_hpmp = self.model.player_team[info_col]
+        return (hpmp_y, enemy_hpmp_y, ui_hp_offset, pokemon_for_hpmp)
+
+
+    # ---------------------------------------------------------
+    # Main draw function
+    # ---------------------------------------------------------
+    def draw(self, screen, menu_index, menu_mode, previous_menu_index,
+             skills_cursor, skills_scroll, target_index,
+             scroll_text, scroll_index, scroll_done,
+             damage_done, affinity_done, affinity_text,
+             affinity_scroll_index, affinity_scroll_done,
+             inventory, item_cursor_x, item_cursor_y,
+             pending_item_data, selected_ally,
+             damage_text, damage_scroll_index, damage_scroll_done,
+             item_use_text, item_use_scroll_index,
+             item_use_scroll_done,
+             item_recover_text, item_recover_scroll_index, item_recover_scroll_done,
+             enemy_target_index, active_enemy_index,
+             info_row, info_col):
+
+        # Active Pokémon
+        active_index = self.model.turn_index
+        active_pokemon = self.model.player_team[active_index]
+        target = self.model.enemy_team[target_index]
+
+        # Animation
+        self.animation.update()
+        blink = self.animation.get_blink()
+        poke_offset, hp_offset = self.animation.get_bounce_offsets()
+
+        # Background + sprites
+        self.background_renderer.draw_background(screen)
+
+        bounce_index = 9
+        if menu_mode == MENU_MODE_INFO:
+            if info_row == 0:
+                bounce_index = info_col
+        target_enemy_pos = self.background_renderer.draw_enemies(screen, menu_mode, 
+                                                                 target_index, poke_offset,
+                                                                 active_enemy_index,
+                                                                 bounce_index)
+        # Default: bounce the active Pokémon
+        bounce_index = active_index
+
+        # Override in ITEM_INFO: bounce the selected ally instead
+        if menu_mode == MENU_MODE_ITEM_INFO:
+            bounce_index = selected_ally
+        elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            bounce_index = enemy_target_index
+        elif menu_mode == MENU_MODE_INFO:
+            if info_row == 1:
+                bounce_index = info_col
+            else:
+                bounce_index = 9
+
+        active_pokemon_pos = self.background_renderer.draw_players(
+            screen, menu_mode, bounce_index, poke_offset, self.model
+        )
+
+        # Default: un-darken active Pokémon
+        highlight_player_pos = active_pokemon_pos
+
+        # Override in ITEM_INFO: un-darken selected ally instead
+        if menu_mode == MENU_MODE_ITEM_INFO:
+            # Compute selected ally’s position the same way draw_players does
+            sprite = self.background_renderer.player_sprites[selected_ally]
+            pokemon = self.model.player_team[selected_ally]
+
+            x = PLAYER_BASE_X + selected_ally * PLAYER_SPACING
+            if pokemon.is_player:
+                x += PLAYER_OFFSET
+                y = PLAYER_Y + PLAYER_Y_OFFSET
+            else:
+                y = PLAYER_Y + NORMAL_Y_OFFSET
+
+            y += poke_offset
+            highlight_player_pos = (sprite, x, y)
+
+        if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
+                         MENU_MODE_ENEMY_DAMAGE):
+            # Compute selected ally’s position the same way draw_players does
+            sprite = self.background_renderer.player_sprites[enemy_target_index]
+            pokemon = self.model.player_team[enemy_target_index]
+
+            x = PLAYER_BASE_X + enemy_target_index * PLAYER_SPACING
+            if pokemon.is_player:
+                x += PLAYER_OFFSET
+                y = PLAYER_Y + PLAYER_Y_OFFSET
+            else:
+                y = PLAYER_Y + NORMAL_Y_OFFSET
+
+            highlight_player_pos = (sprite, x, y)
+        if menu_mode == MENU_MODE_INFO:
+            if info_row == ROW_ENEMY:
+                sprite = self.background_renderer.enemy_sprites[info_col]
+                pokemon = self.model.enemy_team[info_col]
+
+                x = ENEMY_BASE_X + info_col * ENEMY_SPACING
+                y = ENEMY_Y + poke_offset
+
+                highlight_player_pos = None
+                target_enemy_pos = (sprite, x, y)
+            if info_row == ROW_PLAYER:
+                sprite = self.background_renderer.player_sprites[info_col]
+                pokemon = self.model.player_team[info_col]
+
+                x = PLAYER_BASE_X + info_col * PLAYER_SPACING
+                if pokemon.is_player:
+                    x += PLAYER_OFFSET
+                    y = PLAYER_Y + PLAYER_Y_OFFSET + poke_offset
+                else:
+                    y = PLAYER_Y + NORMAL_Y_OFFSET + poke_offset
+
+                highlight_player_pos = (sprite, x, y)
+                target_enemy_pos = None
+
+        self.background_renderer.draw_dark_overlay(
+            screen,
+            menu_mode,
+            highlight_player_pos,
+            target_enemy_pos
+        )
+
+        self.background_renderer.draw_affinity_flash(screen, 
+                                                     menu_mode, 
+                                                     active_pokemon,
+                                                     skills_scroll, 
+                                                     skills_cursor, 
+                                                     target,
+                                                     self.animation.anim_frame, 
+                                                     target_enemy_pos,
+                                                     pending_item_data)
+
+        hpmp_y, \
+        enemy_hpmp_y, \
+        ui_hp_offset, \
+        pokemon_for_hpmp = self._get_data_hpmp(
+                       menu_mode, 
+                       hp_offset, 
+                       active_pokemon, 
+                       selected_ally,
+                       enemy_target_index,
+                       info_row,
+                       info_col)        
+
+        if self._is_drawn_player_hpmp(menu_mode, info_row):
+            self._draw_player_hpmp(screen,
+                                   pokemon_for_hpmp,
+                                   hpmp_y,
+                                   ui_hp_offset,
+                                   blink)        
+
+        if self._is_drawn_mpcost(menu_mode):
+            self._draw_mpcost(skills_cursor, screen, ui_hp_offset)
+
+        if self._is_drawn_enemy_hpmp(menu_mode):
+            self._draw_enemy_hpmp(menu_mode,
+                                  target,
+                                  info_row,
+                                  info_col,
+                                  active_enemy_index,
+                                  screen,
+                                  enemy_hpmp_y,
+                                  ui_hp_offset,
+                                  blink)
+
+        screen.blit(self.battleframe, COORDS_FRAME)
+
+        # Press Turn icons
+        if self._is_drawn_press_turn_icons(menu_mode):
+            self._draw_press_turn_icons(screen,
+                                        menu_mode,
+                                        hp_offset)
+
+        # Menus + text
+        self._call_menu_mode_function(
+                                 menu_mode,
+                                 screen,
+                                 active_pokemon,
+                                 menu_index,
+                                 skills_scroll,
+                                 skills_cursor,
+                                 scroll_text,
+                                 scroll_index,
+                                 scroll_done,
+                                 damage_done,
+                                 affinity_done,
+                                 affinity_text,
+                                 affinity_scroll_index,
+                                 affinity_scroll_done,
+                                 damage_text,
+                                 damage_scroll_index,
+                                 damage_scroll_done,
+                                 blink,
+                                 inventory,
+                                 item_cursor_x,
+                                 item_cursor_y,
+                                 pending_item_data,
+                                 item_use_text,
+                                 item_use_scroll_done,
+                                 item_use_scroll_index,
+                                 item_recover_text,
+                                 item_recover_scroll_index,
+                                 item_recover_scroll_done,
+                                 previous_menu_index)
+        
