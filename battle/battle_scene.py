@@ -337,70 +337,22 @@ class BattleRenderer:
         if menu_mode == MENU_MODE_INFO and info_row == 1:
             pokemon_for_hpmp = self.model.player_team[info_col]
         return (hpmp_y, enemy_hpmp_y, ui_hp_offset, pokemon_for_hpmp)
-
-
-    # ---------------------------------------------------------
-    # Main draw function
-    # ---------------------------------------------------------
-    def draw(self, screen, menu_index, menu_mode, previous_menu_index,
-             skills_cursor, skills_scroll, target_index,
-             scroll_text, scroll_index, scroll_done,
-             damage_done, affinity_done, affinity_text,
-             affinity_scroll_index, affinity_scroll_done,
-             inventory, item_cursor_x, item_cursor_y,
-             pending_item_data, selected_ally,
-             damage_text, damage_scroll_index, damage_scroll_done,
-             item_use_text, item_use_scroll_index,
-             item_use_scroll_done,
-             item_recover_text, item_recover_scroll_index, item_recover_scroll_done,
-             enemy_target_index, active_enemy_index,
-             info_row, info_col):
-
-        # Active Pokémon
-        active_index = self.model.turn_index
-        active_pokemon = self.model.player_team[active_index]
-        target = self.model.enemy_team[target_index]
-
-        # Animation
-        self.animation.update()
-        blink = self.animation.get_blink()
-        poke_offset, hp_offset = self.animation.get_bounce_offsets()
-
-        # Background + sprites
-        self.background_renderer.draw_background(screen)
-
-        bounce_index = 9
-        if menu_mode == MENU_MODE_INFO:
-            if info_row == 0:
-                bounce_index = info_col
-        target_enemy_pos = self.background_renderer.draw_enemies(screen, menu_mode, 
-                                                                 target_index, poke_offset,
-                                                                 active_enemy_index,
-                                                                 bounce_index)
-        # Default: bounce the active Pokémon
-        bounce_index = active_index
-
-        # Override in ITEM_INFO: bounce the selected ally instead
-        if menu_mode == MENU_MODE_ITEM_INFO:
-            bounce_index = selected_ally
-        elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
-            bounce_index = enemy_target_index
-        elif menu_mode == MENU_MODE_INFO:
-            if info_row == 1:
-                bounce_index = info_col
-            else:
-                bounce_index = 9
-
-        active_pokemon_pos = self.background_renderer.draw_players(
+    
+    def _get_data_dark_overlay(self, 
+              menu_mode,
+              info_row,
+              info_col,
+              poke_offset,
+              target_enemy_pos,
+              selected_ally,
+              enemy_target_index,
+              screen,
+              bounce_index):
+        highlight_player_pos = self.background_renderer.draw_players(
             screen, menu_mode, bounce_index, poke_offset, self.model
         )
-
-        # Default: un-darken active Pokémon
-        highlight_player_pos = active_pokemon_pos
-
-        # Override in ITEM_INFO: un-darken selected ally instead
+        target_enemy_pos = target_enemy_pos
         if menu_mode == MENU_MODE_ITEM_INFO:
-            # Compute selected ally’s position the same way draw_players does
             sprite = self.background_renderer.player_sprites[selected_ally]
             pokemon = self.model.player_team[selected_ally]
 
@@ -413,10 +365,8 @@ class BattleRenderer:
 
             y += poke_offset
             highlight_player_pos = (sprite, x, y)
-
         if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
-            # Compute selected ally’s position the same way draw_players does
             sprite = self.background_renderer.player_sprites[enemy_target_index]
             pokemon = self.model.player_team[enemy_target_index]
 
@@ -451,6 +401,71 @@ class BattleRenderer:
 
                 highlight_player_pos = (sprite, x, y)
                 target_enemy_pos = None
+        return (highlight_player_pos, target_enemy_pos)
+    
+    def _get_data_bounce_index(self,
+                               menu_mode,
+                               selected_ally,
+                               enemy_target_index,
+                               info_row,
+                               info_col):
+        bounce_index = self.model.turn_index
+        if menu_mode == MENU_MODE_ITEM_INFO:
+            bounce_index = selected_ally
+        elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            bounce_index = enemy_target_index
+        elif menu_mode == MENU_MODE_INFO:
+            if info_row == ROW_PLAYER:
+                bounce_index = info_col
+            else:
+                bounce_index = ROW_NOT_INFO_STATE
+        return bounce_index
+
+
+    # ---------------------------------------------------------
+    # Main draw function
+    # ---------------------------------------------------------
+    def draw(self, screen, menu_index, menu_mode, previous_menu_index,
+             skills_cursor, skills_scroll, target_index,
+             scroll_text, scroll_index, scroll_done,
+             damage_done, affinity_done, affinity_text,
+             affinity_scroll_index, affinity_scroll_done,
+             inventory, item_cursor_x, item_cursor_y,
+             pending_item_data, selected_ally,
+             damage_text, damage_scroll_index, damage_scroll_done,
+             item_use_text, item_use_scroll_index,
+             item_use_scroll_done,
+             item_recover_text, item_recover_scroll_index, item_recover_scroll_done,
+             enemy_target_index, active_enemy_index,
+             info_row, info_col):
+
+        self.animation.update()
+        blink = self.animation.get_blink()
+        poke_offset, hp_offset = self.animation.get_bounce_offsets()
+
+        self.background_renderer.draw_background(screen)
+        
+        target_enemy_pos = self.background_renderer.draw_enemies(screen, menu_mode, 
+                                                                 target_index, poke_offset,
+                                                                 info_row, info_col,
+                                                                 active_enemy_index)
+        
+        bounce_index = self._get_data_bounce_index(menu_mode,
+                                                   selected_ally,
+                                                   enemy_target_index,
+                                                   info_row,
+                                                   info_col)
+
+        highlight_player_pos, \
+        target_enemy_pos = self._get_data_dark_overlay(menu_mode,
+                                      info_row,
+                                      info_col,
+                                      poke_offset,
+                                      target_enemy_pos,
+                                      selected_ally,
+                                      enemy_target_index,
+                                      screen,
+                                      bounce_index)
 
         self.background_renderer.draw_dark_overlay(
             screen,
@@ -461,10 +476,10 @@ class BattleRenderer:
 
         self.background_renderer.draw_affinity_flash(screen, 
                                                      menu_mode, 
-                                                     active_pokemon,
+                                                     self.model.player_team[self.model.turn_index],
                                                      skills_scroll, 
                                                      skills_cursor, 
-                                                     target,
+                                                     self.model.enemy_team[target_index],
                                                      self.animation.anim_frame, 
                                                      target_enemy_pos,
                                                      pending_item_data)
@@ -475,7 +490,7 @@ class BattleRenderer:
         pokemon_for_hpmp = self._get_data_hpmp(
                        menu_mode, 
                        hp_offset, 
-                       active_pokemon, 
+                       self.model.player_team[self.model.turn_index], 
                        selected_ally,
                        enemy_target_index,
                        info_row,
@@ -493,7 +508,7 @@ class BattleRenderer:
 
         if self._is_drawn_enemy_hpmp(menu_mode):
             self._draw_enemy_hpmp(menu_mode,
-                                  target,
+                                  self.model.enemy_team[target_index],
                                   info_row,
                                   info_col,
                                   active_enemy_index,
@@ -514,7 +529,7 @@ class BattleRenderer:
         self._call_menu_mode_function(
                                  menu_mode,
                                  screen,
-                                 active_pokemon,
+                                 self.model.player_team[self.model.turn_index],
                                  menu_index,
                                  skills_scroll,
                                  skills_cursor,

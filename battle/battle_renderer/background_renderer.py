@@ -12,8 +12,12 @@ class BackgroundRenderer:
     def draw_background(self, screen):
         screen.blit(self.background, COORDS_BACKGROUND)
 
-    def draw_enemies(self, screen, menu_mode, target_index, poke_offset, active_enemy_index=None, info_index=None):
+    def draw_enemies(self, screen, menu_mode, target_index, poke_offset, info_row, info_col, active_enemy_index=None):
         target_enemy_pos = None
+        info_index = ROW_NOT_INFO_STATE
+        if menu_mode == MENU_MODE_INFO:
+            if info_row == 0:
+                info_index = info_col
 
         for i in ENEMY_DRAW_ORDER:
             sprite = self.enemy_sprites[i]
