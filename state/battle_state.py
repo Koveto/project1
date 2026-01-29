@@ -137,29 +137,12 @@ class BattleState(GameState):
         self.info_row = 1
         self.info_col = 0
         self.is_crit = False
+        self.crit_scroll_index = 0
+        self.crit_scroll_done = False
+        self.crit_text = None
 
     def draw(self, screen):
-        self.renderer.draw(screen, 
-                           self.menu_index, 
-                           self.menu_mode, self.previous_menu_index,
-                           self.skills_cursor, self.skills_scroll,
-                           self.target_index, self.scroll_text,
-                           int(self.scroll_index), self.scroll_done,
-                           self.damage_done, self.affinity_done,
-                           self.affinity_text, self.affinity_scroll_index,
-                           self.affinity_scroll_done,
-                           self.model.inventory,
-                           self.item_cursor_x, self.item_cursor_y,
-                           self.pending_item_data, self.selected_ally,
-                           self.damage_text, self.damage_scroll_index, self.damage_scroll_done,
-                           self.item_use_text, self.item_use_scroll_index,
-                           self.item_use_scroll_done,
-                           self.item_recover_text,
-                           self.item_recover_scroll_index,
-                           self.item_recover_scroll_done,
-                           self.enemy_target_index,
-                           self.active_enemy_index,
-                           self.info_row, self.info_col)
+        self.renderer.draw(self, screen)
 
     def handle_event(self, event):
         if event.type != pygame.KEYDOWN:

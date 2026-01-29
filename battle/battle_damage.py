@@ -82,6 +82,11 @@ def handle_accuracy(battle, move, defender):
     battle.damage_scroll_index = 0
     battle.damage_scroll_done = False
 
+    battle.is_crit = False
+    battle.crit_text = None
+    battle.crit_scroll_index = 0
+    battle.crit_scroll_done = False
+
     battle.model.consume_miss()
     return True  # miss handled
 
@@ -129,12 +134,18 @@ def animate_hp_bar(battle, is_player):
 
     # Prepare damage text
     setup_damage_text(battle)
+    setup_crit_text(battle)
     return
 
 def setup_damage_text(battle):
     battle.damage_text = f"Dealt {battle.damage_amount} damage."
     battle.damage_scroll_index = 0
     battle.damage_scroll_done = False
+
+def setup_crit_text(battle):
+    battle.crit_text = "A critical hit!"
+    battle.crit_scroll_index = 0
+    battle.crit_scroll_done = False
 
 def compute_affinity_text(battle, is_player):
     # Reset affinity scroll state
@@ -291,6 +302,15 @@ def update_generic_damage_phase(battle, is_player=True):
             done_attr="damage_scroll_done"
         )
     
+    # PHASE 3c - crit text scroll
+    if battle.damage_done and battle.is_crit and not battle.crit_scroll_done:
+        return scroll_text_generic(
+            battle,
+            text = battle.crit_text,
+            index_attr="crit_scroll_index",
+            done_attr="crit_scroll_done"
+        )
+    
 def handle_damage_delay(battle):
     if not battle.delay_started:
         battle.delay_started = True
@@ -366,7 +386,7 @@ def compute_and_apply_damage(battle, attacker, defender, move, is_player):
     # Crit (still no side effects)
     if move["type"] == "Physical":
         if random.random() < CRIT_CHANCE:
-            print("CRITICAL HIT!")
+            battle.is_crit = True
 
     # Guarding override (enemy → player only)
     if not is_player and defender.is_guarding and affinity < AFFINITY_NEUTRAL:
