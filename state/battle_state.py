@@ -88,7 +88,7 @@ class BattleState(GameState):
         self.model = BattleModel(player_team, enemy_team)
         self.renderer = BattleRenderer(background_surface, self.model, self.smt_moves)
 
-        self.menu_index = 0
+        self.menu_index = MENU_INDEX_SKILLS
         self.menu_mode = MENU_MODE_MAIN
         self.previous_menu_index = 0
         self.skills_cursor = 0
@@ -136,9 +136,11 @@ class BattleState(GameState):
         self.missed = False
         self.info_row = 1
         self.info_col = 0
+        self.is_crit = False
 
     def draw(self, screen):
-        self.renderer.draw(screen, self.menu_index, 
+        self.renderer.draw(screen, 
+                           self.menu_index, 
                            self.menu_mode, self.previous_menu_index,
                            self.skills_cursor, self.skills_scroll,
                            self.target_index, self.scroll_text,

@@ -224,7 +224,7 @@ def finish_damage_phase(battle):
         battle.model.next_turn()
 
     battle.menu_mode = MENU_MODE_MAIN
-    battle.menu_index = 0  
+    battle.menu_index = MENU_INDEX_SKILLS 
 
 def finish_enemy_damage_phase(battle):
     reset_damage_flags(battle)
@@ -242,7 +242,7 @@ def finish_enemy_damage_phase(battle):
 
     if battle.model.is_player_turn:
         battle.menu_mode = MENU_MODE_MAIN
-        battle.menu_index = 0
+        battle.menu_index = MENU_INDEX_SKILLS
         return
 
     if battle.model.has_press_turns_left():
@@ -253,7 +253,7 @@ def finish_enemy_damage_phase(battle):
     # Safety fallback
     battle.model.next_side()
     battle.menu_mode = MENU_MODE_MAIN
-    battle.menu_index = 0
+    battle.menu_index = MENU_INDEX_SKILLS
 
 def update_generic_damage_phase(battle, is_player=True):
     if is_player and not battle.scroll_done:
