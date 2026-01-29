@@ -12,12 +12,12 @@ class BackgroundRenderer:
     def draw_background(self, screen):
         screen.blit(self.background, COORDS_BACKGROUND)
 
-    def draw_enemies(self, screen, menu_mode, target_index, poke_offset, info_row, info_col, active_enemy_index=None):
+    def draw_enemies(self, b, screen, poke_offset):
         target_enemy_pos = None
         info_index = ROW_NOT_INFO_STATE
-        if menu_mode == MENU_MODE_INFO:
-            if info_row == 0:
-                info_index = info_col
+        if b.menu_mode == MENU_MODE_INFO:
+            if b.info_row == 0:
+                info_index = b.info_col
 
         for i in ENEMY_DRAW_ORDER:
             sprite = self.enemy_sprites[i]
@@ -28,10 +28,10 @@ class BackgroundRenderer:
             y = ENEMY_Y
 
             # Bounce only during target selection
-            if menu_mode in (MENU_MODE_TARGET_SELECT, MENU_MODE_ITEM_TARGET_SELECT):
-                if i == target_index:
+            if b.menu_mode in (MENU_MODE_TARGET_SELECT, MENU_MODE_ITEM_TARGET_SELECT):
+                if i == b.target_index:
                     y += poke_offset
-            if menu_mode == MENU_MODE_INFO:
+            if b.menu_mode == MENU_MODE_INFO:
                 if i == info_index:
                     y += poke_offset
 
@@ -39,16 +39,16 @@ class BackgroundRenderer:
             screen.blit(sprite, (x, y))
 
             # NORMAL CASE: highlight the target enemy
-            if menu_mode not in (MENU_MODE_DAMAGING_PLAYER, MENU_MODE_ENEMY_DAMAGE):
-                if i == target_index:
+            if b.menu_mode not in (MENU_MODE_DAMAGING_PLAYER, MENU_MODE_ENEMY_DAMAGE):
+                if i == b.target_index:
                     target_enemy_pos = (sprite, x, y)
 
-            elif menu_mode == MENU_MODE_INFO:
+            elif b.menu_mode == MENU_MODE_INFO:
                 target_enemy_pos = (sprite, x, y)
 
             # ENEMY TURN CASE: highlight the attacking enemy
             else:
-                if active_enemy_index is not None and i == active_enemy_index:
+                if b.active_enemy_index is not None and i == b.active_enemy_index:
                     target_enemy_pos = (sprite, x, y)
 
         return target_enemy_pos
@@ -83,8 +83,8 @@ class BackgroundRenderer:
 
         return active_pokemon_pos
 
-    def draw_dark_overlay(self, screen, menu_mode, highlight_player_pos, target_enemy_pos):
-        if menu_mode not in (
+    def draw_dark_overlay(self, b, screen, highlight_player_pos, target_enemy_pos):
+        if b.menu_mode not in (
             MENU_MODE_TARGET_SELECT,
             MENU_MODE_DAMAGING_ENEMY,
             MENU_MODE_ITEM_INFO,
@@ -102,7 +102,7 @@ class BackgroundRenderer:
         screen.blit(dark_surface, (0, 0))
 
         # In ITEM_INFO: only un-darken the selected ally
-        if menu_mode == MENU_MODE_ITEM_INFO:
+        if b.menu_mode == MENU_MODE_ITEM_INFO:
             if highlight_player_pos is not None:
                 sprite, x, y = highlight_player_pos
                 screen.blit(sprite, (x, y))
@@ -118,19 +118,17 @@ class BackgroundRenderer:
             screen.blit(sprite, (x, y))
 
 
-    def draw_affinity_flash(self, screen, menu_mode, active_pokemon, 
-                            skills_scroll, skills_cursor, 
-                            target, anim_frame, target_enemy_pos,
-                            pending_item_data):
-        if menu_mode not in (MENU_MODE_TARGET_SELECT, 
+    def draw_affinity_flash(self, b, screen, active_pokemon, \
+                            target, anim_frame, target_enemy_pos):
+        if b.menu_mode not in (MENU_MODE_TARGET_SELECT, 
                              MENU_MODE_ITEM_TARGET_SELECT):
             return
 
-        selected_index = skills_scroll + skills_cursor
-        if menu_mode == MENU_MODE_TARGET_SELECT:
+        selected_index = b.skills_scroll + b.skills_cursor
+        if b.menu_mode == MENU_MODE_TARGET_SELECT:
             move_name = active_pokemon.moves[selected_index]
         else:
-            move_name = pending_item_data["type"].split("damage_")[1]
+            move_name = b.pending_item_data["type"].split("damage_")[1]
         move = self.smt_moves[move_name]
 
         element = move["element"]

@@ -93,190 +93,163 @@ class BattleRenderer:
         )
     
     def _call_menu_mode_function(self,
-                                 menu_mode,
+                                 b,
                                  screen,
-                                 active_pokemon,
-                                 menu_index,
-                                 skills_scroll,
-                                 skills_cursor,
-                                 scroll_text,
                                  scroll_index,
-                                 scroll_done,
-                                 damage_done,
-                                 affinity_done,
-                                 affinity_text,
-                                 affinity_scroll_index,
-                                 affinity_scroll_done,
-                                 damage_text,
-                                 damage_scroll_index,
-                                 damage_scroll_done,
-                                 blink,
-                                 inventory,
-                                 item_cursor_x,
-                                 item_cursor_y,
-                                 pending_item_data,
-                                 item_use_text,
-                                 item_use_scroll_done,
-                                 item_use_scroll_index,
-                                 item_recover_text,
-                                 item_recover_scroll_index,
-                                 item_recover_scroll_done,
-                                 previous_menu_index):
-        if menu_mode == MENU_MODE_MAIN:
-            self.menu_renderer.draw_main_menu(screen, active_pokemon, menu_index)
+                                 blink):
+        active_pokemon = b.model.player_team[b.model.turn_index]
+        
+        if b.menu_mode == MENU_MODE_MAIN:
+            self.menu_renderer.draw_main_menu(screen, active_pokemon, b.menu_index)
 
-        elif menu_mode == MENU_MODE_SKILLS:
-            self.menu_renderer.draw_skills_menu(screen, active_pokemon, skills_scroll, skills_cursor)
+        elif b.menu_mode == MENU_MODE_SKILLS:
+            self.menu_renderer.draw_skills_menu(screen, active_pokemon, b.skills_scroll, b.skills_cursor)
 
-        elif menu_mode == MENU_MODE_TARGET_SELECT:
+        elif b.menu_mode == MENU_MODE_TARGET_SELECT:
             self.menu_renderer.draw_target_select_menu(
                 screen,
                 active_pokemon,
-                skills_scroll,
-                skills_cursor
+                b.skills_scroll,
+                b.skills_cursor
             )
 
-        elif menu_mode == MENU_MODE_DAMAGING_ENEMY:
+        elif b.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.text_renderer.draw_damaging_enemy(
-                screen, scroll_text, scroll_index, scroll_done,
-                damage_done, affinity_done, affinity_text,
-                affinity_scroll_index, affinity_scroll_done, 
-                damage_text, damage_scroll_index, damage_scroll_done, 
+                screen, b.scroll_text, scroll_index, b.scroll_done,
+                b.damage_done, b.affinity_done, b.affinity_text,
+                b.affinity_scroll_index, b.affinity_scroll_done, 
+                b.damage_text, b.damage_scroll_index, b.damage_scroll_done, 
                 blink
             )
             return
         
-        elif menu_mode == MENU_MODE_ITEMS:
+        elif b.menu_mode == MENU_MODE_ITEMS:
             self.menu_renderer.draw_item_menu(
                 screen,
-                inventory,
-                item_cursor_x,
-                item_cursor_y
+                b.model.inventory,
+                b.item_cursor_x,
+                b.item_cursor_y
             )
             return
         
-        elif menu_mode == MENU_MODE_ITEM_INFO:
+        elif b.menu_mode == MENU_MODE_ITEM_INFO:
             self.menu_renderer.draw_item_info(
                 screen,
-                pending_item_data,
+                b.pending_item_data,
                 self.text_renderer
             )
             return
 
-        elif menu_mode == MENU_MODE_ITEM_USE:
+        elif b.menu_mode == MENU_MODE_ITEM_USE:
             self.text_renderer.draw_item_use(
                 screen,
-                item_use_text,
-                item_use_scroll_index,
-                item_use_scroll_done,
-                item_recover_text,
-                item_recover_scroll_index,
-                item_recover_scroll_done,
+                b.item_use_text,
+                b.item_use_scroll_index,
+                b.item_use_scroll_done,
+                b.item_recover_text,
+                b.item_recover_scroll_index,
+                b.item_recover_scroll_done,
                 blink
             )
             return
         
-        elif menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
+        elif b.menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
             self.menu_renderer.draw_item_target_select_menu(
                 screen,
                 active_pokemon,
-                skills_scroll,
-                skills_cursor,
-                pending_item_data
+                b.skills_scroll,
+                b.skills_cursor,
+                b.pending_item_data
             )
         
-        elif menu_mode == MENU_MODE_GUARDING:
+        elif b.menu_mode == MENU_MODE_GUARDING:
             self.text_renderer.draw_simple_scroll(
                 screen,
-                scroll_text,
+                b.scroll_text,
                 scroll_index,
-                scroll_done,
+                b.scroll_done,
                 blink
             )
             return
         
-        elif menu_mode == MENU_MODE_TALK:
+        elif b.menu_mode == MENU_MODE_TALK:
             self.text_renderer.draw_simple_scroll(
-                screen, scroll_text, scroll_index, scroll_done, blink
+                screen, b.scroll_text, scroll_index, b.scroll_done, blink
             )
             return
 
-        elif menu_mode == MENU_MODE_ESCAPE:
+        elif b.menu_mode == MENU_MODE_ESCAPE:
             self.text_renderer.draw_simple_scroll(
-                screen, scroll_text, scroll_index, scroll_done, blink
+                screen, b.scroll_text, scroll_index, b.scroll_done, blink
             )
             return
         
-        elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
+        elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
             self.text_renderer.draw_enemy_attack_text(
                 screen,
-                scroll_text,
+                b.scroll_text,
                 scroll_index,
-                scroll_done,
+                b.scroll_done,
                 blink
             )
             return
         
-        elif menu_mode == MENU_MODE_ENEMY_DAMAGE:
+        elif b.menu_mode == MENU_MODE_ENEMY_DAMAGE:
             # Enemy damage phase uses the same multi-phase renderer
             # as the player-side damaging phase.
             self.text_renderer.draw_damaging_enemy(
                 screen,
-                scroll_text,
+                b.scroll_text,
                 scroll_index,
-                scroll_done,
-                damage_done,
-                affinity_done,
-                affinity_text,
-                affinity_scroll_index,
-                affinity_scroll_done,
-                damage_text,
-                damage_scroll_index,
-                damage_scroll_done,
+                b.scroll_done,
+                b.damage_done,
+                b.affinity_done,
+                b.affinity_text,
+                b.affinity_scroll_index,
+                b.affinity_scroll_done,
+                b.damage_text,
+                b.damage_scroll_index,
+                b.damage_scroll_done,
                 blink
             )
             return
 
-        elif menu_mode == MENU_MODE_INFO:
+        elif b.menu_mode == MENU_MODE_INFO:
             self.font0.draw_text(screen, "Press X to return", X_MENU_MAIN, Y_MENU_MAIN_0)
 
         else:
-            self.menu_renderer.draw_dummy_menu(screen, previous_menu_index)
+            self.menu_renderer.draw_dummy_menu(screen, b.previous_menu_index)
 
     def _draw_press_turn_icons(self,
+                               b,
                                screen,
-                               menu_mode,
                                hp_offset):
         press_turn_states = self.model.get_press_turn_icon_states(self.animation.anim_frame)
-        self.press_turn_renderer.draw_all(screen, press_turn_states, menu_mode, hp_offset, self.animation.anim_frame, self.model.is_player_turn)
+        self.press_turn_renderer.draw_all(screen, press_turn_states, b.menu_mode, hp_offset, self.animation.anim_frame, b.model.is_player_turn)
 
-    def _is_drawn_press_turn_icons(self, menu_mode):
-        return menu_mode != MENU_MODE_INFO
+    def _is_drawn_press_turn_icons(self, b):
+        return b.menu_mode != MENU_MODE_INFO
     
     def _draw_enemy_hpmp(self,
-                         menu_mode,
-                         target,
-                         info_row,
-                         info_col,
-                         active_enemy_index,
+                         b,
                          screen,
                          enemy_hpmp_y,
                          ui_hp_offset,
                          blink):
-        if menu_mode in (MENU_MODE_TARGET_SELECT,
+        if b.menu_mode in (MENU_MODE_TARGET_SELECT,
                         MENU_MODE_DAMAGING_ENEMY,
                         MENU_MODE_ITEM_TARGET_SELECT):
-            enemy_for_hpmp = target
-        elif menu_mode == MENU_MODE_INFO and info_row == 0:
-            enemy_for_hpmp = self.model.enemy_team[info_col]
+            enemy_for_hpmp = b.model.enemy_team[b.target_index]
+        elif b.menu_mode == MENU_MODE_INFO and b.info_row == 0:
+            enemy_for_hpmp = self.model.enemy_team[b.info_col]
         else:
-            enemy_for_hpmp = self.model.enemy_team[active_enemy_index]
-        if (menu_mode != MENU_MODE_INFO) or \
-            (info_row == 0):
+            enemy_for_hpmp = self.model.enemy_team[b.active_enemy_index]
+        if (b.menu_mode != MENU_MODE_INFO) or \
+            (b.info_row == 0):
             self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset, blink)
 
-    def _is_drawn_enemy_hpmp(self, menu_mode):
-        return menu_mode in (
+    def _is_drawn_enemy_hpmp(self, b):
+        return b.menu_mode in (
             MENU_MODE_TARGET_SELECT,
             MENU_MODE_DAMAGING_ENEMY,
             MENU_MODE_ITEM_TARGET_SELECT,
@@ -285,8 +258,8 @@ class BattleRenderer:
             MENU_MODE_INFO
         )
     
-    def _draw_mpcost(self, skills_cursor, screen, ui_hp_offset):
-        move_name = self.model.get_active_pokemon().moves[skills_cursor]
+    def _draw_mpcost(self, b, screen, ui_hp_offset):
+        move_name = self.model.get_active_pokemon().moves[b.skills_cursor]
         self.hpmp_renderer.draw_mp_cost_bar(
             screen,
             self.model.get_active_pokemon(),
@@ -295,11 +268,11 @@ class BattleRenderer:
             self.smt_moves
         )
 
-    def _is_drawn_mpcost(self, menu_mode):
-        return menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT)
+    def _is_drawn_mpcost(self, b):
+        return b.menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT)
     
-    def _is_drawn_player_hpmp(self, menu_mode, info_row):
-        return (menu_mode != MENU_MODE_INFO) or (info_row == ROW_PLAYER)
+    def _is_drawn_player_hpmp(self, b):
+        return (b.menu_mode != MENU_MODE_INFO) or (b.info_row == ROW_PLAYER)
             
     def _draw_player_hpmp(self,
                               screen,
@@ -310,53 +283,45 @@ class BattleRenderer:
         self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset, blink)
 
     def _get_data_hpmp(self, 
-                       menu_mode, 
-                       hp_offset, 
-                       active_pokemon, 
-                       selected_ally,
-                       enemy_target_index,
-                       info_row,
-                       info_col):
+                       b,
+                       hp_offset):
+        active_pokemon = b.model.player_team[b.model.turn_index]
         hpmp_y = HPMP_Y
         enemy_hpmp_y = HPMP_ENEMY_Y
         ui_hp_offset = 0
         pokemon_for_hpmp = None
-        if menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
+        if b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
                              MENU_MODE_DAMAGING_PLAYER,
                              MENU_MODE_ENEMY_DAMAGE):
             hpmp_y += hp_offset
             enemy_hpmp_y += hp_offset
             ui_hp_offset += hp_offset
         pokemon_for_hpmp = active_pokemon
-        if menu_mode in (MENU_MODE_ITEM_INFO,
+        if b.menu_mode in (MENU_MODE_ITEM_INFO,
                          MENU_MODE_ITEM_USE):
-            pokemon_for_hpmp = self.model.player_team[selected_ally]
-        if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
+            pokemon_for_hpmp = self.model.player_team[b.selected_ally]
+        if b.menu_mode in (MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
-            pokemon_for_hpmp = self.model.player_team[enemy_target_index]
-        if menu_mode == MENU_MODE_INFO and info_row == 1:
-            pokemon_for_hpmp = self.model.player_team[info_col]
+            pokemon_for_hpmp = self.model.player_team[b.enemy_target_index]
+        if b.menu_mode == MENU_MODE_INFO and b.info_row == 1:
+            pokemon_for_hpmp = self.model.player_team[b.info_col]
         return (hpmp_y, enemy_hpmp_y, ui_hp_offset, pokemon_for_hpmp)
     
     def _get_data_dark_overlay(self, 
-              menu_mode,
-              info_row,
-              info_col,
+              b,
               poke_offset,
               target_enemy_pos,
-              selected_ally,
-              enemy_target_index,
               screen,
               bounce_index):
         highlight_player_pos = self.background_renderer.draw_players(
-            screen, menu_mode, bounce_index, poke_offset, self.model
+            screen, b.menu_mode, bounce_index, poke_offset, self.model
         )
         target_enemy_pos = target_enemy_pos
-        if menu_mode == MENU_MODE_ITEM_INFO:
-            sprite = self.background_renderer.player_sprites[selected_ally]
-            pokemon = self.model.player_team[selected_ally]
+        if b.menu_mode == MENU_MODE_ITEM_INFO:
+            sprite = self.background_renderer.player_sprites[b.selected_ally]
+            pokemon = self.model.player_team[b.selected_ally]
 
-            x = PLAYER_BASE_X + selected_ally * PLAYER_SPACING
+            x = PLAYER_BASE_X + b.selected_ally * PLAYER_SPACING
             if pokemon.is_player:
                 x += PLAYER_OFFSET
                 y = PLAYER_Y + PLAYER_Y_OFFSET
@@ -365,12 +330,12 @@ class BattleRenderer:
 
             y += poke_offset
             highlight_player_pos = (sprite, x, y)
-        if menu_mode in (MENU_MODE_DAMAGING_PLAYER,
+        if b.menu_mode in (MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
-            sprite = self.background_renderer.player_sprites[enemy_target_index]
-            pokemon = self.model.player_team[enemy_target_index]
+            sprite = self.background_renderer.player_sprites[b.enemy_target_index]
+            pokemon = self.model.player_team[b.enemy_target_index]
 
-            x = PLAYER_BASE_X + enemy_target_index * PLAYER_SPACING
+            x = PLAYER_BASE_X + b.enemy_target_index * PLAYER_SPACING
             if pokemon.is_player:
                 x += PLAYER_OFFSET
                 y = PLAYER_Y + PLAYER_Y_OFFSET
@@ -378,21 +343,21 @@ class BattleRenderer:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
             highlight_player_pos = (sprite, x, y)
-        if menu_mode == MENU_MODE_INFO:
-            if info_row == ROW_ENEMY:
-                sprite = self.background_renderer.enemy_sprites[info_col]
-                pokemon = self.model.enemy_team[info_col]
+        if b.menu_mode == MENU_MODE_INFO:
+            if b.info_row == ROW_ENEMY:
+                sprite = self.background_renderer.enemy_sprites[b.info_col]
+                pokemon = self.model.enemy_team[b.info_col]
 
-                x = ENEMY_BASE_X + info_col * ENEMY_SPACING
+                x = ENEMY_BASE_X + b.info_col * ENEMY_SPACING
                 y = ENEMY_Y + poke_offset
 
                 highlight_player_pos = None
                 target_enemy_pos = (sprite, x, y)
-            if info_row == ROW_PLAYER:
-                sprite = self.background_renderer.player_sprites[info_col]
-                pokemon = self.model.player_team[info_col]
+            if b.info_row == ROW_PLAYER:
+                sprite = self.background_renderer.player_sprites[b.info_col]
+                pokemon = self.model.player_team[b.info_col]
 
-                x = PLAYER_BASE_X + info_col * PLAYER_SPACING
+                x = PLAYER_BASE_X + b.info_col * PLAYER_SPACING
                 if pokemon.is_player:
                     x += PLAYER_OFFSET
                     y = PLAYER_Y + PLAYER_Y_OFFSET + poke_offset
@@ -404,19 +369,15 @@ class BattleRenderer:
         return (highlight_player_pos, target_enemy_pos)
     
     def _get_data_bounce_index(self,
-                               menu_mode,
-                               selected_ally,
-                               enemy_target_index,
-                               info_row,
-                               info_col):
+                               b):
         bounce_index = self.model.turn_index
-        if menu_mode == MENU_MODE_ITEM_INFO:
-            bounce_index = selected_ally
-        elif menu_mode == MENU_MODE_DAMAGING_PLAYER:
-            bounce_index = enemy_target_index
-        elif menu_mode == MENU_MODE_INFO:
-            if info_row == ROW_PLAYER:
-                bounce_index = info_col
+        if b.menu_mode == MENU_MODE_ITEM_INFO:
+            bounce_index = b.selected_ally
+        elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            bounce_index = b.enemy_target_index
+        elif b.menu_mode == MENU_MODE_INFO:
+            if b.info_row == ROW_PLAYER:
+                bounce_index = b.info_col
             else:
                 bounce_index = ROW_NOT_INFO_STATE
         return bounce_index
@@ -435,77 +396,53 @@ class BattleRenderer:
 
         self.background_renderer.draw_background(screen)
         
-        target_enemy_pos = self.background_renderer.draw_enemies(screen, 
-                                                                 b.menu_mode, 
-                                                                 b.target_index, 
-                                                                 poke_offset,
-                                                                 b.info_row, 
-                                                                 b.info_col,
-                                                                 b.active_enemy_index)
+        target_enemy_pos = self.background_renderer.draw_enemies(b,
+                                                                 screen, 
+                                                                 poke_offset)
         
-        bounce_index = self._get_data_bounce_index(b.menu_mode,
-                                                   b.selected_ally,
-                                                   b.enemy_target_index,
-                                                   b.info_row,
-                                                   b.info_col)
+        bounce_index = self._get_data_bounce_index(b)
 
         highlight_player_pos, \
         target_enemy_pos = self._get_data_dark_overlay(
-                                      b.menu_mode,
-                                      b.info_row,
-                                      b.info_col,
+                                      b,
                                       poke_offset,
                                       target_enemy_pos,
-                                      b.selected_ally,
-                                      b.enemy_target_index,
                                       screen,
                                       bounce_index)
 
         self.background_renderer.draw_dark_overlay(
+            b,
             screen,
-            b.menu_mode,
             highlight_player_pos,
             target_enemy_pos
         )
 
-        self.background_renderer.draw_affinity_flash(screen, 
-                                                     b.menu_mode, 
+        self.background_renderer.draw_affinity_flash(b,
+                                                     screen,
                                                      self.model.player_team[self.model.turn_index],
-                                                     b.skills_scroll, 
-                                                     b.skills_cursor, 
                                                      self.model.enemy_team[b.target_index],
                                                      self.animation.anim_frame, 
-                                                     target_enemy_pos,
-                                                     b.pending_item_data)
+                                                     target_enemy_pos)
 
         hpmp_y, \
         enemy_hpmp_y, \
         ui_hp_offset, \
         pokemon_for_hpmp = self._get_data_hpmp(
-                       b.menu_mode, 
-                       hp_offset, 
-                       self.model.player_team[self.model.turn_index], 
-                       b.selected_ally,
-                       b.enemy_target_index,
-                       b.info_row,
-                       b.info_col)        
+                       b, 
+                       hp_offset)        
 
-        if self._is_drawn_player_hpmp(b.menu_mode, b.info_row):
+        if self._is_drawn_player_hpmp(b):
             self._draw_player_hpmp(screen,
                                    pokemon_for_hpmp,
                                    hpmp_y,
                                    ui_hp_offset,
                                    blink)        
 
-        if self._is_drawn_mpcost(b.menu_mode):
-            self._draw_mpcost(b.skills_cursor, screen, ui_hp_offset)
+        if self._is_drawn_mpcost(b):
+            self._draw_mpcost(b, screen, ui_hp_offset)
 
-        if self._is_drawn_enemy_hpmp(b.menu_mode):
-            self._draw_enemy_hpmp(b.menu_mode,
-                                  self.model.enemy_team[b.target_index],
-                                  b.info_row,
-                                  b.info_col,
-                                  b.active_enemy_index,
+        if self._is_drawn_enemy_hpmp(b):
+            self._draw_enemy_hpmp(b,
                                   screen,
                                   enemy_hpmp_y,
                                   ui_hp_offset,
@@ -514,40 +451,15 @@ class BattleRenderer:
         screen.blit(self.bframe, COORDS_FRAME)
 
         # Press Turn icons
-        if self._is_drawn_press_turn_icons(b.menu_mode):
-            self._draw_press_turn_icons(screen,
-                                        b.menu_mode,
+        if self._is_drawn_press_turn_icons(b):
+            self._draw_press_turn_icons(b,
+                                        screen,
                                         hp_offset)
 
         # Menus + text
         self._call_menu_mode_function(
-                                 b.menu_mode,
+                                 b,
                                  screen,
-                                 self.model.player_team[self.model.turn_index],
-                                 b.menu_index,
-                                 b.skills_scroll,
-                                 b.skills_cursor,
-                                 b.scroll_text,
                                  scroll_index,
-                                 b.scroll_done,
-                                 b.damage_done,
-                                 b.affinity_done,
-                                 b.affinity_text,
-                                 b.affinity_scroll_index,
-                                 b.affinity_scroll_done,
-                                 b.damage_text,
-                                 b.damage_scroll_index,
-                                 b.damage_scroll_done,
-                                 blink,
-                                 b.model.inventory,
-                                 b.item_cursor_x,
-                                 b.item_cursor_y,
-                                 b.pending_item_data,
-                                 b.item_use_text,
-                                 b.item_use_scroll_done,
-                                 b.item_use_scroll_index,
-                                 b.item_recover_text,
-                                 b.item_recover_scroll_index,
-                                 b.item_recover_scroll_done,
-                                 b.previous_menu_index)
+                                 blink)
         
