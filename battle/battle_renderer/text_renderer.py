@@ -63,6 +63,16 @@ class TextRenderer:
             self, b, screen, scroll_index,
             blink
     ):
+        if b.is_crit and b.affinity_confirm:
+            if not b.crit_scroll_done:
+                visible_crit = b.crit_text[:int(b.crit_scroll_index)]
+                self.font0.draw_text(screen, visible_crit, X_MENU_MAIN, Y_MENU_MAIN_0)
+                return
+            self.font0.draw_text(screen, b.crit_text, X_MENU_MAIN, Y_MENU_MAIN_0)
+            if b.crit_scroll_done and blink:
+                screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
+            return
+        
         # =========================================================
         # CASE A — NON‑NEUTRAL AFFINITY (affinity_text is not None)
         # =========================================================

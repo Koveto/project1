@@ -78,14 +78,15 @@ def handle_accuracy(battle, move, defender):
     battle.affinity_done = True
     battle.affinity_scroll_done = True
 
+    battle.crit_done = True
+    battle.crit_scroll_done = True
+    battle.affinity_confirm = True
+
     battle.damage_text = "But it missed!"
     battle.damage_scroll_index = 0
     battle.damage_scroll_done = False
 
-    battle.is_crit = False
-    battle.crit_text = None
-    battle.crit_scroll_index = 0
-    battle.crit_scroll_done = False
+
 
     battle.model.consume_miss()
     return True  # miss handled
@@ -107,6 +108,7 @@ def reset_damage_flags(battle):
     battle.damage_done = False
     battle.affinity_done = False
     battle.affinity_text = None
+    battle.is_crit = False
 
 def tick_hp_animation(battle, damage_target):
     diff = damage_target.hp_anim - damage_target.hp_target
@@ -134,18 +136,12 @@ def animate_hp_bar(battle, is_player):
 
     # Prepare damage text
     setup_damage_text(battle)
-    setup_crit_text(battle)
     return
 
 def setup_damage_text(battle):
     battle.damage_text = f"Dealt {battle.damage_amount} damage."
     battle.damage_scroll_index = 0
     battle.damage_scroll_done = False
-
-def setup_crit_text(battle):
-    battle.crit_text = "A critical hit!"
-    battle.crit_scroll_index = 0
-    battle.crit_scroll_done = False
 
 def compute_affinity_text(battle, is_player):
     # Reset affinity scroll state
@@ -200,13 +196,18 @@ def handle_damaging_enemy_event(battle, event):
     if battle.affinity_text and not battle.affinity_done:
         if handle_scroll_skip(battle, event, "affinity_text", "affinity_scroll_index", "affinity_scroll_done"):
             return
-
+        return
+    if battle.is_crit and not battle.affinity_confirm and key_confirm(event.key):
+        battle.affinity_confirm = True
+        return
+    if battle.is_crit and battle.affinity_done and not battle.crit_done and battle.affinity_confirm:
+        if handle_scroll_skip(battle, event, "crit_text", "crit_scroll_index", "crit_scroll_done"):
+            return
         if key_confirm(event.key):
             finish_damage_phase(battle)
         return
     if key_confirm(event.key):
         finish_damage_phase(battle)
-        return
 
 def handle_enemy_damaging_event(battle, event):
     if event.type == pygame.KEYDOWN and key_confirm(event.key):
@@ -302,14 +303,14 @@ def update_generic_damage_phase(battle, is_player=True):
             done_attr="damage_scroll_done"
         )
     
-    # PHASE 3c - crit text scroll
-    if battle.damage_done and battle.is_crit and not battle.crit_scroll_done:
-        return scroll_text_generic(
+    if battle.is_crit and battle.affinity_confirm and battle.damage_done and not battle.crit_scroll_done:
+        scroll_text_generic(
             battle,
-            text = battle.crit_text,
+            text=battle.crit_text,
             index_attr="crit_scroll_index",
             done_attr="crit_scroll_done"
         )
+        return
     
 def handle_damage_delay(battle):
     if not battle.delay_started:
