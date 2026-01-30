@@ -87,13 +87,13 @@ class HPMPRenderer:
         screen.blit(fill_surface, (base_x, base_y + hp_offset))
 
 
-    def draw_mp_cost_bar(self, screen, pokemon, move_name, hp_offset, smt_moves):
-        move = smt_moves.get(move_name)
+    def draw_mp_cost_bar(self, b, screen, move_name, hp_offset):
+        move = b.smt_moves.get(move_name)
         if not move:
             return
 
         cost = move["mp"]
-        max_mp = pokemon.max_mp
+        max_mp = b.model.get_active_pokemon().max_mp
 
         if max_mp <= 0 or cost <= 0:
             return

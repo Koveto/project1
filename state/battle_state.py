@@ -86,7 +86,7 @@ class BattleState(GameState):
         enemy_team[3].moves = ["Attack", "Agi", "Bufu", "Zio"]
 
         self.model = BattleModel(player_team, enemy_team)
-        self.renderer = BattleRenderer(background_surface, self.model, self.smt_moves)
+        self.renderer = BattleRenderer(self, background_surface)
 
         self.menu_index = MENU_INDEX_SKILLS
         self.menu_mode = MENU_MODE_MAIN

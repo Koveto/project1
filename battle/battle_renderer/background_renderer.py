@@ -54,14 +54,14 @@ class BackgroundRenderer:
         return target_enemy_pos
 
 
-    def draw_players(self, screen, menu_mode, active_index, poke_offset, model):
+    def draw_players(self, b, screen, active_index, poke_offset):
         active_pokemon_pos = None
 
         for i, sprite in enumerate(self.player_sprites):
             if sprite is None:
                 continue
 
-            pokemon = model.player_team[i]
+            pokemon = b.model.player_team[i]
 
             x = PLAYER_BASE_X + i * PLAYER_SPACING
 
@@ -71,7 +71,7 @@ class BackgroundRenderer:
             else:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
-            if i == active_index and menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
+            if i == active_index and b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
                                                        MENU_MODE_DAMAGING_PLAYER,
                                                        MENU_MODE_ENEMY_DAMAGE):
                 y += poke_offset

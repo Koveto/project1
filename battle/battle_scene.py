@@ -1,6 +1,3 @@
-# b/b_scene.py  (recommended new name)
-
-import pygame, math
 from constants import *
 from battle.battle_constants import *
 from battle.battle_font import BattleFont
@@ -19,12 +16,10 @@ from battle.battle_renderer.stat_icon_renderer import StatIconRenderer
 class BattleRenderer:
     """Coordinates all battle rendering subsystems."""
 
-    def __init__(self, background_surface, model, moves):
+    def __init__(self, b, background_surface):
 
         # Core references
         self.background = background_surface
-        self.model = model
-        self.smt_moves = moves
 
         # Fonts
         self.font0 = BattleFont(FONT0_FILENAME, glyph_w=FONT0_WIDTH, glyph_h=FONT0_HEIGHT,
@@ -53,19 +48,19 @@ class BattleRenderer:
         # Pokémon sprites
         self.player_sprites = [
             self._load_sprite_for_pokemon(p, is_back=True) if p else None
-            for p in model.player_team
+            for p in b.model.player_team
         ]
         self.enemy_sprites = [
             self._load_sprite_for_pokemon(p, is_back=False) if p else None
-            for p in model.enemy_team
+            for p in b.model.enemy_team
         ]
 
         # Sub-renderers
         self.stat_icon_renderer = StatIconRenderer()
         self.text_renderer = TextRenderer(self.font0, self.cursor_sprite)
-        self.background_renderer = BackgroundRenderer(background_surface, self.player_sprites, self.enemy_sprites, self.smt_moves)
+        self.background_renderer = BackgroundRenderer(background_surface, self.player_sprites, self.enemy_sprites, b.smt_moves)
         self.hpmp_renderer = HPMPRenderer(self.font1, self.font3, self.hpmp_sprite, self.hpmp_sprite_enemy, self.lv_sprite, self.hp_fill, self.mp_fill, self.mp_cost_fill, self.stat_icon_renderer)
-        self.menu_renderer = MenuRenderer(self.font0, self.font2, self.cursor_sprite, self.smt_moves)
+        self.menu_renderer = MenuRenderer(self.font0, self.font2, self.cursor_sprite, b.smt_moves)
         self.press_turn_renderer = PressTurnRenderer(self.press_turn_blue, self.press_turn_red)
         self.animation = AnimationRenderer()
 
@@ -100,96 +95,80 @@ class BattleRenderer:
         active_pokemon = b.model.player_team[b.model.turn_index]
         
         if b.menu_mode == MENU_MODE_MAIN:
-            self.menu_renderer.draw_main_menu(screen, active_pokemon, b.menu_index)
+            self.menu_renderer.draw_main_menu(b, screen, active_pokemon)
 
         elif b.menu_mode == MENU_MODE_SKILLS:
-            self.menu_renderer.draw_skills_menu(screen, active_pokemon, b.skills_scroll, b.skills_cursor)
+            self.menu_renderer.draw_skills_menu(b, screen, active_pokemon)
 
         elif b.menu_mode == MENU_MODE_TARGET_SELECT:
             self.menu_renderer.draw_target_select_menu(
+                b,
                 screen,
                 active_pokemon,
-                b.skills_scroll,
-                b.skills_cursor
             )
 
         elif b.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             self.text_renderer.draw_damaging_enemy(
-                screen, b.scroll_text, scroll_index, b.scroll_done,
-                b.damage_done, b.affinity_done, b.affinity_text,
-                b.affinity_scroll_index, b.affinity_scroll_done, 
-                b.damage_text, b.damage_scroll_index, b.damage_scroll_done, 
+                b, screen, scroll_index, 
                 blink
             )
             return
         
         elif b.menu_mode == MENU_MODE_ITEMS:
             self.menu_renderer.draw_item_menu(
-                screen,
-                b.model.inventory,
-                b.item_cursor_x,
-                b.item_cursor_y
+                b, screen,
             )
             return
         
         elif b.menu_mode == MENU_MODE_ITEM_INFO:
             self.menu_renderer.draw_item_info(
+                b,
                 screen,
-                b.pending_item_data,
                 self.text_renderer
             )
             return
 
         elif b.menu_mode == MENU_MODE_ITEM_USE:
             self.text_renderer.draw_item_use(
+                b,
                 screen,
-                b.item_use_text,
-                b.item_use_scroll_index,
-                b.item_use_scroll_done,
-                b.item_recover_text,
-                b.item_recover_scroll_index,
-                b.item_recover_scroll_done,
                 blink
             )
             return
         
         elif b.menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
             self.menu_renderer.draw_item_target_select_menu(
+                b,
                 screen,
-                active_pokemon,
-                b.skills_scroll,
-                b.skills_cursor,
-                b.pending_item_data
+                active_pokemon
             )
         
         elif b.menu_mode == MENU_MODE_GUARDING:
             self.text_renderer.draw_simple_scroll(
+                b,
                 screen,
-                b.scroll_text,
                 scroll_index,
-                b.scroll_done,
                 blink
             )
             return
         
         elif b.menu_mode == MENU_MODE_TALK:
             self.text_renderer.draw_simple_scroll(
-                screen, b.scroll_text, scroll_index, b.scroll_done, blink
+                b, screen, scroll_index, blink
             )
             return
 
         elif b.menu_mode == MENU_MODE_ESCAPE:
             self.text_renderer.draw_simple_scroll(
-                screen, b.scroll_text, scroll_index, b.scroll_done, blink
+                b, screen, scroll_index, blink
             )
             return
         
         elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
-            self.text_renderer.draw_enemy_attack_text(
+            self.text_renderer.draw_simple_scroll(
+                b,
                 screen,
-                b.scroll_text,
                 scroll_index,
-                b.scroll_done,
                 blink
             )
             return
@@ -198,18 +177,9 @@ class BattleRenderer:
             # Enemy damage phase uses the same multi-phase renderer
             # as the player-side damaging phase.
             self.text_renderer.draw_damaging_enemy(
+                b,
                 screen,
-                b.scroll_text,
                 scroll_index,
-                b.scroll_done,
-                b.damage_done,
-                b.affinity_done,
-                b.affinity_text,
-                b.affinity_scroll_index,
-                b.affinity_scroll_done,
-                b.damage_text,
-                b.damage_scroll_index,
-                b.damage_scroll_done,
                 blink
             )
             return
@@ -218,14 +188,14 @@ class BattleRenderer:
             self.font0.draw_text(screen, "Press X to return", X_MENU_MAIN, Y_MENU_MAIN_0)
 
         else:
-            self.menu_renderer.draw_dummy_menu(screen, b.previous_menu_index)
+            self.menu_renderer.draw_dummy_menu(b, screen)
 
     def _draw_press_turn_icons(self,
                                b,
                                screen,
                                hp_offset):
-        press_turn_states = self.model.get_press_turn_icon_states(self.animation.anim_frame)
-        self.press_turn_renderer.draw_all(screen, press_turn_states, b.menu_mode, hp_offset, self.animation.anim_frame, b.model.is_player_turn)
+        press_turn_states = b.model.get_press_turn_icon_states(self.animation.anim_frame)
+        self.press_turn_renderer.draw_all(b, screen, press_turn_states, hp_offset, self.animation.anim_frame)
 
     def _is_drawn_press_turn_icons(self, b):
         return b.menu_mode != MENU_MODE_INFO
@@ -241,9 +211,9 @@ class BattleRenderer:
                         MENU_MODE_ITEM_TARGET_SELECT):
             enemy_for_hpmp = b.model.enemy_team[b.target_index]
         elif b.menu_mode == MENU_MODE_INFO and b.info_row == 0:
-            enemy_for_hpmp = self.model.enemy_team[b.info_col]
+            enemy_for_hpmp = b.model.enemy_team[b.info_col]
         else:
-            enemy_for_hpmp = self.model.enemy_team[b.active_enemy_index]
+            enemy_for_hpmp = b.model.enemy_team[b.active_enemy_index]
         if (b.menu_mode != MENU_MODE_INFO) or \
             (b.info_row == 0):
             self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset, blink)
@@ -259,13 +229,12 @@ class BattleRenderer:
         )
     
     def _draw_mpcost(self, b, screen, ui_hp_offset):
-        move_name = self.model.get_active_pokemon().moves[b.skills_cursor]
+        move_name = b.model.get_active_pokemon().moves[b.skills_cursor]
         self.hpmp_renderer.draw_mp_cost_bar(
+            b,
             screen,
-            self.model.get_active_pokemon(),
             move_name,
-            ui_hp_offset,
-            self.smt_moves
+            ui_hp_offset
         )
 
     def _is_drawn_mpcost(self, b):
@@ -299,12 +268,12 @@ class BattleRenderer:
         pokemon_for_hpmp = active_pokemon
         if b.menu_mode in (MENU_MODE_ITEM_INFO,
                          MENU_MODE_ITEM_USE):
-            pokemon_for_hpmp = self.model.player_team[b.selected_ally]
+            pokemon_for_hpmp = b.model.player_team[b.selected_ally]
         if b.menu_mode in (MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
-            pokemon_for_hpmp = self.model.player_team[b.enemy_target_index]
+            pokemon_for_hpmp = b.model.player_team[b.enemy_target_index]
         if b.menu_mode == MENU_MODE_INFO and b.info_row == 1:
-            pokemon_for_hpmp = self.model.player_team[b.info_col]
+            pokemon_for_hpmp = b.model.player_team[b.info_col]
         return (hpmp_y, enemy_hpmp_y, ui_hp_offset, pokemon_for_hpmp)
     
     def _get_data_dark_overlay(self, 
@@ -314,12 +283,12 @@ class BattleRenderer:
               screen,
               bounce_index):
         highlight_player_pos = self.background_renderer.draw_players(
-            screen, b.menu_mode, bounce_index, poke_offset, self.model
+            b, screen, bounce_index, poke_offset
         )
         target_enemy_pos = target_enemy_pos
         if b.menu_mode == MENU_MODE_ITEM_INFO:
             sprite = self.background_renderer.player_sprites[b.selected_ally]
-            pokemon = self.model.player_team[b.selected_ally]
+            pokemon = b.model.player_team[b.selected_ally]
 
             x = PLAYER_BASE_X + b.selected_ally * PLAYER_SPACING
             if pokemon.is_player:
@@ -333,7 +302,7 @@ class BattleRenderer:
         if b.menu_mode in (MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
             sprite = self.background_renderer.player_sprites[b.enemy_target_index]
-            pokemon = self.model.player_team[b.enemy_target_index]
+            pokemon = b.model.player_team[b.enemy_target_index]
 
             x = PLAYER_BASE_X + b.enemy_target_index * PLAYER_SPACING
             if pokemon.is_player:
@@ -346,7 +315,7 @@ class BattleRenderer:
         if b.menu_mode == MENU_MODE_INFO:
             if b.info_row == ROW_ENEMY:
                 sprite = self.background_renderer.enemy_sprites[b.info_col]
-                pokemon = self.model.enemy_team[b.info_col]
+                pokemon = b.model.enemy_team[b.info_col]
 
                 x = ENEMY_BASE_X + b.info_col * ENEMY_SPACING
                 y = ENEMY_Y + poke_offset
@@ -355,7 +324,7 @@ class BattleRenderer:
                 target_enemy_pos = (sprite, x, y)
             if b.info_row == ROW_PLAYER:
                 sprite = self.background_renderer.player_sprites[b.info_col]
-                pokemon = self.model.player_team[b.info_col]
+                pokemon = b.model.player_team[b.info_col]
 
                 x = PLAYER_BASE_X + b.info_col * PLAYER_SPACING
                 if pokemon.is_player:
@@ -370,7 +339,7 @@ class BattleRenderer:
     
     def _get_data_bounce_index(self,
                                b):
-        bounce_index = self.model.turn_index
+        bounce_index = b.model.turn_index
         if b.menu_mode == MENU_MODE_ITEM_INFO:
             bounce_index = b.selected_ally
         elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
@@ -419,8 +388,8 @@ class BattleRenderer:
 
         self.background_renderer.draw_affinity_flash(b,
                                                      screen,
-                                                     self.model.player_team[self.model.turn_index],
-                                                     self.model.enemy_team[b.target_index],
+                                                     b.model.player_team[b.model.turn_index],
+                                                     b.model.enemy_team[b.target_index],
                                                      self.animation.anim_frame, 
                                                      target_enemy_pos)
 

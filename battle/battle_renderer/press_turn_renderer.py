@@ -22,11 +22,11 @@ class PressTurnRenderer:
             if (anim_frame // PT_DURATION_FLASH) % 2 == 0:
                 screen.blit(self.press_turn_red, (x, y))
 
-    def draw_all(self, screen, press_turn_states, menu_mode, hp_offset, anim_frame, is_player_turn):
+    def draw_all(self, b, screen, press_turn_states, hp_offset, anim_frame):
         for i, state in enumerate(press_turn_states):
-            if (is_player_turn):
+            if (b.model.is_player_turn):
                 x = PT_X + i * PT_SPACING
-                y = PT_Y if menu_mode == MENU_MODE_DAMAGING_ENEMY else PT_Y + hp_offset
+                y = PT_Y if b.menu_mode == MENU_MODE_DAMAGING_ENEMY else PT_Y + hp_offset
             else:
                 x = PT_X_ENEMY + i * PT_SPACING
                 y = PT_Y_ENEMY
