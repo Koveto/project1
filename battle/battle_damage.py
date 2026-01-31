@@ -108,7 +108,6 @@ def reset_damage_flags(battle):
     battle.damage_done = False
     battle.affinity_done = False
     battle.affinity_text = None
-    battle.is_crit = False
     battle.crit_text = None
     battle.crit_scroll_index = 0
     battle.crit_done = False
@@ -232,6 +231,7 @@ def finish_damage_phase(battle):
 
     affinity = compute_affinity_after_damage(battle, attacker, defender, move)
     apply_press_turn_cost(battle, affinity)
+    battle.is_crit = False
     handle_side_switch(battle)
 
     battle.pending_move_name = None
@@ -252,6 +252,7 @@ def finish_enemy_damage_phase(battle):
 
     affinity = compute_affinity_after_damage(battle, attacker, defender, move)
     apply_press_turn_cost(battle, affinity)
+    battle.is_crit = False
     handle_side_switch(battle)
 
     battle.pending_enemy_move = None
@@ -349,7 +350,10 @@ def begin_damage_if_ready(battle, is_player):
 
 def apply_press_turn_cost(battle, affinity):
     if not battle.missed:
-        cost = calculate_press_turns_consumed(battle, affinity)
+        if battle.is_crit:
+            cost = PRESS_TURN_HALF
+        else:
+            cost = calculate_press_turns_consumed(battle, affinity)
         battle.model.handle_action_press_turn_cost(cost)
     else:
         battle.missed = False  # reset for next action

@@ -58,7 +58,7 @@ class BattleState(GameState):
             stats=bulbasaur_data.base_stats,
             affinities=bulbasaur_data.affinities,
             learnset=bulbasaur_data.learnset,
-            moves=["Attack", "Agi", "Bufu", "Zio"]
+            moves=["Attack", "Agi", "Bufu", "Zio", "Hama"]
         )
 
         # Build teams
@@ -69,9 +69,9 @@ class BattleState(GameState):
             get_smt_pokemon_by_number(self.smt_pokemon, 6)     # Charizard
         ]
 
-        player_team[1].moves = ["Attack", "Agi", "Bufu", "Zio"]
-        player_team[2].moves = ["Attack", "Agi", "Bufu", "Zio"]
-        player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio"]
+        player_team[1].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
+        player_team[2].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
+        player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
 
         enemy_team = [
             get_smt_pokemon_by_number(self.smt_pokemon, 9),    # Blastoise
@@ -80,10 +80,10 @@ class BattleState(GameState):
             get_smt_pokemon_by_number(self.smt_pokemon, 12)    # Butterfree
         ]
 
-        enemy_team[0].moves = ["Attack", "Agi", "Bufu", "Zio"]
-        enemy_team[1].moves = ["Attack", "Agi", "Bufu", "Zio"]
-        enemy_team[2].moves = ["Attack", "Agi", "Bufu", "Zio"]
-        enemy_team[3].moves = ["Attack", "Agi", "Bufu", "Zio"]
+        enemy_team[0].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
+        enemy_team[1].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
+        enemy_team[2].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
+        enemy_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
 
         self.model = BattleModel(player_team, enemy_team)
         self.renderer = BattleRenderer(self, background_surface)
