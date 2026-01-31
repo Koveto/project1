@@ -109,6 +109,10 @@ def reset_damage_flags(battle):
     battle.affinity_done = False
     battle.affinity_text = None
     battle.is_crit = False
+    battle.crit_text = None
+    battle.crit_scroll_index = 0
+    battle.crit_done = False
+    battle.affinity_confirm = False
 
 def tick_hp_animation(battle, damage_target):
     diff = damage_target.hp_anim - damage_target.hp_target
@@ -385,9 +389,12 @@ def compute_and_apply_damage(battle, attacker, defender, move, is_player):
     affinity = defender.affinities[element_index]
 
     # Crit (still no side effects)
-    if move["type"] == "Physical":
+    if move["type"] == "Physical" and not battle.is_crit:
         if random.random() < CRIT_CHANCE:
             battle.is_crit = True
+            battle.crit_text = "A critical hit!"
+            battle.crit_scroll_done = False
+            battle.crit_scroll_index = 0
 
     # Guarding override (enemy → player only)
     if not is_player and defender.is_guarding and affinity < AFFINITY_NEUTRAL:
@@ -413,9 +420,15 @@ def compute_and_apply_damage(battle, attacker, defender, move, is_player):
     battle.damage_animating = True
 
 def handle_enemy_damage_event(battle, event):
-    if event.type == pygame.KEYDOWN and key_confirm(event.key):
-        if battle.damage_scroll_done:
+    if not battle.affinity_confirm and battle.damage_scroll_done and event.type == pygame.KEYDOWN and key_confirm(event.key):
+        battle.affinity_confirm = True
+        if not battle.is_crit:
             finish_enemy_damage_phase(battle)
+        return
+    if battle.affinity_confirm and battle.is_crit:
+        if not key_confirm(event.key):
+            return
+    finish_enemy_damage_phase(battle)
 
 def begin_enemy_action(battle, attacker_index, move_name, target_index):
     attacker = battle.model.enemy_team[attacker_index]

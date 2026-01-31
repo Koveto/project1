@@ -140,7 +140,7 @@ class BattleState(GameState):
         self.crit_done = False
         self.crit_scroll_index = 0
         self.crit_scroll_done = False
-        self.crit_text = "A critical hit!"
+        self.crit_text = None
         self.affinity_confirm = False
 
     def draw(self, screen):
