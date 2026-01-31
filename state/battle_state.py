@@ -18,6 +18,7 @@ from battle.battle_menu import (
     handle_item_target_select_event,
     handle_info_event,
     handle_submenu_event,
+    handle_target_buff_event
 )
 from battle.battle_text import (
     handle_talk_event,
@@ -58,7 +59,7 @@ class BattleState(GameState):
             stats=bulbasaur_data.base_stats,
             affinities=bulbasaur_data.affinities,
             learnset=bulbasaur_data.learnset,
-            moves=["Attack", "Agi", "Bufu", "Zio", "Hama"]
+            moves=["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja"]
         )
 
         # Build teams
@@ -69,9 +70,9 @@ class BattleState(GameState):
             get_smt_pokemon_by_number(self.smt_pokemon, 6)     # Charizard
         ]
 
-        player_team[1].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
-        player_team[2].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
-        player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
+        player_team[1].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja"]
+        player_team[2].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja"]
+        player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja"]
 
         enemy_team = [
             get_smt_pokemon_by_number(self.smt_pokemon, 9),    # Blastoise
@@ -191,6 +192,9 @@ class BattleState(GameState):
 
         elif self.menu_mode == MENU_MODE_INFO:
             handle_info_event(self, event)
+
+        elif self.menu_mode == MENU_MODE_TARGET_BUFF:
+            handle_target_buff_event(self, event)
 
         elif self.menu_mode == MENU_MODE_SUBMENU:
             handle_submenu_event(self, event)

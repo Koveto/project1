@@ -93,18 +93,28 @@ class HPMPRenderer:
             return
 
         cost = move["mp"]
+        rem_mp = b.model.get_active_pokemon().remaining_mp
         max_mp = b.model.get_active_pokemon().max_mp
+
+        if cost > rem_mp:
+            return
 
         if max_mp <= 0 or cost <= 0:
             return
-
+        
+        pixels_per_mp = MP_BAR_WIDTH / max_mp
+        
         # Cost as a fraction of max MP
         ratio = cost / max_mp
         ratio = max(0.0, min(1.0, ratio))
 
-        fill_width = int(MP_BAR_WIDTH * ratio)
+        rem = rem_mp / max_mp
+
+        fill_width = int(cost * pixels_per_mp)
         if fill_width <= 0:
             return
+        
+        rem_width = int((1 - rem) * MP_BAR_WIDTH)
 
         fill_surface = pygame.transform.scale(
             self.mp_cost_fill,
@@ -112,8 +122,22 @@ class HPMPRenderer:
         )
 
         # Anchor the cost bar on the RIGHT side of the MP bar
-        right_edge = MP_BAR_X + MP_BAR_WIDTH
+        right_edge = MP_BAR_X + MP_BAR_WIDTH - rem_width
         left_edge = right_edge - fill_width
+
+        # 183/198 use 15
+        # left=926, right=940
+        # rem = 198/198 = 1
+        # rem_width = 0
+        # fill_width = 15*.96 = 14
+
+        # 8/198 use 8
+        # left=755, right=762
+        # rem = 8/198 = .04
+        # rem_width = (.96*192 pixels)*(192/198) 178
+        # fill_width = 7
+        #print(right_edge)  #762 
+        #print(left_edge)   #755
 
         screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset))
 

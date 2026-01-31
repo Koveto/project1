@@ -112,4 +112,13 @@ class MenuRenderer:
             self.font0.draw_text(screen, text, X_MENU_MAIN, y)
             y += 100
 
+    def draw_target_buff_menu(self, b, screen, active_pokemon):
+        selected_index = b.skills_scroll + b.skills_cursor
+        move_name = active_pokemon.moves[selected_index]
+        text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
+        y = SKILLS_Y + (b.skills_cursor * SKILLS_Y_INCR)
+        self.font2.draw_text(screen, text, SKILLS_X, y)
+        cursor_x, cursor_y = COORDS_MENU_SKILLS[b.skills_cursor]
+        screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
+
 

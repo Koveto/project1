@@ -86,20 +86,20 @@ class Pokemon:
     def format_move_for_menu(self, move_name, smt_moves):
         m = smt_moves.get(move_name)
         if not m:
-            return f"{move_name[:12]:<12} {'---':>3}  {'----':<4}  {'---':>3}  {'---':<12}"
+            return f"{move_name[:11]:<11} {'---':>3}  {'----':<5}  {'---':>3}  {'---':<12}"
 
-        name = move_name[:12]
+        name = move_name[:11]
 
         # Right‑align numbers in 3 spaces
         mp = f"{m['mp']:>3}"
         power = f"{m['power']:>3}" if m["power"] is not None else "---"
 
-        element_short = f"{m['element'][:4]:<4}"
+        element_short = f"{m['element'][:5]:<5}"
 
         desc = m.get("description", "")[:12]
         desc = f"{desc:<12}"
 
-        return f"{name:<12} {mp}  {element_short}  {power}  {desc}"
+        return f"{name:<11} {mp}  {element_short}  {power}  {desc}"
 
     def choose_random_move(self):
         """

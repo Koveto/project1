@@ -72,12 +72,14 @@ def handle_skills_menu_event(battle, event):
 
     elif key_confirm(event.key):
         pokemon = battle.model.get_active_pokemon()
-        selected_index = battle.skills_scroll + battle.skills_cursor
-        move_name = pokemon.moves[selected_index]
+        move_name = pokemon.moves[battle.skills_scroll + battle.skills_cursor]
         move = battle.smt_moves.get(move_name)
 
-        if can_select_skill(battle, move, pokemon):
+        if single_target_attack(battle, move, pokemon):
             battle.menu_mode = MENU_MODE_TARGET_SELECT
+            return
+        if single_ally_buff(battle, move, pokemon):
+            battle.menu_mode = MENU_MODE_TARGET_BUFF
             return
 
     elif key_back(event.key):
@@ -108,6 +110,22 @@ def handle_target_select_event(battle, event):
     # ----------------------------------------
     # BACK: return to skills menu
     # ----------------------------------------
+    elif key_back(event.key):
+        battle.menu_mode = MENU_MODE_SKILLS
+        return
+    
+def handle_target_buff_event(battle, event):
+    enemy_count = len(battle.model.enemy_team)
+    if event.key == pygame.K_LEFT:
+        if enemy_count > 0:
+            battle.target_index = (battle.target_index - 1) % enemy_count
+        return
+    elif event.key == pygame.K_RIGHT:
+        if enemy_count > 0:
+            battle.target_index = (battle.target_index + 1) % enemy_count
+        return
+    elif key_confirm(event.key):
+        return start_player_attack_phase(battle)
     elif key_back(event.key):
         battle.menu_mode = MENU_MODE_SKILLS
         return
@@ -259,10 +277,17 @@ def move_skill_cursor(battle, direction):
             battle.skills_cursor -= 1
             return
         
-def can_select_skill(battle, move, pokemon):
+def single_target_attack(battle, move, pokemon):
     return (
         move["target"] == "Single" and
         move["type"] in ("Physical", "Special") and
+        pokemon.remaining_mp >= move["mp"]
+    )
+
+def single_ally_buff(battle, move, pokemon):
+    return (
+        move["target"] == "Single" and
+        move["type"] == "Support" and
         pokemon.remaining_mp >= move["mp"]
     )
 

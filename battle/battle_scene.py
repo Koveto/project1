@@ -174,8 +174,6 @@ class BattleRenderer:
             return
         
         elif b.menu_mode == MENU_MODE_ENEMY_DAMAGE:
-            # Enemy damage phase uses the same multi-phase renderer
-            # as the player-side damaging phase.
             self.text_renderer.draw_damaging_enemy(
                 b,
                 screen,
@@ -186,6 +184,9 @@ class BattleRenderer:
 
         elif b.menu_mode == MENU_MODE_INFO:
             self.font0.draw_text(screen, "Press X to return", X_MENU_MAIN, Y_MENU_MAIN_0)
+
+        elif b.menu_mode == MENU_MODE_TARGET_BUFF:
+            self.menu_renderer.draw_target_buff_menu(b, screen, active_pokemon)
 
         else:
             self.menu_renderer.draw_dummy_menu(b, screen)
@@ -229,7 +230,7 @@ class BattleRenderer:
         )
     
     def _draw_mpcost(self, b, screen, ui_hp_offset):
-        move_name = b.model.get_active_pokemon().moves[b.skills_cursor]
+        move_name = b.model.get_active_pokemon().moves[b.skills_scroll + b.skills_cursor]
         self.hpmp_renderer.draw_mp_cost_bar(
             b,
             screen,
