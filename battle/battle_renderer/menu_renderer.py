@@ -102,7 +102,7 @@ class MenuRenderer:
         screen.blit(self.cursor_sprite, (cursor_x_pos, cursor_y_pos))
 
 
-    def draw_item_info(self, b, screen, text_renderer):
+    def draw_item_ally_target(self, b, screen, text_renderer):
         # Word-wrap the description
         desc_lines = text_renderer.wrap_text_words(b.item_data["description"], max_width=32)
     

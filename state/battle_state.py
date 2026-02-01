@@ -14,7 +14,7 @@ from battle.battle_menu import (
     handle_skills_menu_event,
     handle_target_select_event,
     handle_items_event,
-    handle_item_info_event,
+    handle_item_ally_target_event,
     handle_item_target_select_event,
     handle_info_event,
     handle_submenu_event,
@@ -143,6 +143,7 @@ class BattleState(GameState):
         self.crit_scroll_done = False
         self.crit_text = None
         self.affinity_confirm = False
+        self.item_data = None
 
     def draw(self, screen):
         self.renderer.draw(self, screen)
@@ -175,8 +176,8 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_ITEMS:
             handle_items_event(self, event)
 
-        elif self.menu_mode == MENU_MODE_ITEM_INFO:
-            handle_item_info_event(self, event)
+        elif self.menu_mode == MENU_MODE_ITEM_ALLY_TARGET:
+            handle_item_ally_target_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ITEM_USE:
             handle_item_use_event(self, event)

@@ -3,7 +3,7 @@ from battle.battle_menu import (
     handle_skills_menu_event,
     handle_target_select_event,
     handle_items_event,
-    handle_item_info_event,
+    handle_item_ally_target_event,
     handle_item_target_select_event,
     handle_info_event,
     handle_submenu_event,

@@ -87,11 +87,12 @@ class BackgroundRenderer:
         if b.menu_mode not in (
             MENU_MODE_TARGET_SELECT,
             MENU_MODE_DAMAGING_ENEMY,
-            MENU_MODE_ITEM_INFO,
+            MENU_MODE_ITEM_ALLY_TARGET,
             MENU_MODE_ITEM_TARGET_SELECT,
             MENU_MODE_DAMAGING_PLAYER,
             MENU_MODE_ENEMY_DAMAGE,
-            MENU_MODE_INFO
+            MENU_MODE_INFO,
+            MENU_MODE_TARGET_BUFF
         ):
             return
 
@@ -102,7 +103,8 @@ class BackgroundRenderer:
         screen.blit(dark_surface, (0, 0))
 
         # In ITEM_INFO: only un-darken the selected ally
-        if b.menu_mode == MENU_MODE_ITEM_INFO:
+        if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET,
+                           MENU_MODE_TARGET_BUFF):
             if highlight_player_pos is not None:
                 sprite, x, y = highlight_player_pos
                 screen.blit(sprite, (x, y))

@@ -115,20 +115,23 @@ def handle_target_select_event(battle, event):
         return
     
 def handle_target_buff_event(battle, event):
-    enemy_count = len(battle.model.enemy_team)
-    if event.key == pygame.K_LEFT:
-        if enemy_count > 0:
-            battle.target_index = (battle.target_index - 1) % enemy_count
+    if event.type != pygame.KEYDOWN:
         return
-    elif event.key == pygame.K_RIGHT:
-        if enemy_count > 0:
-            battle.target_index = (battle.target_index + 1) % enemy_count
-        return
-    elif key_confirm(event.key):
-        return start_player_attack_phase(battle)
-    elif key_back(event.key):
+    if key_back(event.key):
         battle.menu_mode = MENU_MODE_SKILLS
         return
+    if event.key == pygame.K_LEFT:
+        ally_count = len(battle.model.player_team)
+        battle.selected_ally = (battle.selected_ally - 1) % ally_count
+        return
+    if event.key == pygame.K_RIGHT:
+        ally_count = len(battle.model.player_team)
+        battle.selected_ally = (battle.selected_ally + 1) % ally_count
+        return
+    if key_confirm(event.key):
+        # Build the scroll text
+        user = battle.model.get_active_pokemon()
+        #return start_item_use_phase(battle, user.name, battle.pending_item_name)
     
 def handle_items_event(battle, event):
         
@@ -158,36 +161,28 @@ def handle_items_event(battle, event):
         index = battle.item_cursor_y * 3 + battle.item_cursor_x
         if index < item_count:
             item_name = item_names[index]
-            item_data = battle.model.smt_items[item_name]
+            battle.item_data = battle.model.smt_items[item_name]
 
-            if item_data["type"].startswith("heal_single"):
-                return select_item(battle, item_name, item_data, MENU_MODE_ITEM_INFO)
+            if battle.item_data["type"].startswith("heal_single"):
+                return select_item(battle, item_name, battle.item_data, MENU_MODE_ITEM_ALLY_TARGET)
 
-            if item_data["type"].startswith("damage"):
-                return select_item(battle, item_name, item_data, MENU_MODE_ITEM_TARGET_SELECT)
+            if battle.item_data["type"].startswith("damage"):
+                return select_item(battle, item_name, battle.item_data, MENU_MODE_ITEM_TARGET_SELECT)
             
-def handle_item_info_event(battle, event):
+def handle_item_ally_target_event(battle, event):
     if event.type != pygame.KEYDOWN:
         return
-
-    # BACK
     if key_back(event.key):
         battle.menu_mode = MENU_MODE_ITEMS
         return
-
-    # LEFT
     if event.key == pygame.K_LEFT:
         ally_count = len(battle.model.player_team)
         battle.selected_ally = (battle.selected_ally - 1) % ally_count
         return
-
-    # RIGHT
     if event.key == pygame.K_RIGHT:
         ally_count = len(battle.model.player_team)
         battle.selected_ally = (battle.selected_ally + 1) % ally_count
         return
-    
-    # CONFIRM
     if key_confirm(event.key):
         # Build the scroll text
         user = battle.model.get_active_pokemon()
