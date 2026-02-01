@@ -187,6 +187,14 @@ class BattleRenderer:
 
         elif b.menu_mode == MENU_MODE_TARGET_BUFF:
             self.menu_renderer.draw_target_buff_menu(b, screen, active_pokemon)
+        
+        elif b.menu_mode == MENU_MODE_BUFF_PLAYER:
+            self.text_renderer.draw_simple_scroll(
+                b,
+                screen,
+                scroll_index,
+                blink
+            )
 
         else:
             self.menu_renderer.draw_dummy_menu(b, screen)
@@ -368,7 +376,6 @@ class BattleRenderer:
                                                                  poke_offset)
         
         bounce_index = self._get_data_bounce_index(b)
-
         
         highlight_player_pos = self.background_renderer.draw_players(
             b, screen, bounce_index, poke_offset

@@ -129,9 +129,7 @@ def handle_target_buff_event(battle, event):
         battle.selected_ally = (battle.selected_ally + 1) % ally_count
         return
     if key_confirm(event.key):
-        # Build the scroll text
-        user = battle.model.get_active_pokemon()
-        #return start_item_use_phase(battle, user.name, battle.pending_item_name)
+        return start_player_buff_phase(battle)
     
 def handle_items_event(battle, event):
         
@@ -240,6 +238,12 @@ def move_skill_cursor(battle, direction):
 
     # Moving down
     if direction == 1:
+        if (battle.skills_cursor == 2) and \
+            (battle.skills_scroll == total - 3):
+            battle.skills_cursor = 0
+            battle.skills_scroll = 0
+            return
+
         # Case 1: Move cursor down within visible window
         if battle.skills_cursor < 2 and battle.skills_cursor < total - 1:
             battle.skills_cursor += 1
@@ -257,6 +261,12 @@ def move_skill_cursor(battle, direction):
 
     # Moving up
     if direction == -1:
+        if (battle.skills_cursor == 0) and \
+            (battle.skills_scroll == 0):
+            battle.skills_cursor = 2
+            battle.skills_scroll = total - 3
+            return
+
         # Case 1: Move cursor up within visible window
         if battle.skills_cursor > 0:
             battle.skills_cursor -= 1
@@ -285,6 +295,19 @@ def single_ally_buff(battle, move, pokemon):
         move["type"] == "Support" and
         pokemon.remaining_mp >= move["mp"]
     )
+
+def start_player_buff_phase(battle):
+    battle.menu_mode = MENU_MODE_BUFF_PLAYER
+    active = battle.model.get_active_pokemon()
+    move_name = active.moves[battle.skills_scroll + battle.skills_cursor]
+    ally = battle.model.get_player_team()[battle.selected_ally]
+    if active.name == ally.name:
+        battle.scroll_text = f"{active.name} uses {move_name}!"
+    else:
+        battle.scroll_text = f"{active.name} uses {move_name} on {ally.name}!"
+    active.remaining_mp = max(0, active.remaining_mp - battle.smt_moves[move_name]["mp"])
+    battle.scroll_index = 0
+    battle.scroll_done = False
 
 def start_player_attack_phase(battle):
     # Switch mode

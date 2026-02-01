@@ -221,11 +221,10 @@ class BattleState(GameState):
                 return
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:
             update_generic_damage_phase(self, True)
-        elif self.menu_mode == MENU_MODE_GUARDING:
-            return update_simple_scroll_phase(self)
-        elif self.menu_mode == MENU_MODE_ESCAPE:
-            return update_simple_scroll_phase(self)
-        elif self.menu_mode == MENU_MODE_TALK:
+        elif self.menu_mode in (MENU_MODE_GUARDING,
+                                MENU_MODE_ESCAPE,
+                                MENU_MODE_TALK,
+                                MENU_MODE_BUFF_PLAYER):
             return update_simple_scroll_phase(self)
         elif self.menu_mode == MENU_MODE_ITEM_USE:
             update_item_use_phase(self)
