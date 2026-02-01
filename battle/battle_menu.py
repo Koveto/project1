@@ -25,6 +25,8 @@ def handle_main_menu_event(battle, event):
             battle.menu_mode = MENU_MODE_SKILLS
             battle.previous_menu_index = battle.menu_index
             battle.menu_index = 0
+            battle.skills_cursor = 0
+            battle.skills_scroll = 0
             return
         
         # ITEM

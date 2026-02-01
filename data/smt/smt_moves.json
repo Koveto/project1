@@ -3612,7 +3612,7 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+atk"],
-      "description": "Attack buff 3 turns",
+      "description": "+1 Attack",
       "use_text": "Attack up!"
     },
 
@@ -3628,7 +3628,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+def"],
-      "description": ""
+      "description": "+1 Defense",
+      "use_text": "Defense up!"
     },
 
     "Sukukaja": {
@@ -3643,7 +3644,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+spd"],
-      "description": ""
+      "description": "+1 Speed",
+      "use_text": "Speed up!"
     },
 
     "Matarukaja": {
@@ -3658,7 +3660,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+atk"],
-      "description": ""
+      "description": "",
+      "use_text": "Attack up!"
     },
 
     "Marakukaja": {
@@ -3673,7 +3676,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+def"],
-      "description": ""
+      "description": "",
+      "use_text": "Defense up!"
     },
 
     "Masukukaja": {
@@ -3688,7 +3692,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+spd"],
-      "description": ""
+      "description": "",
+      "use_text": "Speed up!"
     },
 
     "Luster Candy": {
