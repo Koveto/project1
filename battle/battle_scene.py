@@ -251,14 +251,6 @@ class BattleRenderer:
     
     def _is_drawn_player_hpmp(self, b):
         return (b.menu_mode != MENU_MODE_INFO) or (b.info_row == ROW_PLAYER)
-            
-    def _draw_player_hpmp(self,
-                              screen,
-                              pokemon_for_hpmp,
-                              hpmp_y,
-                              ui_hp_offset,
-                              blink):
-        self.hpmp_renderer.draw_player_hpmp(screen, pokemon_for_hpmp, hpmp_y, ui_hp_offset, blink)
 
     def _get_data_hpmp(self, 
                        b,
@@ -276,7 +268,9 @@ class BattleRenderer:
             ui_hp_offset += hp_offset
         pokemon_for_hpmp = active_pokemon
         if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET,
-                         MENU_MODE_ITEM_USE):
+                         MENU_MODE_ITEM_USE,
+                         MENU_MODE_TARGET_BUFF,
+                         MENU_MODE_BUFF_PLAYER):
             pokemon_for_hpmp = b.model.player_team[b.selected_ally]
         if b.menu_mode in (MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
@@ -292,7 +286,8 @@ class BattleRenderer:
               highlight_player_pos):
         highlight_player_pos = highlight_player_pos
         target_enemy_pos = target_enemy_pos
-        if b.menu_mode == MENU_MODE_ITEM_ALLY_TARGET:
+        if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET,
+                           MENU_MODE_BUFF_PLAYER):
             sprite = self.background_renderer.player_sprites[b.selected_ally]
             pokemon = b.model.player_team[b.selected_ally]
 
@@ -346,7 +341,9 @@ class BattleRenderer:
     def _get_data_bounce_index(self,
                                b):
         bounce_index = b.model.turn_index
-        if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET, MENU_MODE_TARGET_BUFF):
+        if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET, 
+                           MENU_MODE_TARGET_BUFF,
+                           MENU_MODE_BUFF_PLAYER):
             bounce_index = b.selected_ally
         elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
             bounce_index = b.enemy_target_index
@@ -410,11 +407,11 @@ class BattleRenderer:
                        hp_offset)        
 
         if self._is_drawn_player_hpmp(b):
-            self._draw_player_hpmp(screen,
-                                   pokemon_for_hpmp,
-                                   hpmp_y,
-                                   ui_hp_offset,
-                                   blink)        
+            self.hpmp_renderer.draw_player_hpmp(screen,
+                                                pokemon_for_hpmp,
+                                                hpmp_y, 
+                                                ui_hp_offset, 
+                                                blink)      
 
         if self._is_drawn_mpcost(b):
             self._draw_mpcost(b, screen, ui_hp_offset)

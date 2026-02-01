@@ -2,6 +2,7 @@ import pygame
 from constants import *
 from battle.battle_constants import *
 from battle.battle_text import start_text_mode
+from battle.battle_damage import finish_buff_phase
 
 def handle_main_menu_event(battle, event):
     battle.model.get_active_pokemon().is_guarding = False
@@ -79,6 +80,7 @@ def handle_skills_menu_event(battle, event):
             battle.menu_mode = MENU_MODE_TARGET_SELECT
             return
         if single_ally_buff(battle, move, pokemon):
+            battle.selected_ally = battle.model.turn_index
             battle.menu_mode = MENU_MODE_TARGET_BUFF
             return
 
@@ -216,6 +218,10 @@ def handle_info_event(battle, event):
     if event.key == pygame.K_DOWN:
         battle.info_row = 1
 
+def handle_buff_player_event(battle, event):
+    if key_confirm(event.key) and battle.scroll_done:
+        finish_buff_phase(battle)
+
 def handle_submenu_event(battle, event):
     if key_back(event.key):
         battle.menu_mode = MENU_MODE_MAIN
@@ -300,12 +306,27 @@ def start_player_buff_phase(battle):
     battle.menu_mode = MENU_MODE_BUFF_PLAYER
     active = battle.model.get_active_pokemon()
     move_name = active.moves[battle.skills_scroll + battle.skills_cursor]
+    move = battle.smt_moves[move_name]
     ally = battle.model.get_player_team()[battle.selected_ally]
     if active.name == ally.name:
         battle.scroll_text = f"{active.name} uses {move_name}!"
     else:
         battle.scroll_text = f"{active.name} uses {move_name} on {ally.name}!"
-    active.remaining_mp = max(0, active.remaining_mp - battle.smt_moves[move_name]["mp"])
+    battle.scroll_text += " " + move["use_text"]
+    active.remaining_mp = max(0, active.remaining_mp - move["mp"])
+    for effect in move["effects"]:
+        if effect == "+atk":
+            if ally.attack_buff < 2:
+                ally.attack_buff += 1
+            ally.attack_buff_turns = 3
+        if effect == "+def":
+            if ally.defense_buff < 2:
+                ally.defense_buff += 1
+            ally.defense_buff_turns = 3
+        if effect == "+spd":
+            if ally.speed_buff < 2:
+                ally.speed_buff += 1
+            ally.speed_buff_turns = 3
     battle.scroll_index = 0
     battle.scroll_done = False
 

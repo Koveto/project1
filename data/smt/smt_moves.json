@@ -221,7 +221,7 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk"],
+      "effects": ["-atk"],
       "description": ""
     },
 
@@ -236,7 +236,7 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"],
+      "effects": ["-def"],
       "description": ""
     },
 
@@ -776,7 +776,7 @@
       "accuracy": 108,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"],
+      "effects": ["-def"],
       "description": ""
     },
 
@@ -986,7 +986,7 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk", "-atk", "-spatk"],
+      "effects": ["-atk", "-atk"],
       "description": ""
     },
 
@@ -1616,7 +1616,7 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"],
+      "effects": ["-def"],
       "description": ""
     },
 
@@ -1661,7 +1661,7 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"],
+      "effects": ["-def"],
       "description": ""
     },
 
@@ -2216,7 +2216,7 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk","-def","-spatk","-spdef"],
+      "effects": ["-atk","-def"],
       "description": ""
     },
 
@@ -2711,7 +2711,7 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk","-spatk","drain"],
+      "effects": ["-atk","drain"],
       "description": ""
     },
 
@@ -2891,7 +2891,7 @@
       "accuracy": 98,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-def", "-def", "-def", "-spdef", "-spdef", "-spdef", "-spdef"],
+      "effects": ["-def", "-def", "-def", "-def", "-def"],
       "description": ""
     },
 
@@ -3116,7 +3116,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 55,
-      "effects": ["sleep", "-def", "-spdef"],
+      "effects": ["sleep", "-def"],
       "description": ""
     },
 
@@ -3161,7 +3161,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 40,
-      "effects": ["charm", "-def", "-spdef", "-atk", "-spatk", "-def", "-spdef", "-atk", "-spatk"],
+      "effects": ["charm", "-def","-atk", "-def","-atk"],
       "description": ""
     },
 
@@ -3176,7 +3176,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 100,
-      "effects": ["mirage", "-spd", "-def", "-spdef"],
+      "effects": ["mirage", "-spd", "-def"],
       "description": ""
     },
 
@@ -3386,7 +3386,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+def", "+spdef", "+def", "+spdef"],
+      "effects": ["+def","+def"],
       "description": ""
     },
 
@@ -3431,7 +3431,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+spatk", "+def", "+spdef", "+spd"],
+      "effects": ["+atk", "+def", "+spd"],
       "description": ""
     },
 
@@ -3476,7 +3476,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["dekunda", "+atk", "+spatk", "+def", "+spdef", "+spd"],
+      "effects": ["dekunda", "+atk", "+def", "+spd"],
       "description": ""
     },
 
@@ -3491,7 +3491,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk"],
+      "effects": ["-atk"],
       "description": ""
     },
 
@@ -3506,7 +3506,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"],
+      "effects": ["-def"],
       "description": ""
     },
 
@@ -3536,7 +3536,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk"],
+      "effects": ["-atk"],
       "description": ""
     },
 
@@ -3551,7 +3551,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-def", "-spdef"],
+      "effects": ["-def"],
       "description": ""
     },
 
@@ -3581,7 +3581,22 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["-atk", "-spatk", "-def", "-spdef", "-spd"],
+      "effects": ["-atk", "-def", "-spd"],
+      "description": ""
+    },
+
+    "Heat Riser": {
+      "element": "Support",
+      "type": "Support",
+      "mp": 0,
+      "power": 0,
+      "hits_low": 1,
+      "hits_high": 1,
+      "target": "Single",
+      "accuracy": 300,
+      "crit": 0,
+      "ailment_chance": 0,
+      "effects": ["+atk", "+def", "+spd"],
       "description": ""
     },
 
@@ -3597,7 +3612,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+atk"],
-      "description": "Attack buff 3 turns"
+      "description": "Attack buff 3 turns",
+      "use_text": "Attack up!"
     },
 
     "Rakukaja": {
@@ -3611,7 +3627,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+def", "+spdef"],
+      "effects": ["+def"],
       "description": ""
     },
 
@@ -3641,7 +3657,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+spatk"],
+      "effects": ["+atk"],
       "description": ""
     },
 
@@ -3656,7 +3672,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+def", "+spdef"],
+      "effects": ["+def"],
       "description": ""
     },
 
@@ -3686,7 +3702,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+spatk", "+def", "+spdef", "+spd"],
+      "effects": ["+atk", "+def", "+spd"],
       "description": ""
     },
 
@@ -3716,7 +3732,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+def", "+spdef", "+spd"],
+      "effects": ["+def", "+spd"],
       "description": ""
     },
 
@@ -4031,7 +4047,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["taunt", "+def", "+spdef"],
+      "effects": ["taunt", "+def"],
       "description": ""
     },
 
@@ -4061,7 +4077,7 @@
       "accuracy": 100,
       "crit": 0,
       "ailment_chance": 0,
-      "effects": ["+atk", "+atk", "+def", "+def", "+spatk", "+spatk", "+spdef", "+spdef", "+spd", "+spd"],
+      "effects": ["+atk", "+atk", "+def", "+def", "+spd", "+spd"],
       "description": ""
     },
 

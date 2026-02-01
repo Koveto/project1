@@ -222,6 +222,15 @@ def handle_enemy_damaging_event(battle, event):
             battle.damage_animating = False
             return
         
+def finish_buff_phase(battle):
+    battle.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
+    handle_side_switch(battle)
+    battle.pending_move_name = None
+    if battle.model.is_player_turn:
+        battle.model.next_turn()
+    battle.menu_mode = MENU_MODE_MAIN
+    battle.menu_index = MENU_INDEX_SKILLS 
+        
 def finish_damage_phase(battle):
     reset_damage_flags(battle)
 

@@ -29,7 +29,7 @@ def main():
     screen_width = 960
     screen_height = 640
     screen = pygame.display.set_mode((screen_width, screen_height))
-    pygame.display.set_caption("PyPokemon (Pygame)")
+    pygame.display.set_caption("SMT Pokemon Game")
 
     clock = pygame.time.Clock()
 
