@@ -60,7 +60,7 @@ class BattleState(GameState):
             stats=bulbasaur_data.base_stats,
             affinities=bulbasaur_data.affinities,
             learnset=bulbasaur_data.learnset,
-            moves=["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja"]
+            moves=["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja"]
         )
 
         # Build teams
@@ -228,7 +228,8 @@ class BattleState(GameState):
         elif self.menu_mode in (MENU_MODE_GUARDING,
                                 MENU_MODE_ESCAPE,
                                 MENU_MODE_TALK,
-                                MENU_MODE_BUFF_PLAYER):
+                                MENU_MODE_BUFF_PLAYER,
+                                MENU_MODE_BUFF_PLAYER_ALL):
             return update_simple_scroll_phase(self)
         elif self.menu_mode == MENU_MODE_ITEM_USE:
             update_item_use_phase(self)

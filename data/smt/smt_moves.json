@@ -3387,7 +3387,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+def","+def"],
-      "description": ""
+      "description": "+2 Defense",
+      "use_text": "Defense greatly up!"
     },
 
     "Eleusinian Harvest": {
@@ -3432,7 +3433,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+atk", "+def", "+spd"],
-      "description": ""
+      "description": "+1 All Stats",
+      "use_text": "All stats up!"
     },
 
     "Miracle Water": {
@@ -3477,7 +3479,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["dekunda", "+atk", "+def", "+spd"],
-      "description": ""
+      "description": "Dek- +1 All",
+      "use_text": "Removed debuffs! All stats up!"
     },
 
     "Tarunda": {
@@ -3597,7 +3600,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+atk", "+def", "+spd"],
-      "description": ""
+      "description": "+1 All Stats",
+      "use_text": "All stats up!"
     },
 
     "Tarukaja": {
@@ -3660,8 +3664,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+atk"],
-      "description": "",
-      "use_text": "Attack up!"
+      "description": "All +1 ATK",
+      "use_text": "Attack up for all allies!"
     },
 
     "Marakukaja": {
@@ -3677,7 +3681,7 @@
       "ailment_chance": 0,
       "effects": ["+def"],
       "description": "",
-      "use_text": "Defense up!"
+      "use_text": "Defense up for all allies!"
     },
 
     "Masukukaja": {
@@ -3693,7 +3697,7 @@
       "ailment_chance": 0,
       "effects": ["+spd"],
       "description": "",
-      "use_text": "Speed up!"
+      "use_text": "Speed up for all allies!"
     },
 
     "Luster Candy": {
@@ -3708,7 +3712,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+atk", "+def", "+spd"],
-      "description": ""
+      "description": "+1 All Stats",
+      "use_text": "All stats up for all allies!"
     },
 
     "Red Capote": {
@@ -3723,7 +3728,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+spd", "+spd"],
-      "description": ""
+      "description": "+2 Speed",
+      "use_text": "Speed greatly up!"
     },
 
     "Cautious Cheer": {
@@ -3738,7 +3744,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+def", "+spd"],
-      "description": ""
+      "description": "+1 DEF SPD",
+      "use_text": "Defense up! Speed up!"
     },
 
     "Dekaja": {
@@ -4038,7 +4045,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["taunt"],
-      "description": ""
+      "description": "Redirect",
+      "use_text": "Drawing hostility!"
     },
 
     "Fierce Roar": {
@@ -4053,7 +4061,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["taunt", "+def"],
-      "description": ""
+      "description": "Redir +DEF",
+      "use_text": "Drawing hostility! Defense up!"
     },
 
     "Witness Me": {
@@ -4068,7 +4077,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["taunt", "+spd", "+spd"],
-      "description": ""
+      "description": "Redir +2SPD",
+      "use_text": "Drawing hostility! Speed greatly up!"
     },
 
     "Inflaming Divinity": {
@@ -4083,7 +4093,8 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": ["+atk", "+atk", "+def", "+def", "+spd", "+spd"],
-      "description": ""
+      "description": "+2 All Stats",
+      "use_text": "All stats greatly up!"
     },
 
     "Life Spring": {

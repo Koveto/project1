@@ -90,16 +90,26 @@ class Pokemon:
 
         name = move_name[:11]
 
-        # Right‑align numbers in 3 spaces
-        mp = f"{m['mp']:>3}"
-        power = f"{m['power']:>3}" if m["power"] is not None else "---"
+        if m['element'] == "Support":
+            mp = f"{m['mp']:>3}"
 
-        element_short = f"{m['element'][:5]:<5}"
+            element_short = f"{m['element'][:7]:<7}"
 
-        desc = m.get("description", "")[:12]
-        desc = f"{desc:<12}"
+            desc = m.get("description", "")[:15]
+            desc = f"{desc:<15}"
 
-        return f"{name:<11} {mp}  {element_short}  {power}  {desc}"
+            return f"{name:<11} {mp}  {element_short}  {desc}"
+        else:
+            # Right‑align numbers in 3 spaces
+            mp = f"{m['mp']:>3}"
+            power = f"{m['power']:>3}" if m["power"] is not None else "---"
+
+            element_short = f"{m['element'][:5]:<5}"
+
+            desc = m.get("description", "")[:12]
+            desc = f"{desc:<12}"
+
+            return f"{name:<11} {mp}  {element_short}  {power}  {desc}"
 
     def choose_random_move(self):
         """

@@ -85,6 +85,9 @@ def handle_skills_menu_event(battle, event):
             battle.selected_ally = battle.model.turn_index
             battle.menu_mode = MENU_MODE_TARGET_BUFF
             return
+        if all_ally_buff(battle, move, pokemon):
+            start_player_all_buff_phase(battle)
+            battle.menu_mode = MENU_MODE_BUFF_PLAYER_ALL
 
     elif key_back(event.key):
         battle.menu_mode = MENU_MODE_MAIN
@@ -224,6 +227,10 @@ def handle_buff_player_event(battle, event):
     if key_confirm(event.key) and battle.scroll_done:
         finish_buff_phase(battle)
 
+def handle_buff_player_all_event(battle, event):
+    if key_confirm(event.key) and battle.scroll_done:
+        finish_buff_phase(battle)
+
 def handle_submenu_event(battle, event):
     if key_back(event.key):
         battle.menu_mode = MENU_MODE_MAIN
@@ -304,6 +311,13 @@ def single_ally_buff(battle, move, pokemon):
         pokemon.remaining_mp >= move["mp"]
     )
 
+def all_ally_buff(battle, move, pokemon):
+    return (
+        move["target"] == "All" and
+        move["type"] == "Support" and
+        pokemon.remaining_mp >= move["mp"]
+    )
+
 def start_player_buff_phase(battle):
     battle.menu_mode = MENU_MODE_BUFF_PLAYER
     active = battle.model.get_active_pokemon()
@@ -329,6 +343,31 @@ def start_player_buff_phase(battle):
             if ally.speed_buff < 2:
                 ally.speed_buff += 1
             ally.speed_buff_turns = 3
+    battle.scroll_index = 0
+    battle.scroll_done = False
+
+def start_player_all_buff_phase(battle):
+    battle.menu_mode = MENU_MODE_BUFF_PLAYER_ALL
+    active = battle.model.get_active_pokemon()
+    move_name = active.moves[battle.skills_scroll + battle.skills_cursor]
+    move = battle.smt_moves[move_name]
+    battle.scroll_text = f"{active.name} uses {move_name}!"
+    battle.scroll_text += " " + move["use_text"]
+    active.remaining_mp = max(0, active.remaining_mp - move["mp"])
+    for pkmn in battle.model.get_player_team():
+        for effect in move["effects"]:
+            if effect == "+atk":
+                if pkmn.attack_buff < 2:
+                    pkmn.attack_buff += 1
+                pkmn.attack_buff_turns = 3
+            if effect == "+def":
+                if pkmn.defense_buff < 2:
+                    pkmn.defense_buff += 1
+                pkmn.defense_buff_turns = 3
+            if effect == "+spd":
+                if pkmn.speed_buff < 2:
+                    pkmn.speed_buff += 1
+                pkmn.speed_buff_turns = 3
     battle.scroll_index = 0
     battle.scroll_done = False
 

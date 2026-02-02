@@ -196,6 +196,14 @@ class BattleRenderer:
                 blink
             )
 
+        elif b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+            self.text_renderer.draw_simple_scroll(
+                b,
+                screen,
+                scroll_index,
+                blink
+            )
+
         else:
             self.menu_renderer.draw_dummy_menu(b, screen)
 
