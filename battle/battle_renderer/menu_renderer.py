@@ -120,5 +120,3 @@ class MenuRenderer:
         self.font2.draw_text(screen, text, SKILLS_X, y)
         cursor_x, cursor_y = COORDS_MENU_SKILLS[b.skills_cursor]
         screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
-
-

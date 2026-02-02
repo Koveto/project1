@@ -86,8 +86,8 @@ def handle_skills_menu_event(battle, event):
             battle.menu_mode = MENU_MODE_TARGET_BUFF
             return
         if all_ally_buff(battle, move, pokemon):
-            start_player_all_buff_phase(battle)
-            battle.menu_mode = MENU_MODE_BUFF_PLAYER_ALL
+            #start_player_all_buff_phase(battle)
+            battle.menu_mode = MENU_MODE_TARGET_BUFF_ALL
 
     elif key_back(event.key):
         battle.menu_mode = MENU_MODE_MAIN
@@ -137,6 +137,15 @@ def handle_target_buff_event(battle, event):
         return
     if key_confirm(event.key):
         return start_player_buff_phase(battle)
+    
+def handle_target_buff_all_event(battle, event):
+    if event.type != pygame.KEYDOWN:
+        return
+    if key_back(event.key):
+        battle.menu_mode = MENU_MODE_SKILLS
+        return
+    if key_confirm(event.key):
+        return start_player_all_buff_phase(battle)
     
 def handle_items_event(battle, event):
         

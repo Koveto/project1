@@ -187,6 +187,9 @@ class BattleRenderer:
 
         elif b.menu_mode == MENU_MODE_TARGET_BUFF:
             self.menu_renderer.draw_target_buff_menu(b, screen, active_pokemon)
+
+        elif b.menu_mode == MENU_MODE_TARGET_BUFF_ALL:
+            self.menu_renderer.draw_target_buff_menu(b, screen, active_pokemon)
         
         elif b.menu_mode == MENU_MODE_BUFF_PLAYER:
             self.text_renderer.draw_simple_scroll(
@@ -255,14 +258,15 @@ class BattleRenderer:
         )
 
     def _is_drawn_mpcost(self, b):
-        return b.menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT)
+        return b.menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT,
+                               MENU_MODE_TARGET_BUFF_ALL)
     
     def _is_drawn_player_hpmp(self, b):
-        return (b.menu_mode != MENU_MODE_BUFF_PLAYER_ALL) and \
+        return (b.menu_mode not in (MENU_MODE_BUFF_PLAYER_ALL, MENU_MODE_TARGET_BUFF_ALL)) and \
             ((b.menu_mode != MENU_MODE_INFO) or (b.info_row == ROW_PLAYER))
     
     def _is_drawn_player_hpmp_all(self, b):
-        return (b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL)
+        return (b.menu_mode in (MENU_MODE_BUFF_PLAYER_ALL, MENU_MODE_TARGET_BUFF_ALL))
 
     def _get_data_hpmp(self, 
                        b,
@@ -274,8 +278,7 @@ class BattleRenderer:
         pokemon_for_hpmp = None
         if b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
                              MENU_MODE_DAMAGING_PLAYER,
-                             MENU_MODE_ENEMY_DAMAGE,
-                             MENU_MODE_BUFF_PLAYER_ALL):
+                             MENU_MODE_ENEMY_DAMAGE):
             hpmp_y += hp_offset
             enemy_hpmp_y += hp_offset
             ui_hp_offset += hp_offset
@@ -365,7 +368,8 @@ class BattleRenderer:
                 bounce_index = b.info_col
             else:
                 bounce_index = ROW_NOT_INFO_STATE
-        elif b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+        elif b.menu_mode in (MENU_MODE_BUFF_PLAYER_ALL,
+                             MENU_MODE_TARGET_BUFF_ALL):
             bounce_index = ROW_NOT_INFO_STATE
         return bounce_index
 
@@ -404,7 +408,8 @@ class BattleRenderer:
             b,
             screen,
             highlight_player_pos,
-            target_enemy_pos
+            target_enemy_pos,
+            poke_offset
         )
 
         self.background_renderer.draw_affinity_flash(b,
@@ -432,6 +437,7 @@ class BattleRenderer:
             self.hpmp_renderer.draw_player_hpmp_all(b,
                                                     screen,
                                                     hpmp_y, 
+                                                    ui_hp_offset,
                                                     blink)  
 
         if self._is_drawn_mpcost(b):

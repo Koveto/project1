@@ -121,25 +121,30 @@ class HPMPRenderer:
             (fill_width, MP_BAR_HEIGHT)
         )
 
-        # Anchor the cost bar on the RIGHT side of the MP bar
-        right_edge = MP_BAR_X + MP_BAR_WIDTH - rem_width
-        left_edge = right_edge - fill_width
+        if b.menu_mode == MENU_MODE_TARGET_BUFF_ALL:
+            no = b.model.turn_index
+            if no == 0:
+                x_offset = HPMP_X_DIF
+                y_offset = HPMP_Y_DIF
+            elif no == 1:
+                x_offset = 0
+                y_offset = HPMP_Y_DIF
+            elif no == 2:
+                x_offset = HPMP_X_DIF
+                y_offset = 0
+            else:
+                x_offset = 0
+                y_offset = 0
+            right_edge = MP_BAR_X + MP_BAR_WIDTH - rem_width - x_offset
+            left_edge = right_edge - fill_width
 
-        # 183/198 use 15
-        # left=926, right=940
-        # rem = 198/198 = 1
-        # rem_width = 0
-        # fill_width = 15*.96 = 14
+            screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset - y_offset))
+        else:
+            # Anchor the cost bar on the RIGHT side of the MP bar
+            right_edge = MP_BAR_X + MP_BAR_WIDTH - rem_width
+            left_edge = right_edge - fill_width
 
-        # 8/198 use 8
-        # left=755, right=762
-        # rem = 8/198 = .04
-        # rem_width = (.96*192 pixels)*(192/198) 178
-        # fill_width = 7
-        #print(right_edge)  #762 
-        #print(left_edge)   #755
-
-        screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset))
+            screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset))
 
 
     def draw_player_hpmp(self, screen, active_pokemon, hpmp_y, ui_hp_offset, blink):
@@ -294,76 +299,81 @@ class HPMPRenderer:
                 )
 
 
-    def draw_player_hpmp_all(self, b, screen, hpmp_y, blink):
+    def draw_player_hpmp_all(self, b, screen, hpmp_y, ui_hp_offset, blink):
 
-        screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y))
-        screen.blit(self.hpmp_sprite, (HPMP_X - HPMP_X_DIF, hpmp_y))
-        screen.blit(self.hpmp_sprite, (HPMP_X - HPMP_X_DIF, hpmp_y - HPMP_Y_DIF))
-        screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y - HPMP_Y_DIF))
+        if b.menu_mode == MENU_MODE_TARGET_BUFF_ALL:
+            bounce = 0
+        else:
+            bounce = -1 * ui_hp_offset
+
+        screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y + bounce))
+        screen.blit(self.hpmp_sprite, (HPMP_X - HPMP_X_DIF, hpmp_y + bounce))
+        screen.blit(self.hpmp_sprite, (HPMP_X - HPMP_X_DIF, hpmp_y - HPMP_Y_DIF + bounce))
+        screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y - HPMP_Y_DIF + bounce))
 
         self.font1.draw_text(
             screen,
             b.model.get_player_team()[3].name,
             ACTIVE_POKEMON_NAME_X,
-            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET + bounce
         )
         self.font1.draw_text(
             screen,
             b.model.get_player_team()[2].name,
             ACTIVE_POKEMON_NAME_X - HPMP_X_DIF,
-            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET + bounce
         )
         self.font1.draw_text(
             screen,
             b.model.get_player_team()[0].name,
             ACTIVE_POKEMON_NAME_X - HPMP_X_DIF,
-            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET - HPMP_Y_DIF
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET - HPMP_Y_DIF + bounce
         )
         self.font1.draw_text(
             screen,
             b.model.get_player_team()[1].name,
             ACTIVE_POKEMON_NAME_X,
-            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET - HPMP_Y_DIF
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET - HPMP_Y_DIF + bounce
         )
 
-        screen.blit(self.lv_sprite, (LV_X, hpmp_y + LV_Y_OFFSET))
-        screen.blit(self.lv_sprite, (LV_X - HPMP_X_DIF, hpmp_y + LV_Y_OFFSET))
-        screen.blit(self.lv_sprite, (LV_X - HPMP_X_DIF, hpmp_y + LV_Y_OFFSET - HPMP_Y_DIF))
-        screen.blit(self.lv_sprite, (LV_X, hpmp_y + LV_Y_OFFSET - HPMP_Y_DIF))
+        screen.blit(self.lv_sprite, (LV_X, hpmp_y + LV_Y_OFFSET + bounce))
+        screen.blit(self.lv_sprite, (LV_X - HPMP_X_DIF, hpmp_y + LV_Y_OFFSET + bounce))
+        screen.blit(self.lv_sprite, (LV_X - HPMP_X_DIF, hpmp_y + LV_Y_OFFSET - HPMP_Y_DIF + bounce))
+        screen.blit(self.lv_sprite, (LV_X, hpmp_y + LV_Y_OFFSET - HPMP_Y_DIF + bounce))
 
         self.font1.draw_text(
             screen,
             str(b.model.get_player_team()[3].level),
             LV_TEXT_X,
-            hpmp_y + LV_TEXT_Y_OFFSET
+            hpmp_y + LV_TEXT_Y_OFFSET + bounce
         )
         self.font1.draw_text(
             screen,
             str(b.model.get_player_team()[2].level),
             LV_TEXT_X - HPMP_X_DIF,
-            hpmp_y + LV_TEXT_Y_OFFSET
+            hpmp_y + LV_TEXT_Y_OFFSET + bounce
         )
         self.font1.draw_text(
             screen,
             str(b.model.get_player_team()[0].level),
             LV_TEXT_X - HPMP_X_DIF,
-            hpmp_y + LV_TEXT_Y_OFFSET - HPMP_Y_DIF
+            hpmp_y + LV_TEXT_Y_OFFSET - HPMP_Y_DIF + bounce
         )
         self.font1.draw_text(
             screen,
             str(b.model.get_player_team()[1].level),
             LV_TEXT_X,
-            hpmp_y + LV_TEXT_Y_OFFSET - HPMP_Y_DIF
+            hpmp_y + LV_TEXT_Y_OFFSET - HPMP_Y_DIF + bounce
         )
 
-        self.draw_hp_bar(screen, b.model.get_player_team()[3], 0, base_x=(HP_BAR_X), base_y=(HP_BAR_Y))
-        self.draw_mp_bar(screen, b.model.get_player_team()[3], 0, base_x=(MP_BAR_X), base_y=(MP_BAR_Y))
-        self.draw_hp_bar(screen, b.model.get_player_team()[2], 0, base_x=(HP_BAR_X - HPMP_X_DIF), base_y=(HP_BAR_Y))
-        self.draw_mp_bar(screen, b.model.get_player_team()[2], 0, base_x=(MP_BAR_X - HPMP_X_DIF), base_y=(MP_BAR_Y))
-        self.draw_hp_bar(screen, b.model.get_player_team()[0], 0, base_x=(HP_BAR_X - HPMP_X_DIF), base_y=(HP_BAR_Y - HPMP_Y_DIF))
-        self.draw_mp_bar(screen, b.model.get_player_team()[0], 0, base_x=(MP_BAR_X - HPMP_X_DIF), base_y=(MP_BAR_Y - HPMP_Y_DIF))
-        self.draw_hp_bar(screen, b.model.get_player_team()[1], 0, base_x=(HP_BAR_X), base_y=(HP_BAR_Y - HPMP_Y_DIF))
-        self.draw_mp_bar(screen, b.model.get_player_team()[1], 0, base_x=(MP_BAR_X), base_y=(MP_BAR_Y - HPMP_Y_DIF))
+        self.draw_hp_bar(screen, b.model.get_player_team()[3], ui_hp_offset, base_x=(HP_BAR_X), base_y=(HP_BAR_Y + bounce))
+        self.draw_mp_bar(screen, b.model.get_player_team()[3], ui_hp_offset, base_x=(MP_BAR_X), base_y=(MP_BAR_Y + bounce))
+        self.draw_hp_bar(screen, b.model.get_player_team()[2], ui_hp_offset, base_x=(HP_BAR_X - HPMP_X_DIF), base_y=(HP_BAR_Y + bounce))
+        self.draw_mp_bar(screen, b.model.get_player_team()[2], ui_hp_offset, base_x=(MP_BAR_X - HPMP_X_DIF), base_y=(MP_BAR_Y + bounce))
+        self.draw_hp_bar(screen, b.model.get_player_team()[0], ui_hp_offset, base_x=(HP_BAR_X - HPMP_X_DIF), base_y=(HP_BAR_Y - HPMP_Y_DIF + bounce))
+        self.draw_mp_bar(screen, b.model.get_player_team()[0], ui_hp_offset, base_x=(MP_BAR_X - HPMP_X_DIF), base_y=(MP_BAR_Y - HPMP_Y_DIF + bounce))
+        self.draw_hp_bar(screen, b.model.get_player_team()[1], ui_hp_offset, base_x=(HP_BAR_X), base_y=(HP_BAR_Y - HPMP_Y_DIF + bounce))
+        self.draw_mp_bar(screen, b.model.get_player_team()[1], ui_hp_offset, base_x=(MP_BAR_X), base_y=(MP_BAR_Y - HPMP_Y_DIF + bounce))
 
         # --- Draw HP/MP ratio text (temporary placement) ---
         hp_source = getattr(b.model.get_player_team()[3], "hp_anim", b.model.get_player_team()[3].remaining_hp)
@@ -372,7 +382,7 @@ class HPMPRenderer:
             screen,
             ratio_text,
             HPMP_X + 20, 
-            hpmp_y + HPMP_RATIO_Y_OFFSET
+            hpmp_y + HPMP_RATIO_Y_OFFSET + bounce
         )
         hp_source = getattr(b.model.get_player_team()[2], "hp_anim", b.model.get_player_team()[2].remaining_hp)
         ratio_text = self.format_hpmp_text(b.model.get_player_team()[2], hp_override=hp_source)
@@ -380,7 +390,7 @@ class HPMPRenderer:
             screen,
             ratio_text,
             HPMP_X + 20 - HPMP_X_DIF, 
-            hpmp_y + HPMP_RATIO_Y_OFFSET
+            hpmp_y + HPMP_RATIO_Y_OFFSET + bounce
         )
         hp_source = getattr(b.model.get_player_team()[0], "hp_anim", b.model.get_player_team()[0].remaining_hp)
         ratio_text = self.format_hpmp_text(b.model.get_player_team()[0], hp_override=hp_source)
@@ -388,7 +398,7 @@ class HPMPRenderer:
             screen,
             ratio_text,
             HPMP_X + 20 - HPMP_X_DIF, 
-            hpmp_y + HPMP_RATIO_Y_OFFSET - HPMP_Y_DIF
+            hpmp_y + HPMP_RATIO_Y_OFFSET - HPMP_Y_DIF + bounce
         )
         hp_source = getattr(b.model.get_player_team()[1], "hp_anim", b.model.get_player_team()[1].remaining_hp)
         ratio_text = self.format_hpmp_text(b.model.get_player_team()[1], hp_override=hp_source)
@@ -396,7 +406,7 @@ class HPMPRenderer:
             screen,
             ratio_text,
             HPMP_X + 20, 
-            hpmp_y + HPMP_RATIO_Y_OFFSET - HPMP_Y_DIF
+            hpmp_y + HPMP_RATIO_Y_OFFSET - HPMP_Y_DIF + bounce
         )
 
         # Draw stat buffs (only if non-zero)
@@ -404,27 +414,27 @@ class HPMPRenderer:
             screen,
             b.model.get_player_team()[3],
             BUFF_X,
-            hpmp_y + BUFF_Y,
+            hpmp_y + BUFF_Y + bounce,
             blink
         )
         self.draw_stat_buffs(
             screen,
             b.model.get_player_team()[2],
             BUFF_X - HPMP_X_DIF,
-            hpmp_y + BUFF_Y,
+            hpmp_y + BUFF_Y + bounce,
             blink
         )
         self.draw_stat_buffs(
             screen,
             b.model.get_player_team()[0],
             BUFF_X - HPMP_X_DIF,
-            hpmp_y + BUFF_Y - HPMP_Y_DIF,
+            hpmp_y + BUFF_Y - HPMP_Y_DIF + bounce,
             blink
         )
         self.draw_stat_buffs(
             screen,
             b.model.get_player_team()[1],
             BUFF_X,
-            hpmp_y + BUFF_Y - HPMP_Y_DIF,
+            hpmp_y + BUFF_Y - HPMP_Y_DIF + bounce,
             blink
         )

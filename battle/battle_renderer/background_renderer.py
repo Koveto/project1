@@ -71,9 +71,9 @@ class BackgroundRenderer:
             else:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
-            if i == active_index and b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
+            if (b.menu_mode == MENU_MODE_TARGET_BUFF_ALL) or (i == active_index and b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
                                                        MENU_MODE_DAMAGING_PLAYER,
-                                                       MENU_MODE_ENEMY_DAMAGE):
+                                                       MENU_MODE_ENEMY_DAMAGE)):
                 y += poke_offset
 
             screen.blit(sprite, (x, y))
@@ -83,7 +83,7 @@ class BackgroundRenderer:
 
         return active_pokemon_pos
 
-    def draw_dark_overlay(self, b, screen, highlight_player_pos, target_enemy_pos):
+    def draw_dark_overlay(self, b, screen, highlight_player_pos, target_enemy_pos, poke_offset):
         if b.menu_mode not in (
             MENU_MODE_TARGET_SELECT,
             MENU_MODE_DAMAGING_ENEMY,
@@ -93,6 +93,7 @@ class BackgroundRenderer:
             MENU_MODE_ENEMY_DAMAGE,
             MENU_MODE_INFO,
             MENU_MODE_TARGET_BUFF,
+            MENU_MODE_TARGET_BUFF_ALL,
             MENU_MODE_BUFF_PLAYER,
             MENU_MODE_BUFF_PLAYER_ALL
         ):
@@ -113,16 +114,21 @@ class BackgroundRenderer:
                 screen.blit(sprite, (x, y))
             return
         
-        if b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+        if b.menu_mode in (MENU_MODE_BUFF_PLAYER_ALL,
+                           MENU_MODE_TARGET_BUFF_ALL):
+            if b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+                bounce = 0
+            else:
+                bounce = poke_offset
             for i in range(len(b.model.player_team)):
                 pkmn = b.model.player_team[i]
                 sprite = self.player_sprites[i]
                 if pkmn.is_player:
                     x = PLAYER_BASE_X + i * PLAYER_SPACING + 50
-                    y = PLAYER_Y + PLAYER_Y_OFFSET
+                    y = PLAYER_Y + PLAYER_Y_OFFSET + bounce
                 else:
                     x = PLAYER_BASE_X + i * PLAYER_SPACING
-                    y = PLAYER_Y + NORMAL_Y_OFFSET
+                    y = PLAYER_Y + NORMAL_Y_OFFSET + bounce
                 screen.blit(sprite, (x, y))
             return
 

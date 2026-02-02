@@ -19,7 +19,8 @@ from battle.battle_menu import (
     handle_info_event,
     handle_submenu_event,
     handle_target_buff_event,
-    handle_buff_player_event
+    handle_buff_player_event,
+    handle_target_buff_all_event
 )
 from battle.battle_text import (
     handle_talk_event,
@@ -201,6 +202,9 @@ class BattleState(GameState):
 
         elif self.menu_mode == MENU_MODE_BUFF_PLAYER:
             handle_buff_player_event(self, event)
+
+        elif self.menu_mode == MENU_MODE_TARGET_BUFF_ALL:
+            handle_target_buff_all_event(self, event)
 
         elif self.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
             handle_buff_player_event(self, event)
