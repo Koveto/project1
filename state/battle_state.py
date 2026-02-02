@@ -60,7 +60,8 @@ class BattleState(GameState):
             stats=bulbasaur_data.base_stats,
             affinities=bulbasaur_data.affinities,
             learnset=bulbasaur_data.learnset,
-            moves=["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja"]
+            moves=["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
+                   "Marakukaja", "Masukukaja", "Luster Candy"]
         )
 
         # Build teams

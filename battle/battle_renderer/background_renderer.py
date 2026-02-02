@@ -93,7 +93,8 @@ class BackgroundRenderer:
             MENU_MODE_ENEMY_DAMAGE,
             MENU_MODE_INFO,
             MENU_MODE_TARGET_BUFF,
-            MENU_MODE_BUFF_PLAYER
+            MENU_MODE_BUFF_PLAYER,
+            MENU_MODE_BUFF_PLAYER_ALL
         ):
             return
 
@@ -109,6 +110,19 @@ class BackgroundRenderer:
                            MENU_MODE_BUFF_PLAYER):
             if highlight_player_pos is not None:
                 sprite, x, y = highlight_player_pos
+                screen.blit(sprite, (x, y))
+            return
+        
+        if b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+            for i in range(len(b.model.player_team)):
+                pkmn = b.model.player_team[i]
+                sprite = self.player_sprites[i]
+                if pkmn.is_player:
+                    x = PLAYER_BASE_X + i * PLAYER_SPACING + 50
+                    y = PLAYER_Y + PLAYER_Y_OFFSET
+                else:
+                    x = PLAYER_BASE_X + i * PLAYER_SPACING
+                    y = PLAYER_Y + NORMAL_Y_OFFSET
                 screen.blit(sprite, (x, y))
             return
 

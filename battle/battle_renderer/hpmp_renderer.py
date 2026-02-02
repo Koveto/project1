@@ -294,3 +294,137 @@ class HPMPRenderer:
                 )
 
 
+    def draw_player_hpmp_all(self, b, screen, hpmp_y, blink):
+
+        screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y))
+        screen.blit(self.hpmp_sprite, (HPMP_X - HPMP_X_DIF, hpmp_y))
+        screen.blit(self.hpmp_sprite, (HPMP_X - HPMP_X_DIF, hpmp_y - HPMP_Y_DIF))
+        screen.blit(self.hpmp_sprite, (HPMP_X, hpmp_y - HPMP_Y_DIF))
+
+        self.font1.draw_text(
+            screen,
+            b.model.get_player_team()[3].name,
+            ACTIVE_POKEMON_NAME_X,
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET
+        )
+        self.font1.draw_text(
+            screen,
+            b.model.get_player_team()[2].name,
+            ACTIVE_POKEMON_NAME_X - HPMP_X_DIF,
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET
+        )
+        self.font1.draw_text(
+            screen,
+            b.model.get_player_team()[0].name,
+            ACTIVE_POKEMON_NAME_X - HPMP_X_DIF,
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET - HPMP_Y_DIF
+        )
+        self.font1.draw_text(
+            screen,
+            b.model.get_player_team()[1].name,
+            ACTIVE_POKEMON_NAME_X,
+            hpmp_y + ACTIVE_POKEMON_NAME_Y_OFFSET - HPMP_Y_DIF
+        )
+
+        screen.blit(self.lv_sprite, (LV_X, hpmp_y + LV_Y_OFFSET))
+        screen.blit(self.lv_sprite, (LV_X - HPMP_X_DIF, hpmp_y + LV_Y_OFFSET))
+        screen.blit(self.lv_sprite, (LV_X - HPMP_X_DIF, hpmp_y + LV_Y_OFFSET - HPMP_Y_DIF))
+        screen.blit(self.lv_sprite, (LV_X, hpmp_y + LV_Y_OFFSET - HPMP_Y_DIF))
+
+        self.font1.draw_text(
+            screen,
+            str(b.model.get_player_team()[3].level),
+            LV_TEXT_X,
+            hpmp_y + LV_TEXT_Y_OFFSET
+        )
+        self.font1.draw_text(
+            screen,
+            str(b.model.get_player_team()[2].level),
+            LV_TEXT_X - HPMP_X_DIF,
+            hpmp_y + LV_TEXT_Y_OFFSET
+        )
+        self.font1.draw_text(
+            screen,
+            str(b.model.get_player_team()[0].level),
+            LV_TEXT_X - HPMP_X_DIF,
+            hpmp_y + LV_TEXT_Y_OFFSET - HPMP_Y_DIF
+        )
+        self.font1.draw_text(
+            screen,
+            str(b.model.get_player_team()[1].level),
+            LV_TEXT_X,
+            hpmp_y + LV_TEXT_Y_OFFSET - HPMP_Y_DIF
+        )
+
+        self.draw_hp_bar(screen, b.model.get_player_team()[3], 0, base_x=(HP_BAR_X), base_y=(HP_BAR_Y))
+        self.draw_mp_bar(screen, b.model.get_player_team()[3], 0, base_x=(MP_BAR_X), base_y=(MP_BAR_Y))
+        self.draw_hp_bar(screen, b.model.get_player_team()[2], 0, base_x=(HP_BAR_X - HPMP_X_DIF), base_y=(HP_BAR_Y))
+        self.draw_mp_bar(screen, b.model.get_player_team()[2], 0, base_x=(MP_BAR_X - HPMP_X_DIF), base_y=(MP_BAR_Y))
+        self.draw_hp_bar(screen, b.model.get_player_team()[0], 0, base_x=(HP_BAR_X - HPMP_X_DIF), base_y=(HP_BAR_Y - HPMP_Y_DIF))
+        self.draw_mp_bar(screen, b.model.get_player_team()[0], 0, base_x=(MP_BAR_X - HPMP_X_DIF), base_y=(MP_BAR_Y - HPMP_Y_DIF))
+        self.draw_hp_bar(screen, b.model.get_player_team()[1], 0, base_x=(HP_BAR_X), base_y=(HP_BAR_Y - HPMP_Y_DIF))
+        self.draw_mp_bar(screen, b.model.get_player_team()[1], 0, base_x=(MP_BAR_X), base_y=(MP_BAR_Y - HPMP_Y_DIF))
+
+        # --- Draw HP/MP ratio text (temporary placement) ---
+        hp_source = getattr(b.model.get_player_team()[3], "hp_anim", b.model.get_player_team()[3].remaining_hp)
+        ratio_text = self.format_hpmp_text(b.model.get_player_team()[3], hp_override=hp_source)
+        self.font3.draw_text(
+            screen,
+            ratio_text,
+            HPMP_X + 20, 
+            hpmp_y + HPMP_RATIO_Y_OFFSET
+        )
+        hp_source = getattr(b.model.get_player_team()[2], "hp_anim", b.model.get_player_team()[2].remaining_hp)
+        ratio_text = self.format_hpmp_text(b.model.get_player_team()[2], hp_override=hp_source)
+        self.font3.draw_text(
+            screen,
+            ratio_text,
+            HPMP_X + 20 - HPMP_X_DIF, 
+            hpmp_y + HPMP_RATIO_Y_OFFSET
+        )
+        hp_source = getattr(b.model.get_player_team()[0], "hp_anim", b.model.get_player_team()[0].remaining_hp)
+        ratio_text = self.format_hpmp_text(b.model.get_player_team()[0], hp_override=hp_source)
+        self.font3.draw_text(
+            screen,
+            ratio_text,
+            HPMP_X + 20 - HPMP_X_DIF, 
+            hpmp_y + HPMP_RATIO_Y_OFFSET - HPMP_Y_DIF
+        )
+        hp_source = getattr(b.model.get_player_team()[1], "hp_anim", b.model.get_player_team()[1].remaining_hp)
+        ratio_text = self.format_hpmp_text(b.model.get_player_team()[1], hp_override=hp_source)
+        self.font3.draw_text(
+            screen,
+            ratio_text,
+            HPMP_X + 20, 
+            hpmp_y + HPMP_RATIO_Y_OFFSET - HPMP_Y_DIF
+        )
+
+        # Draw stat buffs (only if non-zero)
+        self.draw_stat_buffs(
+            screen,
+            b.model.get_player_team()[3],
+            BUFF_X,
+            hpmp_y + BUFF_Y,
+            blink
+        )
+        self.draw_stat_buffs(
+            screen,
+            b.model.get_player_team()[2],
+            BUFF_X - HPMP_X_DIF,
+            hpmp_y + BUFF_Y,
+            blink
+        )
+        self.draw_stat_buffs(
+            screen,
+            b.model.get_player_team()[0],
+            BUFF_X - HPMP_X_DIF,
+            hpmp_y + BUFF_Y - HPMP_Y_DIF,
+            blink
+        )
+        self.draw_stat_buffs(
+            screen,
+            b.model.get_player_team()[1],
+            BUFF_X,
+            hpmp_y + BUFF_Y - HPMP_Y_DIF,
+            blink
+        )

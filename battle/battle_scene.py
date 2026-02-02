@@ -258,7 +258,11 @@ class BattleRenderer:
         return b.menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT)
     
     def _is_drawn_player_hpmp(self, b):
-        return (b.menu_mode != MENU_MODE_INFO) or (b.info_row == ROW_PLAYER)
+        return (b.menu_mode != MENU_MODE_BUFF_PLAYER_ALL) and \
+            ((b.menu_mode != MENU_MODE_INFO) or (b.info_row == ROW_PLAYER))
+    
+    def _is_drawn_player_hpmp_all(self, b):
+        return (b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL)
 
     def _get_data_hpmp(self, 
                        b,
@@ -270,7 +274,8 @@ class BattleRenderer:
         pokemon_for_hpmp = None
         if b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
                              MENU_MODE_DAMAGING_PLAYER,
-                             MENU_MODE_ENEMY_DAMAGE):
+                             MENU_MODE_ENEMY_DAMAGE,
+                             MENU_MODE_BUFF_PLAYER_ALL):
             hpmp_y += hp_offset
             enemy_hpmp_y += hp_offset
             ui_hp_offset += hp_offset
@@ -360,6 +365,8 @@ class BattleRenderer:
                 bounce_index = b.info_col
             else:
                 bounce_index = ROW_NOT_INFO_STATE
+        elif b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+            bounce_index = ROW_NOT_INFO_STATE
         return bounce_index
 
 
@@ -419,7 +426,13 @@ class BattleRenderer:
                                                 pokemon_for_hpmp,
                                                 hpmp_y, 
                                                 ui_hp_offset, 
-                                                blink)      
+                                                blink)  
+
+        if self._is_drawn_player_hpmp_all(b):
+            self.hpmp_renderer.draw_player_hpmp_all(b,
+                                                    screen,
+                                                    hpmp_y, 
+                                                    blink)  
 
         if self._is_drawn_mpcost(b):
             self._draw_mpcost(b, screen, ui_hp_offset)

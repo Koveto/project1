@@ -23,6 +23,8 @@ class PressTurnRenderer:
                 screen.blit(self.press_turn_red, (x, y))
 
     def draw_all(self, b, screen, press_turn_states, hp_offset, anim_frame):
+        if b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+            hp_offset = 0
         for i, state in enumerate(press_turn_states):
             if (b.model.is_player_turn):
                 x = PT_X + i * PT_SPACING
