@@ -227,10 +227,6 @@ def handle_buff_player_event(battle, event):
     if key_confirm(event.key) and battle.scroll_done:
         finish_buff_phase(battle)
 
-def handle_buff_player_all_event(battle, event):
-    if key_confirm(event.key) and battle.scroll_done:
-        finish_buff_phase(battle)
-
 def handle_submenu_event(battle, event):
     if key_back(event.key):
         battle.menu_mode = MENU_MODE_MAIN

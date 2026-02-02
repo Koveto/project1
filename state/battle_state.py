@@ -201,6 +201,9 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_BUFF_PLAYER:
             handle_buff_player_event(self, event)
 
+        elif self.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+            handle_buff_player_event(self, event)
+
         elif self.menu_mode == MENU_MODE_SUBMENU:
             handle_submenu_event(self, event)
 
