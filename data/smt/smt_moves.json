@@ -3591,7 +3591,7 @@
     "Heat Riser": {
       "element": "Support",
       "type": "Support",
-      "mp": 0,
+      "mp": 35,
       "power": 0,
       "hits_low": 1,
       "hits_high": 1,

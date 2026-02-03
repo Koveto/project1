@@ -90,7 +90,7 @@ class Pokemon:
 
         name = move_name[:11]
 
-        if m['element'] == "Support":
+        if m['element'] in ("Support", "Healing"):
             mp = f"{m['mp']:>3}"
 
             element_short = f"{m['element'][:7]:<7}"

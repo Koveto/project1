@@ -62,7 +62,7 @@ class BattleState(GameState):
             affinities=bulbasaur_data.affinities,
             learnset=bulbasaur_data.learnset,
             moves=["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
-                   "Marakukaja", "Masukukaja", "Luster Candy"]
+                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia"]
         )
 
         # Build teams
@@ -73,9 +73,12 @@ class BattleState(GameState):
             get_smt_pokemon_by_number(self.smt_pokemon, 6)     # Charizard
         ]
 
-        player_team[1].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja"]
-        player_team[2].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja"]
-        player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja"]
+        player_team[1].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
+                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia"]
+        player_team[2].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
+                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia"]
+        player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
+                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia"]
 
         enemy_team = [
             get_smt_pokemon_by_number(self.smt_pokemon, 9),    # Blastoise

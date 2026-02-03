@@ -258,8 +258,10 @@ class BattleRenderer:
         )
 
     def _is_drawn_mpcost(self, b):
-        return b.menu_mode in (MENU_MODE_SKILLS, MENU_MODE_TARGET_SELECT,
-                               MENU_MODE_TARGET_BUFF_ALL)
+        return b.menu_mode in (MENU_MODE_SKILLS, 
+                               MENU_MODE_TARGET_SELECT,
+                               MENU_MODE_TARGET_BUFF_ALL,
+                               MENU_MODE_TARGET_BUFF)
     
     def _is_drawn_player_hpmp(self, b):
         return (b.menu_mode not in (MENU_MODE_BUFF_PLAYER_ALL, MENU_MODE_TARGET_BUFF_ALL)) and \

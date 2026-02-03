@@ -88,6 +88,10 @@ class HPMPRenderer:
 
 
     def draw_mp_cost_bar(self, b, screen, move_name, hp_offset):
+        if b.menu_mode == MENU_MODE_TARGET_BUFF and \
+            b.selected_ally != b.model.turn_index:
+            return
+
         move = b.smt_moves.get(move_name)
         if not move:
             return

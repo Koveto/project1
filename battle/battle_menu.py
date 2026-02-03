@@ -78,15 +78,19 @@ def handle_skills_menu_event(battle, event):
         move_name = pokemon.moves[battle.skills_scroll + battle.skills_cursor]
         move = battle.smt_moves.get(move_name)
 
-        if single_target_attack(battle, move, pokemon):
+        if not has_enough_mp(move, pokemon):
+            return
+        
+        if single_target_attack(move):
             battle.menu_mode = MENU_MODE_TARGET_SELECT
             return
-        if single_ally_buff(battle, move, pokemon):
+        if single_ally_buff(move):
             battle.selected_ally = battle.model.turn_index
             battle.menu_mode = MENU_MODE_TARGET_BUFF
             return
-        if all_ally_buff(battle, move, pokemon):
-            #start_player_all_buff_phase(battle)
+        if single_target_heal(move):
+            return
+        if all_ally_buff(move):
             battle.menu_mode = MENU_MODE_TARGET_BUFF_ALL
 
     elif key_back(event.key):
@@ -302,25 +306,31 @@ def move_skill_cursor(battle, direction):
             battle.skills_cursor -= 1
             return
         
-def single_target_attack(battle, move, pokemon):
+def has_enough_mp(move, pokemon):
+    return pokemon.remaining_mp >= move["mp"]
+        
+def single_target_attack(move):
     return (
         move["target"] == "Single" and
-        move["type"] in ("Physical", "Special") and
-        pokemon.remaining_mp >= move["mp"]
+        move["type"] in ("Physical", "Special")
     )
 
-def single_ally_buff(battle, move, pokemon):
+def single_ally_buff(move):
     return (
         move["target"] == "Single" and
-        move["type"] == "Support" and
-        pokemon.remaining_mp >= move["mp"]
+        move["type"] == "Support"
     )
 
-def all_ally_buff(battle, move, pokemon):
+def single_target_heal(move):
+    return (
+        move["target"] == "Single" and
+        move["type"] == "Healing"
+    )
+
+def all_ally_buff(move):
     return (
         move["target"] == "All" and
-        move["type"] == "Support" and
-        pokemon.remaining_mp >= move["mp"]
+        move["type"] == "Support"
     )
 
 def start_player_buff_phase(battle):
