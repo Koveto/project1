@@ -201,7 +201,59 @@ class TextRenderer:
         # Scroll "Recovered X HP!" on the next line
         if b.item_recover_text:
             visible_recover = b.item_recover_text[:int(b.item_recover_scroll_index)]
-            self.font0.draw_text(screen, visible_recover, X_MENU_MAIN, Y_MENU_MAIN_1)
+            if full_lines[1] != []:
+                self.font0.draw_text(screen, visible_recover, X_MENU_MAIN, Y_MENU_MAIN_2)
+            else:
+                self.font0.draw_text(screen, visible_recover, X_MENU_MAIN, Y_MENU_MAIN_1)
+
+            # Confirm arrow when recovery scroll is done
+            if b.item_recover_scroll_done and blink:
+                screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
+
+    def draw_heal_use(
+            self, b, screen, blink
+    ):
+        # PHASE 1 — scroll "[user] uses [item]!"
+        if not b.item_use_scroll_done:
+            lines = self.wrap_text_words(b.item_use_text, max_width=32)
+
+            visible_chars = int(b.item_use_scroll_index)
+            visible_lines = ["", "", ""]
+
+            for line_idx, words in enumerate(lines):
+                for word in words:
+                    chunk = word + " "
+                    if visible_chars >= len(chunk):
+                        visible_lines[line_idx] += chunk
+                        visible_chars -= len(chunk)
+                    else:
+                        visible_lines[line_idx] += chunk[:visible_chars]
+                        visible_chars = 0
+                        break
+                if visible_chars == 0:
+                    break
+
+            self.font0.draw_text(screen, visible_lines[0], X_MENU_MAIN, Y_MENU_MAIN_0)
+            self.font0.draw_text(screen, visible_lines[1], X_MENU_MAIN, Y_MENU_MAIN_1)
+            self.font0.draw_text(screen, visible_lines[2], X_MENU_MAIN, Y_MENU_MAIN_2)
+            return
+
+        # PHASE 4 — "[user] uses [item]!" fully visible on line 0
+        full_lines = self.wrap_text_words(b.item_use_text, max_width=32)
+        y = Y_MENU_MAIN_0
+        for line in full_lines:
+            text = " ".join(line)
+            if text:
+                self.font0.draw_text(screen, text, X_MENU_MAIN, y)
+            y += DAMAGE_TEXT_INCR  # same spacing you used before
+
+        # Scroll "Recovered X HP!" on the next line
+        if b.item_recover_text:
+            visible_recover = b.item_recover_text[:int(b.item_recover_scroll_index)]
+            if full_lines[1] != []:
+                self.font0.draw_text(screen, visible_recover, X_MENU_MAIN, Y_MENU_MAIN_2)
+            else:
+                self.font0.draw_text(screen, visible_recover, X_MENU_MAIN, Y_MENU_MAIN_1)
 
             # Confirm arrow when recovery scroll is done
             if b.item_recover_scroll_done and blink:

@@ -3184,7 +3184,7 @@
       "element": "Healing",
       "type": "Healing",
       "mp": 8,
-      "power": 15,
+      "power": 60,
       "hits_low": 1,
       "hits_high": 1,
       "target": "Single",
@@ -3192,14 +3192,15 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": [],
-      "description": ""
+      "description": "Light heal 1",
+      "use_text": ""
     },
 
     "Diarama": {
       "element": "Healing",
       "type": "Healing",
       "mp": 15,
-      "power": 30,
+      "power": 85,
       "hits_low": 1,
       "hits_high": 1,
       "target": "Single",
@@ -3207,7 +3208,7 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": [],
-      "description": ""
+      "description": "Medium heal 1"
     },
 
     "Diarahan": {
@@ -3222,7 +3223,7 @@
       "crit": 0,
       "ailment_chance": 0,
       "effects": [],
-      "description": ""
+      "description": "High heal 1"
     },
 
     "Media": {

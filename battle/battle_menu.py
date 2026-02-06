@@ -89,6 +89,8 @@ def handle_skills_menu_event(battle, event):
             battle.menu_mode = MENU_MODE_TARGET_BUFF
             return
         if single_target_heal(move):
+            battle.selected_ally = battle.model.turn_index
+            battle.menu_mode = MENU_MODE_TARGET_HEAL
             return
         if all_ally_buff(move):
             battle.menu_mode = MENU_MODE_TARGET_BUFF_ALL
@@ -151,6 +153,24 @@ def handle_target_buff_all_event(battle, event):
     if key_confirm(event.key):
         return start_player_all_buff_phase(battle)
     
+def handle_target_heal_event(battle, event):
+    if event.type != pygame.KEYDOWN:
+        return
+    if key_back(event.key):
+        battle.menu_mode = MENU_MODE_SKILLS
+        return
+    if event.key == pygame.K_LEFT:
+        ally_count = len(battle.model.player_team)
+        battle.selected_ally = (battle.selected_ally - 1) % ally_count
+        return
+    if event.key == pygame.K_RIGHT:
+        ally_count = len(battle.model.player_team)
+        battle.selected_ally = (battle.selected_ally + 1) % ally_count
+        return
+    if key_confirm(event.key):
+        user = battle.model.get_active_pokemon()
+        return start_heal_use_phase(battle, user)
+    
 def handle_items_event(battle, event):
         
     item_names = list(battle.model.inventory.keys())
@@ -204,7 +224,7 @@ def handle_item_ally_target_event(battle, event):
     if key_confirm(event.key):
         # Build the scroll text
         user = battle.model.get_active_pokemon()
-        return start_item_use_phase(battle, user.name, battle.pending_item_name)
+        return start_item_use_phase(battle, user, battle.pending_item_name)
     
 def handle_item_target_select_event(battle, event):
     enemy_count = len(battle.model.enemy_team)
@@ -448,9 +468,13 @@ def select_item(battle, item_name, item_data, next_mode):
     battle.pending_item_data = item_data
     battle.menu_mode = next_mode
 
-def start_item_use_phase(battle, user_name, item_name):
+def start_item_use_phase(battle, user, item_name):
     # Text scroll for "X uses Y!"
-    battle.item_use_text = f"{user_name} uses {item_name}!"
+    ally = battle.model.get_player_team()[battle.selected_ally]
+    if user.name == ally.name:
+        battle.item_use_text = f"{user.name} uses {item_name}!"
+    else:
+        battle.item_use_text = f"{user.name} uses {item_name} on {ally.name}!"
     battle.item_use_scroll_index = 0
     battle.item_use_scroll_done = False
 
@@ -465,6 +489,32 @@ def start_item_use_phase(battle, user_name, item_name):
 
     # Switch mode
     battle.menu_mode = MENU_MODE_ITEM_USE
+
+def start_heal_use_phase(battle, user):
+    # Text scroll for "X uses Y!"
+    ally = battle.model.get_player_team()[battle.selected_ally]
+    move_name = user.moves[battle.skills_scroll + battle.skills_cursor]
+    if user.name == ally.name:
+        battle.item_use_text = f"{user.name} uses {move_name}!"
+    else:
+        battle.item_use_text = f"{user.name} uses {move_name} on {ally.name}!"
+    battle.item_use_scroll_index = 0
+    battle.item_use_scroll_done = False
+
+    # Heal animation state
+    battle.item_heal_animating = False
+    battle.item_heal_done = False
+
+    # Recovery text (e.g., "Recovered 20 HP!")
+    battle.item_recover_text = None
+    battle.item_recover_scroll_index = 0
+    battle.item_recover_scroll_done = False
+
+    move = battle.smt_moves[move_name]
+    user.remaining_mp = max(0, user.remaining_mp - move["mp"])
+
+    # Switch mode
+    battle.menu_mode = MENU_MODE_HEAL_USE
 
 def start_item_attack_phase(battle):
     # Consume the item

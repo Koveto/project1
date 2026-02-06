@@ -20,7 +20,8 @@ from battle.battle_menu import (
     handle_submenu_event,
     handle_target_buff_event,
     handle_buff_player_event,
-    handle_target_buff_all_event
+    handle_target_buff_all_event,
+    handle_target_heal_event
 )
 from battle.battle_text import (
     handle_talk_event,
@@ -31,7 +32,9 @@ from battle.battle_text import (
 )
 from battle.battle_items import (
     handle_item_use_event,
-    update_item_use_phase
+    handle_heal_use_event,
+    update_item_use_phase,
+    update_heal_use_phase
 )
 from battle.battle_damage import (
     handle_damaging_enemy_event,
@@ -62,7 +65,7 @@ class BattleState(GameState):
             affinities=bulbasaur_data.affinities,
             learnset=bulbasaur_data.learnset,
             moves=["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
-                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia"]
+                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia", "Diarama", "Diarahan"]
         )
 
         # Build teams
@@ -74,11 +77,11 @@ class BattleState(GameState):
         ]
 
         player_team[1].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
-                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia"]
+                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia", "Diarama", "Diarahan"]
         player_team[2].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
-                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia"]
+                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia", "Diarama", "Diarahan"]
         player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
-                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia"]
+                   "Marakukaja", "Masukukaja", "Luster Candy", "Dia", "Diarama", "Diarahan"]
 
         enemy_team = [
             get_smt_pokemon_by_number(self.smt_pokemon, 9),    # Blastoise
@@ -212,6 +215,12 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
             handle_buff_player_event(self, event)
 
+        elif self.menu_mode == MENU_MODE_TARGET_HEAL:
+            handle_target_heal_event(self, event)
+
+        elif self.menu_mode == MENU_MODE_HEAL_USE:
+            handle_heal_use_event(self, event)
+
         elif self.menu_mode == MENU_MODE_SUBMENU:
             handle_submenu_event(self, event)
 
@@ -244,4 +253,6 @@ class BattleState(GameState):
             return update_simple_scroll_phase(self)
         elif self.menu_mode == MENU_MODE_ITEM_USE:
             update_item_use_phase(self)
+        elif self.menu_mode == MENU_MODE_HEAL_USE:
+            update_heal_use_phase(self)
 

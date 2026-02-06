@@ -95,7 +95,8 @@ class BackgroundRenderer:
             MENU_MODE_TARGET_BUFF,
             MENU_MODE_TARGET_BUFF_ALL,
             MENU_MODE_BUFF_PLAYER,
-            MENU_MODE_BUFF_PLAYER_ALL
+            MENU_MODE_BUFF_PLAYER_ALL,
+            MENU_MODE_TARGET_HEAL
         ):
             return
 
@@ -108,7 +109,8 @@ class BackgroundRenderer:
         # In ITEM_INFO: only un-darken the selected ally
         if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET,
                            MENU_MODE_TARGET_BUFF,
-                           MENU_MODE_BUFF_PLAYER):
+                           MENU_MODE_BUFF_PLAYER,
+                           MENU_MODE_TARGET_HEAL):
             if highlight_player_pos is not None:
                 sprite, x, y = highlight_player_pos
                 screen.blit(sprite, (x, y))

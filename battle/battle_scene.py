@@ -207,6 +207,12 @@ class BattleRenderer:
                 blink
             )
 
+        elif b.menu_mode == MENU_MODE_TARGET_HEAL:
+            self.menu_renderer.draw_target_buff_menu(b, screen, active_pokemon)
+
+        elif b.menu_mode == MENU_MODE_HEAL_USE:
+            self.text_renderer.draw_heal_use(b, screen, blink)
+
         else:
             self.menu_renderer.draw_dummy_menu(b, screen)
 
@@ -261,7 +267,8 @@ class BattleRenderer:
         return b.menu_mode in (MENU_MODE_SKILLS, 
                                MENU_MODE_TARGET_SELECT,
                                MENU_MODE_TARGET_BUFF_ALL,
-                               MENU_MODE_TARGET_BUFF)
+                               MENU_MODE_TARGET_BUFF,
+                               MENU_MODE_TARGET_HEAL)
     
     def _is_drawn_player_hpmp(self, b):
         return (b.menu_mode not in (MENU_MODE_BUFF_PLAYER_ALL, MENU_MODE_TARGET_BUFF_ALL)) and \
@@ -288,7 +295,9 @@ class BattleRenderer:
         if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET,
                          MENU_MODE_ITEM_USE,
                          MENU_MODE_TARGET_BUFF,
-                         MENU_MODE_BUFF_PLAYER):
+                         MENU_MODE_BUFF_PLAYER,
+                         MENU_MODE_TARGET_HEAL,
+                         MENU_MODE_HEAL_USE):
             pokemon_for_hpmp = b.model.player_team[b.selected_ally]
         if b.menu_mode in (MENU_MODE_DAMAGING_PLAYER,
                          MENU_MODE_ENEMY_DAMAGE):
@@ -305,7 +314,8 @@ class BattleRenderer:
         highlight_player_pos = highlight_player_pos
         target_enemy_pos = target_enemy_pos
         if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET,
-                           MENU_MODE_BUFF_PLAYER):
+                           MENU_MODE_BUFF_PLAYER,
+                           MENU_MODE_TARGET_HEAL):
             sprite = self.background_renderer.player_sprites[b.selected_ally]
             pokemon = b.model.player_team[b.selected_ally]
 
@@ -361,7 +371,8 @@ class BattleRenderer:
         bounce_index = b.model.turn_index
         if b.menu_mode in (MENU_MODE_ITEM_ALLY_TARGET, 
                            MENU_MODE_TARGET_BUFF,
-                           MENU_MODE_BUFF_PLAYER):
+                           MENU_MODE_BUFF_PLAYER,
+                           MENU_MODE_TARGET_HEAL):
             bounce_index = b.selected_ally
         elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
             bounce_index = b.enemy_target_index
