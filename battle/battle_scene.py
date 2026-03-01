@@ -69,23 +69,17 @@ class BattleRenderer:
     # Sprite loading
     # ---------------------------------------------------------
     def _load_sprite_for_pokemon(self, pokemon, is_back):
-        """Loads either the player sprite or a Pokémon sprite."""
         if pokemon is None:
             return None
 
         if pokemon.is_player:
             return load_player_sprite(scale=SCALE)
 
-        dex = pokemon.pokedex_number
-        index = dex - 1 if is_back else (dex * 2) - 2
+        row = pokemon.pokedex_number - 1
+        col = pokemon.sprite_column
 
-        return load_pokemon_sprite(
-            gen=pokemon.gen,
-            index=index,
-            is_shiny=pokemon.is_shiny,
-            is_back=is_back,
-            scale=SCALE
-        )
+        return load_pokemon_sprite(row=row, column=col, scale=SCALE)
+
     
     def _call_menu_mode_function(self,
                                  b,

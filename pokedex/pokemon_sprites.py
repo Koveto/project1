@@ -2,88 +2,62 @@ import os
 from PIL import Image
 import pygame
 
-# Constants
-GRID = 5
-SPRITE = 64
-ALPHA_KEY = (165, 235, 255)  # A5EBFF transparency key
+# Constants for the new sheet
+CELL = 69          # full grid cell size
+SPRITE = 64        # actual sprite size inside the cell
+BORDER = 5         # top/left border
+ALPHA_KEY = (165, 235, 255)
 
-# Path to project root (1 level up from pokedex/)
+
+# Cache
+_big_sheet = None
+
+# Path setup
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SPRITE_DIR = os.path.join(ROOT, "sprites")
-
+BIG_SHEET_PATH = os.path.join(SPRITE_DIR, "pokemon.png")
 PLAYER_SPRITE_PATH = os.path.join(ROOT, "sprites", "player_battle.png")
 PLAYER_W = 48
 PLAYER_H = 52
 
-# Cache for loaded sheets
-_sheets = {}
 
-# Filenames for each generation
-FILENAMES = {
-    (1, False, False): "gen1_nonshiny.png",
-    (1, True,  False): "gen1_shiny.png",
-    (1, False, True):  "gen1_nonshiny_back.png",
-    (1, True,  True):  "gen1_shiny_back.png",
-
-    (2, False, False): "gen2_nonshiny.png",
-    (2, True,  False): "gen2_shiny.png",
-    (2, False, True):  "gen2_nonshiny_back.png",
-    (2, True,  True):  "gen2_shiny_back.png",
-
-    (3, False, False): "gen3_nonshiny.png",
-    (3, True,  False): "gen3_shiny.png",
-    (3, False, True):  "gen3_nonshiny_back.png",
-    (3, True,  True):  "gen3_shiny_back.png",
-}
-
-
-def _load_sheet(gen, is_shiny, is_back):
-    """Load the correct spritesheet once and reuse it."""
-    key = (gen, is_shiny, is_back)
-
-    if key not in _sheets:
-        filename = FILENAMES[key]
-        path = os.path.join(SPRITE_DIR, filename)
-        sheet = Image.open(path).convert("RGBA")
-        _sheets[key] = sheet
-
-    return _sheets[key]
+def _load_big_sheet():
+    global _big_sheet
+    if _big_sheet is None:
+        sheet = Image.open(BIG_SHEET_PATH).convert("RGBA")
+        _big_sheet = sheet
+    return _big_sheet
 
 
 def _pil_to_pygame(image):
-    """Convert a PIL Image (RGBA) to a Pygame Surface."""
     mode = image.mode
     size = image.size
     data = image.tobytes()
     return pygame.image.fromstring(data, size, mode).convert_alpha()
 
 
-def load_pokemon_sprite(gen, index, is_shiny=False, is_back=False, scale=1):
+def load_pokemon_sprite(row, column, scale=1):
     """
-    Load a single Pokémon sprite from Gen 1, Gen 2, or Gen 3.
-    Returns a Pygame Surface.
+    Load a single Pokémon sprite from the giant 69x69 grid sheet.
+    Each cell is 69x69, but the actual sprite is the bottom-right 64x64.
     """
+    sheet = _load_big_sheet()
 
-    sheet = _load_sheet(gen, is_shiny, is_back)
-    sheet_w, sheet_h = sheet.size
+    # Compute pixel coordinates of the 69x69 cell
+    x0 = column * CELL
+    y0 = row * CELL
 
-    # Compute how many sprites per row
-    sprites_per_row = (sheet_w - GRID) // (SPRITE + GRID)
+    # Horizontal is fine
+    sx0 = x0 + BORDER
+    sx1 = sx0 + SPRITE
 
-    # Convert index → row/column
-    row = index // sprites_per_row
-    col = index % sprites_per_row
+    # Nudge vertical crop 1px up to avoid bottom bleed
+    sy0 = y0 + BORDER - 1
+    sy1 = sy0 + SPRITE
 
-    # Pixel coordinates
-    x0 = GRID + col * (SPRITE + GRID)
-    y0 = GRID + row * (SPRITE + GRID)
-    x1 = x0 + SPRITE
-    y1 = y0 + SPRITE
+    frame = sheet.crop((sx0, sy0, sx1, sy1))
 
-    # Crop
-    frame = sheet.crop((x0, y0, x1, y1))
-
-    # Transparency cleanup
+    # Apply alpha key cleanup
     data = frame.getdata()
     cleaned = []
     for r, g, b, a in data:
@@ -93,12 +67,12 @@ def load_pokemon_sprite(gen, index, is_shiny=False, is_back=False, scale=1):
             cleaned.append((r, g, b, a))
     frame.putdata(cleaned)
 
-    # Scale
     if scale != 1:
         frame = frame.resize((SPRITE * scale, SPRITE * scale), Image.NEAREST)
 
-    # Convert to Pygame Surface
     return _pil_to_pygame(frame)
+
+
 
 def load_player_sprite(scale):
     """

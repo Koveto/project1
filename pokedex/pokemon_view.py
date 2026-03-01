@@ -138,50 +138,28 @@ class PokemonView:
     # ---------------------------------------------------------
     # Sprite loading
     # ---------------------------------------------------------
-    def get_sprite(self, pokemon, is_shiny=False):
-        number = pokemon.pokedex_number
+    def get_sprite(self, pokemon):
+        """
+        Returns a cached Pygame sprite for this Pokémon using the new giant sheet.
+        """
+        if pokemon is None:
+            return None
 
-        # Determine generation and starting index
-        if number <= 151:
-            gen = 1
-            gen_start = 1
-        elif number <= 251:
-            gen = 2
-            gen_start = 152
-        else:
-            gen = 3
-            gen_start = 252
+        row = pokemon.pokedex_number - 1
+        col = pokemon.sprite_column
 
-        number_within_gen = number - gen_start + 1
-
-        # Missing sprites
-        if gen == 2:
-            if number == 201:
-                return None
-            if number >= 202:
-                number_within_gen -= 1
-
-        if gen == 3:
-            if number == 327:
-                return None
-            if number >= 328:
-                number_within_gen -= 1
-            if number >= 352:
-                number_within_gen += 1
-
-        sprite_index = (number_within_gen - 1) * 2
-        key = (gen, sprite_index, is_shiny)
+        key = (row, col)
 
         if key not in self.sprite_cache:
             sprite = load_pokemon_sprite(
-                gen=gen,
-                index=sprite_index,
-                scale=3,
-                is_shiny=is_shiny
+                row=row,
+                column=col,
+                scale=3
             )
             self.sprite_cache[key] = sprite
 
         return self.sprite_cache[key]
+
 
 
     # ---------------------------------------------------------
@@ -220,7 +198,7 @@ class PokemonView:
         # -----------------------------
         # Draw sprite
         # -----------------------------
-        sprite = self.get_sprite(pokemon, is_shiny=self.shiny)
+        sprite = self.get_sprite(pokemon)
 
         if sprite is not None:
             rect = sprite.get_rect(center=(SPRITE_X, SPRITE_Y))

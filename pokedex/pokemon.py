@@ -6,7 +6,6 @@ class Pokemon:
     def __init__(
         self,
         pokedex_number,
-        gen=1,
         is_shiny=False,
         name=None,
         level=1,
@@ -17,8 +16,8 @@ class Pokemon:
         bst=None
     ):
         self.pokedex_number = pokedex_number
-        self.gen = gen
         self.is_shiny = is_shiny
+        self.sprite_column = None
 
         self.name = name
         self.level = level

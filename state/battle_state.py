@@ -82,6 +82,9 @@ class BattleState(GameState):
                    "Marakukaja", "Masukukaja", "Luster Candy", "Dia", "Diarama", "Diarahan"]
         player_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama", "Tarukaja", "Rakukaja", "Sukukaja", "Heat Riser", "Red Capote", "Matarukaja",
                    "Marakukaja", "Masukukaja", "Luster Candy", "Dia", "Diarama", "Diarahan"]
+        for p in player_team:
+            self.assign_sprite_column(p, is_player=True)
+
 
         enemy_team = [
             get_smt_pokemon_by_number(self.smt_pokemon, 9),    # Blastoise
@@ -94,6 +97,9 @@ class BattleState(GameState):
         enemy_team[1].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
         enemy_team[2].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
         enemy_team[3].moves = ["Attack", "Agi", "Bufu", "Zio", "Hama"]
+
+        for p in enemy_team:
+            self.assign_sprite_column(p, is_player=False)
 
         self.model = BattleModel(player_team, enemy_team)
         self.renderer = BattleRenderer(self, background_surface)
@@ -256,3 +262,16 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_HEAL_USE:
             update_heal_use_phase(self)
 
+    def assign_sprite_column(self, pokemon, is_player):
+        if is_player:
+            # Player always uses back sprites
+            if pokemon.is_shiny:
+                pokemon.sprite_column = random.choice([8, 9])   # shiny back
+            else:
+                pokemon.sprite_column = random.choice([3, 4])   # nonshiny back
+        else:
+            # Enemy always uses front sprites
+            if pokemon.is_shiny:
+                pokemon.sprite_column = random.choice([5, 6, 7])  # shiny front
+            else:
+                pokemon.sprite_column = random.choice([0, 1, 2])  # nonshiny front
