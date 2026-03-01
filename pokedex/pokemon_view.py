@@ -272,51 +272,95 @@ class PokemonView:
 
 
         # -----------------------------
-        # SMT ELEMENT AFFINITY GRID
+        # SMT ELEMENT AFFINITY + POTENTIAL GRID
         # -----------------------------
         affinities = pokemon.affinities
+        potentials = pokemon.potential   # length 9 (7 + Healing + Support)
+
+        # Extended element list
+        ELEMENTS_EXT = ELEMENTS + ["Healing", "Support"]
 
         grid_x = TYPE_GRID_X
         grid_y = TYPE_GRID_Y
 
         self.element_rects = []
 
-        for i, elem in enumerate(ELEMENTS):
-            col = i % TYPE_COLS
-            row = i // TYPE_COLS
+        for i, elem in enumerate(ELEMENTS_EXT):
 
-            cell_x = grid_x + col * TYPE_CELL_W
-            cell_y = grid_y + row * TYPE_CELL_H
-
-            val = affinities[i]
-
-            # Determine color
-            if val < 0:
-                color = (255, 80, 80)        # red
-            elif 1 <= val < 3:
-                color = (80, 200, 80)        # green
-            elif 3 <= val < 9:
-                color = (80, 80, 255)        # blue
-            elif val == 9:
-                color = (255, 255, 255)      # white
+            # -----------------------------------------
+            # FORCE Healing + Support into row 2
+            # -----------------------------------------
+            if i < 7:
+                # Normal SMT elements use the regular grid
+                col_i = i % TYPE_COLS
+                row_i = i // TYPE_COLS
             else:
-                color = None
+                # Healing (i=7) → row 2, col 0
+                # Support (i=8) → row 2, col 1
+                row_i = 2
+                col_i = i - 7   # 7→0, 8→1
 
-            # Draw color box
-            rect = pygame.Rect(cell_x, cell_y + 18, 60, 12)
-            self.element_rects.append(rect)
-
-            if color is not None:
-                pygame.draw.rect(
-                    screen,
-                    color,
-                    rect,
-                    border_radius=3
-                )
+            # Extra spacing for potential text
+            cell_x = grid_x + col_i * TYPE_CELL_W
+            cell_y = grid_y + row_i * (TYPE_CELL_H + 20)
 
             # Draw element name
             text_surface = self.font_text.render(elem, True, COLOR_TEXT)
             screen.blit(text_surface, (cell_x, cell_y))
+
+            # -----------------------------------------
+            # First 7 entries: affinity + color bar
+            # Last 2 entries: Healing + Support (no bar)
+            # -----------------------------------------
+            if i < 7:
+                affinity_val = affinities[i]
+                potential_val = potentials[i]
+
+                # Determine color for affinity
+                if affinity_val < 0:
+                    color = (255, 80, 80)
+                elif 1 <= affinity_val < 3:
+                    color = (80, 200, 80)
+                elif 3 <= affinity_val < 9:
+                    color = (80, 80, 255)
+                elif affinity_val == 9:
+                    color = (255, 255, 255)
+                else:
+                    color = None
+
+                # Draw affinity color bar
+                rect = pygame.Rect(cell_x, cell_y + 18, 60, 12)
+                self.element_rects.append(rect)
+
+                if color is not None:
+                    pygame.draw.rect(screen, color, rect, border_radius=3)
+
+                # Draw potential text under bar
+                pot_val = potential_val
+                pot_text = f"+{pot_val}" if pot_val > 0 else str(pot_val)
+
+                pot_surface = self.font_text.render(pot_text, True, COLOR_TEXT)
+                pot_x = cell_x + (60 - pot_surface.get_width()) // 2
+                pot_y = cell_y + 18 + 12 + 4
+                screen.blit(pot_surface, (pot_x, pot_y))
+
+            else:
+                # -----------------------------------------
+                # Healing / Support potentials (no bar)
+                # -----------------------------------------
+                potential_val = potentials[i]
+                pot_text = f"+{potential_val}" if potential_val > 0 else str(potential_val)
+
+                pot_surface = self.font_text.render(pot_text, True, COLOR_TEXT)
+
+                # Center under the element name
+                pot_x = cell_x + (60 - pot_surface.get_width()) // 2
+                pot_y = cell_y + 22
+                screen.blit(pot_surface, (pot_x, pot_y))
+
+
+
+
 
 
         # -----------------------------

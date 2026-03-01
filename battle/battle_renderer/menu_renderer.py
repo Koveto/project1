@@ -8,6 +8,60 @@ class MenuRenderer:
         self.cursor_sprite = cursor_sprite
         self.smt_moves = smt_moves
 
+    def format_move_for_menu(self, move_name, smt_moves, active_pokemon):
+        m = smt_moves.get(move_name)
+        if not m:
+            return f"{move_name[:11]:<11} {'---':>3}  {'----':<5}  {'---':>3}  {'---':<12}"
+
+        # Base name (max 11 chars before adding potential)
+        base_name = move_name[:11]
+
+        # Full element order including Healing + Support
+        ELEMENT_ORDER = [
+            "Physical", "Fire", "Force", "Ice", "Electric", "Light", "Dark",
+            "Healing", "Support"
+        ]
+
+        element = m["element"]
+
+        # Determine potential index
+        try:
+            element_index = ELEMENT_ORDER.index(element)
+            pot = active_pokemon.potential[element_index]
+        except ValueError:
+            pot = 0
+
+        # Build potential text
+        pot_text = f" {pot:+d}" if pot != 0 else ""
+
+        # Ensure name + pot_text fits in 11 chars
+        combined = base_name + pot_text
+        if len(combined) > 11:
+            trim_amount = min(len(combined) - 11, 3)
+            base_name = base_name[:-trim_amount]
+            combined = base_name + pot_text
+
+        name_field = f"{combined:<11}"
+
+        # Support / Healing formatting
+        if element in ("Support", "Healing"):
+            mp = f"{m['mp']:>3}"
+            element_short = f"{element[:7]:<7}"
+            desc = m.get("description", "")[:15]
+            desc = f"{desc:<15}"
+            return f"{name_field} {mp}  {element_short}  {desc}"
+
+        # Attack formatting
+        mp = f"{m['mp']:>3}"
+        power = f"{m['power']:>3}" if m["power"] is not None else "---"
+        element_short = f"{element[:5]:<5}"
+        desc = m.get("description", "")[:12]
+        desc = f"{desc:<12}"
+
+        return f"{name_field} {mp}  {element_short}  {power}  {desc}"
+
+
+
     def draw_main_menu(self, b, screen, active_pokemon):
         self.font0.draw_text(screen, f"What will {active_pokemon.name} do?",
                                 X_MENU_MAIN, Y_MENU_MAIN_0)
@@ -23,7 +77,7 @@ class MenuRenderer:
         visible_moves = active_pokemon.moves[b.skills_scroll:b.skills_scroll + 3]
         y = SKILLS_Y
         for move_name in visible_moves:
-            text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
+            text = self.format_move_for_menu(move_name, self.smt_moves, active_pokemon)
             self.font2.draw_text(screen, text, SKILLS_X, y)
             y += SKILLS_Y_INCR
 
@@ -38,7 +92,7 @@ class MenuRenderer:
     def draw_target_select_menu(self, b, screen, active_pokemon):
         selected_index = b.skills_scroll + b.skills_cursor
         move_name = active_pokemon.moves[selected_index]
-        text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
+        text = self.format_move_for_menu(move_name, self.smt_moves, active_pokemon)
         y = SKILLS_Y + (b.skills_cursor * SKILLS_Y_INCR)
         self.font2.draw_text(screen, text, SKILLS_X, y)
         cursor_x, cursor_y = COORDS_MENU_SKILLS[b.skills_cursor]
@@ -51,7 +105,7 @@ class MenuRenderer:
         skill_name = item_type.split("damage_")[1]   # → "Agibarion"
 
         # Format the move info using the existing skill formatter
-        text = active_pokemon.format_move_for_menu(skill_name, self.smt_moves)
+        text = self.format_move_for_menu(skill_name, self.smt_moves, active_pokemon)
 
         # Draw it in the same row as the skills menu would
         self.font2.draw_text(screen, text, SKILLS_X, SKILLS_Y)
@@ -115,7 +169,7 @@ class MenuRenderer:
     def draw_target_buff_menu(self, b, screen, active_pokemon):
         selected_index = b.skills_scroll + b.skills_cursor
         move_name = active_pokemon.moves[selected_index]
-        text = active_pokemon.format_move_for_menu(move_name, self.smt_moves)
+        text = self.format_move_for_menu(move_name, self.smt_moves, active_pokemon)
         y = SKILLS_Y + (b.skills_cursor * SKILLS_Y_INCR)
         self.font2.draw_text(screen, text, SKILLS_X, y)
         cursor_x, cursor_y = COORDS_MENU_SKILLS[b.skills_cursor]
