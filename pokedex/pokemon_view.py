@@ -48,8 +48,7 @@ class PokemonView:
         self.input_color_active = (200, 200, 200)
         self.input_color = self.input_color_inactive
 
-        # Shiny toggle
-        self.shiny = False
+        self.col = 0
 
         # Sorting buttons
         self.button_sort_asc = pygame.Rect(50, 500, 180, 40)
@@ -76,11 +75,11 @@ class PokemonView:
 
             # Sprite click → toggle shiny
             pokemon = controller.get_current_pokemon()
-            sprite = self.get_sprite(pokemon, is_shiny=self.shiny)
+            sprite = self.get_sprite(pokemon)
             if sprite is not None:
                 rect = sprite.get_rect(center=(SPRITE_X, SPRITE_Y))
                 if rect.collidepoint(event.pos):
-                    self.shiny = not self.shiny
+                    self.col = (self.col + 1) % 10
 
             mx, my = event.pos
 
@@ -146,7 +145,7 @@ class PokemonView:
             return None
 
         row = pokemon.pokedex_number - 1
-        col = pokemon.sprite_column
+        col = self.col
 
         key = (row, col)
 

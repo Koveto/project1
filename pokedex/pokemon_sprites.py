@@ -52,7 +52,7 @@ def load_pokemon_sprite(row, column, scale=1):
     sx1 = sx0 + SPRITE
 
     # Nudge vertical crop 1px up to avoid bottom bleed
-    sy0 = y0 + BORDER - 1
+    sy0 = y0 + BORDER #-1
     sy1 = sy0 + SPRITE
 
     frame = sheet.crop((sx0, sy0, sx1, sy1))

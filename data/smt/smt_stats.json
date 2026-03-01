@@ -29861,6 +29861,237 @@
     },
     {
       "no": 352,
+      "name": "Castform-Sun",
+      "bst": 420,
+      "affinities": [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        9
+      ],
+      "stats": {
+        "HP": 70,
+        "Atk": 70,
+        "Def": 70,
+        "SpAtk": 70,
+        "SpDef": 70,
+        "Spd": 70
+      },
+      "learnset": [
+        {
+          "level": 1,
+          "move": "Tackle"
+        },
+        {
+          "level": 10,
+          "move": "Water Gun"
+        },
+        {
+          "level": 10,
+          "move": "Ember"
+        },
+        {
+          "level": 10,
+          "move": "Powder Snow"
+        },
+        {
+          "level": 15,
+          "move": "Headbutt"
+        },
+        {
+          "level": 20,
+          "move": "Rain Dance"
+        },
+        {
+          "level": 20,
+          "move": "Sunny Day"
+        },
+        {
+          "level": 20,
+          "move": "Hail"
+        },
+        {
+          "level": 25,
+          "move": "Weather Ball"
+        },
+        {
+          "level": 35,
+          "move": "Hydro Pump"
+        },
+        {
+          "level": 35,
+          "move": "Fire Blast"
+        },
+        {
+          "level": 35,
+          "move": "Blizzard"
+        },
+        {
+          "level": 45,
+          "move": "Hurricane"
+        }
+      ],
+      "level": 46
+    },
+    {
+      "no": 353,
+      "name": "Castform-Rain",
+      "bst": 420,
+      "affinities": [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        9
+      ],
+      "stats": {
+        "HP": 70,
+        "Atk": 70,
+        "Def": 70,
+        "SpAtk": 70,
+        "SpDef": 70,
+        "Spd": 70
+      },
+      "learnset": [
+        {
+          "level": 1,
+          "move": "Tackle"
+        },
+        {
+          "level": 10,
+          "move": "Water Gun"
+        },
+        {
+          "level": 10,
+          "move": "Ember"
+        },
+        {
+          "level": 10,
+          "move": "Powder Snow"
+        },
+        {
+          "level": 15,
+          "move": "Headbutt"
+        },
+        {
+          "level": 20,
+          "move": "Rain Dance"
+        },
+        {
+          "level": 20,
+          "move": "Sunny Day"
+        },
+        {
+          "level": 20,
+          "move": "Hail"
+        },
+        {
+          "level": 25,
+          "move": "Weather Ball"
+        },
+        {
+          "level": 35,
+          "move": "Hydro Pump"
+        },
+        {
+          "level": 35,
+          "move": "Fire Blast"
+        },
+        {
+          "level": 35,
+          "move": "Blizzard"
+        },
+        {
+          "level": 45,
+          "move": "Hurricane"
+        }
+      ],
+      "level": 46
+    },
+    {
+      "no": 354,
+      "name": "Castform-Hail",
+      "bst": 420,
+      "affinities": [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        9
+      ],
+      "stats": {
+        "HP": 70,
+        "Atk": 70,
+        "Def": 70,
+        "SpAtk": 70,
+        "SpDef": 70,
+        "Spd": 70
+      },
+      "learnset": [
+        {
+          "level": 1,
+          "move": "Tackle"
+        },
+        {
+          "level": 10,
+          "move": "Water Gun"
+        },
+        {
+          "level": 10,
+          "move": "Ember"
+        },
+        {
+          "level": 10,
+          "move": "Powder Snow"
+        },
+        {
+          "level": 15,
+          "move": "Headbutt"
+        },
+        {
+          "level": 20,
+          "move": "Rain Dance"
+        },
+        {
+          "level": 20,
+          "move": "Sunny Day"
+        },
+        {
+          "level": 20,
+          "move": "Hail"
+        },
+        {
+          "level": 25,
+          "move": "Weather Ball"
+        },
+        {
+          "level": 35,
+          "move": "Hydro Pump"
+        },
+        {
+          "level": 35,
+          "move": "Fire Blast"
+        },
+        {
+          "level": 35,
+          "move": "Blizzard"
+        },
+        {
+          "level": 45,
+          "move": "Hurricane"
+        }
+      ],
+      "level": 46
+    },
+    {
+      "no": 355,
       "name": "Kecleon",
       "bst": 440,
       "affinities": [
@@ -29945,7 +30176,7 @@
       "level": 50
     },
     {
-      "no": 353,
+      "no": 356,
       "name": "Shuppet",
       "bst": 295,
       "affinities": [
@@ -30022,7 +30253,7 @@
       "level": 22
     },
     {
-      "no": 354,
+      "no": 357,
       "name": "Banette",
       "bst": 455,
       "affinities": [
@@ -30099,7 +30330,7 @@
       "level": 53
     },
     {
-      "no": 355,
+      "no": 358,
       "name": "Duskull",
       "bst": 295,
       "affinities": [
@@ -30176,7 +30407,7 @@
       "level": 22
     },
     {
-      "no": 356,
+      "no": 359,
       "name": "Dusclops",
       "bst": 455,
       "affinities": [
@@ -30277,7 +30508,7 @@
       "level": 53
     },
     {
-      "no": 357,
+      "no": 360,
       "name": "Tropius",
       "bst": 460,
       "affinities": [
@@ -30362,7 +30593,7 @@
       "level": 54
     },
     {
-      "no": 358,
+      "no": 361,
       "name": "Chimecho",
       "bst": 455,
       "affinities": [
@@ -30443,7 +30674,7 @@
       "level": 53
     },
     {
-      "no": 359,
+      "no": 362,
       "name": "Absol",
       "bst": 465,
       "affinities": [
@@ -30540,7 +30771,7 @@
       "level": 55
     },
     {
-      "no": 360,
+      "no": 363,
       "name": "Wynaut",
       "bst": 260,
       "affinities": [
@@ -30597,7 +30828,7 @@
       "level": 16
     },
     {
-      "no": 361,
+      "no": 364,
       "name": "Snorunt",
       "bst": 300,
       "affinities": [
@@ -30682,7 +30913,7 @@
       "level": 23
     },
     {
-      "no": 362,
+      "no": 365,
       "name": "Glalie",
       "bst": 480,
       "affinities": [
@@ -30775,7 +31006,7 @@
       "level": 58
     },
     {
-      "no": 363,
+      "no": 366,
       "name": "Spheal",
       "bst": 290,
       "affinities": [
@@ -30860,7 +31091,7 @@
       "level": 21
     },
     {
-      "no": 364,
+      "no": 367,
       "name": "Sealeo",
       "bst": 410,
       "affinities": [
@@ -30953,7 +31184,7 @@
       "level": 44
     },
     {
-      "no": 365,
+      "no": 368,
       "name": "Walrein",
       "bst": 530,
       "affinities": [
@@ -31050,7 +31281,7 @@
       "level": 67
     },
     {
-      "no": 366,
+      "no": 369,
       "name": "Clamperl",
       "bst": 345,
       "affinities": [
@@ -31091,7 +31322,7 @@
       "level": 32
     },
     {
-      "no": 367,
+      "no": 370,
       "name": "Huntail",
       "bst": 485,
       "affinities": [
@@ -31188,7 +31419,7 @@
       "level": 58
     },
     {
-      "no": 368,
+      "no": 371,
       "name": "Gorebyss",
       "bst": 485,
       "affinities": [
@@ -31285,7 +31516,7 @@
       "level": 58
     },
     {
-      "no": 369,
+      "no": 372,
       "name": "Relicanth",
       "bst": 485,
       "affinities": [
@@ -31362,7 +31593,7 @@
       "level": 58
     },
     {
-      "no": 370,
+      "no": 373,
       "name": "Luvdisc",
       "bst": 330,
       "affinities": [
@@ -31451,7 +31682,7 @@
       "level": 29
     },
     {
-      "no": 371,
+      "no": 374,
       "name": "Bagon",
       "bst": 300,
       "affinities": [
@@ -31528,7 +31759,7 @@
       "level": 23
     },
     {
-      "no": 372,
+      "no": 375,
       "name": "Shelgon",
       "bst": 420,
       "affinities": [
@@ -31609,7 +31840,7 @@
       "level": 46
     },
     {
-      "no": 373,
+      "no": 376,
       "name": "Salamence",
       "bst": 600,
       "affinities": [
@@ -31702,7 +31933,7 @@
       "level": 80
     },
     {
-      "no": 374,
+      "no": 377,
       "name": "Beldum",
       "bst": 300,
       "affinities": [
@@ -31731,7 +31962,7 @@
       "level": 23
     },
     {
-      "no": 375,
+      "no": 378,
       "name": "Metang",
       "bst": 420,
       "affinities": [
@@ -31816,7 +32047,7 @@
       "level": 46
     },
     {
-      "no": 376,
+      "no": 379,
       "name": "Metagross",
       "bst": 600,
       "affinities": [
@@ -31909,7 +32140,7 @@
       "level": 80
     },
     {
-      "no": 377,
+      "no": 380,
       "name": "Regirock",
       "bst": 580,
       "affinities": [
@@ -31994,7 +32225,7 @@
       "level": 77
     },
     {
-      "no": 378,
+      "no": 381,
       "name": "Regice",
       "bst": 580,
       "affinities": [
@@ -32079,7 +32310,7 @@
       "level": 77
     },
     {
-      "no": 379,
+      "no": 382,
       "name": "Registeel",
       "bst": 580,
       "affinities": [
@@ -32172,7 +32403,7 @@
       "level": 77
     },
     {
-      "no": 380,
+      "no": 383,
       "name": "Latias",
       "bst": 600,
       "affinities": [
@@ -32261,7 +32492,7 @@
       "level": 80
     },
     {
-      "no": 381,
+      "no": 384,
       "name": "Latios",
       "bst": 600,
       "affinities": [
@@ -32350,7 +32581,7 @@
       "level": 80
     },
     {
-      "no": 382,
+      "no": 385,
       "name": "Kyogre",
       "bst": 670,
       "affinities": [
@@ -32431,7 +32662,7 @@
       "level": 94
     },
     {
-      "no": 383,
+      "no": 386,
       "name": "Groudon",
       "bst": 670,
       "affinities": [
@@ -32512,7 +32743,7 @@
       "level": 94
     },
     {
-      "no": 384,
+      "no": 387,
       "name": "Rayquaza",
       "bst": 680,
       "affinities": [
@@ -32597,7 +32828,7 @@
       "level": 96
     },
     {
-      "no": 385,
+      "no": 388,
       "name": "Jirachi",
       "bst": 600,
       "affinities": [
@@ -32682,7 +32913,7 @@
       "level": 80
     },
     {
-      "no": 386,
+      "no": 389,
       "name": "Deoxys",
       "bst": 600,
       "affinities": [
@@ -32763,7 +32994,7 @@
       "level": 80
     },
     {
-      "no": 387,
+      "no": 390,
       "name": "Deoxys-Attack",
       "bst": 600,
       "affinities": [
@@ -32844,7 +33075,7 @@
       "level": 80
     },
     {
-      "no": 388,
+      "no": 391,
       "name": "Deoxys-Defense",
       "bst": 600,
       "affinities": [
@@ -32933,7 +33164,7 @@
       "level": 80
     },
     {
-      "no": 389,
+      "no": 392,
       "name": "Deoxys-Speed",
       "bst": 600,
       "affinities": [

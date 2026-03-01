@@ -17,7 +17,7 @@ class Pokemon:
     ):
         self.pokedex_number = pokedex_number
         self.is_shiny = is_shiny
-        self.sprite_column = None
+        self.sprite_column = 0
 
         self.name = name
         self.level = level
