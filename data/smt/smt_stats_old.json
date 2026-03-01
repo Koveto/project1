@@ -83,16 +83,7 @@
           "move": "Solar Beam"
         }
       ],
-      "level": 27,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        3,
-        0
-      ]
+      "level": 27
     },
     {
       "no": 2,
@@ -177,16 +168,7 @@
           "move": "Solar Beam"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        -1,
-        -2,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 3,
@@ -279,16 +261,7 @@
           "move": "Solar Beam"
         }
       ],
-      "level": 66,
-      "potential": [
-        0,
-        -2,
-        -1,
-        0,
-        0,
-        7,
-        0
-      ]
+      "level": 66
     },
     {
       "no": 4,
@@ -361,16 +334,7 @@
           "move": "Flare Blitz"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        0,
-        3,
-        0
-      ]
+      "level": 25
     },
     {
       "no": 5,
@@ -439,16 +403,7 @@
           "move": "Flare Blitz"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 6,
@@ -533,16 +488,7 @@
           "move": "Flare Blitz"
         }
       ],
-      "level": 68,
-      "potential": [
-        0,
-        6,
-        0,
-        0,
-        0,
-        5,
-        0
-      ]
+      "level": 68
     },
     {
       "no": 7,
@@ -623,16 +569,7 @@
           "move": "Wave Crash"
         }
       ],
-      "level": 26,
-      "potential": [
-        0,
-        0,
-        0,
-        2,
-        0,
-        -1,
-        0
-      ]
+      "level": 26
     },
     {
       "no": 8,
@@ -713,16 +650,7 @@
           "move": "Wave Crash"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -2,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 9,
@@ -807,16 +735,7 @@
           "move": "Wave Crash"
         }
       ],
-      "level": 67,
-      "potential": [
-        0,
-        0,
-        0,
-        6,
-        0,
-        -3,
-        0
-      ]
+      "level": 67
     },
     {
       "no": 10,
@@ -853,16 +772,7 @@
           "move": "Bug Bite"
         }
       ],
-      "level": 3,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 3
     },
     {
       "no": 11,
@@ -895,16 +805,7 @@
           "move": "Harden"
         }
       ],
-      "level": 5,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 5
     },
     {
       "no": 12,
@@ -1001,16 +902,7 @@
           "move": "Quiver Dance"
         }
       ],
-      "level": 41,
-      "potential": [
-        0,
-        5,
-        -1,
-        0,
-        -1,
-        3,
-        0
-      ]
+      "level": 41
     },
     {
       "no": 13,
@@ -1043,16 +935,7 @@
           "move": "String Shot"
         }
       ],
-      "level": 3,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 3
     },
     {
       "no": 14,
@@ -1089,16 +972,7 @@
           "move": "Harden"
         }
       ],
-      "level": 5,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 5
     },
     {
       "no": 15,
@@ -1171,16 +1045,7 @@
           "move": "Drill Run"
         }
       ],
-      "level": 41,
-      "potential": [
-        0,
-        -1,
-        -2,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 41
     },
     {
       "no": 16,
@@ -1253,16 +1118,7 @@
           "move": "Brave Bird"
         }
       ],
-      "level": 14,
-      "potential": [
-        0,
-        2,
-        0,
-        -1,
-        -1,
-        1,
-        1
-      ]
+      "level": 14
     },
     {
       "no": 17,
@@ -1335,16 +1191,7 @@
           "move": "Brave Bird"
         }
       ],
-      "level": 33,
-      "potential": [
-        0,
-        3,
-        0,
-        -2,
-        -1,
-        3,
-        3
-      ]
+      "level": 33
     },
     {
       "no": 18,
@@ -1417,16 +1264,7 @@
           "move": "Brave Bird"
         }
       ],
-      "level": 57,
-      "potential": [
-        0,
-        7,
-        0,
-        -2,
-        -2,
-        6,
-        6
-      ]
+      "level": 57
     },
     {
       "no": 19,
@@ -1503,16 +1341,7 @@
           "move": "Endeavor"
         }
       ],
-      "level": 14,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 14
     },
     {
       "no": 20,
@@ -1601,16 +1430,7 @@
           "move": "Endeavor"
         }
       ],
-      "level": 45,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        2
-      ]
+      "level": 45
     },
     {
       "no": 21,
@@ -1683,16 +1503,7 @@
           "move": "Drill Peck"
         }
       ],
-      "level": 16,
-      "potential": [
-        0,
-        2,
-        0,
-        -1,
-        -1,
-        2,
-        1
-      ]
+      "level": 16
     },
     {
       "no": 22,
@@ -1781,16 +1592,7 @@
           "move": "Drill Run"
         }
       ],
-      "level": 50,
-      "potential": [
-        0,
-        3,
-        0,
-        -1,
-        -1,
-        3,
-        3
-      ]
+      "level": 50
     },
     {
       "no": 23,
@@ -1883,16 +1685,7 @@
           "move": "Gunk Shot"
         }
       ],
-      "level": 21,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 21
     },
     {
       "no": 24,
@@ -2001,16 +1794,7 @@
           "move": "Gunk Shot"
         }
       ],
-      "level": 51,
-      "potential": [
-        0,
-        -2,
-        -1,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 51
     },
     {
       "no": 25,
@@ -2115,16 +1899,7 @@
           "move": "Thunder"
         }
       ],
-      "level": 27,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        3,
-        0,
-        0
-      ]
+      "level": 27
     },
     {
       "no": 26,
@@ -2233,16 +2008,7 @@
           "move": "Thunderbolt"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        6,
-        0,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 27,
@@ -2335,16 +2101,7 @@
           "move": "Earthquake"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        2,
-        -1,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 28,
@@ -2441,16 +2198,7 @@
           "move": "Earthquake"
         }
       ],
-      "level": 52,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        6,
-        -2,
-        0
-      ]
+      "level": 52
     },
     {
       "no": 29,
@@ -2527,16 +2275,7 @@
           "move": "Earth Power"
         }
       ],
-      "level": 19,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 19
     },
     {
       "no": 30,
@@ -2613,16 +2352,7 @@
           "move": "Earth Power"
         }
       ],
-      "level": 36,
-      "potential": [
-        0,
-        -1,
-        -2,
-        0,
-        0,
-        5,
-        0
-      ]
+      "level": 36
     },
     {
       "no": 31,
@@ -2711,16 +2441,7 @@
           "move": "Tail Whip"
         }
       ],
-      "level": 62,
-      "potential": [
-        0,
-        0,
-        -2,
-        -3,
-        4,
-        6,
-        0
-      ]
+      "level": 62
     },
     {
       "no": 32,
@@ -2797,16 +2518,7 @@
           "move": "Earth Power"
         }
       ],
-      "level": 18,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 18
     },
     {
       "no": 33,
@@ -2883,16 +2595,7 @@
           "move": "Earth Power"
         }
       ],
-      "level": 36,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        3,
-        0
-      ]
+      "level": 36
     },
     {
       "no": 34,
@@ -2981,16 +2684,7 @@
           "move": "Focus Energy"
         }
       ],
-      "level": 62,
-      "potential": [
-        0,
-        0,
-        -1,
-        -1,
-        2,
-        2,
-        0
-      ]
+      "level": 62
     },
     {
       "no": 35,
@@ -3099,16 +2793,7 @@
           "move": "Healing Wish"
         }
       ],
-      "level": 28,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        3,
-        0,
-        0
-      ]
+      "level": 28
     },
     {
       "no": 36,
@@ -3217,16 +2902,7 @@
           "move": "Disarming Voice"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        4,
-        0,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 37,
@@ -3311,16 +2987,7 @@
           "move": "Fire Blast"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 38,
@@ -3409,16 +3076,7 @@
           "move": "Inferno"
         }
       ],
-      "level": 62,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        0,
-        7,
-        0
-      ]
+      "level": 62
     },
     {
       "no": 39,
@@ -3523,16 +3181,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 18,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        1
-      ]
+      "level": 18
     },
     {
       "no": 40,
@@ -3641,16 +3290,7 @@
           "move": "Play Rough"
         }
       ],
-      "level": 49,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        6,
-        0,
-        4
-      ]
+      "level": 49
     },
     {
       "no": 41,
@@ -3727,16 +3367,7 @@
           "move": "Leech Life"
         }
       ],
-      "level": 13,
-      "potential": [
-        0,
-        2,
-        -1,
-        0,
-        -1,
-        2,
-        0
-      ]
+      "level": 13
     },
     {
       "no": 42,
@@ -3817,16 +3448,7 @@
           "move": "Leech Life"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        6,
-        -2,
-        0,
-        -2,
-        4,
-        0
-      ]
+      "level": 53
     },
     {
       "no": 43,
@@ -3907,16 +3529,7 @@
           "move": "Petal Dance"
         }
       ],
-      "level": 27,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        4,
-        0
-      ]
+      "level": 27
     },
     {
       "no": 44,
@@ -3997,16 +3610,7 @@
           "move": "Petal Dance"
         }
       ],
-      "level": 41,
-      "potential": [
-        0,
-        -2,
-        -2,
-        0,
-        0,
-        4,
-        0
-      ]
+      "level": 41
     },
     {
       "no": 45,
@@ -4091,16 +3695,7 @@
           "move": "Sweet Scent"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        -3,
-        -3,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 59
     },
     {
       "no": 46,
@@ -4173,16 +3768,7 @@
           "move": "X-Scissor"
         }
       ],
-      "level": 20,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 20
     },
     {
       "no": 47,
@@ -4271,16 +3857,7 @@
           "move": "X-Scissor"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        -2,
-        -2,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 43
     },
     {
       "no": 48,
@@ -4357,16 +3934,7 @@
           "move": "Psychic"
         }
       ],
-      "level": 24,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 24
     },
     {
       "no": 49,
@@ -4451,16 +4019,7 @@
           "move": "Psychic"
         }
       ],
-      "level": 52,
-      "potential": [
-        0,
-        -2,
-        -2,
-        0,
-        0,
-        3,
-        0
-      ]
+      "level": 52
     },
     {
       "no": 50,
@@ -4537,16 +4096,7 @@
           "move": "Fissure"
         }
       ],
-      "level": 17,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        2,
-        -1,
-        0
-      ]
+      "level": 17
     },
     {
       "no": 51,
@@ -4635,16 +4185,7 @@
           "move": "Fissure"
         }
       ],
-      "level": 47,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        2,
-        -2,
-        0
-      ]
+      "level": 47
     },
     {
       "no": 52,
@@ -4721,16 +4262,7 @@
           "move": "Play Rough"
         }
       ],
-      "level": 21,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        2
-      ]
+      "level": 21
     },
     {
       "no": 53,
@@ -4811,16 +4343,7 @@
           "move": "Play Rough"
         }
       ],
-      "level": 50,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        3
-      ]
+      "level": 50
     },
     {
       "no": 54,
@@ -4901,16 +4424,7 @@
           "move": "Wonder Room"
         }
       ],
-      "level": 27,
-      "potential": [
-        0,
-        0,
-        0,
-        4,
-        0,
-        -1,
-        0
-      ]
+      "level": 27
     },
     {
       "no": 55,
@@ -4999,16 +4513,7 @@
           "move": "Wonder Room"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        0,
-        0,
-        6,
-        0,
-        -3,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 56,
@@ -5097,16 +4602,7 @@
           "move": "Final Gambit"
         }
       ],
-      "level": 24,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 24
     },
     {
       "no": 57,
@@ -5199,16 +4695,7 @@
           "move": "Final Gambit"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 53
     },
     {
       "no": 58,
@@ -5297,16 +4784,7 @@
           "move": "Flare Blitz"
         }
       ],
-      "level": 33,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        0,
-        4,
-        0
-      ]
+      "level": 33
     },
     {
       "no": 59,
@@ -5399,16 +4877,7 @@
           "move": "Flamethrower"
         }
       ],
-      "level": 72,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        0,
-        6,
-        0
-      ]
+      "level": 72
     },
     {
       "no": 60,
@@ -5477,16 +4946,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        0,
-        1,
-        0,
-        -1,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 61,
@@ -5555,16 +5015,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 39,
-      "potential": [
-        0,
-        0,
-        0,
-        5,
-        0,
-        -1,
-        0
-      ]
+      "level": 39
     },
     {
       "no": 62,
@@ -5641,16 +5092,7 @@
           "move": "Circle Throw"
         }
       ],
-      "level": 63,
-      "potential": [
-        0,
-        1,
-        -1,
-        5,
-        0,
-        -2,
-        0
-      ]
+      "level": 63
     },
     {
       "no": 63,
@@ -5679,16 +5121,7 @@
           "move": "Teleport"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -2,
-        -2
-      ]
+      "level": 25
     },
     {
       "no": 64,
@@ -5757,16 +5190,7 @@
           "move": "Calm Mind"
         }
       ],
-      "level": 42,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -1
-      ]
+      "level": 42
     },
     {
       "no": 65,
@@ -5835,16 +5259,7 @@
           "move": "Calm Mind"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -1
-      ]
+      "level": 61
     },
     {
       "no": 66,
@@ -5921,16 +5336,7 @@
           "move": "Dynamic Punch"
         }
       ],
-      "level": 24,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 24
     },
     {
       "no": 67,
@@ -6007,16 +5413,7 @@
           "move": "Dynamic Punch"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 68,
@@ -6097,16 +5494,7 @@
           "move": "Dynamic Punch"
         }
       ],
-      "level": 62,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 62
     },
     {
       "no": 69,
@@ -6187,16 +5575,7 @@
           "move": "Power Whip"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 70,
@@ -6277,16 +5656,7 @@
           "move": "Power Whip"
         }
       ],
-      "level": 40,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        4,
-        0
-      ]
+      "level": 40
     },
     {
       "no": 71,
@@ -6355,16 +5725,7 @@
           "move": "Leaf Blade"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        -2,
-        -2,
-        0,
-        0,
-        6,
-        0
-      ]
+      "level": 59
     },
     {
       "no": 72,
@@ -6445,16 +5806,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 30,
-      "potential": [
-        0,
-        0,
-        -1,
-        1,
-        0,
-        1,
-        0
-      ]
+      "level": 30
     },
     {
       "no": 73,
@@ -6539,16 +5891,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 64,
-      "potential": [
-        0,
-        0,
-        -3,
-        6,
-        0,
-        3,
-        0
-      ]
+      "level": 64
     },
     {
       "no": 74,
@@ -6629,16 +5972,7 @@
           "move": "Stone Edge"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        2,
-        -1,
-        1,
-        -1,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 75,
@@ -6719,16 +6053,7 @@
           "move": "Stone Edge"
         }
       ],
-      "level": 40,
-      "potential": [
-        0,
-        0,
-        3,
-        -1,
-        1,
-        -1,
-        0
-      ]
+      "level": 40
     },
     {
       "no": 76,
@@ -6809,16 +6134,7 @@
           "move": "Stone Edge"
         }
       ],
-      "level": 60,
-      "potential": [
-        0,
-        0,
-        3,
-        -2,
-        4,
-        -1,
-        0
-      ]
+      "level": 60
     },
     {
       "no": 77,
@@ -6895,16 +6211,7 @@
           "move": "Flare Blitz"
         }
       ],
-      "level": 44,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        0,
-        5,
-        0
-      ]
+      "level": 44
     },
     {
       "no": 78,
@@ -7001,16 +6308,7 @@
           "move": "Flare Blitz"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        0,
-        3,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 79,
@@ -7103,16 +6401,7 @@
           "move": "Heal Pulse"
         }
       ],
-      "level": 26,
-      "potential": [
-        0,
-        0,
-        0,
-        4,
-        0,
-        -2,
-        -1
-      ]
+      "level": 26
     },
     {
       "no": 80,
@@ -7213,16 +6502,7 @@
           "move": "Heal Pulse"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        0,
-        0,
-        6,
-        0,
-        -3,
-        -1
-      ]
+      "level": 59
     },
     {
       "no": 81,
@@ -7307,16 +6587,7 @@
           "move": "Zap Cannon"
         }
       ],
-      "level": 28,
-      "potential": [
-        0,
-        -1,
-        1,
-        0,
-        4,
-        4,
-        2
-      ]
+      "level": 28
     },
     {
       "no": 82,
@@ -7409,16 +6680,7 @@
           "move": "Zap Cannon"
         }
       ],
-      "level": 55,
-      "potential": [
-        0,
-        -1,
-        4,
-        0,
-        4,
-        6,
-        2
-      ]
+      "level": 55
     },
     {
       "no": 83,
@@ -7511,16 +6773,7 @@
           "move": "Brave Bird"
         }
       ],
-      "level": 38,
-      "potential": [
-        0,
-        2,
-        0,
-        -1,
-        -2,
-        5,
-        3
-      ]
+      "level": 38
     },
     {
       "no": 84,
@@ -7597,16 +6850,7 @@
           "move": "Thrash"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        3,
-        0,
-        -1,
-        -1,
-        2,
-        3
-      ]
+      "level": 25
     },
     {
       "no": 85,
@@ -7687,16 +6931,7 @@
           "move": "Thrash"
         }
       ],
-      "level": 56,
-      "potential": [
-        0,
-        1,
-        0,
-        -2,
-        -3,
-        4,
-        6
-      ]
+      "level": 56
     },
     {
       "no": 86,
@@ -7789,16 +7024,7 @@
           "move": "Snowscape"
         }
       ],
-      "level": 28,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -2,
-        0
-      ]
+      "level": 28
     },
     {
       "no": 87,
@@ -7891,16 +7117,7 @@
           "move": "Snowscape"
         }
       ],
-      "level": 28,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        -2,
-        -2,
-        0
-      ]
+      "level": 28
     },
     {
       "no": 88,
@@ -7989,16 +7206,7 @@
           "move": "Memento"
         }
       ],
-      "level": 28,
-      "potential": [
-        0,
-        -2,
-        -2,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 28
     },
     {
       "no": 89,
@@ -8087,16 +7295,7 @@
           "move": "Memento"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        -3,
-        -3,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 90,
@@ -8177,16 +7376,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 24,
-      "potential": [
-        0,
-        0,
-        0,
-        2,
-        0,
-        -1,
-        0
-      ]
+      "level": 24
     },
     {
       "no": 91,
@@ -8283,16 +7473,7 @@
           "move": "Razor Shell"
         }
       ],
-      "level": 66,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        -3,
-        -1,
-        0
-      ]
+      "level": 66
     },
     {
       "no": 92,
@@ -8373,16 +7554,7 @@
           "move": "Dream Eater"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        -1,
-        2,
-        3,
-        0,
-        4,
-        -1
-      ]
+      "level": 25
     },
     {
       "no": 93,
@@ -8467,16 +7639,7 @@
           "move": "Dream Eater"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        -1,
-        2,
-        3,
-        0,
-        4,
-        -1
-      ]
+      "level": 43
     },
     {
       "no": 94,
@@ -8569,16 +7732,7 @@
           "move": "Dream Eater"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        -1,
-        3,
-        4,
-        0,
-        2,
-        -1
-      ]
+      "level": 61
     },
     {
       "no": 95,
@@ -8667,16 +7821,7 @@
           "move": "Head Smash"
         }
       ],
-      "level": 39,
-      "potential": [
-        0,
-        0,
-        3,
-        -2,
-        3,
-        -1,
-        0
-      ]
+      "level": 39
     },
     {
       "no": 96,
@@ -8757,16 +7902,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -2
-      ]
+      "level": 29
     },
     {
       "no": 97,
@@ -8851,16 +7987,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -3
-      ]
+      "level": 58
     },
     {
       "no": 98,
@@ -8941,16 +8068,7 @@
           "move": "Guillotine"
         }
       ],
-      "level": 28,
-      "potential": [
-        0,
-        0,
-        0,
-        2,
-        0,
-        -2,
-        0
-      ]
+      "level": 28
     },
     {
       "no": 99,
@@ -9039,16 +8157,7 @@
           "move": "Guillotine"
         }
       ],
-      "level": 57,
-      "potential": [
-        0,
-        0,
-        0,
-        2,
-        0,
-        -2,
-        0
-      ]
+      "level": 57
     },
     {
       "no": 100,
@@ -9141,16 +8250,7 @@
           "move": "Mirror Coat"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        4,
-        0,
-        0
-      ]
+      "level": 29
     },
     {
       "no": 101,
@@ -9247,16 +8347,7 @@
           "move": "Mirror Coat"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        7,
-        0,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 102,
@@ -9333,16 +8424,7 @@
           "move": "Solar Beam"
         }
       ],
-      "level": 28,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 28
     },
     {
       "no": 103,
@@ -9439,16 +8521,7 @@
           "move": "Growth"
         }
       ],
-      "level": 67,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 67
     },
     {
       "no": 104,
@@ -9529,16 +8602,7 @@
           "move": "Perish Song"
         }
       ],
-      "level": 27,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        2,
-        -1,
-        0
-      ]
+      "level": 27
     },
     {
       "no": 105,
@@ -9619,16 +8683,7 @@
           "move": "Perish Song"
         }
       ],
-      "level": 47,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        4,
-        -2,
-        0
-      ]
+      "level": 47
     },
     {
       "no": 106,
@@ -9725,16 +8780,7 @@
           "move": "Axe Kick"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 53
     },
     {
       "no": 107,
@@ -9835,16 +8881,7 @@
           "move": "Focus Punch"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 53
     },
     {
       "no": 108,
@@ -9917,16 +8954,7 @@
           "move": "Belly Drum"
         }
       ],
-      "level": 39,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        3
-      ]
+      "level": 39
     },
     {
       "no": 109,
@@ -10011,16 +9039,7 @@
           "move": "Destiny Bond"
         }
       ],
-      "level": 31,
-      "potential": [
-        0,
-        -2,
-        -1,
-        0,
-        0,
-        3,
-        0
-      ]
+      "level": 31
     },
     {
       "no": 110,
@@ -10113,16 +9132,7 @@
           "move": "Destiny Bond"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        -1,
-        -3,
-        0,
-        0,
-        4,
-        0
-      ]
+      "level": 59
     },
     {
       "no": 111,
@@ -10203,16 +9213,7 @@
           "move": "Horn Drill"
         }
       ],
-      "level": 32,
-      "potential": [
-        0,
-        0,
-        3,
-        -2,
-        3,
-        -1,
-        0
-      ]
+      "level": 32
     },
     {
       "no": 112,
@@ -10297,16 +9298,7 @@
           "move": "Horn Drill"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        5,
-        -1,
-        2,
-        -3,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 113,
@@ -10411,16 +9403,7 @@
           "move": "Healing Wish"
         }
       ],
-      "level": 52,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        5
-      ]
+      "level": 52
     },
     {
       "no": 114,
@@ -10509,16 +9492,7 @@
           "move": "Grassy Terrain"
         }
       ],
-      "level": 49,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 49
     },
     {
       "no": 115,
@@ -10587,16 +9561,7 @@
           "move": "Dynamic Punch"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        3
-      ]
+      "level": 59
     },
     {
       "no": 116,
@@ -10673,16 +9638,7 @@
           "move": "Rain Dance"
         }
       ],
-      "level": 22,
-      "potential": [
-        0,
-        0,
-        0,
-        2,
-        0,
-        -1,
-        0
-      ]
+      "level": 22
     },
     {
       "no": 117,
@@ -10759,16 +9715,7 @@
           "move": "Rain Dance"
         }
       ],
-      "level": 50,
-      "potential": [
-        0,
-        0,
-        0,
-        6,
-        0,
-        -2,
-        0
-      ]
+      "level": 50
     },
     {
       "no": 118,
@@ -10841,16 +9788,7 @@
           "move": "Horn Drill"
         }
       ],
-      "level": 27,
-      "potential": [
-        0,
-        0,
-        0,
-        2,
-        0,
-        -1,
-        0
-      ]
+      "level": 27
     },
     {
       "no": 119,
@@ -10923,16 +9861,7 @@
           "move": "Horn Drill"
         }
       ],
-      "level": 52,
-      "potential": [
-        0,
-        0,
-        0,
-        6,
-        0,
-        -2,
-        0
-      ]
+      "level": 52
     },
     {
       "no": 120,
@@ -11013,16 +9942,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 31,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -2,
-        0
-      ]
+      "level": 31
     },
     {
       "no": 121,
@@ -11111,16 +10031,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 65,
-      "potential": [
-        0,
-        0,
-        0,
-        5,
-        0,
-        -3,
-        -2
-      ]
+      "level": 65
     },
     {
       "no": 122,
@@ -11225,16 +10136,7 @@
           "move": "Psychic"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        -1
-      ]
+      "level": 54
     },
     {
       "no": 123,
@@ -11311,16 +10213,7 @@
           "move": "Swords Dance"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        1,
-        -3,
-        0,
-        -2,
-        2,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 124,
@@ -11405,16 +10298,7 @@
           "move": "Blizzard"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        -1,
-        -1,
-        -1
-      ]
+      "level": 53
     },
     {
       "no": 125,
@@ -11499,16 +10383,7 @@
           "move": "Giga Impact"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        5,
-        0,
-        0
-      ]
+      "level": 59
     },
     {
       "no": 126,
@@ -11593,16 +10468,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 60,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 60
     },
     {
       "no": 127,
@@ -11671,16 +10537,7 @@
           "move": "Close Combat"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        -1,
-        -3,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 128,
@@ -11761,16 +10618,7 @@
           "move": "Giga Impact"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        0,
-        0,
-        -3,
-        0,
-        0,
-        3
-      ]
+      "level": 59
     },
     {
       "no": 129,
@@ -11807,16 +10655,7 @@
           "move": "Flail"
         }
       ],
-      "level": 4,
-      "potential": [
-        0,
-        0,
-        0,
-        1,
-        0,
-        -1,
-        0
-      ]
+      "level": 4
     },
     {
       "no": 130,
@@ -11917,16 +10756,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 69,
-      "potential": [
-        0,
-        3,
-        0,
-        7,
-        0,
-        0,
-        0
-      ]
+      "level": 69
     },
     {
       "no": 131,
@@ -12011,16 +10841,7 @@
           "move": "Sheer Cold"
         }
       ],
-      "level": 68,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        -2,
-        -1,
-        0
-      ]
+      "level": 68
     },
     {
       "no": 132,
@@ -12049,16 +10870,7 @@
           "move": "Transform"
         }
       ],
-      "level": 21,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        2
-      ]
+      "level": 21
     },
     {
       "no": 133,
@@ -12147,16 +10959,7 @@
           "move": "Last Resort"
         }
       ],
-      "level": 28,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        2
-      ]
+      "level": 28
     },
     {
       "no": 134,
@@ -12277,16 +11080,7 @@
           "move": "Last Resort"
         }
       ],
-      "level": 66,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -3,
-        0
-      ]
+      "level": 66
     },
     {
       "no": 135,
@@ -12407,16 +11201,7 @@
           "move": "Last Resort"
         }
       ],
-      "level": 66,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        2,
-        0,
-        0
-      ]
+      "level": 66
     },
     {
       "no": 136,
@@ -12537,16 +11322,7 @@
           "move": "Last Resort"
         }
       ],
-      "level": 66,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 66
     },
     {
       "no": 137,
@@ -12627,16 +11403,7 @@
           "move": "Zap Cannon"
         }
       ],
-      "level": 41,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        4
-      ]
+      "level": 41
     },
     {
       "no": 138,
@@ -12717,16 +11484,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 34,
-      "potential": [
-        0,
-        0,
-        1,
-        0,
-        -2,
-        -2,
-        0
-      ]
+      "level": 34
     },
     {
       "no": 139,
@@ -12815,16 +11573,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 60,
-      "potential": [
-        0,
-        0,
-        2,
-        0,
-        -3,
-        -3,
-        0
-      ]
+      "level": 60
     },
     {
       "no": 140,
@@ -12905,16 +11654,7 @@
           "move": "Stone Edge"
         }
       ],
-      "level": 34,
-      "potential": [
-        0,
-        0,
-        4,
-        0,
-        -1,
-        -2,
-        0
-      ]
+      "level": 34
     },
     {
       "no": 141,
@@ -13011,16 +11751,7 @@
           "move": "Stone Edge"
         }
       ],
-      "level": 60,
-      "potential": [
-        0,
-        0,
-        3,
-        0,
-        -1,
-        -1,
-        0
-      ]
+      "level": 60
     },
     {
       "no": 142,
@@ -13097,16 +11828,7 @@
           "move": "Giga Impact"
         }
       ],
-      "level": 64,
-      "potential": [
-        0,
-        3,
-        4,
-        -2,
-        -3,
-        0,
-        0
-      ]
+      "level": 64
     },
     {
       "no": 143,
@@ -13239,16 +11961,7 @@
           "move": "Giga Impact"
         }
       ],
-      "level": 69,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        5
-      ]
+      "level": 69
     },
     {
       "no": 144,
@@ -13337,16 +12050,7 @@
           "move": "Sheer Cold"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        8,
-        0,
-        0,
-        -2,
-        9,
-        0
-      ]
+      "level": 77
     },
     {
       "no": 145,
@@ -13435,16 +12139,7 @@
           "move": "Zap Cannon"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        8,
-        0,
-        0,
-        0,
-        6,
-        0
-      ]
+      "level": 77
     },
     {
       "no": 146,
@@ -13533,16 +12228,7 @@
           "move": "Sky Attack"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        1,
-        0,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 77
     },
     {
       "no": 147,
@@ -13623,16 +12309,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 148,
@@ -13713,16 +12390,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 46
     },
     {
       "no": 149,
@@ -13827,16 +12495,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        4,
-        0,
-        0,
-        -2,
-        0,
-        0
-      ]
+      "level": 80
     },
     {
       "no": 150,
@@ -13925,16 +12584,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 96,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -3
-      ]
+      "level": 96
     },
     {
       "no": 151,
@@ -14007,16 +12657,7 @@
           "move": "Psychic"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -3,
-        -1
-      ]
+      "level": 80
     },
     {
       "no": 152,
@@ -14097,16 +12738,7 @@
           "move": "Solar Beam"
         }
       ],
-      "level": 27,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 27
     },
     {
       "no": 153,
@@ -14187,16 +12819,7 @@
           "move": "Solar Beam"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 43
     },
     {
       "no": 154,
@@ -14285,16 +12908,7 @@
           "move": "Solar Beam"
         }
       ],
-      "level": 66,
-      "potential": [
-        0,
-        0,
-        -3,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 66
     },
     {
       "no": 155,
@@ -14383,16 +12997,7 @@
           "move": "Eruption"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 25
     },
     {
       "no": 156,
@@ -14481,16 +13086,7 @@
           "move": "Eruption"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 157,
@@ -14583,16 +13179,7 @@
           "move": "Overheat"
         }
       ],
-      "level": 68,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        0,
-        7,
-        0
-      ]
+      "level": 68
     },
     {
       "no": 158,
@@ -14673,16 +13260,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 26,
-      "potential": [
-        0,
-        0,
-        0,
-        4,
-        0,
-        -1,
-        0
-      ]
+      "level": 26
     },
     {
       "no": 159,
@@ -14763,16 +13341,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        0,
-        0,
-        4,
-        0,
-        -1,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 160,
@@ -14857,16 +13426,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 67,
-      "potential": [
-        0,
-        0,
-        0,
-        2,
-        0,
-        -3,
-        0
-      ]
+      "level": 67
     },
     {
       "no": 161,
@@ -14943,16 +13503,7 @@
           "move": "Hyper Voice"
         }
       ],
-      "level": 7,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 7
     },
     {
       "no": 162,
@@ -15037,16 +13588,7 @@
           "move": "Hyper Voice"
         }
       ],
-      "level": 45,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        5
-      ]
+      "level": 45
     },
     {
       "no": 163,
@@ -15131,16 +13673,7 @@
           "move": "Dream Eater"
         }
       ],
-      "level": 16,
-      "potential": [
-        0,
-        1,
-        0,
-        -1,
-        -1,
-        2,
-        2
-      ]
+      "level": 16
     },
     {
       "no": 164,
@@ -15229,16 +13762,7 @@
           "move": "Dream Eater"
         }
       ],
-      "level": 52,
-      "potential": [
-        0,
-        6,
-        0,
-        -1,
-        -2,
-        4,
-        4
-      ]
+      "level": 52
     },
     {
       "no": 165,
@@ -15319,16 +13843,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 17,
-      "potential": [
-        0,
-        1,
-        -1,
-        0,
-        -1,
-        2,
-        0
-      ]
+      "level": 17
     },
     {
       "no": 166,
@@ -15417,16 +13932,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 40,
-      "potential": [
-        0,
-        1,
-        -2,
-        0,
-        -1,
-        4,
-        0
-      ]
+      "level": 40
     },
     {
       "no": 167,
@@ -15515,16 +14021,7 @@
           "move": "Toxic Thread"
         }
       ],
-      "level": 14,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 14
     },
     {
       "no": 168,
@@ -15629,16 +14126,7 @@
           "move": "Toxic Thread"
         }
       ],
-      "level": 42,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 42
     },
     {
       "no": 169,
@@ -15723,16 +14211,7 @@
           "move": "Brave Bird"
         }
       ],
-      "level": 68,
-      "potential": [
-        0,
-        6,
-        -3,
-        0,
-        -3,
-        4,
-        0
-      ]
+      "level": 68
     },
     {
       "no": 170,
@@ -15809,16 +14288,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -2,
-        0
-      ]
+      "level": 29
     },
     {
       "no": 171,
@@ -15911,16 +14381,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -2,
-        0
-      ]
+      "level": 54
     },
     {
       "no": 172,
@@ -15973,16 +14434,7 @@
           "move": "Charm"
         }
       ],
-      "level": 5,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        1,
-        0,
-        0
-      ]
+      "level": 5
     },
     {
       "no": 173,
@@ -16039,16 +14491,7 @@
           "move": "Charm"
         }
       ],
-      "level": 8,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0
-      ]
+      "level": 8
     },
     {
       "no": 174,
@@ -16105,16 +14548,7 @@
           "move": "Charm"
         }
       ],
-      "level": 6,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        1
-      ]
+      "level": 6
     },
     {
       "no": 175,
@@ -16199,16 +14633,7 @@
           "move": "Wish"
         }
       ],
-      "level": 13,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0
-      ]
+      "level": 13
     },
     {
       "no": 176,
@@ -16301,16 +14726,7 @@
           "move": "Wish"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        2,
-        0,
-        0,
-        1,
-        3,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 177,
@@ -16383,16 +14799,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 27,
-      "potential": [
-        0,
-        2,
-        0,
-        0,
-        -2,
-        0,
-        -2
-      ]
+      "level": 27
     },
     {
       "no": 178,
@@ -16477,16 +14884,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 56,
-      "potential": [
-        0,
-        6,
-        0,
-        0,
-        -3,
-        0,
-        -2
-      ]
+      "level": 56
     },
     {
       "no": 179,
@@ -16571,16 +14969,7 @@
           "move": "Thunder"
         }
       ],
-      "level": 20,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        3,
-        0,
-        0
-      ]
+      "level": 20
     },
     {
       "no": 180,
@@ -16665,16 +15054,7 @@
           "move": "Thunder"
         }
       ],
-      "level": 36,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        2,
-        0,
-        0
-      ]
+      "level": 36
     },
     {
       "no": 181,
@@ -16779,16 +15159,7 @@
           "move": "Thunder"
         }
       ],
-      "level": 63,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        7,
-        0,
-        0
-      ]
+      "level": 63
     },
     {
       "no": 182,
@@ -16877,16 +15248,7 @@
           "move": "Sweet Scent"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        -3
-      ]
+      "level": 59
     },
     {
       "no": 183,
@@ -16979,16 +15341,7 @@
           "move": "Superpower"
         }
       ],
-      "level": 14,
-      "potential": [
-        0,
-        0,
-        0,
-        1,
-        1,
-        0,
-        0
-      ]
+      "level": 14
     },
     {
       "no": 184,
@@ -17081,16 +15434,7 @@
           "move": "Superpower"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        0,
-        4,
-        3,
-        0,
-        0
-      ]
+      "level": 46
     },
     {
       "no": 185,
@@ -17187,16 +15531,7 @@
           "move": "Head Smash"
         }
       ],
-      "level": 44,
-      "potential": [
-        0,
-        0,
-        5,
-        -2,
-        -2,
-        -2,
-        0
-      ]
+      "level": 44
     },
     {
       "no": 186,
@@ -17281,16 +15616,7 @@
           "move": "Earth Power"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        0,
-        0,
-        6,
-        0,
-        -1,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 187,
@@ -17387,16 +15713,7 @@
           "move": "Memento"
         }
       ],
-      "level": 14,
-      "potential": [
-        0,
-        2,
-        -1,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 14
     },
     {
       "no": 188,
@@ -17493,16 +15810,7 @@
           "move": "Memento"
         }
       ],
-      "level": 31,
-      "potential": [
-        0,
-        2,
-        -2,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 31
     },
     {
       "no": 189,
@@ -17599,16 +15907,7 @@
           "move": "Memento"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        5,
-        -1,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 54
     },
     {
       "no": 190,
@@ -17689,16 +15988,7 @@
           "move": "Last Resort"
         }
       ],
-      "level": 35,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        5
-      ]
+      "level": 35
     },
     {
       "no": 191,
@@ -17775,16 +16065,7 @@
           "move": "Seed Bomb"
         }
       ],
-      "level": 1,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 1
     },
     {
       "no": 192,
@@ -17877,16 +16158,7 @@
           "move": "Petal Blizzard"
         }
       ],
-      "level": 47,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 47
     },
     {
       "no": 193,
@@ -17971,16 +16243,7 @@
           "move": "Bug Buzz"
         }
       ],
-      "level": 40,
-      "potential": [
-        0,
-        2,
-        -1,
-        0,
-        -1,
-        4,
-        0
-      ]
+      "level": 40
     },
     {
       "no": 194,
@@ -18057,16 +16320,7 @@
           "move": "Earthquake"
         }
       ],
-      "level": 6,
-      "potential": [
-        0,
-        1,
-        0,
-        0,
-        1,
-        -1,
-        0
-      ]
+      "level": 6
     },
     {
       "no": 195,
@@ -18143,16 +16397,7 @@
           "move": "Earthquake"
         }
       ],
-      "level": 48,
-      "potential": [
-        0,
-        5,
-        0,
-        0,
-        6,
-        -1,
-        0
-      ]
+      "level": 48
     },
     {
       "no": 196,
@@ -18269,16 +16514,7 @@
           "move": "Last Resort"
         }
       ],
-      "level": 66,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -2,
-        -1
-      ]
+      "level": 66
     },
     {
       "no": 197,
@@ -18399,16 +16635,7 @@
           "move": "Last Resort"
         }
       ],
-      "level": 66,
-      "potential": [
-        0,
-        0,
-        7,
-        -2,
-        0,
-        -3,
-        3
-      ]
+      "level": 66
     },
     {
       "no": 198,
@@ -18485,16 +16712,7 @@
           "move": "Quash"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        1,
-        5,
-        -2,
-        -1,
-        0,
-        3
-      ]
+      "level": 43
     },
     {
       "no": 199,
@@ -18603,16 +16821,7 @@
           "move": "Heal Pulse"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        0,
-        0,
-        5,
-        0,
-        -3,
-        -1
-      ]
+      "level": 59
     },
     {
       "no": 200,
@@ -18685,16 +16894,7 @@
           "move": "Power Gem"
         }
       ],
-      "level": 49,
-      "potential": [
-        0,
-        0,
-        6,
-        4,
-        0,
-        0,
-        -1
-      ]
+      "level": 49
     },
     {
       "no": 201,
@@ -18723,16 +16923,7 @@
           "move": "Hidden Power"
         }
       ],
-      "level": 30,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -2,
-        -1
-      ]
+      "level": 30
     },
     {
       "no": 202,
@@ -18805,16 +16996,7 @@
           "move": "Destiny Bond"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -2,
-        -2
-      ]
+      "level": 43
     },
     {
       "no": 203,
@@ -18903,16 +17085,7 @@
           "move": "Psychic"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -2,
-        6
-      ]
+      "level": 53
     },
     {
       "no": 204,
@@ -18993,16 +17166,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 21,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 21
     },
     {
       "no": 205,
@@ -19099,16 +17263,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 55,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        2,
-        6,
-        4
-      ]
+      "level": 55
     },
     {
       "no": 206,
@@ -19193,16 +17348,7 @@
           "move": "Endeavor"
         }
       ],
-      "level": 45,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        6
-      ]
+      "level": 45
     },
     {
       "no": 207,
@@ -19283,16 +17429,7 @@
           "move": "Swords Dance"
         }
       ],
-      "level": 48,
-      "potential": [
-        0,
-        4,
-        0,
-        -2,
-        4,
-        0,
-        0
-      ]
+      "level": 48
     },
     {
       "no": 208,
@@ -19389,16 +17526,7 @@
           "move": "Head Smash"
         }
       ],
-      "level": 63,
-      "potential": [
-        0,
-        -1,
-        0,
-        -3,
-        4,
-        6,
-        7
-      ]
+      "level": 63
     },
     {
       "no": 209,
@@ -19487,16 +17615,7 @@
           "move": "Crunch"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 210,
@@ -19589,16 +17708,7 @@
           "move": "Crunch"
         }
       ],
-      "level": 52,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        0
-      ]
+      "level": 52
     },
     {
       "no": 211,
@@ -19691,16 +17801,7 @@
           "move": "Destiny Bond"
         }
       ],
-      "level": 50,
-      "potential": [
-        0,
-        0,
-        -1,
-        2,
-        0,
-        6,
-        0
-      ]
+      "level": 50
     },
     {
       "no": 212,
@@ -19793,16 +17894,7 @@
           "move": "Swords Dance"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        2,
-        4,
-        6
-      ]
+      "level": 61
     },
     {
       "no": 213,
@@ -19891,16 +17983,7 @@
           "move": "Shell Smash"
         }
       ],
-      "level": 62,
-      "potential": [
-        0,
-        -2,
-        0,
-        -2,
-        -1,
-        0,
-        0
-      ]
+      "level": 62
     },
     {
       "no": 214,
@@ -19985,16 +18068,7 @@
           "move": "Close Combat"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        0,
-        -3,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 215,
@@ -20067,16 +18141,7 @@
           "move": "Slash"
         }
       ],
-      "level": 48,
-      "potential": [
-        0,
-        -2,
-        6,
-        0,
-        -2,
-        -2,
-        6
-      ]
+      "level": 48
     },
     {
       "no": 216,
@@ -20161,16 +18226,7 @@
           "move": "Thrash"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        2
-      ]
+      "level": 29
     },
     {
       "no": 217,
@@ -20263,16 +18319,7 @@
           "move": "Hammer Arm"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 61
     },
     {
       "no": 218,
@@ -20357,16 +18404,7 @@
           "move": "Earth Power"
         }
       ],
-      "level": 14,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 14
     },
     {
       "no": 219,
@@ -20455,16 +18493,7 @@
           "move": "Flamethrower"
         }
       ],
-      "level": 48,
-      "potential": [
-        0,
-        -2,
-        6,
-        -2,
-        0,
-        6,
-        0
-      ]
+      "level": 48
     },
     {
       "no": 220,
@@ -20537,16 +18566,7 @@
           "move": "Blizzard"
         }
       ],
-      "level": 14,
-      "potential": [
-        0,
-        -1,
-        0,
-        -1,
-        2,
-        -1,
-        0
-      ]
+      "level": 14
     },
     {
       "no": 221,
@@ -20631,16 +18651,7 @@
           "move": "Thrash"
         }
       ],
-      "level": 52,
-      "potential": [
-        0,
-        -1,
-        0,
-        -2,
-        5,
-        -2,
-        0
-      ]
+      "level": 52
     },
     {
       "no": 222,
@@ -20717,16 +18728,7 @@
           "move": "Mirror Coat"
         }
       ],
-      "level": 44,
-      "potential": [
-        0,
-        0,
-        5,
-        0,
-        -2,
-        -1,
-        0
-      ]
+      "level": 44
     },
     {
       "no": 223,
@@ -20803,16 +18805,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        0,
-        2,
-        0,
-        -1,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 224,
@@ -20909,16 +18902,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        0,
-        7,
-        0,
-        -2,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 225,
@@ -20951,16 +18935,7 @@
           "move": "Drill Peck"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        2,
-        0,
-        0,
-        -1,
-        4,
-        0
-      ]
+      "level": 29
     },
     {
       "no": 226,
@@ -21053,16 +19028,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        4,
-        0,
-        2,
-        0,
-        0,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 227,
@@ -21147,16 +19113,7 @@
           "move": "Brave Bird"
         }
       ],
-      "level": 55,
-      "potential": [
-        0,
-        7,
-        0,
-        0,
-        0,
-        5,
-        7
-      ]
+      "level": 55
     },
     {
       "no": 228,
@@ -21245,16 +19202,7 @@
           "move": "Inferno"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        -2,
-        3,
-        -1,
-        0,
-        0,
-        2
-      ]
+      "level": 29
     },
     {
       "no": 229,
@@ -21347,16 +19295,7 @@
           "move": "Inferno"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        -1,
-        7,
-        -3,
-        0,
-        0,
-        4
-      ]
+      "level": 61
     },
     {
       "no": 230,
@@ -21445,16 +19384,7 @@
           "move": "Wave Crash"
         }
       ],
-      "level": 69,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        0
-      ]
+      "level": 69
     },
     {
       "no": 231,
@@ -21527,16 +19457,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        4,
-        -2,
-        0
-      ]
+      "level": 29
     },
     {
       "no": 232,
@@ -21625,16 +19546,7 @@
           "move": "Giga Impact"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        1,
-        -3,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 233,
@@ -21719,16 +19631,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 64,
-      "potential": [
-        0,
-        0,
-        0,
-        -3,
-        0,
-        0,
-        3
-      ]
+      "level": 64
     },
     {
       "no": 234,
@@ -21805,16 +19708,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 55,
-      "potential": [
-        0,
-        0,
-        0,
-        -3,
-        0,
-        0,
-        5
-      ]
+      "level": 55
     },
     {
       "no": 235,
@@ -21843,16 +19737,7 @@
           "move": "Sketch"
         }
       ],
-      "level": 14,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 14
     },
     {
       "no": 236,
@@ -21893,16 +19778,7 @@
           "move": "Focus Energy"
         }
       ],
-      "level": 6,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 6
     },
     {
       "no": 237,
@@ -21999,16 +19875,7 @@
           "move": "Endeavor"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 53
     },
     {
       "no": 238,
@@ -22089,16 +19956,7 @@
           "move": "Blizzard"
         }
       ],
-      "level": 24,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        -1,
-        -1,
-        -1
-      ]
+      "level": 24
     },
     {
       "no": 239,
@@ -22179,16 +20037,7 @@
           "move": "Thunder"
         }
       ],
-      "level": 35,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        5,
-        0,
-        0
-      ]
+      "level": 35
     },
     {
       "no": 240,
@@ -22269,16 +20118,7 @@
           "move": "Fire Blast"
         }
       ],
-      "level": 36,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        0,
-        4,
-        0
-      ]
+      "level": 36
     },
     {
       "no": 241,
@@ -22355,16 +20195,7 @@
           "move": "High Horsepower"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        0,
-        0,
-        -3,
-        0,
-        0,
-        2
-      ]
+      "level": 59
     },
     {
       "no": 242,
@@ -22469,16 +20300,7 @@
           "move": "Healing Wish"
         }
       ],
-      "level": 69,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 69
     },
     {
       "no": 243,
@@ -22575,16 +20397,7 @@
           "move": "Zap Cannon"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        8,
-        0,
-        0
-      ]
+      "level": 77
     },
     {
       "no": 244,
@@ -22685,16 +20498,7 @@
           "move": "Eruption"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        0,
-        3,
-        0
-      ]
+      "level": 77
     },
     {
       "no": 245,
@@ -22795,16 +20599,7 @@
           "move": "Blizzard"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        0,
-        0,
-        5,
-        0,
-        -2,
-        0
-      ]
+      "level": 77
     },
     {
       "no": 246,
@@ -22893,16 +20688,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        2,
-        -1,
-        3,
-        -1,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 247,
@@ -22995,16 +20781,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 44,
-      "potential": [
-        0,
-        0,
-        2,
-        -1,
-        2,
-        -1,
-        0
-      ]
+      "level": 44
     },
     {
       "no": 248,
@@ -23117,16 +20894,7 @@
           "move": "Giga Impact"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        3,
-        -2,
-        -1,
-        -3,
-        2
-      ]
+      "level": 80
     },
     {
       "no": 249,
@@ -23211,16 +20979,7 @@
           "move": "Sky Attack"
         }
       ],
-      "level": 96,
-      "potential": [
-        0,
-        8,
-        0,
-        0,
-        -3,
-        0,
-        -3
-      ]
+      "level": 96
     },
     {
       "no": 250,
@@ -23305,16 +21064,7 @@
           "move": "Overheat"
         }
       ],
-      "level": 96,
-      "potential": [
-        0,
-        2,
-        0,
-        0,
-        0,
-        8,
-        0
-      ]
+      "level": 96
     },
     {
       "no": 251,
@@ -23387,16 +21137,7 @@
           "move": "Perish Song"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 80
     },
     {
       "no": 252,
@@ -23481,16 +21222,7 @@
           "move": "Leaf Storm"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 25
     },
     {
       "no": 253,
@@ -23591,16 +21323,7 @@
           "move": "Leaf Storm"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 43
     },
     {
       "no": 254,
@@ -23705,16 +21428,7 @@
           "move": "Leaf Storm"
         }
       ],
-      "level": 67,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 67
     },
     {
       "no": 255,
@@ -23799,16 +21513,7 @@
           "move": "Flare Blitz"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        -2,
-        0,
-        0,
-        0,
-        3,
-        0
-      ]
+      "level": 25
     },
     {
       "no": 256,
@@ -23905,16 +21610,7 @@
           "move": "Flare Blitz"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        4,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 257,
@@ -24019,16 +21715,7 @@
           "move": "Brave Bird"
         }
       ],
-      "level": 67,
-      "potential": [
-        0,
-        0,
-        -3,
-        0,
-        0,
-        7,
-        0
-      ]
+      "level": 67
     },
     {
       "no": 258,
@@ -24113,16 +21800,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        0,
-        0,
-        1,
-        0,
-        -2,
-        0
-      ]
+      "level": 25
     },
     {
       "no": 259,
@@ -24211,16 +21889,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        2,
-        0,
-        0,
-        2,
-        -1,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 260,
@@ -24321,16 +21990,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 68,
-      "potential": [
-        0,
-        6,
-        0,
-        0,
-        6,
-        -3,
-        0
-      ]
+      "level": 68
     },
     {
       "no": 261,
@@ -24415,16 +22075,7 @@
           "move": "Play Rough"
         }
       ],
-      "level": 8,
-      "potential": [
-        0,
-        0,
-        1,
-        -1,
-        0,
-        -1,
-        1
-      ]
+      "level": 8
     },
     {
       "no": 262,
@@ -24529,16 +22180,7 @@
           "move": "Play Rough"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        1,
-        -2,
-        0,
-        -1,
-        2
-      ]
+      "level": 46
     },
     {
       "no": 263,
@@ -24619,16 +22261,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 12,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        2
-      ]
+      "level": 12
     },
     {
       "no": 264,
@@ -24729,16 +22362,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        6
-      ]
+      "level": 46
     },
     {
       "no": 265,
@@ -24779,16 +22403,7 @@
           "move": "Bug Bite"
         }
       ],
-      "level": 3,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 3
     },
     {
       "no": 266,
@@ -24821,16 +22436,7 @@
           "move": "Harden"
         }
       ],
-      "level": 5,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 5
     },
     {
       "no": 267,
@@ -24927,16 +22533,7 @@
           "move": "Quiver Dance"
         }
       ],
-      "level": 41,
-      "potential": [
-        0,
-        3,
-        -1,
-        0,
-        -1,
-        4,
-        0
-      ]
+      "level": 41
     },
     {
       "no": 268,
@@ -24969,16 +22566,7 @@
           "move": "Harden"
         }
       ],
-      "level": 5,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 5
     },
     {
       "no": 269,
@@ -25079,16 +22667,7 @@
           "move": "Quiver Dance"
         }
       ],
-      "level": 39,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 39
     },
     {
       "no": 270,
@@ -25165,16 +22744,7 @@
           "move": "Energy Ball"
         }
       ],
-      "level": 8,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        -1,
-        -1
-      ]
+      "level": 8
     },
     {
       "no": 271,
@@ -25267,16 +22837,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 31,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        -1,
-        -2
-      ]
+      "level": 31
     },
     {
       "no": 272,
@@ -25365,16 +22926,7 @@
           "move": "Zen Headbutt"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        -3,
-        -3
-      ]
+      "level": 58
     },
     {
       "no": 273,
@@ -25451,16 +23003,7 @@
           "move": "Explosion"
         }
       ],
-      "level": 8,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 8
     },
     {
       "no": 274,
@@ -25561,16 +23104,7 @@
           "move": "Leaf Blade"
         }
       ],
-      "level": 31,
-      "potential": [
-        0,
-        0,
-        4,
-        -1,
-        0,
-        -2,
-        0
-      ]
+      "level": 31
     },
     {
       "no": 275,
@@ -25683,16 +23217,7 @@
           "move": "Sucker Punch"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        3,
-        -1,
-        0,
-        -1,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 276,
@@ -25769,16 +23294,7 @@
           "move": "Reversal"
         }
       ],
-      "level": 18,
-      "potential": [
-        0,
-        2,
-        0,
-        -1,
-        -1,
-        1,
-        1
-      ]
+      "level": 18
     },
     {
       "no": 277,
@@ -25875,16 +23391,7 @@
           "move": "Reversal"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        1,
-        0,
-        -1,
-        -1,
-        6,
-        1
-      ]
+      "level": 53
     },
     {
       "no": 278,
@@ -25953,16 +23460,7 @@
           "move": "Hurricane"
         }
       ],
-      "level": 18,
-      "potential": [
-        0,
-        1,
-        0,
-        1,
-        0,
-        0,
-        0
-      ]
+      "level": 18
     },
     {
       "no": 279,
@@ -26063,16 +23561,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 50,
-      "potential": [
-        0,
-        4,
-        0,
-        1,
-        0,
-        0,
-        0
-      ]
+      "level": 50
     },
     {
       "no": 280,
@@ -26157,16 +23646,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 4,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        -1
-      ]
+      "level": 4
     },
     {
       "no": 281,
@@ -26251,16 +23731,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 19,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        -1
-      ]
+      "level": 19
     },
     {
       "no": 282,
@@ -26369,16 +23840,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 65,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        6,
-        0,
-        -1
-      ]
+      "level": 65
     },
     {
       "no": 283,
@@ -26443,16 +23905,7 @@
           "move": "Sticky Web"
         }
       ],
-      "level": 17,
-      "potential": [
-        0,
-        0,
-        -1,
-        2,
-        0,
-        0,
-        0
-      ]
+      "level": 17
     },
     {
       "no": 284,
@@ -26529,16 +23982,7 @@
           "move": "Quiver Dance"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        2,
-        -1,
-        0,
-        -2,
-        3,
-        0
-      ]
+      "level": 53
     },
     {
       "no": 285,
@@ -26611,16 +24055,7 @@
           "move": "Spore"
         }
       ],
-      "level": 22,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 22
     },
     {
       "no": 286,
@@ -26721,16 +24156,7 @@
           "move": "Focus Punch"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 54
     },
     {
       "no": 287,
@@ -26799,16 +24225,7 @@
           "move": "Play Rough"
         }
       ],
-      "level": 20,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        3
-      ]
+      "level": 20
     },
     {
       "no": 288,
@@ -26877,16 +24294,7 @@
           "move": "Reversal"
         }
       ],
-      "level": 50,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 50
     },
     {
       "no": 289,
@@ -26967,16 +24375,7 @@
           "move": "Hammer Arm"
         }
       ],
-      "level": 94,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 94
     },
     {
       "no": 290,
@@ -27041,16 +24440,7 @@
           "move": "Dig"
         }
       ],
-      "level": 17,
-      "potential": [
-        0,
-        0,
-        -1,
-        -1,
-        2,
-        0,
-        0
-      ]
+      "level": 17
     },
     {
       "no": 291,
@@ -27155,16 +24545,7 @@
           "move": "X-Scissor"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        1,
-        -2,
-        0,
-        -2,
-        4,
-        0
-      ]
+      "level": 53
     },
     {
       "no": 292,
@@ -27257,16 +24638,7 @@
           "move": "Phantom Force"
         }
       ],
-      "level": 11,
-      "potential": [
-        0,
-        -1,
-        2,
-        1,
-        0,
-        1,
-        -1
-      ]
+      "level": 11
     },
     {
       "no": 293,
@@ -27339,16 +24711,7 @@
           "move": "Hyper Voice"
         }
       ],
-      "level": 12,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 12
     },
     {
       "no": 294,
@@ -27429,16 +24792,7 @@
           "move": "Hyper Voice"
         }
       ],
-      "level": 35,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        2
-      ]
+      "level": 35
     },
     {
       "no": 295,
@@ -27543,16 +24897,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        0,
-        0,
-        -3,
-        0,
-        0,
-        3
-      ]
+      "level": 59
     },
     {
       "no": 296,
@@ -27645,16 +24990,7 @@
           "move": "Heavy Slam"
         }
       ],
-      "level": 11,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 11
     },
     {
       "no": 297,
@@ -27755,16 +25091,7 @@
           "move": "Headlong Rush"
         }
       ],
-      "level": 56,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 56
     },
     {
       "no": 298,
@@ -27821,16 +25148,7 @@
           "move": "Bounce"
         }
       ],
-      "level": 2,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        1
-      ]
+      "level": 2
     },
     {
       "no": 299,
@@ -27919,16 +25237,7 @@
           "move": "Zap Cannon"
         }
       ],
-      "level": 38,
-      "potential": [
-        0,
-        0,
-        1,
-        -2,
-        -2,
-        -1,
-        0
-      ]
+      "level": 38
     },
     {
       "no": 300,
@@ -28021,16 +25330,7 @@
           "move": "Play Rough"
         }
       ],
-      "level": 16,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        1
-      ]
+      "level": 16
     },
     {
       "no": 301,
@@ -28123,16 +25423,7 @@
           "move": "Tackle"
         }
       ],
-      "level": 42,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        1
-      ]
+      "level": 42
     },
     {
       "no": 302,
@@ -28225,16 +25516,7 @@
           "move": "Foul Play"
         }
       ],
-      "level": 39,
-      "potential": [
-        0,
-        0,
-        3,
-        2,
-        0,
-        -2,
-        0
-      ]
+      "level": 39
     },
     {
       "no": 303,
@@ -28307,16 +25589,7 @@
           "move": "Dynamic Punch"
         }
       ],
-      "level": 39,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        5,
-        4,
-        2
-      ]
+      "level": 39
     },
     {
       "no": 304,
@@ -28409,16 +25682,7 @@
           "move": "Head Smash"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        0,
-        3,
-        -1,
-        0,
-        2,
-        3
-      ]
+      "level": 29
     },
     {
       "no": 305,
@@ -28511,16 +25775,7 @@
           "move": "Head Smash"
         }
       ],
-      "level": 48,
-      "potential": [
-        0,
-        0,
-        4,
-        -1,
-        0,
-        2,
-        2
-      ]
+      "level": 48
     },
     {
       "no": 306,
@@ -28613,16 +25868,7 @@
           "move": "Head Smash"
         }
       ],
-      "level": 67,
-      "potential": [
-        0,
-        0,
-        1,
-        -1,
-        0,
-        2,
-        8
-      ]
+      "level": 67
     },
     {
       "no": 307,
@@ -28711,16 +25957,7 @@
           "move": "Counter"
         }
       ],
-      "level": 20,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        -1,
-        -1
-      ]
+      "level": 20
     },
     {
       "no": 308,
@@ -28821,16 +26058,7 @@
           "move": "Axe Kick"
         }
       ],
-      "level": 44,
-      "potential": [
-        0,
-        0,
-        -1,
-        0,
-        0,
-        -2,
-        -2
-      ]
+      "level": 44
     },
     {
       "no": 309,
@@ -28915,16 +26143,7 @@
           "move": "Thunder"
         }
       ],
-      "level": 22,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        1,
-        0,
-        0
-      ]
+      "level": 22
     },
     {
       "no": 310,
@@ -29013,16 +26232,7 @@
           "move": "Thunder"
         }
       ],
-      "level": 57,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        3,
-        0,
-        0
-      ]
+      "level": 57
     },
     {
       "no": 311,
@@ -29127,16 +26337,7 @@
           "move": "Entrainment"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        4,
-        0,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 312,
@@ -29241,16 +26442,7 @@
           "move": "Entrainment"
         }
       ],
-      "level": 43,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        2,
-        0,
-        0
-      ]
+      "level": 43
     },
     {
       "no": 313,
@@ -29331,16 +26523,7 @@
           "move": "Infestation"
         }
       ],
-      "level": 48,
-      "potential": [
-        0,
-        -2,
-        -1,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 48
     },
     {
       "no": 314,
@@ -29425,16 +26608,7 @@
           "move": "Infestation"
         }
       ],
-      "level": 48,
-      "potential": [
-        0,
-        -1,
-        -2,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 48
     },
     {
       "no": 315,
@@ -29523,16 +26697,7 @@
           "move": "Leaf Storm"
         }
       ],
-      "level": 42,
-      "potential": [
-        0,
-        -2,
-        -1,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 42
     },
     {
       "no": 316,
@@ -29621,16 +26786,7 @@
           "move": "Gunk Shot"
         }
       ],
-      "level": 24,
-      "potential": [
-        0,
-        -1,
-        -1,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 24
     },
     {
       "no": 317,
@@ -29719,16 +26875,7 @@
           "move": "Belch"
         }
       ],
-      "level": 55,
-      "potential": [
-        0,
-        -2,
-        -2,
-        0,
-        0,
-        1,
-        0
-      ]
+      "level": 55
     },
     {
       "no": 318,
@@ -29797,16 +26944,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 24,
-      "potential": [
-        0,
-        0,
-        1,
-        0,
-        0,
-        -1,
-        3
-      ]
+      "level": 24
     },
     {
       "no": 319,
@@ -29887,16 +27025,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        0,
-        2,
-        0,
-        0,
-        -2,
-        3
-      ]
+      "level": 54
     },
     {
       "no": 320,
@@ -29985,16 +27114,7 @@
           "move": "Water Spout"
         }
       ],
-      "level": 42,
-      "potential": [
-        0,
-        0,
-        0,
-        1,
-        0,
-        -1,
-        0
-      ]
+      "level": 42
     },
     {
       "no": 321,
@@ -30091,16 +27211,7 @@
           "move": "Water Spout"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -3,
-        0
-      ]
+      "level": 61
     },
     {
       "no": 322,
@@ -30181,16 +27292,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 24,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        2,
-        2,
-        0
-      ]
+      "level": 24
     },
     {
       "no": 323,
@@ -30279,16 +27381,7 @@
           "move": "Earthquake"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        6,
-        3,
-        0
-      ]
+      "level": 54
     },
     {
       "no": 324,
@@ -30385,16 +27478,7 @@
           "move": "Eruption"
         }
       ],
-      "level": 56,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        0,
-        7,
-        0
-      ]
+      "level": 56
     },
     {
       "no": 325,
@@ -30471,16 +27555,7 @@
           "move": "Bounce"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -1
-      ]
+      "level": 29
     },
     {
       "no": 326,
@@ -30565,16 +27640,7 @@
           "move": "Bounce"
         }
       ],
-      "level": 56,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -3,
-        -1
-      ]
+      "level": 56
     },
     {
       "no": 327,
@@ -30651,16 +27717,7 @@
           "move": "Thrash"
         }
       ],
-      "level": 35,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        4
-      ]
+      "level": 35
     },
     {
       "no": 328,
@@ -30737,16 +27794,7 @@
           "move": "Fissure"
         }
       ],
-      "level": 21,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        3,
-        -1,
-        0
-      ]
+      "level": 21
     },
     {
       "no": 329,
@@ -30855,16 +27903,7 @@
           "move": "Boomburst"
         }
       ],
-      "level": 31,
-      "potential": [
-        0,
-        4,
-        0,
-        -1,
-        2,
-        -2,
-        0
-      ]
+      "level": 31
     },
     {
       "no": 330,
@@ -30985,16 +28024,7 @@
           "move": "Boomburst"
         }
       ],
-      "level": 65,
-      "potential": [
-        0,
-        7,
-        0,
-        -3,
-        3,
-        -3,
-        0
-      ]
+      "level": 65
     },
     {
       "no": 331,
@@ -31087,16 +28117,7 @@
           "move": "Destiny Bond"
         }
       ],
-      "level": 30,
-      "potential": [
-        0,
-        0,
-        -2,
-        0,
-        0,
-        0,
-        -2
-      ]
+      "level": 30
     },
     {
       "no": 332,
@@ -31193,16 +28214,7 @@
           "move": "Sandstorm"
         }
       ],
-      "level": 57,
-      "potential": [
-        0,
-        0,
-        4,
-        -3,
-        0,
-        -3,
-        0
-      ]
+      "level": 57
     },
     {
       "no": 333,
@@ -31279,16 +28291,7 @@
           "move": "Perish Song"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        1,
-        0,
-        -2,
-        -1,
-        1,
-        4
-      ]
+      "level": 25
     },
     {
       "no": 334,
@@ -31377,16 +28380,7 @@
           "move": "Sky Attack"
         }
       ],
-      "level": 59,
-      "potential": [
-        0,
-        1,
-        0,
-        0,
-        -1,
-        0,
-        0
-      ]
+      "level": 59
     },
     {
       "no": 335,
@@ -31523,16 +28517,7 @@
           "move": "Close Combat"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        4
-      ]
+      "level": 53
     },
     {
       "no": 336,
@@ -31625,16 +28610,7 @@
           "move": "Sludge Bomb"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        -2,
-        -1,
-        0,
-        0,
-        2,
-        0
-      ]
+      "level": 53
     },
     {
       "no": 337,
@@ -31723,16 +28699,7 @@
           "move": "Explosion"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        0,
-        6,
-        -1,
-        -2,
-        -1,
-        -2
-      ]
+      "level": 54
     },
     {
       "no": 338,
@@ -31821,16 +28788,7 @@
           "move": "Explosion"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        0,
-        2,
-        -1,
-        -2,
-        -1,
-        -2
-      ]
+      "level": 54
     },
     {
       "no": 339,
@@ -31899,16 +28857,7 @@
           "move": "Fissure"
         }
       ],
-      "level": 21,
-      "potential": [
-        0,
-        1,
-        0,
-        0,
-        3,
-        -1,
-        0
-      ]
+      "level": 21
     },
     {
       "no": 340,
@@ -31993,16 +28942,7 @@
           "move": "Fissure"
         }
       ],
-      "level": 55,
-      "potential": [
-        0,
-        1,
-        0,
-        0,
-        2,
-        -2,
-        0
-      ]
+      "level": 55
     },
     {
       "no": 341,
@@ -32087,16 +29027,7 @@
           "move": "Guillotine"
         }
       ],
-      "level": 25,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -1,
-        0
-      ]
+      "level": 25
     },
     {
       "no": 342,
@@ -32185,16 +29116,7 @@
           "move": "Guillotine"
         }
       ],
-      "level": 55,
-      "potential": [
-        0,
-        0,
-        7,
-        0,
-        0,
-        -2,
-        1
-      ]
+      "level": 55
     },
     {
       "no": 343,
@@ -32287,16 +29209,7 @@
           "move": "Explosion"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        3,
-        -1,
-        -1
-      ]
+      "level": 23
     },
     {
       "no": 344,
@@ -32401,16 +29314,7 @@
           "move": "Explosion"
         }
       ],
-      "level": 61,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        4,
-        -2,
-        -3
-      ]
+      "level": 61
     },
     {
       "no": 345,
@@ -32495,16 +29399,7 @@
           "move": "Energy Ball"
         }
       ],
-      "level": 34,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        -1,
-        0
-      ]
+      "level": 34
     },
     {
       "no": 346,
@@ -32593,16 +29488,7 @@
           "move": "Energy Ball"
         }
       ],
-      "level": 60,
-      "potential": [
-        0,
-        0,
-        0,
-        -3,
-        0,
-        -2,
-        0
-      ]
+      "level": 60
     },
     {
       "no": 347,
@@ -32679,16 +29565,7 @@
           "move": "X-Scissor"
         }
       ],
-      "level": 34,
-      "potential": [
-        0,
-        -1,
-        0,
-        -2,
-        -2,
-        0,
-        0
-      ]
+      "level": 34
     },
     {
       "no": 348,
@@ -32765,16 +29642,7 @@
           "move": "X-Scissor"
         }
       ],
-      "level": 60,
-      "potential": [
-        0,
-        -3,
-        0,
-        -2,
-        -3,
-        0,
-        0
-      ]
+      "level": 60
     },
     {
       "no": 349,
@@ -32811,16 +29679,7 @@
           "move": "Flail"
         }
       ],
-      "level": 4,
-      "potential": [
-        0,
-        0,
-        0,
-        1,
-        0,
-        -1,
-        0
-      ]
+      "level": 4
     },
     {
       "no": 350,
@@ -32921,16 +29780,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 69,
-      "potential": [
-        0,
-        0,
-        0,
-        1,
-        0,
-        -3,
-        0
-      ]
+      "level": 69
     },
     {
       "no": 351,
@@ -33007,16 +29857,7 @@
           "move": "Hurricane"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        6
-      ]
+      "level": 46
     },
     {
       "no": 352,
@@ -33093,16 +29934,7 @@
           "move": "Hurricane"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        0,
-        -2,
-        0,
-        0,
-        1
-      ]
+      "level": 46
     },
     {
       "no": 353,
@@ -33179,16 +30011,7 @@
           "move": "Hurricane"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        4
-      ]
+      "level": 46
     },
     {
       "no": 354,
@@ -33265,16 +30088,7 @@
           "move": "Hurricane"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        3
-      ]
+      "level": 46
     },
     {
       "no": 355,
@@ -33359,16 +30173,7 @@
           "move": "Power Whip"
         }
       ],
-      "level": 50,
-      "potential": [
-        0,
-        0,
-        0,
-        -1,
-        0,
-        0,
-        5
-      ]
+      "level": 50
     },
     {
       "no": 356,
@@ -33445,16 +30250,7 @@
           "move": "Phantom Force"
         }
       ],
-      "level": 22,
-      "potential": [
-        0,
-        0,
-        2,
-        2,
-        0,
-        0,
-        -1
-      ]
+      "level": 22
     },
     {
       "no": 357,
@@ -33531,16 +30327,7 @@
           "move": "Phantom Force"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        1,
-        6,
-        0,
-        0,
-        -1
-      ]
+      "level": 53
     },
     {
       "no": 358,
@@ -33617,16 +30404,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 22,
-      "potential": [
-        0,
-        0,
-        1,
-        3,
-        0,
-        0,
-        -1
-      ]
+      "level": 22
     },
     {
       "no": 359,
@@ -33727,16 +30505,7 @@
           "move": "Future Sight"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        1,
-        2,
-        0,
-        0,
-        -1
-      ]
+      "level": 53
     },
     {
       "no": 360,
@@ -33821,16 +30590,7 @@
           "move": "Solar Beam"
         }
       ],
-      "level": 54,
-      "potential": [
-        0,
-        6,
-        -2,
-        0,
-        0,
-        0,
-        -1
-      ]
+      "level": 54
     },
     {
       "no": 361,
@@ -33911,16 +30671,7 @@
           "move": "Heal Pulse"
         }
       ],
-      "level": 53,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -2,
-        -2
-      ]
+      "level": 53
     },
     {
       "no": 362,
@@ -34017,16 +30768,7 @@
           "move": "Perish Song"
         }
       ],
-      "level": 55,
-      "potential": [
-        0,
-        0,
-        1,
-        -3,
-        0,
-        -2,
-        6
-      ]
+      "level": 55
     },
     {
       "no": 363,
@@ -34083,16 +30825,7 @@
           "move": "Amnesia"
         }
       ],
-      "level": 16,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -1
-      ]
+      "level": 16
     },
     {
       "no": 364,
@@ -34177,16 +30910,7 @@
           "move": "Blizzard"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        -1,
-        0,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 365,
@@ -34279,16 +31003,7 @@
           "move": "Blizzard"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        -3,
-        0,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 366,
@@ -34373,16 +31088,7 @@
           "move": "Sheer Cold"
         }
       ],
-      "level": 21,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        -1,
-        -1,
-        0
-      ]
+      "level": 21
     },
     {
       "no": 367,
@@ -34475,16 +31181,7 @@
           "move": "Sheer Cold"
         }
       ],
-      "level": 44,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        -2,
-        -1,
-        0
-      ]
+      "level": 44
     },
     {
       "no": 368,
@@ -34581,16 +31278,7 @@
           "move": "Sheer Cold"
         }
       ],
-      "level": 67,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        -3,
-        -1,
-        0
-      ]
+      "level": 67
     },
     {
       "no": 369,
@@ -34631,16 +31319,7 @@
           "move": "Shell Smash"
         }
       ],
-      "level": 32,
-      "potential": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        -1,
-        0
-      ]
+      "level": 32
     },
     {
       "no": 370,
@@ -34737,16 +31416,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        0,
-        6,
-        0,
-        -3,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 371,
@@ -34843,16 +31513,7 @@
           "move": "Hydro Pump"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        0,
-        5,
-        0,
-        -1,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 372,
@@ -34929,16 +31590,7 @@
           "move": "Head Smash"
         }
       ],
-      "level": 58,
-      "potential": [
-        0,
-        0,
-        5,
-        0,
-        -2,
-        -3,
-        0
-      ]
+      "level": 58
     },
     {
       "no": 373,
@@ -35027,16 +31679,7 @@
           "move": "Safeguard"
         }
       ],
-      "level": 29,
-      "potential": [
-        0,
-        0,
-        0,
-        4,
-        0,
-        -2,
-        0
-      ]
+      "level": 29
     },
     {
       "no": 374,
@@ -35113,16 +31756,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 23
     },
     {
       "no": 375,
@@ -35203,16 +31837,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "level": 46
     },
     {
       "no": 376,
@@ -35305,16 +31930,7 @@
           "move": "Double-Edge"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        9,
-        0,
-        0,
-        -1,
-        0,
-        0
-      ]
+      "level": 80
     },
     {
       "no": 377,
@@ -35343,16 +31959,7 @@
           "move": "Tackle"
         }
       ],
-      "level": 23,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        2,
-        2,
-        2
-      ]
+      "level": 23
     },
     {
       "no": 378,
@@ -35437,16 +32044,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 46,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        5,
-        5,
-        4
-      ]
+      "level": 46
     },
     {
       "no": 379,
@@ -35539,16 +32137,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        -3,
-        0,
-        0,
-        2,
-        5,
-        6
-      ]
+      "level": 80
     },
     {
       "no": 380,
@@ -35633,16 +32222,7 @@
           "move": "Explosion"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        0,
-        7,
-        -1,
-        -3,
-        -3,
-        0
-      ]
+      "level": 77
     },
     {
       "no": 381,
@@ -35727,16 +32307,7 @@
           "move": "Explosion"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        -1,
-        0,
-        0
-      ]
+      "level": 77
     },
     {
       "no": 382,
@@ -35829,16 +32400,7 @@
           "move": "Explosion"
         }
       ],
-      "level": 77,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        6,
-        1,
-        6
-      ]
+      "level": 77
     },
     {
       "no": 383,
@@ -35927,16 +32489,7 @@
           "move": "Healing Wish"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -2,
-        -2
-      ]
+      "level": 80
     },
     {
       "no": 384,
@@ -36025,16 +32578,7 @@
           "move": "Memento"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -3
-      ]
+      "level": 80
     },
     {
       "no": 385,
@@ -36115,16 +32659,7 @@
           "move": "Water Spout"
         }
       ],
-      "level": 94,
-      "potential": [
-        0,
-        0,
-        0,
-        8,
-        0,
-        -2,
-        0
-      ]
+      "level": 94
     },
     {
       "no": 386,
@@ -36205,16 +32740,7 @@
           "move": "Eruption"
         }
       ],
-      "level": 94,
-      "potential": [
-        0,
-        0,
-        0,
-        -3,
-        7,
-        -2,
-        0
-      ]
+      "level": 94
     },
     {
       "no": 387,
@@ -36299,16 +32825,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 96,
-      "potential": [
-        0,
-        5,
-        0,
-        0,
-        -1,
-        0,
-        0
-      ]
+      "level": 96
     },
     {
       "no": 388,
@@ -36393,16 +32910,7 @@
           "move": "Doom Desire"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        -1,
-        0,
-        0,
-        4,
-        5,
-        9
-      ]
+      "level": 80
     },
     {
       "no": 389,
@@ -36483,16 +32991,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -3,
-        -3
-      ]
+      "level": 80
     },
     {
       "no": 390,
@@ -36573,16 +33072,7 @@
           "move": "Hyper Beam"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -2
-      ]
+      "level": 80
     },
     {
       "no": 391,
@@ -36671,16 +33161,7 @@
           "move": "Mirror Coat"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -3
-      ]
+      "level": 80
     },
     {
       "no": 392,
@@ -36761,16 +33242,7 @@
           "move": "Extreme Speed"
         }
       ],
-      "level": 80,
-      "potential": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        -1,
-        -2
-      ]
+      "level": 80
     }
   ]
 }
