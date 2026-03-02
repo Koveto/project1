@@ -127,3 +127,10 @@ class PokemonController:
             reverse=True
         )
         self.index = 0
+
+    def sort_by_potential(self, index):
+        self.pokemon_list.sort(
+            key=lambda p: p.potential[index],
+            reverse=True
+        )
+        self.index = 0

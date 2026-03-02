@@ -101,10 +101,10 @@ class PokemonView:
                     controller.sort_by_stat(stat)
                     return
 
-            # Click on element affinities
+            # Click on element potential
             for i, rect in enumerate(self.element_rects):
                 if rect.collidepoint(event.pos):
-                    controller.sort_by_affinity(i)
+                    controller.sort_by_potential(i)
                     return
 
 
