@@ -1,10 +1,10 @@
 Physical       
-Fire           3
-Force          2
-Ice            2
-Electric       2
-Light          3
-Dark           3
+Fire           Fire, Ground, Rock
+Force          Normal, Flying, Psychic
+Ice            Water, Ice, Fighting
+Electric       Electric, Dragon, Steel
+Light          Grass, Bug, Fairy
+Dark           Poison, Ghost, Dark
 Almighty
 Poison
 Healing
