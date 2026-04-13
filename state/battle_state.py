@@ -38,7 +38,7 @@ from battle.battle_items import (
 )
 from battle.battle_damage import (
     handle_damaging_enemy_event,
-    handle_enemy_damaging_event,
+    handle_damaging_player_event,
     update_generic_damage_phase,
     handle_enemy_damage_event,
     start_enemy_turn
@@ -159,6 +159,7 @@ class BattleState(GameState):
         self.crit_text = None
         self.affinity_confirm = False
         self.item_data = None
+        self.missed = False
 
     def draw(self, screen):
         self.renderer.draw(self, screen)
@@ -201,7 +202,7 @@ class BattleState(GameState):
             handle_item_target_select_event(self, event)
 
         elif self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
-            handle_enemy_damaging_event(self, event)
+            handle_damaging_player_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ENEMY_DAMAGE:
             handle_enemy_damage_event(self, event)
@@ -246,7 +247,6 @@ class BattleState(GameState):
                 return
             else:
                 # Enemy turn just started → set up attack announcement
-                start_enemy_turn(self)
                 start_enemy_turn(self)
                 return
         if self.menu_mode == MENU_MODE_DAMAGING_ENEMY:

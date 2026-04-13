@@ -6,24 +6,29 @@ from battle.battle_text import (
     scroll_text_generic
 )
 
-def calculate_raw_damage(battle, move, affinity_value):
-    """
-    Returns the raw damage number for a move, before routing.
-    No side effects. No HP changes. No text.
-    """
+# ===================================
+# HELPERS (NO BATTLE)
+# ===================================
 
-    # Null tier → zero damage
+def choose_enemy_move(moves):
+    """
+    For now, randomly choose move.
+    """
+    return random.choice(moves)
+
+def calculate_raw_damage(move, affinity_value):
+    """
+    Returns raw damage value of move, 0 if immune.
+    """
     if AFFINITY_NULL <= affinity_value < AFFINITY_REFLECT:
         return 0
-
-    # Otherwise, base damage = move power (placeholder)
     return move["power"]
 
-def calculate_press_turns_consumed(battle, affinity):
+def calculate_press_turns_consumed(affinity):
     """
     Returns:
-    - 1 for weakness (affinity < AFFINITY_NEUTRAL)
-    - 2 for neutral (affinity == AFFINITY_NEUTRAL)
+    - PRESS_TURN_HALF for weakness (affinity < AFFINITY_NEUTRAL)
+    - PRESS_TURN_FULL for neutral (affinity == AFFINITY_NEUTRAL)
     - PRESS_TURN_WIPE for null or reflect
     """
 
@@ -43,37 +48,52 @@ def calculate_press_turns_consumed(battle, affinity):
     # Fallback
     return PRESS_TURN_FULL
 
-def determine_damage_recipient(battle, attacker, target, affinity_value):
+def roll_accuracy(move):
     """
-    Determines which Pokémon should receive the damage.
-    Does not calculate the damage amount.
-    Does not modify HP.
+    Rolls accuracy check.
+    Returns true for miss
+    -       false for hit
     """
-
-    # Reflect → attacker takes the damage
-    if affinity_value == AFFINITY_REFLECT:
-        return attacker
-
-    # Otherwise → target takes the damage
-    return target
-
-def handle_accuracy(battle, move, defender):
     acc = move.get("accuracy", 100)
     roll = random.randint(1, 100)
-    if roll <= acc:
-        return False
+    return roll > acc
 
-    # Missed
+def tick_hp_animation(damage_target):
+    diff = damage_target.hp_anim - damage_target.hp_target
+    step = max(1, int(diff ** TICK_CONSTANT))
+    damage_target.hp_anim -= step
+
+    if damage_target.hp_anim < damage_target.hp_target:
+        damage_target.hp_anim = damage_target.hp_target
+
+def animate_hp_bar(damage_target):
+    """
+    Step of generic damage phase.
+    Animates HP bar and prepares damage text.
+    """
+    # Continue HP animation
+    if damage_target.hp_anim > damage_target.hp_target:
+        tick_hp_animation(damage_target)
+        return False
+    return True
+
+# ===================================
+# HELPERS (W/ BATTLE)
+# ===================================
+
+def handle_miss(battle, defender):
+    """
+    Upon miss, sets flags and consumes press turns.
+    """
+
     battle.missed = True
-    battle.damage_amount = 0
-    battle.damage_amount = None  # preserve original quirk
+    battle.damage_amount = None
 
     battle.damage_target = defender
     battle.damage_started = True
     battle.damage_animating = False
     battle.damage_done = True
 
-    # Miss text
     battle.affinity_text = None
     battle.affinity_done = True
     battle.affinity_scroll_done = True
@@ -86,24 +106,13 @@ def handle_accuracy(battle, move, defender):
     battle.damage_scroll_index = 0
     battle.damage_scroll_done = False
 
-
-
     battle.model.consume_miss()
-    return True  # miss handled
-
-def compute_affinity_after_damage(battle, attacker, defender, move):
-    element = move["element"]
-    element_index = ELEMENT_INDEX[element]
-    affinity = defender.affinities[element_index]
-
-    # Guarding override (enemy → player only)
-    if defender.is_guarding and affinity < AFFINITY_NEUTRAL:
-        affinity = AFFINITY_NEUTRAL
-
-    defender.is_guarding = False
-    return affinity
+    return True
 
 def reset_damage_flags(battle):
+    """
+    Resets damaging flags for next turn.
+    """
     battle.damage_started = False
     battle.damage_done = False
     battle.affinity_done = False
@@ -113,40 +122,11 @@ def reset_damage_flags(battle):
     battle.crit_done = False
     battle.affinity_confirm = False
 
-def tick_hp_animation(battle, damage_target):
-    diff = damage_target.hp_anim - damage_target.hp_target
-    step = max(1, int(diff ** TICK_CONSTANT))
-    damage_target.hp_anim -= step
-
-    if damage_target.hp_anim < damage_target.hp_target:
-        damage_target.hp_anim = damage_target.hp_target
-
-def animate_hp_bar(battle, is_player):
-    damage_target = battle.damage_target
-
-    # Continue HP animation
-    if damage_target.hp_anim > damage_target.hp_target:
-        tick_hp_animation(battle, damage_target)
-        return
-
-    # HP animation finished
-    battle.damage_animating = False
-    battle.damage_done = True
-
-    # Only compute affinity text if the move hit
-    if not getattr(battle, "missed", False):
-        compute_affinity_text(battle, is_player)
-
-    # Prepare damage text
-    setup_damage_text(battle)
-    return
-
-def setup_damage_text(battle):
-    battle.damage_text = f"Dealt {battle.damage_amount} damage."
-    battle.damage_scroll_index = 0
-    battle.damage_scroll_done = False
-
 def compute_affinity_text(battle, is_player):
+    """
+    Determines affinity and prepares text.
+    """
+
     # Reset affinity scroll state
     battle.affinity_done = False
     battle.affinity_scroll_done = False
@@ -171,7 +151,7 @@ def compute_affinity_text(battle, is_player):
         affinity = AFFINITY_NEUTRAL
 
     # Select affinity text
-    if affinity == 0:
+    if affinity == AFFINITY_NEUTRAL:
         # Neutral affinity → skip scroll
         battle.affinity_text = None
         battle.affinity_done = True
@@ -190,7 +170,14 @@ def compute_affinity_text(battle, is_player):
         battle.affinity_scroll_index = 0
         battle.affinity_scroll_done = False
 
+# ===================================
+# PUBLIC FUNCTIONS
+# ===================================
 def handle_damaging_enemy_event(battle, event):
+    """
+    battle_state.handle_event
+    MENU_MODE_DAMAGING_ENEMY
+    """
 
     if handle_scroll_skip(battle, event, "scroll_text", "scroll_index", "scroll_done"):
         return
@@ -212,7 +199,11 @@ def handle_damaging_enemy_event(battle, event):
     if key_confirm(event.key):
         finish_damage_phase(battle)
 
-def handle_enemy_damaging_event(battle, event):
+def handle_damaging_player_event(battle, event):
+    """
+    battle_state.handle_event
+    MENU_MODE_DAMAGING_PLAYER
+    """
     if event.type == pygame.KEYDOWN and key_confirm(event.key):
         if battle.enemy_waiting_for_confirm:
             battle.menu_mode = MENU_MODE_ENEMY_DAMAGE
@@ -223,6 +214,9 @@ def handle_enemy_damaging_event(battle, event):
             return
         
 def finish_buff_phase(battle):
+    """
+    battle_menu.handle_buff_player_event
+    """
     battle.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
     handle_side_switch(battle)
     battle.pending_move_name = None
@@ -238,7 +232,16 @@ def finish_damage_phase(battle):
     defender = battle.model.enemy_team[battle.target_index]
     move = battle.smt_moves[battle.pending_move_name]
 
-    affinity = compute_affinity_after_damage(battle, attacker, defender, move)
+    element = move["element"]
+    element_index = ELEMENT_INDEX[element]
+    affinity = defender.affinities[element_index]
+
+    # Guarding override (enemy → player only)
+    if defender.is_guarding and affinity < AFFINITY_NEUTRAL:
+        affinity = AFFINITY_NEUTRAL
+
+    defender.is_guarding = False
+
     apply_press_turn_cost(battle, affinity)
     battle.is_crit = False
     handle_side_switch(battle)
@@ -254,12 +257,15 @@ def finish_damage_phase(battle):
 def finish_enemy_damage_phase(battle):
     reset_damage_flags(battle)
 
-    attacker_index = get_current_enemy_attacker(battle)
-    attacker = battle.model.enemy_team[attacker_index]
+    battle.active_enemy_index = battle.enemy_turn_order[battle.enemy_turn_index]
+    attacker = battle.model.enemy_team[battle.active_enemy_index]
     defender = battle.model.player_team[battle.enemy_target_index]
     move = battle.smt_moves[battle.pending_enemy_move]
 
-    affinity = compute_affinity_after_damage(battle, attacker, defender, move)
+    element = move["element"]
+    element_index = ELEMENT_INDEX[element]
+    affinity = defender.affinities[element_index]
+
     apply_press_turn_cost(battle, affinity)
     battle.is_crit = False
     handle_side_switch(battle)
@@ -296,7 +302,20 @@ def update_generic_damage_phase(battle, is_player=True):
         return begin_damage_if_ready(battle, is_player)
 
     if battle.damage_animating:
-        return animate_hp_bar(battle, is_player)
+        if battle.damage_target.hp_anim > battle.damage_target.hp_target:
+            tick_hp_animation(battle.damage_target)
+            return
+        else:
+            # HP animation finished
+            battle.damage_animating = False
+            battle.damage_done = True
+            # Only compute affinity text if the move hit
+            if not battle.missed:
+                compute_affinity_text(battle, is_player)
+            battle.damage_text = f"Dealt {battle.damage_amount} damage."
+            battle.damage_scroll_index = 0
+            battle.damage_scroll_done = False
+            return
 
     # PHASE 3a — affinity scroll
     if battle.damage_done and not battle.affinity_done and battle.affinity_text:
@@ -342,15 +361,16 @@ def handle_damage_delay(battle):
 
 def begin_damage_if_ready(battle, is_player):
 
-    # PHASE 1.5 — wait for delay
+    # wait for delay
     if not handle_damage_delay(battle):
         return
 
     # Select attacker, defender, move
     attacker, defender, move = select_combatants(battle, is_player)
 
-    # Accuracy check (miss ends phase)
-    if handle_accuracy(battle, move, defender):
+    # Accuracy check
+    if roll_accuracy(move):
+        handle_miss(battle, defender)
         return
 
     # Compute damage, affinity, guarding, reflect, HP animation
@@ -362,7 +382,7 @@ def apply_press_turn_cost(battle, affinity):
         if battle.is_crit:
             cost = PRESS_TURN_HALF
         else:
-            cost = calculate_press_turns_consumed(battle, affinity)
+            cost = calculate_press_turns_consumed(affinity)
         battle.model.handle_action_press_turn_cost(cost)
     else:
         battle.missed = False  # reset for next action
@@ -371,17 +391,13 @@ def handle_side_switch(battle):
     if not battle.model.has_press_turns_left():
         battle.model.next_side()
 
-def get_current_enemy_attacker(battle):
-    return battle.enemy_turn_order[battle.enemy_turn_index]
-
 def start_enemy_attack(battle):
-    attacker_index = get_current_enemy_attacker(battle)
-    attacker = battle.model.enemy_team[attacker_index]
-
+    battle.active_enemy_index = battle.enemy_turn_order[battle.enemy_turn_index]
+    attacker = battle.model.enemy_team[battle.active_enemy_index]
     move_name = attacker.choose_random_move()
     target_index = battle.model.choose_random_player_target()
 
-    return begin_enemy_action(battle, attacker_index, move_name, target_index)
+    return begin_enemy_action(battle, move_name, target_index)
 
 def select_combatants(battle, is_player):
     if is_player:
@@ -414,10 +430,12 @@ def compute_and_apply_damage(battle, attacker, defender, move, is_player):
         affinity = AFFINITY_NEUTRAL
 
     # Damage calculation
-    battle.damage_amount = calculate_raw_damage(battle, move, affinity)
+    battle.damage_amount = calculate_raw_damage(move, affinity)
 
     # Reflect / redirect
-    damage_target = determine_damage_recipient(battle, attacker, defender, affinity)
+    damage_target = defender
+    if affinity == AFFINITY_REFLECT:
+        damage_target = attacker
 
     # HP animation setup
     damage_target.hp_target = max(0, damage_target.remaining_hp - battle.damage_amount)
@@ -443,23 +461,15 @@ def handle_enemy_damage_event(battle, event):
             return
     finish_enemy_damage_phase(battle)
 
-def begin_enemy_action(battle, attacker_index, move_name, target_index):
-    attacker = battle.model.enemy_team[attacker_index]
-
-    # Sync active index
-    battle.active_enemy_index = attacker_index
+def begin_enemy_action(battle, move_name, target_index):
+    attacker = battle.model.enemy_team[battle.active_enemy_index]
+    target = battle.model.player_team[target_index]
 
     # Store pending move + target
     battle.pending_enemy_move = move_name
     battle.enemy_target_index = target_index
 
-    # Subtract MP
-    move = battle.smt_moves[move_name]
-    cost = move["mp"]
-    attacker.remaining_mp = max(0, attacker.remaining_mp - cost)
-
     # Build announcement text
-    target = battle.model.player_team[target_index]
     if move_name == "Attack":
         battle.scroll_text = f"{attacker.name} attacks {target.name}!"
     else:
@@ -482,6 +492,10 @@ def begin_enemy_action(battle, attacker_index, move_name, target_index):
     battle.enemy_waiting_for_confirm = False
 
 def start_enemy_turn(battle):
+    """
+    battle_state.update -> battle_damage.start_enemy_turn
+    Transition to enemy turn
+    """
     # Enter announcement mode immediately
     battle.menu_mode = MENU_MODE_DAMAGING_PLAYER
 
@@ -493,10 +507,11 @@ def start_enemy_turn(battle):
     )
     battle.enemy_turn_index = 0
 
-    attacker_index = battle.enemy_turn_order[battle.enemy_turn_index]
-    attacker = battle.model.enemy_team[attacker_index]
-
-    move_name = random.choice(attacker.moves)
+    # Choose attacker, move, and target
+    battle.active_enemy_index =  battle.enemy_turn_order[battle.enemy_turn_index]
+    attacker = battle.model.enemy_team[battle.active_enemy_index]
     target_index = random.randrange(len(battle.model.player_team))
+    move_name = choose_enemy_move(attacker.moves)
 
-    return begin_enemy_action(battle, attacker_index, move_name, target_index)
+    return begin_enemy_action(battle, move_name, target_index)
+

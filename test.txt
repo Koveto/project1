@@ -1,50 +1,70 @@
-from battle.battle_menu import (
-    handle_main_menu_event,
-    handle_skills_menu_event,
-    handle_target_select_event,
-    handle_items_event,
-    handle_item_ally_target_event,
-    handle_item_target_select_event,
-    handle_info_event,
-    handle_submenu_event,
-)
-from battle.battle_text import (
-    start_text_mode,
-    handle_talk_event,
-    handle_escape_event,
-    handle_guarding_event,
-    update_simple_scroll_phase,
-    scroll_text_generic,
-    handle_scroll_skip,
-    scroll_then_flag
-)
-from battle.battle_items import (
-    handle_item_use_event,
-    update_item_use_phase,
-    apply_item_healing,
-    compute_heal_amount,
-    setup_heal_animation,
-    apply_heal_to_ally
-)
-from battle.battle_damage import (
-    calculate_raw_damage,
-    calculate_press_turns_consumed,
-    determine_damage_recipient,
-    handle_accuracy,
-    compute_affinity_after_damage,
-    reset_damage_flags,
-    tick_hp_animation,
-    animate_hp_bar,
-    setup_damage_text,
-    compute_affinity_text,
-    handle_damaging_enemy_event,
-    handle_enemy_damaging_event,
-    finish_damage_phase,
-    finish_enemy_damage_phase,
-    update_generic_damage_phase,
-    handle_damage_delay,
-    begin_damage_if_ready,
-    handle_enemy_damage_event,
-    begin_enemy_action,
-    start_enemy_turn
-)
+main.main
+    state_manager.change
+    state_manager.handle_event
+        battle_state.handle_event
+    state_manager.update
+        battle_state.update
+    state_manager.draw
+        battle_state.draw
+            battle_scene.BattleRenderer.draw(self, b, screen)
+
+
+battle_state.handle_event
+
+MENU_MODE_MAIN                   = battle_menu.handle_main_menu_event
+
+MENU_MODE_SKILLS                 = battle_menu.handle_skills_menu_event
+MENU_MODE_GUARDING               = battle_text.handle_guarding_event
+MENU_MODE_TALK                   = battle_text.handle_talk_event
+MENU_MODE_ESCAPE                 = battle_text.handle_escape_event
+MENU_MODE_ITEMS                  = battle_menu.
+MENU_MODE_INFO                   = battle_menu.handle_info_event
+MENU_MODE_SUBMENU                = battle_menu.handle_submenu_event
+
+MENU_MODE_TARGET_SELECT          = battle_menu.handle_target_select_event
+MENU_MODE_DAMAGING_ENEMY         = battle_damage.handle_damaging_enemy_event
+
+MENU_MODE_ITEM_ALLY_TARGET       = battle_menu.handle_item_ally_target_event
+MENU_MODE_ITEM_USE               = battle_items.handle_item_use_event
+MENU_MODE_ITEM_TARGET_SELECT     = battle_menu.handle_item_target_select_event
+
+MENU_MODE_TARGET_BUFF            = battle_menu.handle_target_buff_event
+MENU_MODE_BUFF_PLAYER            = battle_menu.handle_buff_player_event
+MENU_MODE_TARGET_BUFF_ALL        = battle_menu.handle_target_buff_all_event
+MENU_MODE_BUFF_PLAYER_ALL        = battle_menu.handle_buff_player_event
+
+MENU_MODE_TARGET_HEAL            = battle_menu.handle_target_heal_event
+MENU_MODE_HEAL_USE               = battle_items.handle_heal_use_event
+
+MENU_MODE_DAMAGING_PLAYER        = battle_damage.handle_damaging_player_event
+MENU_MODE_ENEMY_DAMAGE           = battle_damage.handle_enemy_damage_event
+
+
+MENU_MODE_SKILLS ->
+    single_target_attack        = MENU_MODE_TARGET_SELECT
+    single_ally_buff            = MENU_MODE_TARGET_BUFF
+    single_target_heal          = MENU_MODE_TARGET_HEAL
+    all_ally_buff               = MENU_MODE_TARGET_BUFF_ALL
+
+
+
+battle_state.update
+
+enemy turn end                  = start_enemy_turn
+MENU_MODE_DAMAGING_PLAYER       = scroll_then_flag
+MENU_MODE_ENEMY_DAMAGE          = update_generic_damage_phase(self, False)
+MENU_MODE_DAMAGING_ENEMY        = update_generic_damage_phase(self, True)
+MENU_MODE_ITEM_USE              = update_item_use_phase
+MENU_MODE_HEAL_USE              = update_heal_use_phase
+MENU_MODE_GUARDING              = update_simple_scroll_phase
+MENU_MODE_ESCAPE                |
+MENU_MODE_TALK                  |
+MENU_MODE_BUFF_PLAYER           |
+MENU_MODE_BUFF_PLAYER_ALL       |
+
+
+
+
+1. start_enemy_turn determines attacker, move, target
+2. begin_enemy_action
+
