@@ -81,65 +81,65 @@ def animate_hp_bar(damage_target):
 # HELPERS (W/ BATTLE)
 # ===================================
 
-def handle_miss(battle, defender):
+def handle_miss(b, defender):
     """
     Upon miss, sets flags and consumes press turns.
     """
 
-    battle.missed = True
-    battle.damage_amount = None
+    b.missed = True
+    b.damage_amount = None
 
-    battle.damage_target = defender
-    battle.damage_started = True
-    battle.damage_animating = False
-    battle.damage_done = True
+    b.damage_target = defender
+    b.damage_started = True
+    b.damage_animating = False
+    b.damage_done = True
 
-    battle.affinity_text = None
-    battle.affinity_done = True
-    battle.affinity_scroll_done = True
+    b.affinity_text = None
+    b.affinity_done = True
+    b.affinity_scroll_done = True
 
-    battle.crit_done = True
-    battle.crit_scroll_done = True
-    battle.affinity_confirm = True
+    b.crit_done = True
+    b.crit_scroll_done = True
+    b.affinity_confirm = True
 
-    battle.damage_text = "But it missed!"
-    battle.damage_scroll_index = 0
-    battle.damage_scroll_done = False
+    b.damage_text = "But it missed!"
+    b.damage_scroll_index = 0
+    b.damage_scroll_done = False
 
-    battle.model.consume_miss()
+    b.model.consume_miss()
     return True
 
-def reset_damage_flags(battle):
+def reset_damage_flags(b):
     """
     Resets damaging flags for next turn.
     """
-    battle.damage_started = False
-    battle.damage_done = False
-    battle.affinity_done = False
-    battle.affinity_text = None
-    battle.crit_text = None
-    battle.crit_scroll_index = 0
-    battle.crit_done = False
-    battle.affinity_confirm = False
+    b.damage_started = False
+    b.damage_done = False
+    b.affinity_done = False
+    b.affinity_text = None
+    b.crit_text = None
+    b.crit_scroll_index = 0
+    b.crit_done = False
+    b.affinity_confirm = False
 
-def compute_affinity_text(battle, is_player):
+def compute_affinity_text(b, is_player):
     """
     Determines affinity and prepares text.
     """
 
     # Reset affinity scroll state
-    battle.affinity_done = False
-    battle.affinity_scroll_done = False
-    battle.affinity_text = None
-    battle.affinity_scroll_index = 0
+    b.affinity_done = False
+    b.affinity_scroll_done = False
+    b.affinity_text = None
+    b.affinity_scroll_index = 0
 
     # Determine move + defender
     if is_player:
-        move = battle.smt_moves[battle.pending_move_name]
-        defender = battle.model.enemy_team[battle.target_index]
+        move = b.smt_moves[b.pending_move_name]
+        defender = b.model.enemy_team[b.target_index]
     else:
-        move = battle.smt_moves[battle.pending_enemy_move]
-        defender = battle.model.player_team[battle.enemy_target_index]
+        move = b.smt_moves[b.pending_enemy_move]
+        defender = b.model.player_team[b.enemy_target_index]
 
     # Determine affinity
     element = move["element"]
@@ -153,84 +153,83 @@ def compute_affinity_text(battle, is_player):
     # Select affinity text
     if affinity == AFFINITY_NEUTRAL:
         # Neutral affinity → skip scroll
-        battle.affinity_text = None
-        battle.affinity_done = True
-        battle.affinity_scroll_done = True
+        b.affinity_text = None
+        b.affinity_done = True
+        b.affinity_scroll_done = True
     else:
         if affinity < AFFINITY_NEUTRAL:
-            battle.affinity_text = AFFINITY_TEXT_WEAK
+            b.affinity_text = AFFINITY_TEXT_WEAK
         elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
-            battle.affinity_text = AFFINITY_TEXT_RESIST
+            b.affinity_text = AFFINITY_TEXT_RESIST
         elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
-            battle.affinity_text = AFFINITY_TEXT_NULL
+            b.affinity_text = AFFINITY_TEXT_NULL
         elif affinity == AFFINITY_REFLECT:
-            battle.affinity_text = AFFINITY_TEXT_REFLECT
+            b.affinity_text = AFFINITY_TEXT_REFLECT
 
         # Reset scroll state for non‑neutral affinity
-        battle.affinity_scroll_index = 0
-        battle.affinity_scroll_done = False
+        b.affinity_scroll_index = 0
+        b.affinity_scroll_done = False
 
 # ===================================
 # PUBLIC FUNCTIONS
 # ===================================
-def handle_damaging_enemy_event(battle, event):
+def handle_damaging_enemy_event(b, event):
     """
     battle_state.handle_event
     MENU_MODE_DAMAGING_ENEMY
     """
 
-    if handle_scroll_skip(battle, event, "scroll_text", "scroll_index", "scroll_done"):
+    if handle_scroll_skip(b, event, "scroll_text", "scroll_index", "scroll_done"):
         return
-    if not battle.damage_done:
+    if not b.damage_done:
         return
-    if battle.affinity_text and not battle.affinity_done:
-        if handle_scroll_skip(battle, event, "affinity_text", "affinity_scroll_index", "affinity_scroll_done"):
+    if b.affinity_text and not b.affinity_done:
+        if handle_scroll_skip(b, event, "affinity_text", "affinity_scroll_index", "affinity_scroll_done"):
             return
         return
-    if battle.is_crit and not battle.affinity_confirm and key_confirm(event.key):
-        battle.affinity_confirm = True
+    if b.is_crit and not b.affinity_confirm and key_confirm(event.key):
+        b.affinity_confirm = True
         return
-    if battle.is_crit and battle.affinity_done and not battle.crit_done and battle.affinity_confirm:
-        if handle_scroll_skip(battle, event, "crit_text", "crit_scroll_index", "crit_scroll_done"):
+    if b.is_crit and b.affinity_done and not b.crit_done and b.affinity_confirm:
+        if handle_scroll_skip(b, event, "crit_text", "crit_scroll_index", "crit_scroll_done"):
             return
         if key_confirm(event.key):
-            finish_damage_phase(battle)
+            finish_damage_phase(b)
         return
     if key_confirm(event.key):
-        finish_damage_phase(battle)
+        finish_damage_phase(b)
 
-def handle_damaging_player_event(battle, event):
+def handle_announce_enemy_attack_event(b, event):
     """
     battle_state.handle_event
-    MENU_MODE_DAMAGING_PLAYER
     """
     if event.type == pygame.KEYDOWN and key_confirm(event.key):
-        if battle.enemy_waiting_for_confirm:
-            battle.menu_mode = MENU_MODE_ENEMY_DAMAGE
-            battle.damage_started = False
-            battle.affinity_done = False
-            battle.affinity_scroll_done = False
-            battle.damage_animating = False
+        if b.enemy_waiting_for_confirm:
+            b.menu_mode = MENU_MODE_ENEMY_DAMAGE
+            b.damage_started = False
+            b.affinity_done = False
+            b.affinity_scroll_done = False
+            b.damage_animating = False
             return
         
-def finish_buff_phase(battle):
+def finish_buff_phase(b):
     """
     battle_menu.handle_buff_player_event
     """
-    battle.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
-    handle_side_switch(battle)
-    battle.pending_move_name = None
-    if battle.model.is_player_turn:
-        battle.model.next_turn()
-    battle.menu_mode = MENU_MODE_MAIN
-    battle.menu_index = MENU_INDEX_SKILLS 
+    b.model.handle_action_press_turn_cost(PRESS_TURN_FULL)
+    handle_side_switch(b)
+    b.pending_move_name = None
+    if b.model.is_player_turn:
+        b.model.next_turn()
+    b.menu_mode = MENU_MODE_MAIN
+    b.menu_index = MENU_INDEX_SKILLS 
         
-def finish_damage_phase(battle):
-    reset_damage_flags(battle)
+def finish_damage_phase(b):
+    reset_damage_flags(b)
 
-    attacker = battle.model.get_active_pokemon()
-    defender = battle.model.enemy_team[battle.target_index]
-    move = battle.smt_moves[battle.pending_move_name]
+    attacker = b.model.get_active_pokemon()
+    defender = b.model.enemy_team[b.target_index]
+    move = b.smt_moves[b.pending_move_name]
 
     element = move["element"]
     element_index = ELEMENT_INDEX[element]
@@ -242,195 +241,189 @@ def finish_damage_phase(battle):
 
     defender.is_guarding = False
 
-    apply_press_turn_cost(battle, affinity)
-    battle.is_crit = False
-    handle_side_switch(battle)
+    apply_press_turn_cost(b, affinity)
+    b.is_crit = False
+    handle_side_switch(b)
 
-    battle.pending_move_name = None
+    b.pending_move_name = None
 
-    if battle.model.is_player_turn:
-        battle.model.next_turn()
+    if b.model.is_player_turn:
+        b.model.next_turn()
 
-    battle.menu_mode = MENU_MODE_MAIN
-    battle.menu_index = MENU_INDEX_SKILLS 
+    b.menu_mode = MENU_MODE_MAIN
+    b.menu_index = MENU_INDEX_SKILLS 
 
-def finish_enemy_damage_phase(battle):
-    reset_damage_flags(battle)
+def finish_enemy_damage_phase(b):
+    reset_damage_flags(b)
 
-    battle.active_enemy_index = battle.enemy_turn_order[battle.enemy_turn_index]
-    attacker = battle.model.enemy_team[battle.active_enemy_index]
-    defender = battle.model.player_team[battle.enemy_target_index]
-    move = battle.smt_moves[battle.pending_enemy_move]
+    b.active_enemy_index = b.enemy_turn_order[b.enemy_turn_index]
+    attacker = b.model.enemy_team[b.active_enemy_index]
+    defender = b.model.player_team[b.enemy_target_index]
+    move = b.smt_moves[b.pending_enemy_move]
 
     element = move["element"]
     element_index = ELEMENT_INDEX[element]
     affinity = defender.affinities[element_index]
 
-    apply_press_turn_cost(battle, affinity)
-    battle.is_crit = False
-    handle_side_switch(battle)
+    apply_press_turn_cost(b, affinity)
+    b.is_crit = False
+    handle_side_switch(b)
 
-    battle.pending_enemy_move = None
+    b.pending_enemy_move = None
 
-    if battle.model.is_player_turn:
-        battle.menu_mode = MENU_MODE_MAIN
-        battle.menu_index = MENU_INDEX_SKILLS
+    if b.model.is_player_turn:
+        b.menu_mode = MENU_MODE_MAIN
+        b.menu_index = MENU_INDEX_SKILLS
         return
 
-    if battle.model.has_press_turns_left():
-        battle.enemy_turn_index = (battle.enemy_turn_index + 1) % len(battle.enemy_turn_order)
-        start_enemy_attack(battle)
+    if b.model.has_press_turns_left():
+        b.enemy_turn_index = (b.enemy_turn_index + 1) % len(b.enemy_turn_order)
+        announce_enemy_attack(b)
         return
 
     # Safety fallback
-    battle.model.next_side()
-    battle.menu_mode = MENU_MODE_MAIN
-    battle.menu_index = MENU_INDEX_SKILLS
+    b.model.next_side()
+    b.menu_mode = MENU_MODE_MAIN
+    b.menu_index = MENU_INDEX_SKILLS
 
-def update_generic_damage_phase(battle, is_player=True):
-    if is_player and not battle.scroll_done:
-        if not battle.scroll_done:
+def update_generic_damage_phase(b, is_player=True):
+    if is_player and not b.scroll_done:
+        if not b.scroll_done:
             return scroll_text_generic(
-                battle,
-                text=battle.scroll_text,
+                b,
+                text=b.scroll_text,
                 index_attr="scroll_index",
                 done_attr="scroll_done"
             )
 
     
-    if not battle.damage_started:
-        return begin_damage_if_ready(battle, is_player)
+    if not b.damage_started:
+        return begin_damage_if_ready(b, is_player)
 
-    if battle.damage_animating:
-        if battle.damage_target.hp_anim > battle.damage_target.hp_target:
-            tick_hp_animation(battle.damage_target)
+    if b.damage_animating:
+        if b.damage_target.hp_anim > b.damage_target.hp_target:
+            tick_hp_animation(b.damage_target)
             return
         else:
             # HP animation finished
-            battle.damage_animating = False
-            battle.damage_done = True
+            b.damage_animating = False
+            b.damage_done = True
             # Only compute affinity text if the move hit
-            if not battle.missed:
-                compute_affinity_text(battle, is_player)
-            battle.damage_text = f"Dealt {battle.damage_amount} damage."
-            battle.damage_scroll_index = 0
-            battle.damage_scroll_done = False
+            if not b.missed:
+                compute_affinity_text(b, is_player)
+            b.damage_text = f"Dealt {b.damage_amount} damage."
+            b.damage_scroll_index = 0
+            b.damage_scroll_done = False
             return
 
     # PHASE 3a — affinity scroll
-    if battle.damage_done and not battle.affinity_done and battle.affinity_text:
+    if b.damage_done and not b.affinity_done and b.affinity_text:
         return scroll_text_generic(
-            battle,
-            text=battle.affinity_text,
+            b,
+            text=b.affinity_text,
             index_attr="affinity_scroll_index",
             done_attr="affinity_scroll_done",
             extra_done_attr="affinity_done"
         )
 
     # PHASE 3b — damage text scroll
-    if battle.damage_done and not battle.damage_scroll_done:
+    if b.damage_done and not b.damage_scroll_done:
         return scroll_text_generic(
-            battle,
-            text=battle.damage_text,
+            b,
+            text=b.damage_text,
             index_attr="damage_scroll_index",
             done_attr="damage_scroll_done"
         )
     
-    if battle.is_crit and battle.affinity_confirm and battle.damage_done and not battle.crit_scroll_done:
+    if b.is_crit and b.affinity_confirm and b.damage_done and not b.crit_scroll_done:
         scroll_text_generic(
-            battle,
-            text=battle.crit_text,
+            b,
+            text=b.crit_text,
             index_attr="crit_scroll_index",
             done_attr="crit_scroll_done"
         )
         return
     
-def handle_damage_delay(battle):
-    if not battle.delay_started:
-        battle.delay_started = True
-        battle.delay_frames = 0
+def handle_damage_delay(b):
+    if not b.delay_started:
+        b.delay_started = True
+        b.delay_frames = 0
 
-    battle.delay_frames += 1
-    if battle.delay_frames < WAIT_FRAMES_BEFORE_DAMAGE:
+    b.delay_frames += 1
+    if b.delay_frames < WAIT_FRAMES_BEFORE_DAMAGE:
         return False
 
     # Start damage
-    battle.delay_started = False
-    battle.delay_frames = 0
+    b.delay_started = False
+    b.delay_frames = 0
     return True
 
-def begin_damage_if_ready(battle, is_player):
+def begin_damage_if_ready(b, is_player):
 
     # wait for delay
-    if not handle_damage_delay(battle):
+    if not handle_damage_delay(b):
         return
 
     # Select attacker, defender, move
-    attacker, defender, move = select_combatants(battle, is_player)
+    attacker, defender, move = select_combatants(b, is_player)
 
     # Accuracy check
     if roll_accuracy(move):
-        handle_miss(battle, defender)
+        handle_miss(b, defender)
         return
 
     # Compute damage, affinity, guarding, reflect, HP animation
-    compute_and_apply_damage(battle, attacker, defender, move, is_player)
+    compute_and_apply_damage(b, attacker, defender, move, is_player)
     return
 
-def apply_press_turn_cost(battle, affinity):
-    if not battle.missed:
-        if battle.is_crit:
+def apply_press_turn_cost(b, affinity):
+    if not b.missed:
+        if b.is_crit:
             cost = PRESS_TURN_HALF
         else:
             cost = calculate_press_turns_consumed(affinity)
-        battle.model.handle_action_press_turn_cost(cost)
+        b.model.handle_action_press_turn_cost(cost)
     else:
-        battle.missed = False  # reset for next action
+        b.missed = False  # reset for next action
 
 def handle_side_switch(battle):
     if not battle.model.has_press_turns_left():
         battle.model.next_side()
 
-def start_enemy_attack(battle):
-    battle.active_enemy_index = battle.enemy_turn_order[battle.enemy_turn_index]
-    attacker = battle.model.enemy_team[battle.active_enemy_index]
-    move_name = attacker.choose_random_move()
-    target_index = battle.model.choose_random_player_target()
 
-    return begin_enemy_action(battle, move_name, target_index)
 
-def select_combatants(battle, is_player):
+def select_combatants(b, is_player):
     if is_player:
-        attacker = battle.model.get_active_pokemon()
-        defender = battle.model.enemy_team[battle.target_index]
-        move = battle.smt_moves[battle.pending_move_name]
+        attacker = b.model.get_active_pokemon()
+        defender = b.model.enemy_team[b.target_index]
+        move = b.smt_moves[b.pending_move_name]
     else:
-        attacker = battle.model.enemy_team[battle.active_enemy_index]
-        defender = battle.model.player_team[battle.enemy_target_index]
-        move = battle.smt_moves[battle.pending_enemy_move]
+        attacker = b.model.enemy_team[b.active_enemy_index]
+        defender = b.model.player_team[b.enemy_target_index]
+        move = b.smt_moves[b.pending_enemy_move]
 
     return attacker, defender, move
 
-def compute_and_apply_damage(battle, attacker, defender, move, is_player):
+def compute_and_apply_damage(b, attacker, defender, move, is_player):
     # Affinity
     element = move["element"]
     element_index = ELEMENT_INDEX[element]
     affinity = defender.affinities[element_index]
 
     # Crit (still no side effects)
-    if move["type"] == "Physical" and not battle.is_crit:
+    if move["type"] == "Physical" and not b.is_crit:
         if random.random() < CRIT_CHANCE:
-            battle.is_crit = True
-            battle.crit_text = "A critical hit!"
-            battle.crit_scroll_done = False
-            battle.crit_scroll_index = 0
+            b.is_crit = True
+            b.crit_text = "A critical hit!"
+            b.crit_scroll_done = False
+            b.crit_scroll_index = 0
 
     # Guarding override (enemy → player only)
     if not is_player and defender.is_guarding and affinity < AFFINITY_NEUTRAL:
         affinity = AFFINITY_NEUTRAL
 
     # Damage calculation
-    battle.damage_amount = calculate_raw_damage(move, affinity)
+    b.damage_amount = calculate_raw_damage(move, affinity)
 
     # Reflect / redirect
     damage_target = defender
@@ -438,80 +431,70 @@ def compute_and_apply_damage(battle, attacker, defender, move, is_player):
         damage_target = attacker
 
     # HP animation setup
-    damage_target.hp_target = max(0, damage_target.remaining_hp - battle.damage_amount)
+    damage_target.hp_target = max(0, damage_target.remaining_hp - b.damage_amount)
     damage_target.hp_anim = damage_target.remaining_hp
 
-    damage_pixels = int((battle.damage_amount / damage_target.max_hp) * HP_BAR_WIDTH)
+    damage_pixels = int((b.damage_amount / damage_target.max_hp) * HP_BAR_WIDTH)
     damage_target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
 
     damage_target.remaining_hp = damage_target.hp_target
 
-    battle.damage_target = damage_target
-    battle.damage_started = True
-    battle.damage_animating = True
+    b.damage_target = damage_target
+    b.damage_started = True
+    b.damage_animating = True
 
-def handle_enemy_damage_event(battle, event):
-    if not battle.affinity_confirm and battle.damage_scroll_done and event.type == pygame.KEYDOWN and key_confirm(event.key):
-        battle.affinity_confirm = True
-        if not battle.is_crit:
-            finish_enemy_damage_phase(battle)
+def handle_enemy_damage_event(b, event):
+    if not b.affinity_confirm and b.damage_scroll_done and \
+        event.type == pygame.KEYDOWN and key_confirm(event.key):
+        b.affinity_confirm = True
+        if not b.is_crit:
+            finish_enemy_damage_phase(b)
         return
-    if battle.affinity_confirm and battle.is_crit:
+    if b.affinity_confirm and b.is_crit:
         if not key_confirm(event.key):
             return
-    finish_enemy_damage_phase(battle)
+    finish_enemy_damage_phase(b)
 
-def begin_enemy_action(battle, move_name, target_index):
-    attacker = battle.model.enemy_team[battle.active_enemy_index]
-    target = battle.model.player_team[target_index]
-
-    # Store pending move + target
-    battle.pending_enemy_move = move_name
-    battle.enemy_target_index = target_index
-
-    # Build announcement text
-    if move_name == "Attack":
-        battle.scroll_text = f"{attacker.name} attacks {target.name}!"
-    else:
-        battle.scroll_text = f"{attacker.name} uses {move_name} on {target.name}!"
-
-    # Reset scroll state
-    battle.scroll_index = 0
-    battle.scroll_done = False
-
-    # Reset damage flags
-    battle.damage_started = False
-    battle.damage_done = False
-    battle.affinity_text = None
-    battle.affinity_done = False
-    battle.affinity_scroll_index = 0
-    battle.affinity_scroll_done = False
-
-    # Enter announcement phase
-    battle.menu_mode = MENU_MODE_DAMAGING_PLAYER
-    battle.enemy_waiting_for_confirm = False
-
-def start_enemy_turn(battle):
+def start_enemy_turn(b):
     """
-    battle_state.update -> battle_damage.start_enemy_turn
-    Transition to enemy turn
+    Just changed turns! Sort speeds.
     """
-    # Enter announcement mode immediately
-    battle.menu_mode = MENU_MODE_DAMAGING_PLAYER
-
     # Build SPD‑sorted order
-    battle.enemy_turn_order = sorted(
-        range(len(battle.model.enemy_team)),
-        key=lambda i: battle.model.enemy_team[i].speed,
+    b.enemy_turn_order = sorted(
+        range(len(b.model.enemy_team)),
+        key=lambda i: b.model.enemy_team[i].speed,
         reverse=True
     )
-    battle.enemy_turn_index = 0
+    b.enemy_turn_index = 0
+    return announce_enemy_attack(b)
 
-    # Choose attacker, move, and target
-    battle.active_enemy_index =  battle.enemy_turn_order[battle.enemy_turn_index]
-    attacker = battle.model.enemy_team[battle.active_enemy_index]
-    target_index = random.randrange(len(battle.model.player_team))
-    move_name = choose_enemy_move(attacker.moves)
+def announce_enemy_attack(b):
+    """
+    Next attacker! Pick target and move.
+    """
+    b.active_enemy_index = b.enemy_turn_order[b.enemy_turn_index]
+    b.attacker = b.model.enemy_team[b.active_enemy_index]
+    b.pending_enemy_move = choose_enemy_move(b.attacker.moves)
+    b.enemy_target_index = random.randrange(len(b.model.player_team))
+    b.target = b.model.player_team[b.enemy_target_index]
+    
+    if b.pending_enemy_move == "Attack":
+        b.scroll_text = f"{b.attacker.name} attacks {b.target.name}!"
+    else:
+        b.scroll_text = f"{b.attacker.name} uses {b.pending_enemy_move} on {b.target.name}!"
 
-    return begin_enemy_action(battle, move_name, target_index)
+    # Reset scroll state
+    b.scroll_index = 0
+    b.scroll_done = False
 
+    # Reset damage flags
+    b.damage_started = False
+    b.damage_done = False
+    b.affinity_text = None
+    b.affinity_done = False
+    b.affinity_scroll_index = 0
+    b.affinity_scroll_done = False
+
+    # Enter announcement phase
+    b.menu_mode = MENU_MODE_ANNOUNCE_ENEMY_ATTACK
+    b.enemy_waiting_for_confirm = False

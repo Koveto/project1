@@ -38,7 +38,7 @@ from battle.battle_items import (
 )
 from battle.battle_damage import (
     handle_damaging_enemy_event,
-    handle_damaging_player_event,
+    handle_announce_enemy_attack_event,
     update_generic_damage_phase,
     handle_enemy_damage_event,
     start_enemy_turn
@@ -160,6 +160,8 @@ class BattleState(GameState):
         self.affinity_confirm = False
         self.item_data = None
         self.missed = False
+        self.attacker = None
+        self.target = None
 
     def draw(self, screen):
         self.renderer.draw(self, screen)
@@ -201,8 +203,8 @@ class BattleState(GameState):
         elif self.menu_mode == MENU_MODE_ITEM_TARGET_SELECT:
             handle_item_target_select_event(self, event)
 
-        elif self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
-            handle_damaging_player_event(self, event)
+        elif self.menu_mode == MENU_MODE_ANNOUNCE_ENEMY_ATTACK:
+            handle_announce_enemy_attack_event(self, event)
 
         elif self.menu_mode == MENU_MODE_ENEMY_DAMAGE:
             handle_enemy_damage_event(self, event)
@@ -234,7 +236,7 @@ class BattleState(GameState):
     def update(self):
         if not self.model.is_player_turn:
             # Enemy turn state machine
-            if self.menu_mode == MENU_MODE_DAMAGING_PLAYER:
+            if self.menu_mode == MENU_MODE_ANNOUNCE_ENEMY_ATTACK:
                 return scroll_then_flag(
                     self,
                     text_attr="scroll_text",

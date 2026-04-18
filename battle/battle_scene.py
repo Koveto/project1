@@ -158,7 +158,7 @@ class BattleRenderer:
             )
             return
         
-        elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
+        elif b.menu_mode == MENU_MODE_ANNOUNCE_ENEMY_ATTACK:
             self.text_renderer.draw_simple_scroll(
                 b,
                 screen,
@@ -243,7 +243,7 @@ class BattleRenderer:
             MENU_MODE_TARGET_SELECT,
             MENU_MODE_DAMAGING_ENEMY,
             MENU_MODE_ITEM_TARGET_SELECT,
-            MENU_MODE_DAMAGING_PLAYER,
+            MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
             MENU_MODE_ENEMY_DAMAGE,
             MENU_MODE_INFO
         )
@@ -280,7 +280,7 @@ class BattleRenderer:
         ui_hp_offset = 0
         pokemon_for_hpmp = None
         if b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
-                             MENU_MODE_DAMAGING_PLAYER,
+                             MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
                              MENU_MODE_ENEMY_DAMAGE):
             hpmp_y += hp_offset
             enemy_hpmp_y += hp_offset
@@ -293,7 +293,7 @@ class BattleRenderer:
                          MENU_MODE_TARGET_HEAL,
                          MENU_MODE_HEAL_USE):
             pokemon_for_hpmp = b.model.player_team[b.selected_ally]
-        if b.menu_mode in (MENU_MODE_DAMAGING_PLAYER,
+        if b.menu_mode in (MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
                          MENU_MODE_ENEMY_DAMAGE):
             pokemon_for_hpmp = b.model.player_team[b.enemy_target_index]
         if b.menu_mode == MENU_MODE_INFO and b.info_row == 1:
@@ -322,7 +322,7 @@ class BattleRenderer:
 
             y += poke_offset
             highlight_player_pos = (sprite, x, y)
-        if b.menu_mode in (MENU_MODE_DAMAGING_PLAYER,
+        if b.menu_mode in (MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
                          MENU_MODE_ENEMY_DAMAGE):
             sprite = self.background_renderer.player_sprites[b.enemy_target_index]
             pokemon = b.model.player_team[b.enemy_target_index]
@@ -368,7 +368,7 @@ class BattleRenderer:
                            MENU_MODE_BUFF_PLAYER,
                            MENU_MODE_TARGET_HEAL):
             bounce_index = b.selected_ally
-        elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
+        elif b.menu_mode == MENU_MODE_ANNOUNCE_ENEMY_ATTACK:
             bounce_index = b.enemy_target_index
         elif b.menu_mode == MENU_MODE_INFO:
             if b.info_row == ROW_PLAYER:

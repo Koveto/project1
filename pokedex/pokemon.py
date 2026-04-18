@@ -92,10 +92,6 @@ class Pokemon:
         learned = [entry.move for entry in self.learnset if entry.level <= self.level]
         self.moves = learned[-5:]
 
-    def choose_random_move(self):
-        """Return a random move name, or None if no moves."""
-        return random.choice(self.moves) if self.moves else None
-
     # ---------------------------------------------------------
     # Properties
     # ---------------------------------------------------------  
