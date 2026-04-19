@@ -39,7 +39,7 @@ class BackgroundRenderer:
             screen.blit(sprite, (x, y))
 
             # NORMAL CASE: highlight the target enemy
-            if b.menu_mode not in (MENU_MODE_ANNOUNCE_ENEMY_ATTACK, MENU_MODE_ENEMY_DAMAGE):
+            if b.menu_mode not in (MENU_MODE_ANNOUNCE_ENEMY_ATTACK, MENU_MODE_DAMAGING_PLAYER):
                 if i == b.target_index:
                     target_enemy_pos = (sprite, x, y)
 
@@ -73,7 +73,7 @@ class BackgroundRenderer:
 
             if (b.menu_mode == MENU_MODE_TARGET_BUFF_ALL) or (i == active_index and b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
                                                        MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
-                                                       MENU_MODE_ENEMY_DAMAGE)):
+                                                       MENU_MODE_DAMAGING_PLAYER)):
                 y += poke_offset
 
             screen.blit(sprite, (x, y))
@@ -90,7 +90,7 @@ class BackgroundRenderer:
             MENU_MODE_ITEM_ALLY_TARGET,
             MENU_MODE_ITEM_TARGET_SELECT,
             MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
-            MENU_MODE_ENEMY_DAMAGE,
+            MENU_MODE_DAMAGING_PLAYER,
             MENU_MODE_INFO,
             MENU_MODE_TARGET_BUFF,
             MENU_MODE_TARGET_BUFF_ALL,

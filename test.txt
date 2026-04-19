@@ -37,7 +37,7 @@ MENU_MODE_TARGET_HEAL            = battle_menu.handle_target_heal_event
 MENU_MODE_HEAL_USE               = battle_items.handle_heal_use_event
 
 MENU_MODE_DAMAGING_PLAYER        = battle_damage.handle_damaging_player_event
-MENU_MODE_ENEMY_DAMAGE           = battle_damage.handle_enemy_damage_event
+MENU_MODE_DAMAGING_PLAYER           = battle_damage.handle_damaging_player_event
 
 
 MENU_MODE_SKILLS ->
@@ -52,7 +52,7 @@ battle_state.update
 
 enemy turn end                  = start_enemy_turn
 MENU_MODE_DAMAGING_PLAYER       = scroll_then_flag
-MENU_MODE_ENEMY_DAMAGE          = update_generic_damage_phase(self, False)
+MENU_MODE_DAMAGING_PLAYER          = update_generic_damage_phase(self, False)
 MENU_MODE_DAMAGING_ENEMY        = update_generic_damage_phase(self, True)
 MENU_MODE_ITEM_USE              = update_item_use_phase
 MENU_MODE_HEAL_USE              = update_heal_use_phase
@@ -62,9 +62,70 @@ MENU_MODE_TALK                  |
 MENU_MODE_BUFF_PLAYER           |
 MENU_MODE_BUFF_PLAYER_ALL       |
 
+battle_state.update -> start_enemy_turn
+start_enemy_turn -
+    enemy_turn_order
+    enemy_turn_index
+start_enemy_turn -> announce_enemy_attack
+announce_enemy_attack -
+    MENU_MODE_ANNOUNCE_ENEMY_ATTACK
+    active_enemy_index
+    attacker
+    pending_enemy_move
+    enemy_target_index
+    target
+    scroll_text
+    scroll_index
+    scroll_done
+    damage_started
+    damage_done
+    damage_animating
+    affinity_text
+    affinity_done
+    affinity_scroll_index
+    affinity_scroll_done
+    enemy_waiting_for_confirm
+update -> scroll_then_flag raises enemy_waiting_for_confirm
+handle_announce_enemy_attack_event -
+    when enemy_waiting_for_confirm
+    MENU_MODE_DAMAGING_PLAYER
+update -> update_generic_damage_phase -
+    begin_damage_if_ready
+        handle_damage_delay
+        select_combatants
+        roll_accuracy
+        handle_miss
+        compute_and_apply_damage
+handle_damaging_player_event -
+    
 
 
 
-1. start_enemy_turn determines attacker, move, target
-2. begin_enemy_action
+def handle_damaging_player_event(b, event):
+    if not b.affinity_confirm and b.damage_scroll_done and \
+        event.type == pygame.KEYDOWN and key_confirm(event.key):
+        b.affinity_confirm = True
+        if not b.is_crit:
+            finish_enemy_damage_phase(b)
+        return
+    if b.affinity_confirm and b.is_crit:
+        if not key_confirm(event.key):
+            return
+    finish_enemy_damage_phase(b)
 
+
+def start_enemy_attack(battle):
+    battle.active_enemy_index = battle.enemy_turn_order[battle.enemy_turn_index]
+    attacker = battle.model.enemy_team[battle.active_enemy_index]
+    battle.pending_enemy_move = attacker.choose_random_move()
+    battle.enemy_target_index = battle.model.choose_random_player_target()
+
+    return begin_enemy_action(battle)
+
+def start_enemy_turn(battle):
+    battle.active_enemy_index = battle.enemy_turn_order[battle.enemy_turn_index]
+    attacker = battle.model.enemy_team[battle.active_enemy_index]
+    battle.enemy_target_index = random.randrange(len(battle.model.player_team))
+    battle.pending_enemy_move = choose_enemy_move(attacker.moves)
+
+    return begin_enemy_action(battle)

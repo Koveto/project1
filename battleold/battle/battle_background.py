@@ -1,5 +1,3 @@
-# USED BY MAIN FOR BATTLE STATE!
-
 import pygame
 import os
 

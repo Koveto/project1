@@ -16,6 +16,12 @@ def choose_enemy_move(moves):
     """
     return random.choice(moves)
 
+def choose_enemy_target_index(player_team):
+    """
+    For now, randomly choose target. Returns number.
+    """
+    return random.randrange(len(player_team))
+
 def calculate_raw_damage(move, affinity_value):
     """
     Returns raw damage value of move, 0 if immune.
@@ -205,11 +211,7 @@ def handle_announce_enemy_attack_event(b, event):
     """
     if event.type == pygame.KEYDOWN and key_confirm(event.key):
         if b.enemy_waiting_for_confirm:
-            b.menu_mode = MENU_MODE_ENEMY_DAMAGE
-            b.damage_started = False
-            b.affinity_done = False
-            b.affinity_scroll_done = False
-            b.damage_animating = False
+            b.menu_mode = MENU_MODE_DAMAGING_PLAYER
             return
         
 def finish_buff_phase(b):
@@ -295,7 +297,6 @@ def update_generic_damage_phase(b, is_player=True):
                 index_attr="scroll_index",
                 done_attr="scroll_done"
             )
-
     
     if not b.damage_started:
         return begin_damage_if_ready(b, is_player)
@@ -443,7 +444,7 @@ def compute_and_apply_damage(b, attacker, defender, move, is_player):
     b.damage_started = True
     b.damage_animating = True
 
-def handle_enemy_damage_event(b, event):
+def handle_damaging_player_event(b, event):
     if not b.affinity_confirm and b.damage_scroll_done and \
         event.type == pygame.KEYDOWN and key_confirm(event.key):
         b.affinity_confirm = True
@@ -471,11 +472,15 @@ def start_enemy_turn(b):
 def announce_enemy_attack(b):
     """
     Next attacker! Pick target and move.
+    Separated from start_enemy_turn because
+    this is called each attack.
     """
+    b.menu_mode = MENU_MODE_ANNOUNCE_ENEMY_ATTACK
+
     b.active_enemy_index = b.enemy_turn_order[b.enemy_turn_index]
     b.attacker = b.model.enemy_team[b.active_enemy_index]
     b.pending_enemy_move = choose_enemy_move(b.attacker.moves)
-    b.enemy_target_index = random.randrange(len(b.model.player_team))
+    b.enemy_target_index = choose_enemy_target_index(b.model.player_team)
     b.target = b.model.player_team[b.enemy_target_index]
     
     if b.pending_enemy_move == "Attack":
@@ -490,11 +495,11 @@ def announce_enemy_attack(b):
     # Reset damage flags
     b.damage_started = False
     b.damage_done = False
+    b.damage_animating = False
     b.affinity_text = None
     b.affinity_done = False
     b.affinity_scroll_index = 0
     b.affinity_scroll_done = False
 
     # Enter announcement phase
-    b.menu_mode = MENU_MODE_ANNOUNCE_ENEMY_ATTACK
     b.enemy_waiting_for_confirm = False

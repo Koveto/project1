@@ -167,7 +167,7 @@ class BattleRenderer:
             )
             return
         
-        elif b.menu_mode == MENU_MODE_ENEMY_DAMAGE:
+        elif b.menu_mode == MENU_MODE_DAMAGING_PLAYER:
             self.text_renderer.draw_damaging_enemy(
                 b,
                 screen,
@@ -244,7 +244,7 @@ class BattleRenderer:
             MENU_MODE_DAMAGING_ENEMY,
             MENU_MODE_ITEM_TARGET_SELECT,
             MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
-            MENU_MODE_ENEMY_DAMAGE,
+            MENU_MODE_DAMAGING_PLAYER,
             MENU_MODE_INFO
         )
     
@@ -281,7 +281,7 @@ class BattleRenderer:
         pokemon_for_hpmp = None
         if b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
                              MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
-                             MENU_MODE_ENEMY_DAMAGE):
+                             MENU_MODE_DAMAGING_PLAYER):
             hpmp_y += hp_offset
             enemy_hpmp_y += hp_offset
             ui_hp_offset += hp_offset
@@ -294,7 +294,7 @@ class BattleRenderer:
                          MENU_MODE_HEAL_USE):
             pokemon_for_hpmp = b.model.player_team[b.selected_ally]
         if b.menu_mode in (MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
-                         MENU_MODE_ENEMY_DAMAGE):
+                         MENU_MODE_DAMAGING_PLAYER):
             pokemon_for_hpmp = b.model.player_team[b.enemy_target_index]
         if b.menu_mode == MENU_MODE_INFO and b.info_row == 1:
             pokemon_for_hpmp = b.model.player_team[b.info_col]
@@ -323,7 +323,7 @@ class BattleRenderer:
             y += poke_offset
             highlight_player_pos = (sprite, x, y)
         if b.menu_mode in (MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
-                         MENU_MODE_ENEMY_DAMAGE):
+                         MENU_MODE_DAMAGING_PLAYER):
             sprite = self.background_renderer.player_sprites[b.enemy_target_index]
             pokemon = b.model.player_team[b.enemy_target_index]
 
