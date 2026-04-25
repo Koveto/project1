@@ -1,0 +1,19 @@
+b.player_team[b.turn_index].is_guarding = False
+
+if not b.damage_done:
+        return
+    if b.affinity_text and not b.affinity_done:
+        if handle_scroll_skip(b, event, "affinity_text", "affinity_scroll_index", "affinity_scroll_done"):
+            return
+        return
+    if b.is_crit and not b.affinity_confirm and key_confirm(event.key):
+        b.affinity_confirm = True
+        return
+    if b.is_crit and b.affinity_done and not b.crit_done and b.affinity_confirm:
+        if handle_scroll_skip(b, event, "crit_text", "crit_scroll_index", "crit_scroll_done"):
+            return
+        if key_confirm(event.key):
+            finish_damage_phase(b)
+        return
+    if key_confirm(event.key):
+        finish_damage_phase(b)

@@ -10,9 +10,6 @@ from overworld.player import Player
 from pokedex.pokemon_controller import PokemonController
 from pokedex.pokemon_view import PokemonView
 
-# Battle subsystem
-from battle.battle_background import load_battle_background
-
 # State system
 from state.state_manager import StateManager
 from state.overworld_state import OverworldState
@@ -52,11 +49,6 @@ def main():
     pokedex_view = PokemonView(pokedex_controller)
 
     # ---------------------------------------------------------
-    # Battle setup
-    # ---------------------------------------------------------
-    battle_background = load_battle_background(7)
-
-    # ---------------------------------------------------------
     # State Manager + State Registration
     # ---------------------------------------------------------
     state_manager = StateManager()
@@ -83,7 +75,6 @@ def main():
     state_manager.register(
         "battle",
         BattleState(
-            battle_background
         )
     )
 

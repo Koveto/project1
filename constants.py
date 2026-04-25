@@ -1,5 +1,4 @@
-import os
-import pygame
+import os, pygame, random
 
 # Scale factor
 SCALE = 4
@@ -30,6 +29,18 @@ ELEMENT_INDEX = {
     "Light": 5,
     "Dark": 6
 }
+
+POTENTIAL_ORDER = [
+    "Physical", 
+    "Fire", 
+    "Force", 
+    "Ice", 
+    "Electric", 
+    "Light", 
+    "Dark",
+    "Healing", 
+    "Support"
+]
 
 # Root folder for all sprite assets
 SPRITE_ROOT = os.path.abspath(

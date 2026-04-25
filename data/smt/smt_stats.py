@@ -79,7 +79,7 @@ def load_smt_from_json(path: str) -> List[Pokemon]:
             level=entry.get("level", 1),
             stats=stats_dict,
             affinities=entry["affinities"],
-            potential=potential,          # <-- NEW
+            potential=potential,
             learnset=learnset,
             bst=entry["bst"]
         )
@@ -92,3 +92,43 @@ def load_smt_from_json(path: str) -> List[Pokemon]:
 
 def get_smt_pokemon_by_number(smt_list, number):
     return next((p for p in smt_list if p.pokedex_number == number), None)
+
+def load_pkmn_from_json(path: str) -> List[Pokemon]:
+    """Load Pokémon from SMT-style JSON and return real Pokemon objects."""
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    result = []
+
+    for entry in data["pokemon"]:
+        # Convert SMTStats → dict
+        raw_stats = SMTStats.from_dict(entry["stats"])
+        stats_dict = raw_stats.to_base_stat_dict()
+
+        # Convert learnset entries
+        learnset = [Move(m["level"], m["move"]) for m in entry.get("learnset", [])]
+
+        # NEW: load potential if present, otherwise default to zeros
+        potential = entry.get("potential")
+        if potential is None:
+            potential = [0] * 9
+
+        p = Pokemon(
+            pokedex_number=entry["no"],
+            name=entry["name"],
+            level=entry.get("level", 1),
+            stats=stats_dict,
+            affinities=entry["affinities"],
+            potential=potential,
+            learnset=learnset,
+            bst=entry["bst"]
+        )
+
+        result.append(p)
+
+    return result
+
+
+
+def get_pkmn_by_number(pkmn_list, pokedex_number=1):
+    return next((p for p in pkmn_list if p.pokedex_number == pokedex_number), None)
