@@ -26,7 +26,7 @@ STATE_INFO                                            = 7
 STATE_SKILLS_TARGET_ENEMY                             = 8
 STATE_SCROLL                                          = 9
 STATE_WAIT                                            = 10
-STATE_ANIMATE_ENEMY_HP                                = 11
+STATE_ANIMATE_SKILL                                   = 11
 
 MENU_CURSOR_SKILLS_X     = 0
 MENU_CURSOR_SKILLS_Y     = 0
@@ -128,7 +128,7 @@ ENEMY_DRAW_ORDER = (1, 3, 0, 2)
 WAIT_FRAMES_BEFORE_DAMAGE = 30
 
 X_PKMN_PLAYER = -64
-X_PKMN_ENEMY = 300
+X_PKMN_ENEMY = 300 - 20
 X_HPMP = 672
 X_ACTIVE_POKEMON_NAME = 692
 X_LV = 877
@@ -178,7 +178,7 @@ W_MP_BAR = 192
 H_HP_BAR = 8
 H_MP_BAR = 8
 
-D_PKMN_PLAYER = 150
+D_PKMN_PLAYER = 150 + 25
 D_PKMN_ENEMY = 152
 D_PLAYER_OFFSET_X = 50
 D_PLAYER_OFFSET_Y = 64
@@ -202,3 +202,15 @@ PT_DURATION_FLASH    = 10
 
 MENU_MAIN_LINE_1 = "  Skills   Item    Guard   Talk"
 MENU_MAIN_LINE_2 = "  Change   Escape  Pass    Info"
+
+MAX_OPACITY_ANIM = 100
+
+ELEMENT_COLORS = {
+    "Physical": (255, 255, 255),
+    "Fire": (255, 0, 0),
+    "Force": (0, 255, 0),
+    "Ice": (0, 0, 255),
+    "Electric": (255, 255, 0),
+    "Light": (240, 255, 156),
+    "Dark": (76, 0, 99)
+}

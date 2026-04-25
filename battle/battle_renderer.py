@@ -178,9 +178,7 @@ class BattleRenderer:
                 y += poke_offset
             """
             if (i == which_pkmn_bouncing) and \
-                (b.state not in (STATE_SCROLL,
-                                 STATE_WAIT,
-                                 STATE_ANIMATE_ENEMY_HP)):
+                (b.draw_player_bounce):
                 y += bounce_offset_pkmn
 
             screen.blit(sprite, (x, y))
@@ -256,10 +254,7 @@ class BattleRenderer:
             MENU_MODE_TARGET_HEAL
         ):
         """
-        if b.state in (STATE_SKILLS_TARGET_ENEMY,
-                       STATE_SCROLL,
-                       STATE_WAIT,
-                       STATE_ANIMATE_ENEMY_HP):
+        if b.draw_darken:
             dark_surface = pygame.Surface((ACTUAL_WIDTH, Y_FRAME))
             dark_surface.set_alpha(140)
             dark_surface.fill((0,0,0))
@@ -297,13 +292,36 @@ class BattleRenderer:
             if target_pkmn_info is not None:
                 sprite, x, y = target_pkmn_info
                 screen.blit(sprite,(x,y))
+
+        if b.draw_anim_skill:
+            element_color = ELEMENT_COLORS[b.moves[pkmn.moves[b.skills_cursor + b.skills_scroll]]['element']]
+            colored_surface = pygame.Surface((ACTUAL_WIDTH, Y_FRAME))
+            try:
+                t = b.delay_frames / b.delay_target
+                t = max(0.0, min(1.0, t))  # clamp
+                if t <= 0.5:
+                    x = t / 0.5
+                else:
+                    x = (1 - t) / 0.5
+                alpha = x * x * (3 - 2 * x)
+            except ZeroDivisionError:
+                alpha = 0
+            colored_surface.set_alpha(int(MAX_OPACITY_ANIM * alpha))
+            colored_surface.fill(element_color)
+            screen.blit(colored_surface, (0,0))
+            if active_pkmn_info is not None:
+                sprite, x, y = active_pkmn_info
+                screen.blit(sprite,(x,y))
+            if target_pkmn_info is not None:
+                sprite, x, y = target_pkmn_info
+                screen.blit(sprite,(x,y))
         
         """
         if b.menu_mode in (MENU_MODE_TARGET_SELECT, 
                              MENU_MODE_ITEM_TARGET_SELECT):
         """
-        if b.state == STATE_SKILLS_TARGET_ENEMY:
-            selected_move_index = b.menu_cursor_y + b.menu_scroll_y
+        if b.draw_affinity_color:
+            selected_move_index = b.skills_cursor + b.skills_scroll
             """
             if b.menu_mode == MENU_MODE_TARGET_SELECT:
                 move_name = active_pokemon.moves[selected_index]
@@ -346,9 +364,7 @@ class BattleRenderer:
             enemy_hpmp_y += hp_offset
             ui_hp_offset += hp_offset
         """
-        if b.state not in (STATE_SCROLL,
-                           STATE_WAIT,
-                           STATE_ANIMATE_ENEMY_HP):
+        if b.draw_hp_bounce:
             hpmp_y += bounce_offset_hp
             enemy_hpmp_y += bounce_offset_hp
             ui_hp_offset += bounce_offset_hp
@@ -409,9 +425,8 @@ class BattleRenderer:
                                MENU_MODE_TARGET_BUFF,
                                MENU_MODE_TARGET_HEAL)
         """
-        if b.state in (STATE_SKILLS, \
-                       STATE_SKILLS_TARGET_ENEMY):
-            selected_move = b.moves.get(pkmn.moves[b.menu_cursor_y + b.menu_scroll_y])
+        if b.draw_mp_cost:
+            selected_move = b.moves.get(pkmn.moves[b.skills_cursor + b.skills_scroll])
             """
             if b.menu_mode == MENU_MODE_TARGET_BUFF and \
                 b.selected_ally != b.model.turn_index:
@@ -464,10 +479,7 @@ class BattleRenderer:
             MENU_MODE_INFO
         )
         """
-        if b.state in (STATE_SKILLS_TARGET_ENEMY, \
-                       STATE_SCROLL,
-                       STATE_WAIT,
-                       STATE_ANIMATE_ENEMY_HP):
+        if b.draw_enemy_info:
             """
             if b.menu_mode in (MENU_MODE_TARGET_SELECT,
                             MENU_MODE_DAMAGING_ENEMY,
@@ -545,7 +557,7 @@ class BattleRenderer:
         for i, state in enumerate(press_turn_icon_states):
             if (b.is_player_turn):
                 x = X_PT + i * D_PT
-                if b.state == STATE_ANIMATE_ENEMY_HP:
+                if not b.draw_hp_bounce:
                     y = Y_PT
                 else:
                     y = Y_PT + bounce_offset_hp
@@ -568,7 +580,7 @@ class BattleRenderer:
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
 
         elif b.state == STATE_SKILLS:
-            visible_moves = pkmn.moves[b.menu_scroll_y:b.menu_scroll_y + 3]
+            visible_moves = pkmn.moves[b.skills_scroll:b.skills_scroll + 3]
             y = Y_SKILLS
             for move_name in visible_moves:
                 text = self._format_move_for_menu(move_name, b.moves, pkmn)
@@ -579,17 +591,17 @@ class BattleRenderer:
                     y
                 )
                 y += Y_SKILLS_INCR
-            cursor_x, cursor_y = COORDS_MENU_SKILLS[b.menu_cursor_y]
+            cursor_x, cursor_y = COORDS_MENU_SKILLS[b.skills_cursor]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
         
         elif b.state == STATE_SKILLS_TARGET_ENEMY:
-            selected_move_name = pkmn.moves[b.menu_cursor_y + b.menu_scroll_y]
+            selected_move_name = pkmn.moves[b.skills_cursor + b.skills_scroll]
             text = self._format_move_for_menu(selected_move_name,
                                               b.moves,
                                               pkmn)
-            y = Y_SKILLS + (b.menu_cursor_y * Y_SKILLS_INCR)
+            y = Y_SKILLS + (b.skills_cursor * Y_SKILLS_INCR)
             self.font2.draw_text(screen, text, X_SKILLS, y)
-            cursor_x, cursor_y = COORDS_MENU_SKILLS[b.menu_cursor_y]
+            cursor_x, cursor_y = COORDS_MENU_SKILLS[b.skills_cursor]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
         
         elif b.state == STATE_SCROLL:
@@ -627,7 +639,7 @@ class BattleRenderer:
                 return
             """
 
-        elif b.state == STATE_WAIT:
+        elif b.draw_text_finished:
             full_word_lines = self._wrap_text_words(b.scroll_text)
             visible_lines = ["", "", ""]
             for line_idx, words in enumerate(full_word_lines):
