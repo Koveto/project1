@@ -36,36 +36,8 @@ class BattleState(GameState):
             "Dark Gem": 1
         }
 
-        # Player turn: choose skills/items/...
-        self.state = STATE_MAIN
-        # Used for multiple menus
-        self.menu_cursor_x = 0
-        self.menu_cursor_y = 0
-        self.skills_cursor = 0
-        self.skills_scroll = 0
-        # See battle_target
-        self.target_index = 0
-        # Generic dialogue to scroll
-        self.scroll_text = ""
-        self.scroll_index = 0
-        self.scroll_done = False
-        # Generic delay after scroll
-        self.delay_target = WAIT_FRAMES_BEFORE_DAMAGE
-        self.delay_frames = 0
-        self.delay_started = False
-        # Keep track of future states
-        self.next_state = Stack()
-        # Renderer flags
-        self.draw_enemy_bounce = False
-        self.draw_player_bounce = False
-        self.draw_hp_bounce = False
-        self.draw_darken = False
-        self.draw_affinity_color = False
-        self.draw_mp_cost = False
-        self.draw_enemy_info = False
-        self.draw_anim_skill = False
-        self.draw_text_finished = False
-
+        self.state = None
+        self.pending_state = None
         self.enter_state(STATE_MAIN)
 
         self.background    = random.choice([BACKGROUND_GRASS_1,
@@ -206,20 +178,35 @@ class BattleState(GameState):
                 return
             elif key_confirm(event.key):
                 self.enter_state(STATE_SCROLL)
-                self.next_state.push(STATE_ANIMATE_SKILL)
+                self.next_state.push(STATE_CALC_PLAYER_DMG_TO_ENEMY)
+                self.next_state.push(STATE_WAIT)
             elif key_back(event.key):
                 self.enter_state(STATE_SKILLS)
         elif self.state == STATE_SCROLL:
             if not self.scroll_done and key_confirm(event.key):
                 self.scroll_index = len(self.scroll_text)
                 self.scroll_done = True
+            if self.scroll_done and \
+                key_confirm(event.key) and \
+                    self.scroll_input_required:
+                self.enter_state(self.next_state.pop())
         elif self.state == STATE_WAIT:
             pass
         elif self.state == STATE_ANIMATE_SKILL:
             pass
+        elif self.state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
+            pass
+        elif self.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
+            pass
         # ========================= END HANDLE_EVENT =================================
 
     def update(self):
+        if self.pending_state is not None:
+            next_state = self.pending_state
+            self.pending_state = None
+            self.enter_state(next_state)
+            return
+
         if not self.is_player_turn:
             pass
         if self.state == STATE_SCROLL:
@@ -231,7 +218,8 @@ class BattleState(GameState):
                     self.scroll_index = len(self.scroll_text)
                     self.scroll_done = True
             else:
-                self.enter_state(self.next_state.pop())
+                if not self.scroll_input_required:
+                    self.enter_state(self.next_state.pop())
         elif self.state == STATE_WAIT:
             if not self.delay_started:
                 self.delay_started = True
@@ -253,14 +241,50 @@ class BattleState(GameState):
             self.delay_started = False
             self.delay_frames = 0
             self.delay_target = 0
-            self.enter_state(STATE_CHANGE)
+            self.enter_state(STATE_SCROLL)
+        elif self.state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
+            pass
+        elif self.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
+            if self.hp_scrolls[0] > self.hp_targets[0]:
+                diff = self.hp_scrolls[0] - self.hp_targets[0]
+                step = max(1, int(diff * 0.18))   # tweak 0.18 to taste
+                self.hp_scrolls[0] -= step
+
+
         
     def enter_state(self, state):
         if state == STATE_MAIN:
+            # Used for multiple menus
+            self.menu_cursor_x = 0
+            self.menu_cursor_y = 0
+            self.skills_cursor = 0
+            self.skills_scroll = 0
+            # See battle_target
+            self.target_index = 0
+            # Generic dialogue to scroll
+            self.scroll_text = ""
+            self.scroll_index = 0
+            self.scroll_done = False
+            self.scroll_input_required = False
+            # Generic delay after scroll
+            self.delay_target = WAIT_FRAMES_BEFORE_DAMAGE
+            self.delay_frames = 0
+            self.delay_started = False
+            # Keep track of future states
+            self.next_state = Stack()
+            self.next_scroll = Stack()
+            # Renderer flags
+            self.draw_enemy_bounce = False
+            self.draw_affinity_color = False
+            self.draw_enemy_info = False
+            self.draw_anim_skill = False
+            self.draw_text_finished = False
             self.draw_player_bounce = True
             self.draw_hp_bounce = True
             self.draw_darken = False
             self.draw_mp_cost = False
+            self.hp_targets = []
+            self.hp_scrolls = []
         elif state == STATE_SKILLS:
             self.draw_enemy_bounce = False
             self.draw_darken = False
@@ -282,6 +306,7 @@ class BattleState(GameState):
             self.scroll_done = False
             if self.state == STATE_SKILLS_TARGET_ENEMY:
                 self.delay_target = WAIT_FRAMES_BEFORE_DAMAGE
+                self.scroll_input_required = False
                 pkmn = self.player_team[self.turn_index]
                 target = self.enemy_team[self.target_index]
                 move_name = pkmn.moves[self.skills_cursor + self.skills_scroll]
@@ -292,14 +317,51 @@ class BattleState(GameState):
                     self.scroll_text = f"{pkmn.name} attacks {target.name}!"
                 else:
                     self.scroll_text = f"{pkmn.name} uses {move_name} on {target.name}!"
+            if self.state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
+                self.scroll_input_required = True
+                self.scroll_text = "But it missed!"
         elif state == STATE_WAIT:
-            pass
+            if self.state == STATE_SCROLL:
+                self.draw_text_finished = True
         elif state == STATE_ANIMATE_SKILL:
             self.draw_anim_skill = True
             self.draw_text_finished = True
             self.delay_target = WAIT_FRAMES_BEFORE_DAMAGE
-            if (self.state == STATE_WAIT):
-                pass
+        elif state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
+            attacker = self.player_team[self.turn_index]
+            defender = self.enemy_team[self.target_index]
+            target = defender
+
+            move = self.moves[attacker.moves[self.skills_cursor + self.skills_scroll]]
+            affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
+            damage = move["power"]
+
+            self.hp_targets = []
+            self.hp_scrolls = []
+
+            if affinity == AFFINITY_REFLECT:
+                target = attacker
+                affinity = attacker.affinities[ELEMENT_INDEX[move["element"]]]
+            if AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
+                damage = 0
+
+            if random.random() < CHANCE_CRIT:
+                # crit
+                damage *= 1.5
+            if random.random() > (move.get("accuracy") / 100):
+                # missed
+                damage = 0
+                self._consume_full_turn()
+                self._consume_full_turn()
+                self.pending_state = STATE_SCROLL
+            else:
+                # hit
+                self.hp_targets += [max(0, target.remaining_hp - damage)]
+                self.hp_scrolls += [target.remaining_hp]
+                target.remaining_hp = self.hp_targets[0]
+                self.pending_state = STATE_ANIMATE_SKILL
+        elif state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
+            pass
         self.state = state
 
     def _init_teams(self):
@@ -355,3 +417,19 @@ class BattleState(GameState):
             else:
                 p.sprite_column = random.choice([0, 1, 2])  # nonshiny front
         # ========================= END _INIT_TEAMS =================================
+
+    def _consume_full_turn(self):
+        for i in range(4):
+            if self.press_turns[i] != PRESS_TURN_NULL:
+                self.press_turns[i] = PRESS_TURN_NULL
+                return
+            
+    def _consume_half_turn(self):
+        for i in range(4):
+            if self.press_turns[i] == PRESS_TURN_SOLID:
+                self.press_turns[i] = PRESS_TURN_FLASH
+                return
+        for i in range(4):
+            if self.press_turns[i] == PRESS_TURN_FLASH:
+                self.press_turns[i] = PRESS_TURN_NULL
+                return

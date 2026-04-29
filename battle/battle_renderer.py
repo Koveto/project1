@@ -400,9 +400,18 @@ class BattleRenderer:
             X_LV_TEXT,
             hpmp_y + Y_LV_TEXT_OFFSET
         )
-        self._draw_hp_bar(screen, pkmn_for_hpmp, ui_hp_offset)
+        
+        hp_source = pkmn_for_hpmp.remaining_hp
+        attacker = b.player_team[b.turn_index]
+        defender = b.enemy_team[b.target_index]
+        move = b.moves[attacker.moves[b.skills_cursor + b.skills_scroll]]
+        affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
+        if ((b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET) and \
+            (affinity == AFFINITY_REFLECT)):
+            hp_source = b.hp_scrolls[0]
+
+        self._draw_hp_bar(screen, pkmn_for_hpmp, ui_hp_offset, override_hp=hp_source)
         self._draw_mp_bar(screen, pkmn_for_hpmp, ui_hp_offset)
-        hp_source = getattr(pkmn_for_hpmp, "hp_anim", pkmn_for_hpmp.remaining_hp)
         ratio_text = self._format_hpmp_text(pkmn_for_hpmp, hp_override=hp_source)
         self.font3.draw_text(screen,
                              ratio_text,
@@ -511,7 +520,14 @@ class BattleRenderer:
                 X_LV_TEXT_ENEMY,
                 enemy_hpmp_y + Y_LV_TEXT_OFFSET_ENEMY
             )
-            hp_source = getattr(enemy_for_hpmp,"hp_anim",enemy_for_hpmp.remaining_hp)
+            hp_source = enemy_for_hpmp.remaining_hp
+            attacker = b.player_team[b.turn_index]
+            defender = b.enemy_team[b.target_index]
+            move = b.moves[attacker.moves[b.skills_cursor + b.skills_scroll]]
+            affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
+            if ((b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET) and \
+                (affinity != AFFINITY_REFLECT)):
+                hp_source = b.hp_scrolls[0]
             self._draw_hp_bar(
                 screen,
                 enemy_for_hpmp,
@@ -632,6 +648,10 @@ class BattleRenderer:
                                  visible_lines[2],
                                  X_MENU_MAIN,
                                  Y_MENU_MAIN_2)
+            if (b.scroll_done) and \
+                (b.scroll_input_required) and \
+                    (blink):
+                screen.blit(self.cursor_sprite, (X_CONFIRM_ARROW, Y_CONFIRM_ARROW))
             """
             if b.scroll_done and not b.damage_done and not b.damage_started:
                 if blink:
@@ -678,7 +698,7 @@ class BattleRenderer:
                      override_hp=None):
         if pokemon.max_hp <= 0:
             return
-        hp_value = override_hp if override_hp is not None else getattr(pokemon, "hp_anim", pokemon.remaining_hp)
+        hp_value = override_hp if override_hp is not None else pokemon.remaining_hp
         ratio = max(0.0, min(1.0, hp_value / pokemon.max_hp))
         fill_width = int(W_HP_BAR * ratio)
         if fill_width <= 0:

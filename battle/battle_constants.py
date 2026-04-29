@@ -27,6 +27,8 @@ STATE_SKILLS_TARGET_ENEMY                             = 8
 STATE_SCROLL                                          = 9
 STATE_WAIT                                            = 10
 STATE_ANIMATE_SKILL                                   = 11
+STATE_CALC_PLAYER_DMG_TO_ENEMY                        = 12
+STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET                 = 13
 
 MENU_CURSOR_SKILLS_X     = 0
 MENU_CURSOR_SKILLS_Y     = 0
@@ -146,6 +148,7 @@ X_PT = 820
 X_PT_ENEMY = 144
 X_MENU_MAIN = 40
 X_SKILLS = 80
+X_CONFIRM_ARROW = 890
 
 Y_HPMP = 308
 Y_HPMP_ENEMY = 0
@@ -171,6 +174,7 @@ Y_MENU_MAIN_1 = 517
 Y_MENU_MAIN_2 = 565
 Y_SKILLS = 470
 Y_SKILLS_INCR = 49
+Y_CONFIRM_ARROW = 565
 
 W_HP_BAR = 192
 W_MP_BAR = 192
@@ -214,3 +218,14 @@ ELEMENT_COLORS = {
     "Light": (240, 255, 156),
     "Dark": (76, 0, 99)
 }
+
+PRESS_TURN_HALF = 1
+PRESS_TURN_FULL = 2
+PRESS_TURN_WIPE = -1
+PRESS_TURN_NULL = 0
+PRESS_TURN_FLASH = 1
+PRESS_TURN_SOLID = 2
+
+CHANCE_CRIT = 0.08
+
+TICK_CONSTANT = 0.25

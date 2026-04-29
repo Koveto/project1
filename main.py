@@ -1,6 +1,6 @@
 import pygame
 
-from constants import TARGET_FPS, ACTUAL_TILE_SIZE
+from constants import *
 
 # Overworld subsystem
 from overworld.map import Map
@@ -23,8 +23,8 @@ def main():
     # ---------------------------------------------------------
     # Window setup
     # ---------------------------------------------------------
-    screen_width = 960
-    screen_height = 640
+    screen_width = ACTUAL_WIDTH
+    screen_height = ACTUAL_HEIGHT
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("SMT Pokemon Game")
 
