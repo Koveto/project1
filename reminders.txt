@@ -1,66 +1,14 @@
 b.player_team[b.turn_index].is_guarding = False
 
-if not self.damage_started:
-    attacker = self.player_team[self.turn_index]
-    defender = self.enemy_team[self.target_index]
-    move = self.moves[attacker.moves[self.skills_cursor + self.skills_scroll]]
-    if random.random() > (move.get("accuracy") / 100):
-        missed = True
-        damage_amount = None
-        damage_target = defender
-        damage_started = True
-        damage_animating = False
-        damage_done = True
-        affinity_text = None
-        affinity_done = None
-        affinity_scroll_done = True
-        crit_done = True
-        crit_scroll_done = True
-        affinity_confirm = True
-        damage_text = "But it missed!"
-        damage_scroll_index = 0
-        damage_scroll_done = False
-        self._consume_full_turn()
-        idx = None
-        for i in range(4):
-            if self.press_turns[i] != PRESS_TURN_NULL:
-                idx = i
-                break
-        if idx is not None:
-            if self.press_turns[idx] == PRESS_TURN_SOLID:
-                self.press_turns[idx] = PRESS_TURN_NULL
-            elif self.press_turns[idx] == PRESS_TURN_FLASH:
-                has_after = False
-                for j in range(idx + 1, 4):
-                    if self.press_turns[j] != PRESS_TURN_NULL:
-                        has_after = True
-                        break
-                if has_after:
-                    self.press_turns[idx] = PRESS_TURN_NULL
-        #return
-    element = move["element"]
-    element_index = ELEMENT_INDEX[element]
-    affinity = defender.affinities[element_index]
-    if move["type"] == "Physical" and not self.is_crit:
-        if random.random() < CHANCE_CRIT:
-            self.is_crit = True
-            self.crit_text = "A critical hit!"
-            self.crit_scroll_done = False
-            self.crit_scroll_index = 0
-    self.damage_amount = move["power"]
-    if AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
-        self.damage_amount = 0
-    damage_target = defender
-    if affinity == AFFINITY_REFLECT:
-        damage_target = attacker
-    damage_target.hp_target = max(0, damage_target.remaining_hp - self.damage_amount)
-    damage_target.hp_anim = damage_target.remaining_hp
-    damage_pixels = int((self.damage_amount / damage_target.max_hp) * W_HP_BAR)
-    damage_target.hp_anim_speed = max(1, min(12, damage_pixels // 4))
-    damage_target.remaining_hp = damage_target.hp_target
-    self.damage_target = damage_target
-    self.damage_started = True
-    self.damage_animating = True
-if self.damage_animating and \
-    self.damage_target.hp_anim > self.damage_target.hp_target:
-    self.damage_target.hp_anim -= max(1, int((self.damage_target.hp_anim - self.damage_target.hp_target) ** TICK_CONSTANT))
+STATE_MAIN -> STATE_SKILLS
+STATE_SKILLS -> STATE_SKILLS_TARGET_ENEMY
+STATE_SKILLS_TARGET_ENEMY -> stack...
+stack...STATE_SCROLL
+        STATE_WAIT
+        STATE_CALC_PLAYER_DMG_TO_ENEMY 
+miss! STATE_CALC_PLAYER_DMG_TO_ENEMY -> STATE_SCROLL -> end
+hit!  STATE_CALC_PLAYER_DMG_TO_ENEMY
+      STATE_WAIT
+      STATE_WAIT
+      STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET
+      STATE_SCROLL

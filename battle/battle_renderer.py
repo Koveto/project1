@@ -7,15 +7,6 @@ from battle.battle_constants import *
 from battle.battle_font import BattleFont
 from battle.battle_background import load_battle_background
 
-"""
-from battle.renderers.text_renderer import TextRenderer
-from battle.renderers.background_renderer import BackgroundRenderer
-from battle.renderers.hpmp_renderer import HPMPRenderer
-from battle.renderers.menu_renderer import MenuRenderer
-from battle.renderers.press_turn_renderer import PressTurnRenderer
-from battle.renderers.stat_icon_renderer import StatIconRenderer
-"""
-
 class BattleRenderer:
     def __init__(self, b):
         # ========================= START INIT =================================
@@ -341,7 +332,7 @@ class BattleRenderer:
                     flash_color = COLOR_RED
                 elif AFFINITY_NULL <= affinity_value < AFFINITY_REFLECT:
                     flash_color = COLOR_BLACK
-                elif affinity_value == AFFINITY_REFLECT:
+                elif affinity_value >= AFFINITY_REFLECT:
                     flash_color = COLOR_BLACK
                 sprite_alpha = sprite.convert_alpha()
                 w, h = sprite_alpha.get_size()
@@ -402,13 +393,14 @@ class BattleRenderer:
         )
         
         hp_source = pkmn_for_hpmp.remaining_hp
-        attacker = b.player_team[b.turn_index]
-        defender = b.enemy_team[b.target_index]
-        move = b.moves[attacker.moves[b.skills_cursor + b.skills_scroll]]
-        affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
-        if ((b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET) and \
-            (affinity == AFFINITY_REFLECT)):
-            hp_source = b.hp_scrolls[0]
+        if b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
+            attacker = b.player_team[b.turn_index]
+            defender = b.enemy_team[b.target_index]
+            move = b.moves[attacker.moves[b.skills_cursor + b.skills_scroll]]
+            affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
+            if ((b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET) and \
+                (affinity == AFFINITY_REFLECT)):
+                hp_source = b.hp_scrolls[0]
 
         self._draw_hp_bar(screen, pkmn_for_hpmp, ui_hp_offset, override_hp=hp_source)
         self._draw_mp_bar(screen, pkmn_for_hpmp, ui_hp_offset)

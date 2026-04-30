@@ -39,7 +39,8 @@ POTENTIAL_ORDER = [
     "Light", 
     "Dark",
     "Healing", 
-    "Support"
+    "Support",
+    "Ailment"
 ]
 
 # Root folder for all sprite assets

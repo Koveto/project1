@@ -277,7 +277,7 @@ class PokemonView:
         affinities = pokemon.affinities
         potentials = pokemon.potential   # length 9 (7 + Healing + Support)
 
-        ELEMENTS_EXT = ELEMENTS + ["Healing", "Support"]
+        ELEMENTS_EXT = ELEMENTS + ["Healing", "Support", "Ailment"]
 
         grid_x = TYPE_GRID_X
         grid_y = TYPE_GRID_Y

@@ -192,8 +192,6 @@ class BattleState(GameState):
                 self.enter_state(self.next_state.pop())
         elif self.state == STATE_WAIT:
             pass
-        elif self.state == STATE_ANIMATE_SKILL:
-            pass
         elif self.state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
             pass
         elif self.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
@@ -231,17 +229,6 @@ class BattleState(GameState):
             self.delay_frames = 0
             self.delay_target = 0
             self.enter_state(self.next_state.pop())
-        elif self.state == STATE_ANIMATE_SKILL:
-            if not self.delay_started:
-                self.delay_started = True
-                self.delay_frames = 0
-            self.delay_frames += 1
-            if self.delay_frames < self.delay_target:
-                return
-            self.delay_started = False
-            self.delay_frames = 0
-            self.delay_target = 0
-            self.enter_state(STATE_SCROLL)
         elif self.state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
             pass
         elif self.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
@@ -249,6 +236,16 @@ class BattleState(GameState):
                 diff = self.hp_scrolls[0] - self.hp_targets[0]
                 step = max(1, int(diff * 0.18))   # tweak 0.18 to taste
                 self.hp_scrolls[0] -= step
+            else:
+                attacker = self.player_team[self.turn_index]
+                defender = self.enemy_team[self.target_index]
+                target = defender
+                move = self.moves[attacker.moves[self.skills_cursor + self.skills_scroll]]
+                affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
+                if affinity == AFFINITY_REFLECT:
+                    target = attacker
+                target.remaining_hp = self.hp_targets[0]
+                self.enter_state(STATE_SCROLL)
 
 
         
@@ -320,13 +317,33 @@ class BattleState(GameState):
             if self.state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
                 self.scroll_input_required = True
                 self.scroll_text = "But it missed!"
+            if self.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
+                self.scroll_input_required = True
+                self.scroll_text = "affinity text"
+                attacker = self.player_team[self.turn_index]
+                defender = self.enemy_team[self.target_index]
+                move = self.moves[attacker.moves[self.skills_cursor + self.skills_scroll]]
+                affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
+                if affinity == AFFINITY_NEUTRAL:
+                    pass
+                else:
+                    if affinity < AFFINITY_NEUTRAL:
+                        self.scroll_text = AFFINITY_TEXT_WEAK
+                    elif AFFINITY_RESIST <= affinity < AFFINITY_NULL:
+                        self.scroll_text = AFFINITY_TEXT_RESIST
+                    elif AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
+                        self.scroll_text = AFFINITY_TEXT_NULL
+                    elif AFFINITY_REFLECT <= affinity < AFFINITY_ABSORB:
+                        self.scroll_text = AFFINITY_TEXT_REFLECT
+                    elif affinity >= AFFINITY_ABSORB:
+                        self.scroll_text = AFFINITY_TEXT_ABSORB
         elif state == STATE_WAIT:
             if self.state == STATE_SCROLL:
                 self.draw_text_finished = True
-        elif state == STATE_ANIMATE_SKILL:
-            self.draw_anim_skill = True
-            self.draw_text_finished = True
-            self.delay_target = WAIT_FRAMES_BEFORE_DAMAGE
+            if self.state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
+                self.draw_anim_skill = True
+                self.draw_text_finished = True
+                self.delay_target = WAIT_FRAMES_BEFORE_DAMAGE
         elif state == STATE_CALC_PLAYER_DMG_TO_ENEMY:
             attacker = self.player_team[self.turn_index]
             defender = self.enemy_team[self.target_index]
@@ -344,6 +361,8 @@ class BattleState(GameState):
                 affinity = attacker.affinities[ELEMENT_INDEX[move["element"]]]
             if AFFINITY_NULL <= affinity < AFFINITY_REFLECT:
                 damage = 0
+            if affinity == AFFINITY_ABSORB:
+                damage *= -1
 
             if random.random() < CHANCE_CRIT:
                 # crit
@@ -356,10 +375,10 @@ class BattleState(GameState):
                 self.pending_state = STATE_SCROLL
             else:
                 # hit
-                self.hp_targets += [max(0, target.remaining_hp - damage)]
+                self.hp_targets += [min(max(0, target.remaining_hp - damage), target.max_hp)]
                 self.hp_scrolls += [target.remaining_hp]
-                target.remaining_hp = self.hp_targets[0]
-                self.pending_state = STATE_ANIMATE_SKILL
+                self.pending_state = STATE_WAIT
+                self.next_state.push(STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET)
         elif state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
             pass
         self.state = state

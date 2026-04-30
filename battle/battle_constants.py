@@ -26,9 +26,8 @@ STATE_INFO                                            = 7
 STATE_SKILLS_TARGET_ENEMY                             = 8
 STATE_SCROLL                                          = 9
 STATE_WAIT                                            = 10
-STATE_ANIMATE_SKILL                                   = 11
-STATE_CALC_PLAYER_DMG_TO_ENEMY                        = 12
-STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET                 = 13
+STATE_CALC_PLAYER_DMG_TO_ENEMY                        = 11
+STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET                 = 12
 
 MENU_CURSOR_SKILLS_X     = 0
 MENU_CURSOR_SKILLS_Y     = 0
@@ -195,7 +194,14 @@ D_PT = 34
 AFFINITY_NEUTRAL = 0
 AFFINITY_RESIST = 1
 AFFINITY_NULL = 2
-AFFINITY_REFLECT = 9
+AFFINITY_REFLECT = 8
+AFFINITY_ABSORB = 9
+
+AFFINITY_TEXT_WEAK = "It's super effective!"
+AFFINITY_TEXT_RESIST = "It's not very effective..."
+AFFINITY_TEXT_NULL = "But it had no effect!"
+AFFINITY_TEXT_REFLECT = "But it was reflected back!"
+AFFINITY_TEXT_ABSORB = "But it was absorbed!"
 
 PT_STATE_TRANSPARENT = "transparent"
 PT_STATE_SOLIDBLUE   = "solid_blue"

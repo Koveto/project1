@@ -71,7 +71,7 @@ def load_smt_from_json(path: str) -> List[Pokemon]:
         # NEW: load potential if present, otherwise default to zeros
         potential = entry.get("potential")
         if potential is None:
-            potential = [0] * 9
+            potential = [0] * 10
 
         p = Pokemon(
             pokedex_number=entry["no"],
