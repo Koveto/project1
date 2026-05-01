@@ -400,7 +400,7 @@ class BattleRenderer:
             affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
             if ((b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET) and \
                 (affinity == AFFINITY_REFLECT)):
-                hp_source = b.hp_scrolls[0]
+                hp_source = b.dmg_hp_scrolls[0]
 
         self._draw_hp_bar(screen, pkmn_for_hpmp, ui_hp_offset, override_hp=hp_source)
         self._draw_mp_bar(screen, pkmn_for_hpmp, ui_hp_offset)
@@ -519,7 +519,7 @@ class BattleRenderer:
             affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
             if ((b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET) and \
                 (affinity != AFFINITY_REFLECT)):
-                hp_source = b.hp_scrolls[0]
+                hp_source = b.dmg_hp_scrolls[0]
             self._draw_hp_bar(
                 screen,
                 enemy_for_hpmp,
@@ -528,7 +528,7 @@ class BattleRenderer:
                 base_y=Y_HPMP_TO_FILL,
                 override_hp=hp_source
             )
-            hp_cur = f"{hp_source:3d}"
+            hp_cur = f"{int(hp_source):3d}"
             hp_max = f"{enemy_for_hpmp.max_hp:3d}"
             ratio_text = f"HP{hp_cur}/{hp_max}"
             self.font3.draw_text(
@@ -809,19 +809,45 @@ class BattleRenderer:
         return f"{name_field} {mp}  {element_short}  {power}  {desc}"
     
     def _wrap_text_words(self, text, max_width=32):
-        words = text.split()
         lines = []
         current = []
-        for word in words:
-            # Predict length if we add this word
-            predicted = " ".join(current + [word])
-            if len(predicted) > max_width:
+
+        def flush_line():
+            nonlocal current, lines
+            if current:
                 lines.append(current)
-                current = [word]
-            else:
-                current.append(word)
-        if current:
-            lines.append(current)
+                current = []
+
+        # First, respect explicit newlines
+        segments = text.split("\n")
+
+        for si, segment in enumerate(segments):
+            words = segment.split()
+
+            for word in words:
+                predicted = " ".join(current + [word])
+                if len(predicted) > max_width:
+                    flush_line()
+                    if len(lines) == 3:
+                        return self._pad_lines(lines)
+                    current = [word]
+                else:
+                    current.append(word)
+
+            # After each segment except the last, force a new line
+            if si < len(segments) - 1:
+                flush_line()
+                if len(lines) == 3:
+                    return self._pad_lines(lines)
+
+        # Flush any remaining words
+        flush_line()
+        return self._pad_lines(lines)
+
+
+    def _pad_lines(self, lines):
+        # Ensure exactly 3 lines
         while len(lines) < 3:
             lines.append([])
         return lines[:3]
+
