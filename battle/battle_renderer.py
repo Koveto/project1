@@ -75,7 +75,7 @@ class BattleRenderer:
     def draw(self, b, screen):
         # ========================= START DRAW =================================
         self.anim_frame += 1
-        blink = ((self.anim_frame // 10) % 2 == 0)
+        is_blink = ((self.anim_frame // 10) % 2 == 0)
         bounce_offset_pkmn = int(BOUNCE_AMP * math.sin(self.anim_frame * BOUNCE_SPEED))
         bounce_offset_hp = int(-BOUNCE_AMP * math.sin(self.anim_frame * BOUNCE_SPEED + BOUNCE_PHASE))
 
@@ -288,7 +288,7 @@ class BattleRenderer:
             element_color = ELEMENT_COLORS[b.moves[pkmn.moves[b.skills_cursor + b.skills_scroll]]['element']]
             colored_surface = pygame.Surface((ACTUAL_WIDTH, Y_FRAME))
             try:
-                t = b.delay_frames / b.delay_target
+                t = b.delay_elapsed / b.delay_target
                 t = max(0.0, min(1.0, t))  # clamp
                 if t <= 0.5:
                     x = t / 0.5
@@ -393,14 +393,8 @@ class BattleRenderer:
         )
         
         hp_source = pkmn_for_hpmp.remaining_hp
-        if b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET:
-            attacker = b.player_team[b.turn_index]
-            defender = b.enemy_team[b.target_index]
-            move = b.moves[attacker.moves[b.skills_cursor + b.skills_scroll]]
-            affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
-            if ((b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET) and \
-                (affinity == AFFINITY_REFLECT)):
-                hp_source = b.dmg_hp_scrolls[0]
+        if b.draw_dmg_hp_scroll_player:
+            hp_source = b.dmg_hp_scrolls[0]
 
         self._draw_hp_bar(screen, pkmn_for_hpmp, ui_hp_offset, override_hp=hp_source)
         self._draw_mp_bar(screen, pkmn_for_hpmp, ui_hp_offset)
@@ -411,14 +405,14 @@ class BattleRenderer:
                              hpmp_y + D_HPMP_RATIO_OFFSET_Y)
         self._draw_stat_buffs(screen, pkmn_for_hpmp,
                               X_BUFF, hpmp_y + Y_BUFF,
-                              blink)
+                              is_blink)
         """
         if (b.menu_mode in (MENU_MODE_BUFF_PLAYER_ALL, MENU_MODE_TARGET_BUFF_ALL)):
             self.hpmp_renderer.draw_player_hpmp_all(b,
                                                     screen,
                                                     hpmp_y, 
                                                     ui_hp_offset,
-                                                    blink) 
+                                                    is_blink) 
 
         if b.menu_mode in (MENU_MODE_SKILLS, 
                                MENU_MODE_TARGET_SELECT,
@@ -495,7 +489,7 @@ class BattleRenderer:
             """
             if (b.menu_mode != MENU_MODE_INFO) or \
                 (b.info_row == 0):
-                self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset, blink)
+                self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset, is_blink)
             """
             screen.blit(self.hpmp_sprite_enemy, (X_HPMP_ENEMY, enemy_hpmp_y))
             self.font1.draw_text(
@@ -513,12 +507,7 @@ class BattleRenderer:
                 enemy_hpmp_y + Y_LV_TEXT_OFFSET_ENEMY
             )
             hp_source = enemy_for_hpmp.remaining_hp
-            attacker = b.player_team[b.turn_index]
-            defender = b.enemy_team[b.target_index]
-            move = b.moves[attacker.moves[b.skills_cursor + b.skills_scroll]]
-            affinity = defender.affinities[ELEMENT_INDEX[move["element"]]]
-            if ((b.state == STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET) and \
-                (affinity != AFFINITY_REFLECT)):
+            if b.draw_dmg_hp_scroll_enemy:
                 hp_source = b.dmg_hp_scrolls[0]
             self._draw_hp_bar(
                 screen,
@@ -542,7 +531,7 @@ class BattleRenderer:
                 enemy_for_hpmp,
                 X_BUFF_ENEMY,
                 enemy_hpmp_y + Y_BUFF_ENEMY,
-                blink
+                is_blink
             )
         screen.blit(self.bframe, (0, Y_FRAME))
         """
@@ -602,7 +591,7 @@ class BattleRenderer:
             cursor_x, cursor_y = COORDS_MENU_SKILLS[b.skills_cursor]
             screen.blit(self.cursor_sprite, (cursor_x, cursor_y))
         
-        elif b.state == STATE_SKILLS_TARGET_ENEMY:
+        elif b.state == STATE_PLAYER_SINGLE_TARGET_TARGET:
             selected_move_name = pkmn.moves[b.skills_cursor + b.skills_scroll]
             text = self._format_move_for_menu(selected_move_name,
                                               b.moves,
@@ -640,13 +629,13 @@ class BattleRenderer:
                                  visible_lines[2],
                                  X_MENU_MAIN,
                                  Y_MENU_MAIN_2)
-            if (b.scroll_done) and \
-                (b.scroll_input_required) and \
-                    (blink):
+            if (b.scroll_is_done) and \
+                (b.scroll_is_input_required) and \
+                    (is_blink):
                 screen.blit(self.cursor_sprite, (X_CONFIRM_ARROW, Y_CONFIRM_ARROW))
             """
             if b.scroll_done and not b.damage_done and not b.damage_started:
-                if blink:
+                if is_blink:
                     screen.blit(self.cursor_sprite, (CONFIRM_ARROW_X, CONFIRM_ARROW_Y))
                 return
             """
@@ -690,7 +679,10 @@ class BattleRenderer:
                      override_hp=None):
         if pokemon.max_hp <= 0:
             return
-        hp_value = override_hp if override_hp is not None else pokemon.remaining_hp
+        if override_hp is not None:
+            hp_value = override_hp
+        else:
+            hp_value = pokemon.remaining_hp
         ratio = max(0.0, min(1.0, hp_value / pokemon.max_hp))
         fill_width = int(W_HP_BAR * ratio)
         if fill_width <= 0:
@@ -730,7 +722,7 @@ class BattleRenderer:
         return f"{hp_text}   {mp_text}"
     
         
-    def _draw_stat_buffs(self, screen, pokemon, base_x, base_y, blink):
+    def _draw_stat_buffs(self, screen, pokemon, base_x, base_y, is_blink):
         stage_to_col = {
             +1: 0,
             +2: 1,
@@ -738,13 +730,13 @@ class BattleRenderer:
             -2: 3
         }
         if  (pokemon.attack_buff != 0) and not \
-            (pokemon.attack_buff_turns == 1 and not blink):
+            (pokemon.attack_buff_turns == 1 and not is_blink):
             screen.blit(self.statbuffdebuff.get((0, stage_to_col[pokemon.attack_buff])),(base_x, base_y))
         if  (pokemon.defense_buff != 0) and not \
-            (pokemon.defense_buff_turns == 1 and not blink):
+            (pokemon.defense_buff_turns == 1 and not is_blink):
             screen.blit(self.statbuffdebuff.get((1, stage_to_col[pokemon.defense_buff])),(base_x + D_STAT_BUFFS, base_y))
         if  (pokemon.speed_buff != 0) and not \
-            (pokemon.speed_buff_turns == 1 and not blink):
+            (pokemon.speed_buff_turns == 1 and not is_blink):
             screen.blit(self.statbuffdebuff.get((2, stage_to_col[pokemon.speed_buff])),(base_x + D_STAT_BUFFS + D_STAT_BUFFS, base_y))
     
     def _draw_press_turn_icon(self, screen, state, x, y, anim_frame):

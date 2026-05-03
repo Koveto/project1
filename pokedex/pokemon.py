@@ -14,8 +14,8 @@ class Pokemon:
         name=None,
         level=1,
         stats=None,          # dict: {"hp": X, "atk": X, ...}
-        affinities=None,     # list of 7 ints
-        potential=None,      # list of 7 ints (NEW)
+        affinities=None,
+        potential=None,
         learnset=None,
         moves=None,
         bst=None
@@ -53,24 +53,15 @@ class Pokemon:
         # Default for menus/Pokédex: non‑shiny front pose 0
         self.sprite_column = 0
 
-        # Derived stats
-        self.recalculate_stats()
-
-    # ---------------------------------------------------------
-    # Derived stats
-    # ---------------------------------------------------------
-    def recalculate_stats(self):
-        lvl = self.level
-
-        base_hp   = self.base_stats.get("hp", 1)
-        base_atk  = self.base_stats.get("atk", 1)
-        base_def  = self.base_stats.get("def", 1)
-        base_spa  = self.base_stats.get("spatk", 1)
-        base_spd  = self.base_stats.get("spdef", 1)
-        base_spe  = self.base_stats.get("spd", 1)
+        self.base_max_hp   = self.base_stats.get("hp", 1)
+        self.base_attack  = self.base_stats.get("atk", 1)
+        self.base_defense  = self.base_stats.get("def", 1)
+        self.base_spattack  = self.base_stats.get("spatk", 1)
+        self.base_spdefense  = self.base_stats.get("spdef", 1)
+        self.base_speed  = self.base_stats.get("spd", 1)
 
         # HP formula
-        self.max_hp = math.floor((base_hp * 2 * lvl) / 100) + lvl + 10
+        self.max_hp = int(self.level + 10 + math.floor((2 * self.base_max_hp * self.level) / 100))
         self.remaining_hp = self.max_hp
 
         # MP = HP for now
@@ -78,11 +69,12 @@ class Pokemon:
         self.remaining_mp = self.max_mp
 
         # Other stats
-        self.attack    = math.floor(5 + (base_atk * lvl) // 100)
-        self.defense    = math.floor(5 + (base_def * lvl) // 100)
-        self.spattack  = math.floor(5 + (base_spa * lvl) // 100)
-        self.spdefense  = math.floor(5 + (base_spd * lvl) // 100)
-        self.speed  = math.floor(5 + (base_spe * lvl) // 100)
+        self.attack     = int(5 + math.floor((2 * self.base_attack * self.level) / 100))
+        self.defense    = int(5 + math.floor((2 * self.base_defense * self.level) / 100))
+        self.spattack   = int(5 + math.floor((2 * self.base_spattack * self.level) / 100))
+        self.spdefense  = int(5 + math.floor((2 * self.base_spdefense * self.level) / 100))
+        self.speed      = int(5 + math.floor((2 * self.base_speed * self.level) / 100))
+
 
     # ---------------------------------------------------------
     # Move helpers

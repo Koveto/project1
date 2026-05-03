@@ -23,11 +23,11 @@ STATE_TALK                                            = 4
 STATE_CHANGE                                          = 5
 STATE_ESCAPE                                          = 6
 STATE_INFO                                            = 7
-STATE_SKILLS_TARGET_ENEMY                             = 8
-STATE_SCROLL                                          = 9
-STATE_WAIT                                            = 10
-STATE_CALC_PLAYER_DMG_TO_ENEMY                        = 11
-STATE_ANIMATE_HP_PLAYER_SINGLE_TARGET                 = 12
+STATE_SCROLL                                          = 8
+STATE_WAIT                                            = 9
+STATE_PLAYER_SINGLE_TARGET_TARGET                     = 10
+STATE_PLAYER_SINGLE_TARGET_CALC                       = 11
+STATE_PLAYER_SINGLE_TARGET_HP                         = 12
 
 MENU_CURSOR_SKILLS_X     = 0
 MENU_CURSOR_SKILLS_Y     = 0
@@ -126,7 +126,9 @@ SCROLL_CONSTANT = 2
 
 ENEMY_DRAW_ORDER = (1, 3, 0, 2)
 
-WAIT_FRAMES_BEFORE_DAMAGE = 30
+WAIT_FRAMES_ANNOUNCE_SKILL = 30
+WAIT_FRAMES_SKILL_ANIM = 30
+WAIT_FRAMES_BEFORE_HP = 30
 
 X_PKMN_PLAYER = -64
 X_PKMN_ENEMY = 300 - 20
@@ -235,3 +237,25 @@ PRESS_TURN_SOLID = 2
 CHANCE_CRIT = 0.08
 
 TICK_CONSTANT = 0.25
+
+DMG_CRIT = 1.5
+DMG_WEAK = 2.0
+DMG_RESIST = 0.5
+DMG_IMMUNE = 0.0
+DMG_BUFFS = {
+    -2:  0.50,
+    -1:  0.75,
+     0:  1.00,
+     1:  1.25,
+     2:  1.50
+}
+DMG_BUFFS_ACC = {
+    -2:  0.70,
+    -1:  0.85,
+     0:  1.00,
+     1:  1.15,
+     2:  1.30
+}
+DMG_SPEED_CONSTANT = 0.0025
+DMG_SPEED_MIN = 5
+DMG_SPEED_MAX = 365
