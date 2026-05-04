@@ -36,11 +36,11 @@ class BattleRenderer:
 
         # Pokémon sprites
         self.player_sprites = [
-            self._load_sprite_for_pokemon(p, is_back=True) if p else None
+            self._load_sprite_for_pokemon(p) if p else None
             for p in b.player_team
         ]
         self.enemy_sprites = [
-            self._load_sprite_for_pokemon(p, is_back=False) if p else None
+            self._load_sprite_for_pokemon(p) if p else None
             for p in b.enemy_team
         ]
 
@@ -662,7 +662,7 @@ class BattleRenderer:
         
         # ========================= END DRAW =================================
 
-    def _load_sprite_for_pokemon(self, pokemon, is_back):
+    def _load_sprite_for_pokemon(self, pokemon):
         if pokemon is None:
             return None
 
@@ -670,6 +670,7 @@ class BattleRenderer:
             return load_player_sprite(scale=SCALE)
 
         row = pokemon.pokedex_number - 1
+
         col = pokemon.sprite_column
 
         return load_pokemon_sprite(row=row, column=col, scale=SCALE)

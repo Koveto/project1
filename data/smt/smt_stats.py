@@ -2,7 +2,7 @@
 
 import json
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from pokedex.pokemon import Pokemon
 
@@ -50,85 +50,57 @@ class SMTStats:
 
 
 # ---------------------------------------------------------
-# Loader
+# Species Loader (NO Pokémon instances here)
 # ---------------------------------------------------------
 
-def load_smt_from_json(path: str) -> List[Pokemon]:
-    """Load Pokémon from SMT-style JSON and return real Pokemon objects."""
+def load_pkmn_from_json(path: str) -> List[Dict]:
+    """
+    Load raw species data from JSON.
+    Returns a list of dicts, NOT Pokémon objects.
+    """
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
-
-    result = []
-
-    for entry in data["pokemon"]:
-        # Convert SMTStats → dict
-        raw_stats = SMTStats.from_dict(entry["stats"])
-        stats_dict = raw_stats.to_base_stat_dict()
-
-        # Convert learnset entries
-        learnset = [Move(m["level"], m["move"]) for m in entry.get("learnset", [])]
-
-        # NEW: load potential if present, otherwise default to zeros
-        potential = entry.get("potential")
-        if potential is None:
-            potential = [0] * 10
-
-        p = Pokemon(
-            pokedex_number=entry["no"],
-            name=entry["name"],
-            level=entry.get("level", 1),
-            stats=stats_dict,
-            affinities=entry["affinities"],
-            potential=potential,
-            learnset=learnset,
-            bst=entry["bst"]
-        )
-
-        result.append(p)
-
-    return result
+    return data["pokemon"]
 
 
+# ---------------------------------------------------------
+# Species lookup
+# ---------------------------------------------------------
 
-def get_smt_pokemon_by_number(smt_list, number):
-    return next((p for p in smt_list if p.pokedex_number == number), None)
-
-def load_pkmn_from_json(path: str) -> List[Pokemon]:
-    """Load Pokémon from SMT-style JSON and return real Pokemon objects."""
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    result = []
-
-    for entry in data["pokemon"]:
-        # Convert SMTStats → dict
-        raw_stats = SMTStats.from_dict(entry["stats"])
-        stats_dict = raw_stats.to_base_stat_dict()
-
-        # Convert learnset entries
-        learnset = [Move(m["level"], m["move"]) for m in entry.get("learnset", [])]
-
-        # NEW: load potential if present, otherwise default to zeros
-        potential = entry.get("potential")
-        if potential is None:
-            potential = [0] * 9
-
-        p = Pokemon(
-            pokedex_number=entry["no"],
-            name=entry["name"],
-            level=entry.get("level", 1),
-            stats=stats_dict,
-            affinities=entry["affinities"],
-            potential=potential,
-            learnset=learnset,
-            bst=entry["bst"]
-        )
-
-        result.append(p)
-
-    return result
+def get_species_by_number(species_list: List[Dict], pokedex_number: int) -> Optional[Dict]:
+    """
+    Return the species dict matching the given Pokédex number.
+    """
+    return next((s for s in species_list if s["no"] == pokedex_number), None)
 
 
+# ---------------------------------------------------------
+# Pokémon factory (creates UNIQUE Pokémon instances)
+# ---------------------------------------------------------
 
-def get_pkmn_by_number(pkmn_list, pokedex_number=1):
-    return next((p for p in pkmn_list if p.pokedex_number == pokedex_number), None)
+def create_pokemon_from_species(entry: Dict, level: Optional[int] = None) -> Pokemon:
+    """
+    Create a fresh Pokémon instance from a species entry.
+    This ensures no shared references between player/enemy teams.
+    """
+    # Convert stats
+    raw_stats = SMTStats.from_dict(entry["stats"])
+    stats_dict = raw_stats.to_base_stat_dict()
+
+    # Learnset
+    learnset = [Move(m["level"], m["move"]) for m in entry.get("learnset", [])]
+
+    # Potential (default 9 zeros)
+    potential = entry.get("potential") or [0] * 9
+
+    # Construct a NEW Pokémon instance
+    return Pokemon(
+        pokedex_number=entry["no"],
+        name=entry["name"],
+        level=level or entry.get("level", 1),
+        stats=stats_dict,
+        affinities=entry["affinities"],
+        potential=potential,
+        learnset=learnset,
+        bst=entry["bst"]
+    )

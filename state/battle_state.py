@@ -3,7 +3,7 @@ from constants import *
 from stack import Stack
 from state.state_manager import GameState
 
-from data.smt.smt_stats import load_pkmn_from_json, get_pkmn_by_number
+from data.smt.smt_stats import load_pkmn_from_json, create_pokemon_from_species, get_species_by_number
 from data.smt.smt_moves import load_moves
 from data.smt.smt_items import SMT_ITEMS
 from pokedex.pokemon import Pokemon
@@ -157,18 +157,6 @@ class BattleState(GameState):
                 # ...
             if key_back(event.key):
                 self.enter_state(STATE_MAIN)
-        elif self.state == STATE_ITEMS:
-            pass
-        elif self.state == STATE_GUARD:
-            pass
-        elif self.state == STATE_TALK:
-            pass
-        elif self.state == STATE_CHANGE:
-            pass
-        elif self.state == STATE_ESCAPE:
-            pass
-        elif self.state == STATE_INFO:
-            pass
         elif self.state == STATE_PLAYER_SINGLE_TARGET_TARGET:
             if event.key == pygame.K_LEFT:
                 self.target_index = (self.target_index - 1) % len(self.enemy_team)
@@ -188,12 +176,6 @@ class BattleState(GameState):
                 key_confirm(event.key) and \
                     self.scroll_is_input_required:
                 self.enter_state(self.next_state.pop())
-        elif self.state == STATE_WAIT:
-            pass
-        elif self.state == STATE_PLAYER_SINGLE_TARGET_CALC:
-            pass
-        elif self.state == STATE_PLAYER_SINGLE_TARGET_HP:
-            pass
         # ========================= END HANDLE_EVENT =================================
 
     def update(self):
@@ -227,8 +209,6 @@ class BattleState(GameState):
             self.delay_elapsed = 0
             self.delay_target = 0
             self.enter_state(self.next_state.pop())
-        elif self.state == STATE_PLAYER_SINGLE_TARGET_CALC:
-            pass
         elif self.state == STATE_PLAYER_SINGLE_TARGET_HP:
             if self.dmg_hp_scrolls[0] > self.dmg_hp_targets[0]:
                 diff = self.dmg_hp_scrolls[0] - self.dmg_hp_targets[0]
@@ -236,55 +216,57 @@ class BattleState(GameState):
                 self.dmg_hp_scrolls[0] -= step
             else:
                 self.enter_state(STATE_SCROLL)
+                self.next_state.push(STATE_COMPLETE_PLAYER_TURN)
 
 
         
     def enter_state(self, state):
         if state == STATE_MAIN:
-            if self.state == None:
+            if self.state in (None,
+                              STATE_COMPLETE_PLAYER_TURN):
                 # Used for menus
                 self.menu_cursor_x = 0
                 self.menu_cursor_y = 0
                 self.skills_cursor = 0
                 self.skills_scroll = 0
-                # See battle_target
-                self.target_index = 0
-                # Generic dialogue to scroll
-                self.scroll_text = ""
-                self.scroll_index = 0
-                self.scroll_is_done = False
-                self.scroll_is_input_required = False
-                self.scroll_flag_miss = False
-                # Generic delay after scroll
-                self.delay_target = WAIT_FRAMES_ANNOUNCE_SKILL
-                self.delay_elapsed = 0
-                self.delay_is_started = False
-                # Keep track of future states
-                self.next_state = Stack()
-                # (text, 
-                #  is_input_required, 
-                #  flag_miss,
-                #  flag_weak,
-                #  flag_neutral,
-                #  flag_null)
-                self.next_text = Stack()
-                # (frames, draw_text_finished, draw_anim_skill)
-                self.next_wait = Stack()
-                # Damage phase flag
-                self.dmg_hp_targets = []
-                self.dmg_hp_scrolls = []
-                # Renderer flags
-                self.draw_enemy_bounce = False
-                self.draw_affinity_color = False
-                self.draw_enemy_info = False
-                self.draw_anim_skill = False
-                self.draw_text_finished = False
-                self.draw_player_bounce = True
-                self.draw_hp_bounce = True
-                self.draw_darken = False
-                self.draw_mp_cost = False
-                self.draw_dmg_hp_scroll_enemy = False
-                self.draw_dmg_hp_scroll_player = False
+            # See battle_target
+            self.target_index = 0
+            # Generic dialogue to scroll
+            self.scroll_text = ""
+            self.scroll_index = 0
+            self.scroll_is_done = False
+            self.scroll_is_input_required = False
+            # Generic delay after scroll
+            self.delay_target = WAIT_FRAMES_ANNOUNCE_SKILL
+            self.delay_elapsed = 0
+            self.delay_is_started = False
+            # Keep track of future states
+            self.next_state = Stack()
+            # (text, 
+            #  is_input_required, 
+            #  flag_miss,
+            #  flag_weak,
+            #  flag_neutral,
+            #  flag_null)
+            self.next_text = Stack()
+            # (frames, draw_text_finished, draw_anim_skill)
+            self.next_wait = Stack()
+            # Damage phase flag
+            self.dmg_hp_targets = []
+            self.dmg_hp_scrolls = []
+            # Renderer flags
+            self.draw_enemy_bounce = False
+            self.draw_affinity_color = False
+            self.draw_enemy_info = False
+            self.draw_anim_skill = False
+            self.draw_text_finished = False
+            self.draw_player_bounce = True
+            self.draw_hp_bounce = True
+            self.draw_darken = False
+            self.draw_mp_cost = False
+            self.draw_dmg_hp_scroll_enemy = False
+            self.draw_dmg_hp_scroll_player = False
+                
         elif state == STATE_SKILLS:
             self.draw_enemy_bounce = False
             self.draw_darken = False
@@ -343,7 +325,6 @@ class BattleState(GameState):
             move_type = move["type"]
 
             defender_affinity = defender.affinities[ELEMENT_INDEX[move_element]]
-            attacker_affinity = attacker.affinities[ELEMENT_INDEX[move_element]]
 
             attacker.remaining_mp -= move_mp_cost
 
@@ -358,44 +339,53 @@ class BattleState(GameState):
             if  (random.random() <= odds_hit) or \
                 (defender_affinity >= AFFINITY_NULL):
                 # hit
-                is_crit = False
-                if  (random.random() < CHANCE_CRIT) and \
-                    (move_element == "Physical"):
-                    is_crit = True
+                is_crit = (random.random() < CHANCE_CRIT) and (move_element == "Physical")
+                reflected = (AFFINITY_REFLECT <= defender_affinity < AFFINITY_ABSORB)
+                nontarget = attacker
+                target = defender
+                if reflected:
+                    nontarget = defender
+                    target = attacker
+                target_affinity = target.affinities[ELEMENT_INDEX[move_element]]
+                if reflected:
+                    target_affinity = min(AFFINITY_NULL, target_affinity)
 
                 damage = move_power
                 # atk/def
                 if (move_type == "Physical"):
-                    damage *= attacker.attack
-                    damage /= defender.defense
+                    damage *= nontarget.attack
+                    damage /= target.defense
                 elif (move_type == "Special"):
-                    damage *= attacker.spattack
-                    damage /= defender.spdefense
-                damage *= DMG_BUFFS[attacker.attack_buff]
-                damage /= DMG_BUFFS[defender.defense_buff]
+                    damage *= nontarget.spattack
+                    damage /= target.spdefense
+                damage *= DMG_BUFFS[nontarget.attack_buff]
+                damage /= DMG_BUFFS[target.defense_buff]
                 # level
-                damage *= (((2 * attacker.level)/5)+2)
+                damage *= (((2 * nontarget.level)/5)+2)
                 damage /= 50
                 damage += 2
                 # crit
                 if is_crit:
                     damage *= DMG_CRIT
                 # affinities
-                if ((defender_affinity < AFFINITY_NEUTRAL) and \
-                    (not defender.is_guarding)):
+                if ((target_affinity < AFFINITY_NEUTRAL) and \
+                    (not target.is_guarding)):
                     damage *= DMG_WEAK
-                if (AFFINITY_RESIST <= defender_affinity < AFFINITY_NULL):
+                if (AFFINITY_RESIST <= target_affinity < AFFINITY_NULL):
                     damage *= DMG_RESIST
-                if (AFFINITY_NULL <= defender_affinity < AFFINITY_REFLECT):
+                if (AFFINITY_NULL <= target_affinity < AFFINITY_REFLECT):
                     damage *= DMG_IMMUNE
+                # potentials
+                potential = nontarget.potential[ELEMENT_INDEX[move_element]]
+                damage *= (1.0 + (potential / 18))
                 # random
                 damage *= random.randint(85, 100) / 100
                 # round
                 damage = int(damage)
 
                 actual_dealt = damage
-                if defender.remaining_hp < damage:
-                    actual_dealt = defender.remaining_hp
+                if target.remaining_hp < damage:
+                    actual_dealt = target.remaining_hp
                 t = ""
                 if defender_affinity == AFFINITY_NEUTRAL:
                     t = f"Dealt {actual_dealt} damage."
@@ -419,7 +409,7 @@ class BattleState(GameState):
                 if is_crit:
                     t += f" \n A critical hit!"
                 flag_weak = (is_crit or (defender_affinity < AFFINITY_NEUTRAL)) and not defender.is_guarding
-                flag_neutral = (AFFINITY_NEUTRAL <= defender_affinity < AFFINITY_NULL)
+                flag_neutral = (AFFINITY_NEUTRAL <= defender_affinity < AFFINITY_NULL) and not is_crit
                 flag_null = (defender_affinity >= AFFINITY_NULL)
                 self.next_text.push((t,
                                      True,
@@ -428,13 +418,15 @@ class BattleState(GameState):
                                      flag_neutral,
                                      flag_null))
                 
-                hp_target = defender.remaining_hp - damage
+                defender.is_guarding = False
+                
+                hp_target = target.remaining_hp - damage
                 hp_target = max(0, hp_target)
-                hp_target = min(hp_target, defender.max_hp)
+                hp_target = min(hp_target, target.max_hp)
 
                 self.dmg_hp_targets = [hp_target]
-                self.dmg_hp_scrolls = [defender.remaining_hp]
-                defender.remaining_hp = hp_target
+                self.dmg_hp_scrolls = [target.remaining_hp]
+                target.remaining_hp = hp_target
                 self.draw_dmg_hp_scroll_player = False
                 self.draw_dmg_hp_scroll_enemy = True
                 if (AFFINITY_REFLECT <= defender_affinity < AFFINITY_ABSORB):
@@ -482,62 +474,75 @@ class BattleState(GameState):
                                  True,
                                  False))
             self.next_state.push(STATE_WAIT)
-        elif state == STATE_PLAYER_SINGLE_TARGET_HP:
-            pass
+        elif state == STATE_COMPLETE_PLAYER_TURN:
+            if not any(v > 0 for v in self.press_turns):
+                self.is_player_turn = False
+                self.press_turns = FRESH_PRESS_TURNS.copy()
+                for e in self.enemy_team:
+                    e.attack_buff_turns = max(0, e.attack_buff_turns - 1)
+                    e.defense_buff_turns = max(0, e.defense_buff_turns - 1)
+                    e.speed_buff_turns = max(0, e.speed_buff_turns - 1)
+                    if e.attack_buff_turns == 0:
+                        e.attack_buff = 0
+                    if e.defense_buff_turns == 0:
+                        e.defense_buff = 0
+                    if e.speed_buff_turns == 0:
+                        e.speed_buff = 0
+            self.turn_index = (self.turn_index + 1) % len(self.player_team)
+            if self.is_player_turn:
+                self.player_team[self.turn_index].is_guarding = False
+            self.pending_state = STATE_MAIN
         self.state = state
 
     def _init_teams(self):
         # ========================= START _INIT_TEAMS =================================
-        pkmn_bulbasaur = get_pkmn_by_number(self.pkmn, pokedex_number=1)
-        pkmn_player = Pokemon(
-            pokedex_number=PLAYER_DEX_NO,
-            name="Kobe",
-            level=99,
-            stats=pkmn_bulbasaur.base_stats,
-            affinities=pkmn_bulbasaur.affinities,
-            potential=pkmn_bulbasaur.potential,
-            learnset=pkmn_bulbasaur.learnset,
-            moves=["Attack", 
-                   "Agi", "Bufu", "Zio", "Zan", "Hama", "Mudo", 
-                   "Tarukaja", "Rakukaja", "Sukukaja", 
-                   "Heat Riser", "Red Capote", 
-                   "Matarukaja", "Marakukaja", "Masukukaja", 
-                   "Luster Candy", 
-                   "Dia", "Diarama", "Diarahan"]
-        )
 
-        self.player_team = [
-            pkmn_player,
-            get_pkmn_by_number(self.pkmn, random.randint(1,392)),      # Nidoking
-            get_pkmn_by_number(self.pkmn, random.randint(1,392)),     # Kangaskhan
-            get_pkmn_by_number(self.pkmn, random.randint(1,392))        # Charizard
+        # --- PLAYER LEADER (custom Pokémon) ---
+        species_bulbasaur = get_species_by_number(self.pkmn, 1)
+        pkmn_player = create_pokemon_from_species(species_bulbasaur, level=99)
+        pkmn_player.name = "Kobe"
+        pkmn_player.pokedex_number = PLAYER_DEX_NO
+        player_moves = [
+            "Attack",
+            "Agi", "Bufu", "Zio", "Zan", "Hama", "Mudo",
+            "Tarukaja", "Rakukaja", "Sukukaja",
+            "Heat Riser", "Red Capote",
+            "Matarukaja", "Marakukaja", "Masukukaja",
+            "Luster Candy",
+            "Dia", "Diarama", "Diarahan"
         ]
-        for p in self.player_team:
-            p.moves = ["Attack", 
-                   "Agi", "Bufu", "Zio", "Zan", "Hama", "Mudo", 
-                   "Tarukaja", "Rakukaja", "Sukukaja", 
-                   "Heat Riser", "Red Capote", 
-                   "Matarukaja", "Marakukaja", "Masukukaja", 
-                   "Luster Candy", 
-                   "Dia", "Diarama", "Diarahan"]
+        pkmn_player.moves = player_moves[:]
+
+        self.player_team = [pkmn_player]
+
+        for _ in range(3):
+            species = get_species_by_number(self.pkmn, random.randint(1, 392))
+            p = create_pokemon_from_species(species)
+            p.moves = player_moves[:]
+
+            # Back sprites
             if p.is_shiny:
                 p.sprite_column = random.choice([8, 9])   # shiny back
             else:
                 p.sprite_column = random.choice([3, 4])   # nonshiny back
-        
-        self.enemy_team = [
-            get_pkmn_by_number(self.pkmn, random.randint(1,392)),      # Blastoise
-            get_pkmn_by_number(self.pkmn, random.randint(1,392)),      # Venusaur
-            get_pkmn_by_number(self.pkmn, random.randint(1,392)),    # Mewtwo
-            get_pkmn_by_number(self.pkmn, random.randint(1,392))      # Butterfree
-        ]
-        for p in self.enemy_team:
-            p.moves = ["Attack",
-                       "Agi", "Bufu", "Zio", "Zan", "Hama", "Mudo"]
+
+            self.player_team.append(p)
+
+        enemy_moves = ["Attack", "Agi", "Bufu", "Zio", "Zan", "Hama", "Mudo"]
+
+        self.enemy_team = []
+        for _ in range(4):
+            species = get_species_by_number(self.pkmn, random.randint(1, 392))
+            p = create_pokemon_from_species(species)
+            p.moves = enemy_moves[:]
+
+            # Front sprites
             if p.is_shiny:
                 p.sprite_column = random.choice([5, 6, 7])  # shiny front
             else:
                 p.sprite_column = random.choice([0, 1, 2])  # nonshiny front
+
+            self.enemy_team.append(p)
         # ========================= END _INIT_TEAMS =================================
 
     def _consume_full_turn(self):

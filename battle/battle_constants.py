@@ -28,6 +28,7 @@ STATE_WAIT                                            = 9
 STATE_PLAYER_SINGLE_TARGET_TARGET                     = 10
 STATE_PLAYER_SINGLE_TARGET_CALC                       = 11
 STATE_PLAYER_SINGLE_TARGET_HP                         = 12
+STATE_COMPLETE_PLAYER_TURN                            = 13
 
 MENU_CURSOR_SKILLS_X     = 0
 MENU_CURSOR_SKILLS_Y     = 0
@@ -234,7 +235,7 @@ PRESS_TURN_NULL = 0
 PRESS_TURN_FLASH = 1
 PRESS_TURN_SOLID = 2
 
-CHANCE_CRIT = 0.08
+CHANCE_CRIT = 1#0.08
 
 TICK_CONSTANT = 0.25
 

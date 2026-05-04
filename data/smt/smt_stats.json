@@ -37663,7 +37663,7 @@
     },
     {
       "no": 390,
-      "name": "Deoxys-Attack",
+      "name": "Deoxys-Atk",
       "bst": 600,
       "affinities": [
         0,
@@ -37756,7 +37756,7 @@
     },
     {
       "no": 391,
-      "name": "Deoxys-Defense",
+      "name": "Deoxys-Def",
       "bst": 600,
       "affinities": [
         0,
@@ -37857,7 +37857,7 @@
     },
     {
       "no": 392,
-      "name": "Deoxys-Speed",
+      "name": "Deoxys-Spd",
       "bst": 600,
       "affinities": [
         0,

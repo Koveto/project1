@@ -1,10 +1,17 @@
 import os
-from data.smt.smt_stats import load_smt_from_json
+import random
+
+from data.smt.smt_stats import (
+    load_pkmn_from_json,
+    get_species_by_number,
+    create_pokemon_from_species
+)
 
 
 class PokemonController:
     """
-    Manages the list of Pokémon, the current index, and navigation.
+    Manages the list of Pokémon species, creates Pokémon instances for display,
+    and handles navigation, sorting, and searching.
     """
 
     def __init__(self):
@@ -19,47 +26,66 @@ class PokemonController:
             )
         )
 
-        # Load Pokémon list
-        self.pokemon_list = load_smt_from_json(json_path)
-        self.max_pokemon = len(self.pokemon_list)
+        # Load raw species data (NOT Pokémon instances)
+        self.species_list = load_pkmn_from_json(json_path)
 
-        # Sort by Pokédex number
-        self.pokemon_list.sort(key=lambda p: p.pokedex_number)
+        # Sort species by Pokédex number
+        self.species_list.sort(key=lambda s: s["no"])
 
         # Current index (0-based)
         self.index = 0
 
-        # Placeholder for future filters
+        # Optional filtered list
         self.filtered_list = None
+
+    # ---------------------------------------------------------
+    # Internal helpers
+    # ---------------------------------------------------------
+
+    def _active_list(self):
+        """Return filtered list if active, otherwise full species list."""
+        return self.filtered_list if self.filtered_list is not None else self.species_list
+
+    def _current_species(self):
+        """Return the species dict at the current index."""
+        return self._active_list()[self.index]
 
     # ---------------------------------------------------------
     # Navigation
     # ---------------------------------------------------------
+
     def next(self):
-        """Move to the next Pokémon, wrapping around."""
-        self.index = (self.index + 1) % len(self.pokemon_list)
+        lst = self._active_list()
+        self.index = (self.index + 1) % len(lst)
 
     def prev(self):
-        """Move to the previous Pokémon, wrapping around."""
-        self.index = (self.index - 1) % len(self.pokemon_list)
+        lst = self._active_list()
+        self.index = (self.index - 1) % len(lst)
 
     # ---------------------------------------------------------
     # Accessors
     # ---------------------------------------------------------
+
     def get_current_pokemon(self):
-        return self.pokemon_list[self.index]
+        """
+        Return a *fresh* Pokémon instance for the current species.
+        This ensures the Pokédex never shares Pokémon objects.
+        """
+        species = self._current_species()
+        return create_pokemon_from_species(species, level=species.get("level", 1))
 
     def get_current_index(self):
         return self.index + 1
 
     def get_total_count(self):
-        return len(self.pokemon_list)
+        return len(self._active_list())
 
     # ---------------------------------------------------------
     # Filtering
     # ---------------------------------------------------------
+
     def apply_filter(self, filter_func):
-        self.filtered_list = [p for p in self.pokemon_list if filter_func(p)]
+        self.filtered_list = [s for s in self.species_list if filter_func(s)]
         self.index = 0
 
     def clear_filter(self):
@@ -69,22 +95,24 @@ class PokemonController:
     # ---------------------------------------------------------
     # Searching
     # ---------------------------------------------------------
+
     def find_by_name(self, text):
         text = text.lower()
+        lst = self._active_list()
 
         # 1. Exact match
-        for i, p in enumerate(self.pokemon_list):
-            if p.name.lower() == text:
+        for i, s in enumerate(lst):
+            if s["name"].lower() == text:
                 return i
 
         # 2. Startswith match
-        for i, p in enumerate(self.pokemon_list):
-            if p.name.lower().startswith(text):
+        for i, s in enumerate(lst):
+            if s["name"].lower().startswith(text):
                 return i
 
         # 3. Contains match
-        for i, p in enumerate(self.pokemon_list):
-            if text in p.name.lower():
+        for i, s in enumerate(lst):
+            if text in s["name"].lower():
                 return i
 
         # 4. Fuzzy match
@@ -94,43 +122,41 @@ class PokemonController:
             mismatch = sum(1 for a, b in zip(name, text) if a != b)
             return length_diff + mismatch
 
-        return min(range(len(self.pokemon_list)), key=lambda i: score(self.pokemon_list[i].name))
+        return min(range(len(lst)), key=lambda i: score(lst[i]["name"]))
 
     # ---------------------------------------------------------
     # Sorting
     # ---------------------------------------------------------
-    def get_bst(self, pokemon):
-        return pokemon.bst
 
     def sort_by_bst_ascending(self):
-        self.pokemon_list.sort(key=lambda p: p.bst)
+        self.species_list.sort(key=lambda s: s["bst"])
         self.index = 0
 
     def sort_by_bst_descending(self):
-        self.pokemon_list.sort(key=lambda p: p.bst, reverse=True)
+        self.species_list.sort(key=lambda s: s["bst"], reverse=True)
         self.index = 0
 
     def sort_by_number(self):
-        self.pokemon_list.sort(key=lambda p: p.pokedex_number)
+        self.species_list.sort(key=lambda s: s["no"])
         self.index = 0
 
     def sort_by_stat(self, stat_name):
-        self.pokemon_list.sort(
-            key=lambda p: p.base_stats.get(stat_name, 0),
+        self.species_list.sort(
+            key=lambda s: s["stats"].get(stat_name.upper(), 0),
             reverse=True
         )
         self.index = 0
 
     def sort_by_affinity(self, index):
-        self.pokemon_list.sort(
-            key=lambda p: p.affinities[index],
+        self.species_list.sort(
+            key=lambda s: s["affinities"][index],
             reverse=True
         )
         self.index = 0
 
     def sort_by_potential(self, index):
-        self.pokemon_list.sort(
-            key=lambda p: p.potential[index],
+        self.species_list.sort(
+            key=lambda s: s.get("potential", [0] * 9)[index],
             reverse=True
         )
         self.index = 0

@@ -49,10 +49,6 @@ class Pokemon:
         self.defense_buff_turns = 0
         self.speed_buff_turns = 0
 
-        # Sprite system
-        # Default for menus/Pokédex: non‑shiny front pose 0
-        self.sprite_column = 0
-
         self.base_max_hp   = self.base_stats.get("hp", 1)
         self.base_attack  = self.base_stats.get("atk", 1)
         self.base_defense  = self.base_stats.get("def", 1)
@@ -95,12 +91,3 @@ class Pokemon:
     def row(self):
         """Row in the giant sprite sheet."""
         return self.pokedex_number - 1
-
-    @property
-    def sprite_col(self):
-        """Column in the giant sprite sheet."""
-        return self.sprite_column
-
-    @sprite_col.setter
-    def sprite_col(self, value):
-        self.sprite_column = value
