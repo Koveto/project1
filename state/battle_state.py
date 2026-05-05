@@ -89,37 +89,67 @@ class BattleState(GameState):
 
                 if  self.menu_cursor_x == MENU_CURSOR_GUARD_X and \
                     self.menu_cursor_y == MENU_CURSOR_GUARD_Y:
-                    self.enter_state(STATE_GUARD)
-                    # ...
+                    pkmn = self.player_team[self.turn_index]
+                    pkmn.is_guarding = True
+                    self._consume_full_turn()
+                    self.next_state.push(STATE_COMPLETE_PLAYER_TURN)
+                    self.next_text.push((f"{pkmn.name} guards!",
+                                         True,
+                                         False,
+                                         False,
+                                         False,
+                                         False))
+                    self.enter_state(STATE_SCROLL)
 
 
                 if  self.menu_cursor_x == MENU_CURSOR_TALK_X and \
                     self.menu_cursor_y == MENU_CURSOR_TALK_Y:
-                    self.enter_state(STATE_TALK)
-                    # ...
+                    self.next_state.push(STATE_MAIN)
+                    self.next_text.push(("Foes are crazed for battle! Words can't get through.",
+                                         True,
+                                         False,
+                                         False,
+                                         False,
+                                         False))
+                    self.enter_state(STATE_SCROLL)
 
 
                 if  self.menu_cursor_x == MENU_CURSOR_CHANGE_X and \
                     self.menu_cursor_y == MENU_CURSOR_CHANGE_Y:
-                    self.enter_state(STATE_CHANGE)
-                    # ...
+                    self.next_state.push(STATE_MAIN)
+                    self.next_text.push(("Can't change!",
+                                         True,
+                                         False,
+                                         False,
+                                         False,
+                                         False))
+                    self.enter_state(STATE_SCROLL)
 
 
                 if  self.menu_cursor_x == MENU_CURSOR_ESCAPE_X and \
                     self.menu_cursor_y == MENU_CURSOR_ESCAPE_Y:
-                    self.enter_state(STATE_ESCAPE)
-                    # ...
+                    self.next_state.push(STATE_MAIN)
+                    self.next_text.push(("You are unable to escape!",
+                                         True,
+                                         False,
+                                         False,
+                                         False,
+                                         False))
+                    self.enter_state(STATE_SCROLL)
 
 
                 if  self.menu_cursor_x == MENU_CURSOR_PASS_X and \
                     self.menu_cursor_y == MENU_CURSOR_PASS_Y:
-                    # ...
-                    pass
+                    self._consume_half_turn()
+                    self.enter_state(STATE_COMPLETE_PLAYER_TURN)
+
 
                 if  self.menu_cursor_x == MENU_CURSOR_INFO_X and \
                     self.menu_cursor_y == MENU_CURSOR_INFO_Y:
                     self.enter_state(STATE_INFO)
                     # ...
+
+
         elif self.state == STATE_SKILLS:
             pkmn = self.player_team[self.turn_index]
             skill_list_length = len(pkmn.moves)
@@ -157,6 +187,8 @@ class BattleState(GameState):
                 # ...
             if key_back(event.key):
                 self.enter_state(STATE_MAIN)
+
+
         elif self.state == STATE_PLAYER_SINGLE_TARGET_TARGET:
             if event.key == pygame.K_LEFT:
                 self.target_index = (self.target_index - 1) % len(self.enemy_team)
@@ -168,6 +200,8 @@ class BattleState(GameState):
                 self.enter_state(STATE_PLAYER_SINGLE_TARGET_CALC)
             elif key_back(event.key):
                 self.enter_state(STATE_SKILLS)
+
+
         elif self.state == STATE_SCROLL:
             if not self.scroll_is_done and key_confirm(event.key):
                 self.scroll_index = len(self.scroll_text)
@@ -176,6 +210,18 @@ class BattleState(GameState):
                 key_confirm(event.key) and \
                     self.scroll_is_input_required:
                 self.enter_state(self.next_state.pop())
+
+        elif self.state == STATE_INFO:
+            if key_back(event.key):
+                self.enter_state(STATE_MAIN)
+            if event.key == pygame.K_LEFT:
+                self.info_col = (self.info_col - 1) % 4
+            if event.key == pygame.K_RIGHT:
+                self.info_col = (self.info_col + 1) % 4
+            if event.key == pygame.K_UP:
+                self.info_row = INFO_ROW_ENEMY
+            if event.key == pygame.K_DOWN:
+                self.info_row = INFO_ROW_PLAYER
         # ========================= END HANDLE_EVENT =================================
 
     def update(self):
@@ -229,6 +275,8 @@ class BattleState(GameState):
                 self.menu_cursor_y = 0
                 self.skills_cursor = 0
                 self.skills_scroll = 0
+                self.info_row = INFO_ROW_PLAYER
+                self.info_col = 0
             # See battle_target
             self.target_index = 0
             # Generic dialogue to scroll
@@ -266,6 +314,7 @@ class BattleState(GameState):
             self.draw_mp_cost = False
             self.draw_dmg_hp_scroll_enemy = False
             self.draw_dmg_hp_scroll_player = False
+            self.draw_press_turn = True
                 
         elif state == STATE_SKILLS:
             self.draw_enemy_bounce = False
@@ -305,6 +354,9 @@ class BattleState(GameState):
             if self.state == STATE_PLAYER_SINGLE_TARGET_HP:
                 self.draw_dmg_hp_scroll_player = False
                 self.draw_dmg_hp_scroll_enemy = False
+            if self.state == STATE_MAIN:
+                self.draw_player_bounce = True
+                self.draw_hp_bounce = True
         elif state == STATE_WAIT:
             next = self.next_wait.pop()
             self.delay_target = next[0]
@@ -492,6 +544,10 @@ class BattleState(GameState):
             if self.is_player_turn:
                 self.player_team[self.turn_index].is_guarding = False
             self.pending_state = STATE_MAIN
+        elif state == STATE_INFO:
+            self.draw_press_turn = False
+            self.draw_darken = True
+            self.draw_enemy_info = True
         self.state = state
 
     def _init_teams(self):

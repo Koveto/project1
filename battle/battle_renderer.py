@@ -85,12 +85,11 @@ class BattleRenderer:
         active_pkmn_info = None
         pkmn = b.player_team[b.turn_index]
 
-        """
-        info_index = ROW_NOT_INFO_STATE
-        if b.menu_mode == MENU_MODE_INFO:
+        info_index = INFO_ROW_NONE
+        if b.state == STATE_INFO:
             if b.info_row == 0:
                 info_index = b.info_col
-        """
+
         for i in ENEMY_DRAW_ORDER:
             sprite = self.enemy_sprites[i]
             if sprite is None:
@@ -103,11 +102,10 @@ class BattleRenderer:
             if b.draw_enemy_bounce:
                 if i == b.target_index:
                     y += bounce_offset_pkmn
-            """
-            if b.menu_mode == MENU_MODE_INFO:
+            
+            if b.state == STATE_INFO:
                 if i == info_index:
                     y += bounce_offset_pkmn
-            """
 
             screen.blit(sprite, (x, y))
 
@@ -118,15 +116,14 @@ class BattleRenderer:
             """
             if i == b.target_index:
                 target_pkmn_info = (sprite, x, y)
+            elif b.state == STATE_INFO:
+                target_pkmn_info = (sprite, x, y)
             """
-            elif b.menu_mode == MENU_MODE_INFO:
-                target_enemy_pos = (sprite, x, y)
-
-            # ENEMY TURN CASE: highlight the attacking enemy
             else:
                 if b.active_enemy_index is not None and i == b.active_enemy_index:
-                    target_enemy_pos = (sprite, x, y)
+                    target_pkmn_info = (sprite, x, y)
             """
+            
 
         which_pkmn_bouncing = b.turn_index
         """
@@ -137,6 +134,7 @@ class BattleRenderer:
             bounce_index = b.selected_ally
         elif b.menu_mode == MENU_MODE_ANNOUNCE_ENEMY_ATTACK:
             bounce_index = b.enemy_target_index
+        
         elif b.menu_mode == MENU_MODE_INFO:
             if b.info_row == ROW_PLAYER:
                 bounce_index = b.info_col
@@ -146,6 +144,11 @@ class BattleRenderer:
                              MENU_MODE_TARGET_BUFF_ALL):
             bounce_index = ROW_NOT_INFO_STATE
         """
+        if b.state == STATE_INFO:
+            if b.info_row == INFO_ROW_PLAYER:
+                which_pkmn_bouncing = b.info_col
+            else:
+                which_pkmn_bouncing = INFO_ROW_NONE
 
         for i in range(len(self.player_sprites)):
             sprite = self.player_sprites[i]
@@ -166,7 +169,7 @@ class BattleRenderer:
             if (b.menu_mode == MENU_MODE_TARGET_BUFF_ALL) or (i == active_index and b.menu_mode not in (MENU_MODE_DAMAGING_ENEMY,
                                                        MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
                                                        MENU_MODE_DAMAGING_PLAYER)):
-                y += poke_offset
+                y += bounce_offset_pkmn
             """
             if (i == which_pkmn_bouncing) and \
                 (b.draw_player_bounce):
@@ -191,7 +194,7 @@ class BattleRenderer:
             else:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
-            y += poke_offset
+            y += bounce_offset_pkmn
             highlight_player_pos = (sprite, x, y)
         if b.menu_mode in (MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
                          MENU_MODE_DAMAGING_PLAYER):
@@ -206,29 +209,31 @@ class BattleRenderer:
                 y = PLAYER_Y + NORMAL_Y_OFFSET
 
             highlight_player_pos = (sprite, x, y)
-        if b.menu_mode == MENU_MODE_INFO:
-            if b.info_row == ROW_ENEMY:
-                sprite = self.background_renderer.enemy_sprites[b.info_col]
-                pokemon = b.model.enemy_team[b.info_col]
+        """
+        if b.state == STATE_INFO:
+            if b.info_row == INFO_ROW_ENEMY:
+                sprite = self.enemy_sprites[b.info_col]
+                pokemon = b.enemy_team[b.info_col]
 
-                x = ENEMY_BASE_X + b.info_col * ENEMY_SPACING
-                y = ENEMY_Y + poke_offset
+                x = X_PKMN_ENEMY + b.info_col * D_PKMN_ENEMY
+                y = Y_PKMN_ENEMY + bounce_offset_pkmn
 
-                highlight_player_pos = None
-                target_enemy_pos = (sprite, x, y)
-            if b.info_row == ROW_PLAYER:
-                sprite = self.background_renderer.player_sprites[b.info_col]
-                pokemon = b.model.player_team[b.info_col]
+                active_pkmn_info = None
+                target_pkmn_info = (sprite, x, y)
+            if b.info_row == INFO_ROW_PLAYER:
+                sprite = self.player_sprites[b.info_col]
+                pokemon = b.player_team[b.info_col]
 
-                x = PLAYER_BASE_X + b.info_col * PLAYER_SPACING
+                x = X_PKMN_PLAYER + b.info_col * D_PKMN_PLAYER
                 if pokemon.is_player:
-                    x += PLAYER_OFFSET
-                    y = PLAYER_Y + PLAYER_Y_OFFSET + poke_offset
+                    x += D_PLAYER_OFFSET_X
+                    y = Y_PKMN_PLAYER + D_PLAYER_OFFSET_Y + bounce_offset_pkmn
                 else:
-                    y = PLAYER_Y + NORMAL_Y_OFFSET + poke_offset
+                    y = Y_PKMN_PLAYER + D_PKMN_PLAYER_OFFSET_Y + bounce_offset_pkmn
 
-                highlight_player_pos = (sprite, x, y)
-                target_enemy_pos = None
+                active_pkmn_info = (sprite, x, y)
+                target_pkmn_info = None
+        """
 
         if b.menu_mode in (
             MENU_MODE_TARGET_SELECT,
@@ -264,7 +269,7 @@ class BattleRenderer:
                 if b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
                     bounce = 0
                 else:
-                    bounce = poke_offset
+                    bounce = bounce_offset_pkmn
                 for i in range(len(b.model.player_team)):
                     pkmn = b.model.player_team[i]
                     sprite = self.player_sprites[i]
@@ -370,100 +375,101 @@ class BattleRenderer:
         if b.menu_mode in (MENU_MODE_ANNOUNCE_ENEMY_ATTACK,
                          MENU_MODE_DAMAGING_PLAYER):
             pokemon_for_hpmp = b.model.player_team[b.enemy_target_index]
-        if b.menu_mode == MENU_MODE_INFO and b.info_row == 1:
-            pokemon_for_hpmp = b.model.player_team[b.info_col]
         """
+        if b.state == STATE_INFO and b.info_row == INFO_ROW_PLAYER:
+            pkmn_for_hpmp = b.player_team[b.info_col]
         """
         if (b.menu_mode not in (MENU_MODE_BUFF_PLAYER_ALL, MENU_MODE_TARGET_BUFF_ALL)) and \
             ((b.menu_mode != MENU_MODE_INFO) or (b.info_row == ROW_PLAYER))
         """
-        screen.blit(self.hpmp_sprite, (X_HPMP, hpmp_y))
-        self.font1.draw_text(
-            screen,
-            pkmn_for_hpmp.name,
-            X_ACTIVE_POKEMON_NAME,
-            hpmp_y + Y_ACTIVE_POKEMON_NAME_OFFSET
-        )
-        screen.blit(self.lv_sprite, (X_LV, hpmp_y + Y_LV_OFFSET))
-        self.font1.draw_text(
-            screen,
-            str(pkmn_for_hpmp.level),
-            X_LV_TEXT,
-            hpmp_y + Y_LV_TEXT_OFFSET
-        )
-        
-        hp_source = pkmn_for_hpmp.remaining_hp
-        if b.draw_dmg_hp_scroll_player:
-            hp_source = b.dmg_hp_scrolls[0]
+        if ((b.state != STATE_INFO) or (b.info_row == INFO_ROW_PLAYER)):
+            screen.blit(self.hpmp_sprite, (X_HPMP, hpmp_y))
+            self.font1.draw_text(
+                screen,
+                pkmn_for_hpmp.name,
+                X_ACTIVE_POKEMON_NAME,
+                hpmp_y + Y_ACTIVE_POKEMON_NAME_OFFSET
+            )
+            screen.blit(self.lv_sprite, (X_LV, hpmp_y + Y_LV_OFFSET))
+            self.font1.draw_text(
+                screen,
+                str(pkmn_for_hpmp.level),
+                X_LV_TEXT,
+                hpmp_y + Y_LV_TEXT_OFFSET
+            )
+            
+            hp_source = pkmn_for_hpmp.remaining_hp
+            if b.draw_dmg_hp_scroll_player:
+                hp_source = b.dmg_hp_scrolls[0]
 
-        self._draw_hp_bar(screen, pkmn_for_hpmp, ui_hp_offset, override_hp=hp_source)
-        self._draw_mp_bar(screen, pkmn_for_hpmp, ui_hp_offset)
-        ratio_text = self._format_hpmp_text(pkmn_for_hpmp, hp_override=hp_source)
-        self.font3.draw_text(screen,
-                             ratio_text,
-                             X_HPMP + D_HPMP_RATIO_OFFSET_X,
-                             hpmp_y + D_HPMP_RATIO_OFFSET_Y)
-        self._draw_stat_buffs(screen, pkmn_for_hpmp,
-                              X_BUFF, hpmp_y + Y_BUFF,
-                              is_blink)
-        """
-        if (b.menu_mode in (MENU_MODE_BUFF_PLAYER_ALL, MENU_MODE_TARGET_BUFF_ALL)):
-            self.hpmp_renderer.draw_player_hpmp_all(b,
-                                                    screen,
-                                                    hpmp_y, 
-                                                    ui_hp_offset,
-                                                    is_blink) 
+            self._draw_hp_bar(screen, pkmn_for_hpmp, ui_hp_offset, override_hp=hp_source)
+            self._draw_mp_bar(screen, pkmn_for_hpmp, ui_hp_offset)
+            ratio_text = self._format_hpmp_text(pkmn_for_hpmp, hp_override=hp_source)
+            self.font3.draw_text(screen,
+                                ratio_text,
+                                X_HPMP + D_HPMP_RATIO_OFFSET_X,
+                                hpmp_y + D_HPMP_RATIO_OFFSET_Y)
+            self._draw_stat_buffs(screen, pkmn_for_hpmp,
+                                X_BUFF, hpmp_y + Y_BUFF,
+                                is_blink)
+            """
+            if (b.menu_mode in (MENU_MODE_BUFF_PLAYER_ALL, MENU_MODE_TARGET_BUFF_ALL)):
+                self.hpmp_renderer.draw_player_hpmp_all(b,
+                                                        screen,
+                                                        hpmp_y, 
+                                                        ui_hp_offset,
+                                                        is_blink) 
 
-        if b.menu_mode in (MENU_MODE_SKILLS, 
-                               MENU_MODE_TARGET_SELECT,
-                               MENU_MODE_TARGET_BUFF_ALL,
-                               MENU_MODE_TARGET_BUFF,
-                               MENU_MODE_TARGET_HEAL)
-        """
-        if b.draw_mp_cost:
-            selected_move = b.moves.get(pkmn.moves[b.skills_cursor + b.skills_scroll])
+            if b.menu_mode in (MENU_MODE_SKILLS, 
+                                MENU_MODE_TARGET_SELECT,
+                                MENU_MODE_TARGET_BUFF_ALL,
+                                MENU_MODE_TARGET_BUFF,
+                                MENU_MODE_TARGET_HEAL)
             """
-            if b.menu_mode == MENU_MODE_TARGET_BUFF and \
-                b.selected_ally != b.model.turn_index:
-                return
-            if b.menu_mode == MENU_MODE_TARGET_HEAL and \
-                b.selected_ally != b.model.turn_index:
-                return
-            """
-            if selected_move:
-                cost = selected_move["mp"]
-                remaining_mp = pkmn.remaining_mp
-                if (cost <= remaining_mp):
-                    pixels_per_mp = W_MP_BAR / pkmn.max_mp
-                    remaining_mp_ratio = remaining_mp / pkmn.max_mp
-                    fill_width = int(cost * pixels_per_mp)
-                    remaining_pixel_width = int((1 - remaining_mp_ratio) * W_MP_BAR)
-                    fill_surface = pygame.transform.scale(
-                        self.mp_cost_fill, (fill_width, H_MP_BAR)
-                    )
-                    """
-                    if b.menu_mode == MENU_MODE_TARGET_BUFF_ALL:
-                        no = b.model.turn_index
-                        if no == 0:
-                            x_offset = HPMP_X_DIF
-                            y_offset = HPMP_Y_DIF
-                        elif no == 1:
-                            x_offset = 0
-                            y_offset = HPMP_Y_DIF
-                        elif no == 2:
-                            x_offset = HPMP_X_DIF
-                            y_offset = 0
+            if b.draw_mp_cost:
+                selected_move = b.moves.get(pkmn.moves[b.skills_cursor + b.skills_scroll])
+                """
+                if b.menu_mode == MENU_MODE_TARGET_BUFF and \
+                    b.selected_ally != b.model.turn_index:
+                    return
+                if b.menu_mode == MENU_MODE_TARGET_HEAL and \
+                    b.selected_ally != b.model.turn_index:
+                    return
+                """
+                if selected_move:
+                    cost = selected_move["mp"]
+                    remaining_mp = pkmn.remaining_mp
+                    if (cost <= remaining_mp):
+                        pixels_per_mp = W_MP_BAR / pkmn.max_mp
+                        remaining_mp_ratio = remaining_mp / pkmn.max_mp
+                        fill_width = int(cost * pixels_per_mp)
+                        remaining_pixel_width = int((1 - remaining_mp_ratio) * W_MP_BAR)
+                        fill_surface = pygame.transform.scale(
+                            self.mp_cost_fill, (fill_width, H_MP_BAR)
+                        )
+                        """
+                        if b.menu_mode == MENU_MODE_TARGET_BUFF_ALL:
+                            no = b.model.turn_index
+                            if no == 0:
+                                x_offset = HPMP_X_DIF
+                                y_offset = HPMP_Y_DIF
+                            elif no == 1:
+                                x_offset = 0
+                                y_offset = HPMP_Y_DIF
+                            elif no == 2:
+                                x_offset = HPMP_X_DIF
+                                y_offset = 0
+                            else:
+                                x_offset = 0
+                                y_offset = 0
+                            right_edge = MP_BAR_X + MP_BAR_WIDTH - rem_width - x_offset
+                            left_edge = right_edge - fill_width
+
+                            screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset - y_offset))
                         else:
-                            x_offset = 0
-                            y_offset = 0
-                        right_edge = MP_BAR_X + MP_BAR_WIDTH - rem_width - x_offset
-                        left_edge = right_edge - fill_width
-
-                        screen.blit(fill_surface, (left_edge, MP_BAR_Y + hp_offset - y_offset))
-                    else:
-                    """
-                    left_edge = (X_MP_BAR + W_MP_BAR - remaining_pixel_width) - fill_width
-                    screen.blit(fill_surface, (left_edge, Y_MP_BAR + ui_hp_offset))
+                        """
+                        left_edge = (X_MP_BAR + W_MP_BAR - remaining_pixel_width) - fill_width
+                        screen.blit(fill_surface, (left_edge, Y_MP_BAR + ui_hp_offset))
         """
         b.menu_mode in (
             MENU_MODE_TARGET_SELECT,
@@ -475,93 +481,80 @@ class BattleRenderer:
         )
         """
         if b.draw_enemy_info:
-            """
-            if b.menu_mode in (MENU_MODE_TARGET_SELECT,
-                            MENU_MODE_DAMAGING_ENEMY,
-                            MENU_MODE_ITEM_TARGET_SELECT):
-                enemy_for_hpmp = b.model.enemy_team[b.target_index]
-            elif b.menu_mode == MENU_MODE_INFO and b.info_row == 0:
-                enemy_for_hpmp = b.model.enemy_team[b.info_col]
-            else:
-                enemy_for_hpmp = b.model.enemy_team[b.active_enemy_index]
-            """
             enemy_for_hpmp = b.enemy_team[b.target_index]
-            """
-            if (b.menu_mode != MENU_MODE_INFO) or \
-                (b.info_row == 0):
-                self.hpmp_renderer.draw_enemy_hpmp(screen, enemy_for_hpmp, enemy_hpmp_y, ui_hp_offset, is_blink)
-            """
-            screen.blit(self.hpmp_sprite_enemy, (X_HPMP_ENEMY, enemy_hpmp_y))
-            self.font1.draw_text(
-                screen,
-                enemy_for_hpmp.name,
-                X_ACTIVE_TARGET_NAME,
-                enemy_hpmp_y + Y_LV_TEXT_OFFSET_ENEMY
-            )
-            screen.blit(self.lv_sprite,
-                        (X_LV_ENEMY, enemy_hpmp_y + Y_LV_OFFSET_ENEMY))
-            self.font1.draw_text(
-                screen,
-                str(enemy_for_hpmp.level),
-                X_LV_TEXT_ENEMY,
-                enemy_hpmp_y + Y_LV_TEXT_OFFSET_ENEMY
-            )
-            hp_source = enemy_for_hpmp.remaining_hp
-            if b.draw_dmg_hp_scroll_enemy:
-                hp_source = b.dmg_hp_scrolls[0]
-            self._draw_hp_bar(
-                screen,
-                enemy_for_hpmp,
-                ui_hp_offset,
-                base_x=X_HPMP_TO_FILL,
-                base_y=Y_HPMP_TO_FILL,
-                override_hp=hp_source
-            )
-            hp_cur = f"{int(hp_source):3d}"
-            hp_max = f"{enemy_for_hpmp.max_hp:3d}"
-            ratio_text = f"HP{hp_cur}/{hp_max}"
-            self.font3.draw_text(
-                screen,
-                ratio_text,
-                X_HPMP_ENEMY + 20,
-                enemy_hpmp_y + Y_HPMP_RATIO_OFFSET
-            )
-            self._draw_stat_buffs(
-                screen,
-                enemy_for_hpmp,
-                X_BUFF_ENEMY,
-                enemy_hpmp_y + Y_BUFF_ENEMY,
-                is_blink
-            )
+            if (b.state == STATE_INFO) or (b.info_row == INFO_ROW_ENEMY):
+                enemy_for_hpmp = b.enemy_team[b.info_col]
+            "enemy_for_hpmp = b.model.enemy_team[b.active_enemy_index]"
+            
+            if (b.state != STATE_INFO) or (b.info_row == INFO_ROW_ENEMY):
+                screen.blit(self.hpmp_sprite_enemy, (X_HPMP_ENEMY, enemy_hpmp_y))
+                self.font1.draw_text(
+                    screen,
+                    enemy_for_hpmp.name,
+                    X_ACTIVE_TARGET_NAME,
+                    enemy_hpmp_y + Y_LV_TEXT_OFFSET_ENEMY
+                )
+                screen.blit(self.lv_sprite,
+                            (X_LV_ENEMY, enemy_hpmp_y + Y_LV_OFFSET_ENEMY))
+                self.font1.draw_text(
+                    screen,
+                    str(enemy_for_hpmp.level),
+                    X_LV_TEXT_ENEMY,
+                    enemy_hpmp_y + Y_LV_TEXT_OFFSET_ENEMY
+                )
+                hp_source = enemy_for_hpmp.remaining_hp
+                if b.draw_dmg_hp_scroll_enemy:
+                    hp_source = b.dmg_hp_scrolls[0]
+                self._draw_hp_bar(
+                    screen,
+                    enemy_for_hpmp,
+                    ui_hp_offset,
+                    base_x=X_HPMP_TO_FILL,
+                    base_y=Y_HPMP_TO_FILL,
+                    override_hp=hp_source
+                )
+                hp_cur = f"{int(hp_source):3d}"
+                hp_max = f"{enemy_for_hpmp.max_hp:3d}"
+                ratio_text = f"HP{hp_cur}/{hp_max}"
+                self.font3.draw_text(
+                    screen,
+                    ratio_text,
+                    X_HPMP_ENEMY + 20,
+                    enemy_hpmp_y + Y_HPMP_RATIO_OFFSET
+                )
+                self._draw_stat_buffs(
+                    screen,
+                    enemy_for_hpmp,
+                    X_BUFF_ENEMY,
+                    enemy_hpmp_y + Y_BUFF_ENEMY,
+                    is_blink
+                )
         screen.blit(self.bframe, (0, Y_FRAME))
-        """
-        if b.menu_mode != MENU_MODE_INFO
-        """
-        press_turn_icon_states = []
-        color = "blue" if b.is_player_turn else "red"
-        flashing_on = (self.anim_frame // 10) % 2 == 0
-        for value in b.press_turns:
-            if value == 2:
-                press_turn_icon_states.append(f"solid_{color}")
-            elif value == 1:
-                press_turn_icon_states.append(f"flash_{color}")
-            else:
-                press_turn_icon_states.append(PT_STATE_TRANSPARENT)
-        """
-        if b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
-            hp_offset = 0
-        """
-        for i, state in enumerate(press_turn_icon_states):
-            if (b.is_player_turn):
-                x = X_PT + i * D_PT
-                if not b.draw_hp_bounce:
-                    y = Y_PT
+        if b.draw_press_turn:
+            press_turn_icon_states = []
+            color = "blue" if b.is_player_turn else "red"
+            for value in b.press_turns:
+                if value == 2:
+                    press_turn_icon_states.append(f"solid_{color}")
+                elif value == 1:
+                    press_turn_icon_states.append(f"flash_{color}")
                 else:
-                    y = Y_PT + bounce_offset_hp
-            else:
-                x = X_PT_ENEMY + i * D_PT
-                y = Y_PT_ENEMY
-            self._draw_press_turn_icon(screen, state, x, y, self.anim_frame)
+                    press_turn_icon_states.append(PT_STATE_TRANSPARENT)
+            """
+            if b.menu_mode == MENU_MODE_BUFF_PLAYER_ALL:
+                hp_offset = 0
+            """
+            for i, state in enumerate(press_turn_icon_states):
+                if (b.is_player_turn):
+                    x = X_PT + i * D_PT
+                    if not b.draw_hp_bounce:
+                        y = Y_PT
+                    else:
+                        y = Y_PT + bounce_offset_hp
+                else:
+                    x = X_PT_ENEMY + i * D_PT
+                    y = Y_PT_ENEMY
+                self._draw_press_turn_icon(screen, state, x, y, self.anim_frame)
         
         if b.state == STATE_MAIN:
             self.font0.draw_text(screen, f"What will {pkmn.name} do?",

@@ -19,9 +19,6 @@ STATE_MAIN                                            = 0
 STATE_SKILLS                                          = 1
 STATE_ITEMS                                           = 2
 STATE_GUARD                                           = 3
-STATE_TALK                                            = 4
-STATE_CHANGE                                          = 5
-STATE_ESCAPE                                          = 6
 STATE_INFO                                            = 7
 STATE_SCROLL                                          = 8
 STATE_WAIT                                            = 9
@@ -118,8 +115,8 @@ BOUNCE_AMP = 8
 BOUNCE_SPEED = 0.18
 BOUNCE_PHASE = 0.6
 
-INFO_ROW_PLAYER = 0
-INFO_ROW_ENEMY  = 1
+INFO_ROW_ENEMY  = 0
+INFO_ROW_PLAYER = 1
 INFO_ROW_NONE   = 9
 
 SCROLL_DELAY_CONSTANT = 20
