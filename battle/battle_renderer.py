@@ -312,20 +312,15 @@ class BattleRenderer:
                 sprite, x, y = target_pkmn_info
                 screen.blit(sprite,(x,y))
         
-        """
-        if b.menu_mode in (MENU_MODE_TARGET_SELECT, 
-                             MENU_MODE_ITEM_TARGET_SELECT):
-        """
         if b.draw_affinity_color:
             selected_move_index = b.skills_cursor + b.skills_scroll
-            """
-            if b.menu_mode == MENU_MODE_TARGET_SELECT:
-                move_name = active_pokemon.moves[selected_index]
+            if b.state == STATE_PLAYER_SINGLE_TARGET_TARGET:
+                selected_move = b.moves[b.player_team[b.turn_index].moves[selected_move_index]]
             else:
-                move_name = b.pending_item_data["type"].split("damage_")[1]
-            """
-            selected_move = b.moves[b.player_team[b.turn_index].moves[selected_move_index]]
-            affinity_value = b.enemy_team[b.target_index].affinities[ELEMENT_INDEX[selected_move["element"]]]
+                selected_move = b.items[list(self.inventory.keys())[b.item_cursor_y * 3 + b.item_cursor_x]]
+            #affinity_value = b.enemy_team[b.target_index].affinities[ELEMENT_INDEX[selected_move["element"]]]["type"].split("damage_")[1]
+            element_index = ELEMENT_INDEX[selected_move["element"]]
+            affinity_value = b.enemy_team[b.target_index].affinities[element_index]
             if  (affinity_value != 0) and \
                 (target_pkmn_info is not None):
                 sprite, x, y = target_pkmn_info

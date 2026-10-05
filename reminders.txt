@@ -1,6 +1,3 @@
-b.player_team[b.turn_index].is_guarding = False
-Sometimes the back sprites chosen are wrong?
-
 STATE_MAIN
 STATE_SKILLS
 STATE_PLAYER_SINGLE_TARGET_TARGET

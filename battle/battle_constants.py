@@ -26,6 +26,8 @@ STATE_PLAYER_SINGLE_TARGET_TARGET                     = 10
 STATE_PLAYER_SINGLE_TARGET_CALC                       = 11
 STATE_PLAYER_SINGLE_TARGET_HP                         = 12
 STATE_COMPLETE_PLAYER_TURN                            = 13
+STATE_ITEMS_SINGLE_TARGET_TARGET                      = 14
+STATE_ITEMS_SINGLE_HEAL_TARGET                        = 15
 
 MENU_CURSOR_SKILLS_X     = 0
 MENU_CURSOR_SKILLS_Y     = 0

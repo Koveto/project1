@@ -222,6 +222,58 @@ class BattleState(GameState):
                 self.info_row = INFO_ROW_ENEMY
             if event.key == pygame.K_DOWN:
                 self.info_row = INFO_ROW_PLAYER
+
+        elif self.state == STATE_ITEMS:
+            if key_back(event.key):
+                self.enter_state(STATE_MAIN)
+            item_names = list(self.inventory.keys())
+            item_count = len(item_names)
+            if event.key == pygame.K_LEFT:
+                new_x = self.item_cursor_x - 1
+                new_y = self.item_cursor_y + 0
+                new_x = max(0, min(2, new_x))
+                new_y = max(0, min(2, new_y))
+                if (new_y * 3 + new_x) < item_count:
+                    self.item_cursor_x = new_x
+                    self.item_cursor_y = new_y
+            if event.key == pygame.K_RIGHT:
+                new_x = self.item_cursor_x + 1
+                new_y = self.item_cursor_y + 0
+                new_x = max(0, min(2, new_x))
+                new_y = max(0, min(2, new_y))
+                if (new_y * 3 + new_x) < item_count:
+                    self.item_cursor_x = new_x
+                    self.item_cursor_y = new_y
+            if event.key == pygame.K_UP:
+                new_x = self.item_cursor_x + 0
+                new_y = self.item_cursor_y - 1
+                new_x = max(0, min(2, new_x))
+                new_y = max(0, min(2, new_y))
+                if (new_y * 3 + new_x) < item_count:
+                    self.item_cursor_x = new_x
+                    self.item_cursor_y = new_y
+            if event.key == pygame.K_DOWN:
+                new_x = self.item_cursor_x + 0
+                new_y = self.item_cursor_y + 1
+                new_x = max(0, min(2, new_x))
+                new_y = max(0, min(2, new_y))
+                if (new_y * 3 + new_x) < item_count:
+                    self.item_cursor_x = new_x
+                    self.item_cursor_y = new_y
+            if key_confirm(event.key):
+                index = self.item_cursor_y * 3 + self.item_cursor_x
+                if index < item_count:
+                    self.item_data = self.items[item_names[index]]
+                    if self.item_data["type"].startswith("heal_single"):
+                        self.enter_state(STATE_ITEMS_SINGLE_HEAL_TARGET)
+                    if self.item_data["type"].startswith("damage"):
+                        self.enter_state(STATE_ITEMS_SINGLE_TARGET_TARGET)
+
+        elif self.state == STATE_ITEMS_SINGLE_HEAL_TARGET:
+            pass
+
+        elif self.state == STATE_ITEMS_SINGLE_TARGET_TARGET:
+            pass
         # ========================= END HANDLE_EVENT =================================
 
     def update(self):
@@ -275,6 +327,8 @@ class BattleState(GameState):
                 self.menu_cursor_y = 0
                 self.skills_cursor = 0
                 self.skills_scroll = 0
+                self.item_cursor_x = 0
+                self.item_cursor_y = 0
                 self.info_row = INFO_ROW_PLAYER
                 self.info_col = 0
             # See battle_target
@@ -299,6 +353,8 @@ class BattleState(GameState):
             self.next_text = Stack()
             # (frames, draw_text_finished, draw_anim_skill)
             self.next_wait = Stack()
+            # items
+            self.item_data = None
             # Damage phase flag
             self.dmg_hp_targets = []
             self.dmg_hp_scrolls = []
@@ -315,7 +371,6 @@ class BattleState(GameState):
             self.draw_dmg_hp_scroll_enemy = False
             self.draw_dmg_hp_scroll_player = False
             self.draw_press_turn = True
-                
         elif state == STATE_SKILLS:
             self.draw_enemy_bounce = False
             self.draw_darken = False
@@ -548,6 +603,8 @@ class BattleState(GameState):
             self.draw_press_turn = False
             self.draw_darken = True
             self.draw_enemy_info = True
+        elif state == STATE_ITEMS_SINGLE_TARGET_TARGET:
+            self.draw_affinity_color = True
         self.state = state
 
     def _init_teams(self):
